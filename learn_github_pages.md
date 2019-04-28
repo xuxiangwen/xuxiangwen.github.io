@@ -16,9 +16,31 @@ https://youtu.be/2MsN8gpT6jY
 
 GitHub Pages is a static site hosting service designed to host your personal, organization, or project pages directly from a GitHub repository.
 
+
+
 ## [![What is GitHub Pages?](http://img.youtube.com/vi/2MsN8gpT6jY/0.jpg)](http://www.youtube.com/watch?v=2MsN8gpT6jY "What is GitHub Pages?")
 
+```
 
+```
+
+```
+
+```
+
+<aside class="warning">
+You must replace `meowmeowmeow` with your personal API key.
+</aside>
+
+
+
+<figure class="video_container">
+  <iframe src="http://www.youtube.com/watch?v=2MsN8gpT6jY" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
+
+<figure class="video_container">
+  <iframe src="https://drive.google.com/file/d/0B6m34D8cFdpMZndKTlBRU0tmczg/preview" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
 
 ### 88K subscribers
 
