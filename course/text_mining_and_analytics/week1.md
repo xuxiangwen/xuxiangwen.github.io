@@ -1,3 +1,5 @@
+# 1. Week 1
+
 ## 1.1 Overview Text Mining and Analytics
 
 ### 1.11 Text Mining和Text Analytics
@@ -29,7 +31,7 @@ Text is by far the most common type of information encountered by people.
 - 文本是用来描述视频和图片的最佳表现形式。   
 Text is the most expressive form of information in the sense that it can be used to describe other media such as video or images. 
 
-由于文本语义的丰富性和不确定性，只有人类才可以很好的识别其中情感的含义。这如同，温度计来得到温度，GPS来获取位置信息。
+由于文本语义的丰富性和不确定性，目前只有人类才可以很好的识别其中情感的含义。这如同，温度计来得到温度，GPS来获取位置信息。
 
 ### 1.13 Text Mining的问题
 ![text_mining_landscape](image/text_mining_problem.png)
@@ -93,7 +95,9 @@ Text is the most expressive form of information in the sense that it can be used
 ### 1.23 当前的水平（state of art ）
 
 - 词汇分析（lexical analysis）: POS：97%  ,  无法做到100%
+
 - 语法分析（syntactic analysis）: Parsing：90%， 无法做到General complete parsing
+
 - 语义分析（semantic analysis）。可以分为以下的一些任务。
   - 实体关系抽取（entity/relation extraction）
   - 词语消除歧义（word sense disambiguation）
@@ -101,9 +105,9 @@ Text is the most expressive form of information in the sense that it can be used
   - Inference： 只能在特定领域来做
   - Speech act analysis： 用户的行为。只能在特定领域来做
 
-  总体上，我们的现状是：
-
+总体上，我们的现状是：  
 - NLP是Text Mining的基础
+
 - 目前的技术还远远不能理解自然语言
   - Deep NLP需要常识和推理，目前还不够precise和robust，目前只能在特定领域做到，需要人工的帮助。
   - Shallow NLP基于统计方法，有很好的通用性，被广泛的应用。
