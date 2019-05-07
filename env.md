@@ -8,10 +8,10 @@
 ```shell
 ## 环境
 # 安装pip on ubuntu
-http_proxy='http://web-proxy.rose.hp.com:8080 ' apt-get install -y  python3-pip
+http_proxy='http://web-proxy.rose.hp.com:8080' apt-get install -y  python3-pip
 
 # 安装fontconfig on ubuntu
-http_proxy='http://web-proxy.rose.hp.com:8080 ' apt-get install -y fontconfig
+http_proxy='http://web-proxy.rose.hp.com:8080' apt-get install -y fontconfig
 
 # update pip    
 !pip install --upgrade pip --proxy http://web-proxy.rose.hp.com:8080   
