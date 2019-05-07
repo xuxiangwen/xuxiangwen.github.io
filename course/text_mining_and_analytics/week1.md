@@ -18,6 +18,8 @@ Text Retrieval是Text Mining系统的必要组件。
 - Text Retrieval是Text Mining之前的预处理器。把大量文本数据转化成小量的相关文本数据。
 - Text Retrieval is needed for knowledge provenance。当在文本中发现某种模式和知识，通常还需要用Text Retrieval来到原始文本中进行查找，以验证这个模式和知识是可靠的。
 
+
+
 ### 1.12 Text 
 
 文本数据是人类产生的，人类也象一个sensor一样来接受文本信息。
