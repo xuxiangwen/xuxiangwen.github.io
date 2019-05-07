@@ -43,25 +43,34 @@ git log --oneline --decorate --graph --all -p 5    # 上面的命令，内容和
 
 ### 2. Git 原理
 
-- 提交对象：每次提交都会生成提交对象。见下图黄色部分。它包括：
-  - 树对象：指向暂存内容快照的指针。即下图绿色的部分。
-  - 作者的姓名和邮箱
-  - 提交时输入的信息
-  - 指向它的父对象的指针
+### 提交对象
+
+每次提交都会生成提交对象。见下图黄色部分。它包括：
+
+- 树对象：指向暂存内容快照的指针。即下图绿色的部分。
+- 作者的姓名和邮箱
+- 提交时输入的信息
+- 指向它的父对象的指针
 
 ![提交对象及其父对象。](https://progit.bootcss.com/images/commits-and-parents.png)
 
-- Git 的分支，其实本质上仅仅是指向提交对象的可变指针。
+### Git 的分支（branch）
+
+其实本质上仅仅是指向提交对象的可变指针。
 
 ![两个指向相同提交历史的分支。](https://progit.bootcss.com/images/two-branches.png)
 
-- HEAD 是个指向当前所在的分支的特殊指针。当提交的时候，当前分支会移动，指向最新提交的对象，而HEAD总是指向当前分支。
+####  HEAD 
 
-  **开始**
+是个指向当前所在的分支的特殊指针。当提交的时候，当前分支会移动，指向最新提交的对象，而HEAD总是指向当前分支。
+
+**开始**
 
 ![HEAD 指向当前所在的分支。](https://progit.bootcss.com/images/head-to-testing.png)
 
 ​           **提交后**
 
    ![HEAD 分支随着提交操作自动向前移动。](https://progit.bootcss.com/images/advance-testing.png)
+
+#### 提交信息
 

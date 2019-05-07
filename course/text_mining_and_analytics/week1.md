@@ -18,7 +18,9 @@ Text Retrieval是Text Mining系统的必要组件。
 - Text Retrieval是Text Mining之前的预处理器。把大量文本数据转化成小量的相关文本数据。
 - Text Retrieval is needed for knowledge provenance。当在文本中发现某种模式和知识，通常还需要用Text Retrieval来到原始文本中进行查找，以验证这个模式和知识是可靠的。
 
+![1557204461828](image/1557204461828.png)
 
+*Text retrieval and text mining are two main techniques for analyzing big text data.*
 
 ### 1.12 Text 
 
@@ -63,20 +65,20 @@ Text is the most expressive form of information in the sense that it can be used
 
 - 语法分析（syntactic analysis）
 
-- 语义分析（semantic analysis
+- 语义分析（semantic analysis）
 
   - 实体关系抽取（entity/relation extraction）
-
-  - 词语消除歧义（word sense disambiguation）
-
+- 词语消除歧义（word sense disambiguation）
   - 情感分析（sentiment analysis）
 
-    ![text_mining_landscape](image/text_mining_basic_concept.png)
+- 语用分析（pragmatic analysis）： The purpose of pragmatic analysis is to determine meaning in context, e.g., to infer the speech acts of language. A deeper understanding of natural language than semantic analysis is thus to further understand the purpose in communication.
+
+  ![text_mining_landscape](image/text_mining_basic_concept.png)
 
 ### 1.22 难度和挑战
 为了有效的沟通，人们在表达时：
-- 假定受众已经知道，所以省略了许多常识。
-- 假定受众知道如何区分，所以有很多含糊的表达。
+- 假定受众已经知道，所以省略了许多常识（common sense）。
+- 假定受众知道如何区分，所以有很多含糊的表达（ambiguities）。
 
 这使得NLP中的每一步都很难。比如以下的任务：
 
@@ -109,12 +111,14 @@ Text is the most expressive form of information in the sense that it can be used
 
 总体上，我们的现状是：  
 - NLP是Text Mining的基础
-
 - 目前的技术还远远不能理解自然语言
   - Deep NLP需要常识和推理，目前还不够precise和robust，目前只能在特定领域做到，需要人工的帮助。
   - Shallow NLP基于统计方法，有很好的通用性，被广泛的应用。
-
 - 实际中，NLP作为基础，人工的作用非常重要。
+
+![1557207648304](image/1557207648304.png)
+
+*“Easy” vs. “difficult” NLP applications.*
 
 ## 1.3  文本表示（Text Representation）
 
