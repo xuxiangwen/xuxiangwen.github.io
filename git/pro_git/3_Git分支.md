@@ -34,7 +34,7 @@ git commit -m 'The initial commit of my project'
 
  *Figure 10. 提交对象及其父对象*
 
-Git 的分支，其实本质上仅仅是指向提交对象的可变指针。
+**Git 的分支，其实本质上仅仅是指向提交对象的可变指针。**
 
 #### 分支创建
 
@@ -78,7 +78,7 @@ git log --oneline --decorate
 
 
 
-*Figure ![HEAD 分支随着提交操作自动向前移动。](https://progit.bootcss.com/images/advance-testing.png)15. HEAD 分支随着提交操作自动向前移动*
+![HEAD 分支随着提交操作自动向前移动。](https://progit.bootcss.com/images/advance-testing.png)15. HEAD 分支随着提交操作自动向前移动*
 
 ```console
 git checkout master
@@ -249,9 +249,7 @@ git log --oneline --decorate --graph --all -6
 
 既然你的修改已经合并进来了，你已经不再需要 `iss53` 分支了。 现在你可以在任务追踪系统中关闭此项任务，并删除这个分支。
 
-```console
 git branch -d iss53
-```
 
 #### 遇到冲突时的分支合并
 
@@ -392,7 +390,7 @@ git branch --no-merged
 
 通常把他们想象成流水线（work silos）可能更好理解一点，那些经过测试考验的提交会被遴选到更加稳定的流水线上去。
 
-![渐进稳定分支的工作流("silo")视图。](https://progit.bootcss.com/images/lr-branches-2.png)
+![渐进稳定分支的工作流（“silo”）视图。](https://progit.bootcss.com/images/lr-branches-2.png)
 
 *Figure 27. 渐进稳定分支的流水线（“silo”）视图*
 
@@ -437,6 +435,16 @@ git branch --no-merged
 ![`git fetch` 更新你的远程仓库引用。](https://progit.bootcss.com/images/remote-branches-3.png)
 
 *Figure 32.* `git fetch` *更新你的远程仓库引用*
+
+**多个远程分支**
+
+![添加另一个远程仓库。](https://progit.bootcss.com/images/remote-branches-4.png)
+
+可以运行 `git fetch teamone` 来抓取远程仓库 `teamone` 有而本地没有的数据。
+
+![远程跟踪分支 `teamone/master`。](https://progit.bootcss.com/images/remote-branches-5.png)
+
+*Figure 34. 远程跟踪分支* `teamone/master`
 
 #### 推送
 
