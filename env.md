@@ -52,7 +52,7 @@ http_proxy='http://web-proxy.rose.hp.com:8080 ' apt-get install -y fontconfig
 
 #### gensim
 !pip install --upgrade gensim --proxy http://web-proxy.rose.hp.com:8080 
-#  Without Cython, you’ll only be able to use one core because of the GIL (and word2vec training will be miserably slow).
+#  Without Cython, youâll only be able to use one core because of the GIL (and word2vec training will be miserably slow).
 !pip install --upgrade  Cython --install-option="--no-cython-compile"   --proxy http://web-proxy.rose.hp.com:8080    
 
 #### nlp
@@ -67,7 +67,7 @@ http_proxy='http://web-proxy.rose.hp.com:8080 ' apt-get install -y fontconfig
 !pip install --upgrade gensim==3.4.0 --proxy http://web-proxy.rose.hp.com:8080  
 !pip install --upgrade pytorch==0.4.0 --proxy http://web-proxy.rose.hp.com:8080  
 
-### 安装aws client
+### 安装aws  client
 !pip install --upgrade awscli --user --proxy http://web-proxy.rose.hp.com:8080 
 
 ```
@@ -76,18 +76,6 @@ http_proxy='http://web-proxy.rose.hp.com:8080 ' apt-get install -y fontconfig
 ```python
 !pip install --upgrade wordcloud --proxy http://web-proxy.rose.hp.com:8080
 ```
-
-    Collecting wordcloud
-    [?25l  Downloading https://files.pythonhosted.org/packages/5e/b7/c16286efa3d442d6983b3842f982502c00306c1a4c719c41fb00d6017c77/wordcloud-1.5.0-cp35-cp35m-manylinux1_x86_64.whl (357kB)
-    [K    100% |################################| 358kB 535kB/s ta 0:00:01
-    [?25hRequirement already satisfied, skipping upgrade: numpy>=1.6.1 in /usr/local/lib/python3.5/dist-packages (from wordcloud) (1.15.4)
-    Requirement already satisfied, skipping upgrade: pillow in /usr/local/lib/python3.5/dist-packages (from wordcloud) (5.3.0)
-    Installing collected packages: wordcloud
-    Successfully installed wordcloud-1.5.0
-    [33mYou are using pip version 18.1, however version 19.0.2 is available.
-    You should consider upgrading via the 'pip install --upgrade pip' command.[0m
-
-
 
 ```python
 import tensorflow as tf
@@ -110,23 +98,7 @@ print('gensim.__version__', gensim.__version__)
 
 ```
 
-    Using TensorFlow backend.
 
-
-
-    ---------------------------------------------------------------------------
-
-    ImportError                               Traceback (most recent call last)
-
-    <ipython-input-11-3220e153c764> in <module>
-          4 import sklearn
-          5 import keras
-    ----> 6 import torch
-          7 import nltk
-          8 import gensim
-
-
-    ImportError: No module named 'torch'
 
 
 ## 1.2  git忽略设置（.gitignore）
@@ -150,17 +122,15 @@ chmod 664 .gitignore
 cat  .gitignore
 ```
 
-## 1.3  notebook通用开始代码
+## 1.3  notebook通用开始代码 
 
 **history**
 
 - 【2018-09-25】
 - 【2018-10-10】增加keras gpu内存限制
-**first**
 ```python
 import sys
 import logging
-
 
 base_path = '/notebooks/eipi10/python-book/arsenal'
 sys.path.append(base_path)
