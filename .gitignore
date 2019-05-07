@@ -1,0 +1,8 @@
+*.swp
+*.pyc
+.env/*
+.idea/*
+.ipynb_checkpoints
+large-file/*
+data
+model
