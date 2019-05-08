@@ -8,12 +8,9 @@
 git config --global --list
 ~~~
 
-
-
 #### 设置代理
 
 ~~~shell
-git config --global  https.proxy http://web-proxy.rose.hp.com:8080
 git config --global  http.proxy http://web-proxy.rose.hp.com:8080
 ~~~
 
@@ -108,5 +105,5 @@ sudo yum install ./gitkraken-amd64.rpm
 gitkraken 
 ~~~
 
-在GitKrken中如果pull，push失败，可能需要[设置代理](#设置代理)。
+在GitKrken中如果pull，push失败，可能需要[设置代理](#设置代理)。 目前看起来还是不行。放弃这个工具了。
 
