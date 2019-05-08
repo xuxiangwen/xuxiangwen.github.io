@@ -1,11 +1,28 @@
-
-
 ###  1. 常见命令
 
-#### 查看global的全部设定
+#### 处理push大文件（超过100m）的文件
 
+~~~shell
+git rm --cached giant_file   # Stage our giant file for removal, but leave it on disk
+git commit --amend -CHEAD   # Amend the previous commit with your change   
+# Simply making a new commit won't work, as you need# to remove the file from the unpushed history as well
+git push   # Push our rewritten, smaller commit
 ~~~
-git config --global --list
+
+#### 设置用户和邮箱
+
+~~~shell
+#global configuration
+git config --global user.name "eipi10"
+git config --global user.email "eipi10@qq.com"
+~~~
+
+#### 查看设定
+
+~~~shell
+git config --list          #列出所有 Git当时能找到的配置
+git config user.name
+git config http.proxy
 ~~~
 
 #### 设置代理
@@ -92,9 +109,9 @@ git log --oneline --decorate --graph --all -p 5    # 上面的命令，内容和
 
 ### 3. Git GUI
 
-尝试了不少软件。感觉GitKrken界面效果很棒，但是linux下proxy无法设置成功，网上也没有找到好的工具。相对而言GitHub Desktop还不错，如果远程的仓库是GitHub的话，非常适合，尤其是找到了支持linux的版本。
-
 #### GitKrken
+
+尝试了不少软件。感觉GitKrken界面效果很棒，但是linux下proxy无法设置成功，网上也没有找到可以解决的方法。
 
 ##### Linux
 
@@ -104,16 +121,16 @@ wget https://release.gitkraken.com/linux/gitkraken-amd64.rpm
 sudo yum install ./gitkraken-amd64.rpm
 
 ## 启动
-gitkraken 
+gitkraken --proxy-server=10.200.0.1:8080
 ~~~
 
-在GitKrken中如果pull，push失败，可能需要[设置代理](#设置代理)。 目前看起来还是不行。放弃这个工具了。
+在GitKrken中如果pull，push失败，可能需要[设置代理](#设置代理)。**前看起来还是不行。放弃这个工具了。**
 
 #### GitHub Desktop
 
 ##### Linux
 
-官方版本目前不支持linux，但是网上有linux的发布版本：<https://github.com/shiftkey/desktop>
+官方版本目前不支持linux，但是网上有linux的发布版本：<https://github.com/shiftkey/desktop>。惊喜。
 
 ~~~shell
 wget https://github.com/shiftkey/desktop/releases/download/release-1.6.6-linux2/GitHubDesktop-linux-1.6.6-linux2.rpm

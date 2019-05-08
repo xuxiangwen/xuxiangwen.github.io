@@ -33,8 +33,6 @@ aws iam get-role --role-name CSS_WeChat_PROD_Analysis
 aws iam get-role-policy --role-name CSS_WeChat_PROD_Analysis --policy-name sns    
 ```
 
-
-
 #### 得到policy信息
 
 ~~~shell
