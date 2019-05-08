@@ -2,6 +2,21 @@
 
 ###  1. 常见命令
 
+#### 查看global的全部设定
+
+~~~
+git config --global --list
+~~~
+
+
+
+#### 设置代理
+
+~~~shell
+git config --global  https.proxy http://web-proxy.rose.hp.com:8080
+git config --global  http.proxy http://web-proxy.rose.hp.com:8080
+~~~
+
 #### 移除文件
 
 ```shell
@@ -43,7 +58,7 @@ git log --oneline --decorate --graph --all -p 5    # 上面的命令，内容和
 
 ### 2. Git 原理
 
-### 提交对象
+#### 提交对象
 
 每次提交都会生成提交对象。见下图黄色部分。它包括：
 
@@ -54,7 +69,7 @@ git log --oneline --decorate --graph --all -p 5    # 上面的命令，内容和
 
 ![提交对象及其父对象。](https://progit.bootcss.com/images/commits-and-parents.png)
 
-### Git 的分支（branch）
+#### Git 的分支（branch）
 
 其实本质上仅仅是指向提交对象的可变指针。
 
@@ -73,4 +88,25 @@ git log --oneline --decorate --graph --all -p 5    # 上面的命令，内容和
    ![HEAD 分支随着提交操作自动向前移动。](https://progit.bootcss.com/images/advance-testing.png)
 
 #### 提交信息
+
+
+
+
+
+### 3. Git GUI
+
+#### GitKrken
+
+##### Linux
+
+~~~
+# 安装 https://support.gitkraken.com/how-to-install/
+wget https://release.gitkraken.com/linux/gitkraken-amd64.rpm
+sudo yum install ./gitkraken-amd64.rpm
+
+## 启动
+gitkraken 
+~~~
+
+在GitKrken中如果pull，push失败，可能需要[设置代理](#设置代理)。
 
