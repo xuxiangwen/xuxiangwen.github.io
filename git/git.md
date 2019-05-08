@@ -92,6 +92,8 @@ git log --oneline --decorate --graph --all -p 5    # 上面的命令，内容和
 
 ### 3. Git GUI
 
+尝试了不少软件。感觉GitKrken界面效果很棒，但是linux下proxy无法设置成功，网上也没有找到好的工具。相对而言GitHub Desktop还不错，如果远程的仓库是GitHub的话，非常适合，尤其是找到了支持linux的版本。
+
 #### GitKrken
 
 ##### Linux
@@ -106,4 +108,15 @@ gitkraken
 ~~~
 
 在GitKrken中如果pull，push失败，可能需要[设置代理](#设置代理)。 目前看起来还是不行。放弃这个工具了。
+
+#### GitHub Desktop
+
+##### Linux
+
+官方版本目前不支持linux，但是网上有linux的发布版本：<https://github.com/shiftkey/desktop>
+
+~~~shell
+wget https://github.com/shiftkey/desktop/releases/download/release-1.6.6-linux2/GitHubDesktop-linux-1.6.6-linux2.rpm
+sudo yum install GitHubDesktop-linux-1.6.6-linux2.rpm
+~~~
 
