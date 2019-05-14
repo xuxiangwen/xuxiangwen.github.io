@@ -18,8 +18,6 @@ git push   # Push our rewritten, smaller commit
 git config --global user.name "eipi10"
 git config --global user.email "eipi10@qq.com"
 ~~~
->>>>>>> f12404873086f1d774b201ca352d1f5d5accf784
-
 #### 处理push大文件（超过100m）的文件
 
 <<<<<<< HEAD
@@ -29,9 +27,6 @@ git commit --amend -CHEAD   # Amend the previous commit with your change
 # Simply making a new commit won't work, as you need# to remove the file from the unpushed history as well
 git push   # Push our rewritten, smaller commit
 ~~~
-=======
->>>>>>> f12404873086f1d774b201ca352d1f5d5accf784
-
 #### 设置用户和邮箱
 
 ~~~shell

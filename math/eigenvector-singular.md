@@ -9,7 +9,7 @@ $ AP = P\lambda $
 
 ## 特征值和特征向量的意义
 
-有一个非常形象的解释： $\href  {https://www.zhihu.com/question/20507061} {线性代数中，特征值与特征向量在代数和几何层面的实际意义是什么？} $, 下面有一个抽象一点的理解。
+有一个非常形象的解释： [线性代数中，特征值与特征向量在代数和几何层面的实际意义是什么](https://www.zhihu.com/question/20507061) , 下面有一个抽象一点的理解。
 
 对于线性变换$T(x) = Ax$， 可以替换成$T(x) = P\lambda P^\mathrm{T}x$。
 
@@ -120,7 +120,7 @@ $V^\mathrm {T}C V $是对C进行了多次旋转，其向量之间在新的坐标
 参考$\href {http://kexue.fm/archives/1777/} {《新理解矩阵4》：相似矩阵的那些事儿} $， $\href {https://www.zhihu.com/question/21931863} {如何形象的理解矩阵的相似与合同？}$。
 
 相似的矩阵是同一个线性变换在不同基/坐标系下的的不同描述。如何来理解这句话呢？
- 
+
 - 有两个基$\alpha, \beta$，其中$\beta = \alpha \cdot P$
 - $x_1, x_2$分别是基$\alpha, \beta$下的坐标。  
 $  \alpha \cdot x_1 = \beta \cdot x_2   \\
@@ -151,7 +151,7 @@ $Cov(X,Y)=E{[X−E(X)][Y−E(Y)]}  $
 
 相关系数矩阵：变量在中心化后，向量之间的夹角余弦。
 
-$\href {https://www.zhihu.com/question/36339816} {多维高斯分布是如何由一维发展而来的？}$ 这篇文章很好的推导了多远高斯分布的形成。
+$\href {https://www.zhihu.com/question/36339816} {多维高斯分布是如何由一维发展而来的？}$ 这篇文章很好的推导了多元高斯分布的形成。
 
 $\href {http://blog.csdn.net/u010182633/article/details/45937051} {协方差矩阵的几何解释}$ 
 
@@ -195,3 +195,4 @@ print(my_corrcoef(x))
 ```python
 
 ```
+

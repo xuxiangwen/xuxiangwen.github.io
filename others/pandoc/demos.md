@@ -296,3 +296,16 @@ To see the output created by each of the commands below, click on the name of th
     ```
     pandoc MANUAL.epub -t plain -o example36.text
     ```
+
+37. [Producing slide shows with pandoc](https://pandoc.org/MANUAL.html#producing-slide-shows-with-pandoc)
+You can use pandoc to produce an HTML + JavaScript slide presentation that can be viewed via a web browser. There are five ways to do this, using [S5](http://meyerweb.com/eric/tools/s5/), [DZSlides](http://paulrouget.com/dzslides/), [Slidy](http://www.w3.org/Talks/Tools/Slidy/), [Slideous](http://goessner.net/articles/slideous/), or [reveal.js](http://lab.hakim.se/reveal-js/). You can also produce a PDF slide show using LaTeX [`beamer`](https://ctan.org/pkg/beamer), or slides shows in Microsoft [PowerPoint](https://en.wikipedia.org/wiki/Microsoft_PowerPoint) format.
+
+    ```
+    pandoc -t s5 -s habits.md -o habits_s5.html
+    pandoc -t revealjs -s habits.md -o habits_revealjs.html -V revealjs-url=https://revealjs.com
+    pandoc habits.md -o habits.pptx
+    
+    
+    pandoc -t revealjs -s take_notes.md -o take_notes.html -V revealjs-url=https://revealjs.com --slide-leve=2 -V theme=moon
+    ```
+
