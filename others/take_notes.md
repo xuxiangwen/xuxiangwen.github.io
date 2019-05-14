@@ -32,7 +32,9 @@
 
 ### 交互文档：jupyter notebook， zeppelin
 
-在学习Spark的时候，第一次接触了zeppelin，它是Web笔记形式的交互式数据查询分析工具，可以用scala和sql等语言展示数据，也可以用markdown来编写文档。这种代码，图表和文档混合的方式，真的感觉耳目一新。jupyter notebook也是如此，支持python, r, julia, and scala等40多种语言。下图中可以看到很多图表展示，和报表工具不同，在右上角的区域有可以修改的程序代码。这是一种专属于程序员的文档形式。![Apache Zeppelin](image/ApacheZeppelin_02.jpg)
+在学习Spark的时候，第一次接触了zeppelin，它是Web笔记形式的交互式数据查询分析工具，可以用scala和sql等语言展示数据，也可以用markdown来编写文档。这种代码，图表和文档混合的方式，真的感觉耳目一新。jupyter notebook也是如此，支持python, r, julia, and scala等40多种语言。下图中可以看到很多图表展示，和报表工具不同，在右上角的区域有可以修改的程序代码。这是一种专属于程序员的文档形式。
+
+![Apache Zeppelin](image/ApacheZeppelin_02.jpg)
 
 ---
 
@@ -80,7 +82,7 @@
 - 信息时代：zeppelin，jupyter notebook + 思维导图
 - 互联时代：  github(pages, wiki) + typora(markdown) + pandoc ...
 
-> *以上这些工具，我们都会混合使用，没有一种工具可以解决所有的问题。*
+> 以上这些工具，我们都会混合使用，没有一种工具可以解决所有的问题。
 
 
 
@@ -179,7 +181,7 @@ GitHub Pages是一个用来展现GitHub中个人，组织或者项目的静态�
 
 就wiki本身来说，功能似乎有些弱，但如果定位成分享项目的一些知识，则非常合适。
 
->  总结起来，GitHub Pages, Wiki的最大优势：流量优势。因为在日常开发中，都在使用Github或者GitHub Enterprise
+>  总结起来，GitHub Pages, Wiki的最大优势：流量优势。因为在日常开发中，Github和GitHub Enterprise使用的比例非常的高。
 
 
 
@@ -203,7 +205,7 @@ GitHub Pages是一个用来展现GitHub中个人，组织或者项目的静态�
 
 #### Markdown
 
-Markdown是一种轻量级标记语言，让写作者专注于写作而不用关注样式。而且可以很容易把Markdown转化成其他的文件格式，比如：html, pdf, word, ppt等等。下面是markdown语言和展现的对应关系，相信大家几分钟就能掌握。
+Markdown是一种轻量级标记语言，让写作者专注于写作而不用关注样式，而且可以很容易把Markdown转化成其他的文件格式，比如：html, pdf, word, ppt等等。下面是markdown语言和展现的对应关系，相信大家几分钟就能掌握。
 
 ![markdown](image/markdown.png)
 
@@ -252,8 +254,8 @@ pandoc -t revealjs -s take_notes_ppt.md \
 
 - 简单易用
 - 多种格式： 信息，文档，表格，代码，图表都能支持。
-- 编辑方便。不方便的例子有jupyter notebook添加图片麻烦，每次要把图片上传到网上，然后再在代码中定义。
-- 快速检索。不好的例子有有道云笔记的搜索功能，每次搜索时的目录是当前目录，而不是最根层的目录。我的一般工作的场景是，有道云笔记打开，定位到某个笔记本，随时在上面做一些记录，当工作中，发现了某个问题，而且记得笔记本中记录过，这时回到有道云笔记，去搜索一下，这时想搜索的范围一般是所有文档，而不是当前目录或当前文档。
+- 编辑方便。不方便的例子有jupyter notebook添加图片麻烦。由于jupyter notebook是web站点，添加图片时不得不手工上传到网站上，然后再在notebook代码中定义，这样就使得记笔记的过程总是被中断。
+- 快速检索。不好的例子有有道云笔记的搜索功能。有道云笔记每次搜索时的目录是当前目录，而不是最根层的目录。我的一般工作的场景是，有道云笔记打开，定位到某个笔记本，随时在上面做一些记录，当工作中，发现了某个问题，而且记得笔记本中记录过，这时回到有道云笔记，去搜索一下，这时想搜索的范围一般是所有文档，而不是当前目录或当前文档。
 - 易于分享。支持分享到项目，部门，公司或互联网。
 
 
