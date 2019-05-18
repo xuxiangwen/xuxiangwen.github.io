@@ -305,6 +305,7 @@ Microsoft Teams是非常强大的协作工具。里面可以容纳各种软件�
 - [关于 Markdown 的一些奇技淫巧](https://mazhuang.org/2017/09/01/markdown-odd-skills)
 - [Typora - 不要太棒的Markdown编辑器](https://zhuanlan.zhihu.com/p/44998516)
 - [Cmd Markdown 编辑阅读器](https://www.zybuluo.com/mdeditor) : 在线Markdown编辑器。
+- [Pandoc](https://pandoc.org)
 - [Producing slide shows with pandoc](https://pandoc.org/MANUAL.html#producing-slide-shows-with-pandoc)
 - [mermaid live editor](https://mermaidjs.github.io/mermaid-live-editor)
 - [GitHub Pages](https://pages.github.com)
