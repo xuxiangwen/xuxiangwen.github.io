@@ -109,7 +109,7 @@
   - Hotfix 和 Release 分支在需要版本快速迭代的项目中，几乎用不到，因为刚开发完就直接合并到 master 发版，出现问题 develop 就直接修复发布下个版本了。
   - Hotfix 和 Release 分支，一个从 master 创建，一个从 develop 创建，使用完毕，需要合并回 develop 和 master。而且在实际项目管理中，很多开发者会忘记合并回 develop 或者 master。
 - github flow:  最大的优势是简单. 本流程基本和github flow相同, 区别是, 在merge过程中, 不强制使用`pull requst`.  
-- gitlab flow: 兼顾了以上两个流程的特点, 应该说是适合大多数项目单的. 
+- gitlab flow: 兼顾了以上两个流程的特点, 应该说是适合大多数项目的. 
 
 个人认为,  git flow有些过时了. 大多数项目可以从github flow(当然包括本流程)开始,  但如果有以下的情况,  gitlab flow更好.  
 
