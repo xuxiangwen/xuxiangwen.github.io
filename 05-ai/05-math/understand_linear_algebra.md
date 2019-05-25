@@ -10,7 +10,7 @@
 
 4.  $a \cdot \frac {b} {|b|} * \frac {b} {|b|}   $ 表示a向量在 $b$单位向量上的投影向量。
 
-5. $a \cdot b =  a \cdot \frac {b} {|b|} * |b| $  表示a向量在 $ \frac {b} {|b|} $上的投影长度再乘以$|b|$。
+5. $a \cdot b =  a \cdot \frac {b} {|b|} * |b| $  表示a向量在 $ \frac {b} {|b|} $上的投影长度再乘以$|b|$, 也就是做功的物理意义。
 
 6. $w \cdot x = 0$，表示w和x是垂直的; $w \cdot x >0 $, 表示w和x的夹角小于90度; $w \cdot x < 0 $, 表示w和x的夹角大于90度。
 
@@ -22,19 +22,29 @@
 
 # 点到平面的距离
 
-![distance](image/distance.png)
+![img](image/dd096b404a60f9f534995fafbfee2b23_b.jpg)
 
-平面方程为$ w \cdot x + b = 0$，如果是二维空间，则表示是一个直线方程。如果是三维空间, 是一个平面. 如果大于3维空间，则是一个超平面。
+平面方程为:  $ w \cdot x + b = 0$
 
-空间任意一点u到平面的距离是 $$ \gamma = \frac 1 {|w|} (w \cdot x + b) $$ 如果表达式>0，表示u在平面上方，反之就在平面下方。
+- 如果是二维空间，则表示是一个直线方程
+- 如果是三维空间, 是一个平面. 如果大于3维空间，则是一个超平面。
+
+空间任意一点$x$到平面的距离是:  
+
+$$
+\gamma = \frac 1 {|w|} (w \cdot x + b)
+$$
+
+- $ \gamma >0 $，表示$x$在平面上方
+- $\gamma<0$，表示$x$在平面下方
 
 ## 公式推导一：
 
 点$x_0 $是指点$ x $在超平面上的投影点.  
 
- $ x - x_0 = \gamma * \frac w {|w|}$
+ $ x - x_0 = \gamma  \frac w {|w|}$
 
- $ w \cdot (x- x_0) = w \cdot \gamma * \frac w {|w|} $
+ $ w \cdot (x- x_0) = w \cdot \gamma  \frac w {|w|} $
 
  由于$ w \cdot x_0 + b = 0  $, 即 $ w \cdot x_0  = -b  $, 上面的公式可以变成
 

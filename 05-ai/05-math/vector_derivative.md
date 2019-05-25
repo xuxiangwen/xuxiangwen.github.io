@@ -85,8 +85,8 @@ $ \frac{\mathrm{d}f(g(u^\mathrm{T}))}{\mathrm{d}u} =
 
 $ \frac{\mathrm{d}f(g(u))}{\mathrm{d}u^\mathrm{T}} = 
  \frac{\mathrm{d}f(g(u))}{\mathrm{d}g(u^\mathrm{T})}  \cdot  \frac{\mathrm{d}g(u)}{\mathrm{d}u^\mathrm{T}} $
- 
-这里面的规律是：如果被导的是列向量，从右到左展开复合求导；如果被导的是列向量，从左到右展开复合求导。
+
+这里面的规律是：如果被导的是列向量，从右到左展开复合求导；如果被导的是行向量，从左到右展开复合求导。
 
 设 
 $
@@ -263,7 +263,7 @@ $\frac{\mathrm{d} J}{\mathrm{d} X}= \begin{bmatrix} \frac {\mathrm{d} J} {\mathr
 
 $ \frac {\mathrm{d} J} {\mathrm{d} x_i} =  \frac {\mathrm{d} (Xw)^\mathrm{T}} {\mathrm{d} x_i} \cdot  \frac {\mathrm{d} J} {\mathrm{d} Xw} = 
   \frac {\mathrm{d} (x_1w_1 + x_2w_2 + ... + x_iw_i + ... + x_nw_n)^\mathrm{T}} {\mathrm{d} x_i} \cdot 2Xw = 2w_iXw$
-  
+
 根据上面两个公式可以推出
 $\frac{\mathrm{d} J}{\mathrm{d} X}= 2Xww^T $
 
