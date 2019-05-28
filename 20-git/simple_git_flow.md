@@ -15,7 +15,7 @@
 当有了新的feature或者需要做bug-fix时, 可以按照如下步骤来操作. 
 1. 更新master分支.  
 
-    ~~~
+    ~~~shell
     git checkout master
     git fetch origin
     git merge origin/master
@@ -25,19 +25,20 @@
 
     - 创建feature/bug-fix: 
 
-        ~~~
-        git checkout -b feature-name 
+        ~~~shell
+        feature=????
+        git checkout -b $feature
         ~~~
 
     - checkout远程feature/bug-fix.: 多人协作开发时, feature/bug-fix可能已经由其他成员创建了.
 
-        ~~~
-        git checkout -b feature-name origin/feature-name 
+        ~~~shell
+        git checkout -b $feature_bug origin/$feature
         ~~~
 
 3. 在该分支上进行开发, 根据需要进行提交. 
 
-    ~~~
+    ~~~shell
     git commit 
     ~~~
 
@@ -63,14 +64,16 @@
 4. 全部功能完成和测试通过后, 更新远程库.  
 
     ~~~shell
-    # 当前分支是 feature-name. 
-    # 更新分支
+    git checkout $feature 
     git fetch origin
-    # 在多人协作feature开发时需要的. 如果是新创建的feature, 远程还没有这个feature, 所以请忽略下面这条命令.
-    git rebase origin/feature-name    
+    # 当该分支有其他人也在同时开发, 更新其他的提交
+    if git branch -vv | grep $feature | grep "origin/$feature"
+    then 
+      git rebase origin/$feature 
+    fi
     git rebase origin/master
      
-    git push -u origin feature-name   
+    git push -u origin $feature 
     ~~~
     
 5. 合并到master分支.  到此feature的开发完成了.   本步骤可以由开发人员来做, 但建议指派专人来做, 这种情况下, 开发人员通过邮件或聊天工具提出合并的请求.  
@@ -78,14 +81,14 @@
     ~~~shell
     # 获取分支内容
     git fetch origin
-    git checkout -b feature-name origin/feature-name  
+    git checkout -b $feature  origin/$feature
     
     # 更新master
     git checkout master
     git merge origin/master
     
     # 合并分支feature name到master分支
-    git merge --no-ff feature-name   
+    git merge --no-ff $feature 
     git push origin master            
     ~~~
 

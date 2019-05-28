@@ -162,6 +162,13 @@ git lg -p 5         # 显示最近5次的提交结果
 git log --oneline --decorate --graph --all -p 5    # 上面的命令，内容和颜色都很丰富，下面的更简明
 ~~~
 
+#### [Git怎样撤销一次分支的合并Merge](https://segmentfault.com/q/1010000000140446)
+
+```shell
+git checkout 【merge操作时所在的分支】
+git reset --hard 【merge前的版本号】
+```
+
 
 
 ### 2. Git 原理
