@@ -33,7 +33,7 @@
     - checkout远程feature/bug-fix.: 多人协作开发时, feature/bug-fix可能已经由其他成员创建了.
 
         ~~~shell
-        git checkout -b $feature_bug origin/$feature
+        git checkout -b $feature origin/$feature
         ~~~
 
 3. 在该分支上进行开发, 根据需要进行提交. 
