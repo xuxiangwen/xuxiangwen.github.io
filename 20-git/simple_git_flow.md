@@ -26,15 +26,18 @@
     - 创建feature/bug-fix: 
 
         ~~~shell
-        feature=????
+        feature=
         git checkout -b $feature
         ~~~
 
     - checkout远程feature/bug-fix.: 多人协作开发时, feature/bug-fix可能已经由其他成员创建了.
 
         ~~~shell
+        feature=????
         git checkout -b $feature origin/$feature
         ~~~
+
+    > feature的名字一般以`feature-`或者`bugfix-`为前缀.  比如:  feature-phone-data, bugfix-remove-tempory. 
 
 3. 在该分支上进行开发, 根据需要进行提交. 
 
@@ -66,7 +69,7 @@
     ~~~shell
     git checkout $feature 
     git fetch origin
-    # 当该分支有其他人也在同时开发, 更新其他的提交
+    # 当该分支有其他人也在同时开发, 更新其他人的提交
     if git branch -vv | grep $feature | grep "origin/$feature"
     then 
       git rebase origin/$feature 
@@ -89,15 +92,17 @@
     
     # 合并分支feature name到master分支
     git merge --no-ff $feature 
+    
     git push origin master            
     ~~~
-
-     当需要发布release时, 可以打上版本号. 
-
+~~~
+    
+ 当需要发布release时, 可以打上版本号. 
+    
     ~~~shell
     git tag -a v1.1.0    
     git push origin v1.1.0
-    ~~~
+~~~
 
 ### 关于Pull Request
 
@@ -114,7 +119,7 @@
 - github flow:  最大的优势是简单. 本流程基本和github flow相同, 区别是, 在merge过程中, 不强制使用`pull requst`.  
 - gitlab flow: 兼顾了以上两个流程的特点, 应该说是适合大多数项目的. 
 
-个人认为,  git flow有些过时了. 大多数项目可以从github flow(当然包括本流程)开始,  但如果有以下的情况,  gitlab flow更好.  
+个人认为,  git flow有些繁琐了. 大多数项目可以从github flow(当然包括本流程)开始,  但如果有以下的情况,  gitlab flow更好.  
 
 - 版本的延迟发布（例如 iOS 应用审核到通过中间，可能也要在 master 上推送代码）
 

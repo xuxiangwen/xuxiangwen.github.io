@@ -1,5 +1,29 @@
 ###  1. 常见命令
 
+#### github-git-cheat-sheet
+
+[github-git-cheat-sheet](<https://github.github.com/training-kit/downloads/zh_CN/github-git-cheat-sheet/>)
+
+#### 避免直接把代码提交到master
+
+~~~shell
+cat << EOF > .git/hooks/pre-commit
+#!/bin/sh
+
+branch="\$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "\$branch" = "master" ]; then
+  echo "You can't commit directly to master branch. "
+  echo "Please see https://github.com/xuxiangwen/xuxiangwen.github.io/blob/master/20-git/simple_git_flow.md"
+  exit 1
+fi
+EOF
+
+chmod 755 .git/hooks/pre-commit
+~~~
+
+
+
 #### [What's the difference between HEAD^ and HEAD~ in Git?](https://stackoverflow.com/questions/2221658/whats-the-difference-between-head-and-head-in-git)
 
 在版本树中, 对于某一个节点, 我们可以用^或者~定位其上游的节点. 逻辑如下图所示
@@ -134,11 +158,58 @@ git diff --cached   # 同上
 
 #### 回退修改
 
+**放弃当前工作区的修改**
+
+~~~shell
+git checkout -- <file>
 ~~~
-git reset –soft     # 暂存区->工作区
-git reset –mixed    # 版本库->暂存区
-git reset –hard     # 版本库->暂存区->工作区
+
+**撤销提交到版本库**
+
+撤销`git commit`. 常用的场景是, 在开发过程中, 进行了一次错误的提交(比如: 正常要提交到某个feature分支, 但错误提交到了master分支), 可以使用这个命令, 回滚到之前的某次提交.  相当于: 版本库->暂存区->工作区: 
+
+```shell
+git reset --hard  [commit-id]  #比较危险,慎用
+git reset --hard HEAD          #丢掉本地修改. 把版本库刷到暂存区和工作区
+```
+
+> --hard
+>
+> Resets the index and working tree. Any changes to tracked files in the working tree since <commit> are discarded.
+
+![img](image/182238305101646.png)
+
+**撤销加入到暂存器的文件/目录**
+
+Resets the index but not the working tree
+
+一般都使用`git add`把文件或目录加入到暂存区. 以下命令会撤销这个动作, 撤销后, 文件/目录在当前工作区还是保持原来的状态(新增,修改或删除).    相当于: 版本库->暂存区
+
+~~~shell
+git reset -- [file/path]     
+git reset HEAD [file/path]          # 和上面相同作用
+git reset --mixed [commit-id]       # 如果[commit-id]没有指定, 会把当前版本库的内容替换暂存区
 ~~~
+
+> --mixed
+>
+> Resets the index but not the working tree (i.e., the changed files are preserved but not marked for commit) and reports what has not been updated.
+
+![img](image/182238202609380.png)
+
+**把当前HEAD的指针指向某一个commit**
+
+仅仅把HEAD指向某个commit,  不会修改暂存区和工作区的内容.   **暂时想不到场景下, 需要采用这条命令**
+
+~~~shell
+git reset --soft  [commit-id]   
+~~~
+
+> --soft
+>
+> Does not touch the index file or the working tree at all (but resets the head to <commit>, just like all modes do). This leaves all your changed files "Changes to be committed", as git status would put it.
+
+![img](image/182237338854646.png)
 
 #### 查看远程仓库
 
@@ -174,6 +245,12 @@ git reset --hard 【merge前的版本号】
 ### 2. Git 原理
 
 #### 三大区域
+
+- 工作区: Working Directory. 在git帮助中, 把它称为`working tree`.
+- 暂存区: Staging Area.  在git帮助中, 把它称为`the index file`.
+- 版本库: Repository
+
+
 
 ![工作目录、暂存区域以及 Git 仓库。](https://progit.bootcss.com/images/areas.png)
 
