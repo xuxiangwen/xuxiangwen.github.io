@@ -26,7 +26,7 @@
     - 创建feature/bug-fix: 
 
         ~~~shell
-        feature=
+        feature=????
         git checkout -b $feature
         ~~~
 
@@ -77,8 +77,16 @@
     git rebase origin/master
      
     git push -u origin $feature 
-    git lg -10
+    git lg -10     
     ~~~
+    
+    上面命令中`git lg`是一个自定义命令，可以用以下命令创建：
+    
+    ~~~shell
+    git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+    ~~~
+    
+    
     
 5. 合并到master分支.  到此feature的开发完成了.   本步骤可以由开发人员来做, 但建议指派专人来做, 这种情况下, 开发人员通过邮件或聊天工具提出合并的请求.  
 
@@ -95,14 +103,14 @@
     git merge --no-ff $feature 
     
     ~~~
-    
+
     然后同步到远程库
-    
+
     ~~~
     git push origin master            
     git lg -10
     ~~~
-    
+
      当需要发布release时, 可以打上版本号. 
     ~~~
     git tag -a v1.1.0    
