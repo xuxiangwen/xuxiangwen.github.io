@@ -22,7 +22,7 @@ J(w) &= \frac 1 {2m}  \sum_{i=1}^m (\hat y_i - y_i)^2    \\
 
 ### 3.1 方程式
 
-$w = {(X^\mathrm{T}X)^{-1}}Xy  $
+$w = {(X^\mathrm{T}X)^{-1}}X^\mathrm{T}y  $
 
 #### 3.11 投影
 
@@ -33,7 +33,7 @@ $w = {(X^\mathrm{T}X)^{-1}}Xy  $
 $\begin{align}
 X^T (\hat y - y) = 0  \\
 X^T (Xw - y) = 0  \\ 
-w = {(X^\mathrm{T}X)^{-1}}Xy  
+w = {(X^\mathrm{T}X)^{-1}}X^\mathrm{T}y  
 \end{align}$
 
 
@@ -52,7 +52,7 @@ $J(w)$是个凸函数，最小值在所有偏导为0的地方，
 
 $\begin{align}
 & \frac{\partial J(w)}{\partial w} = 2X^TXw - 2X^Ty = 0 \\
-& w = {(X^\mathrm{T}X)^{-1}}Xy  
+& w = {(X^\mathrm{T}X)^{-1}}X^\mathrm{T}y  
 \end{align} $
 
 

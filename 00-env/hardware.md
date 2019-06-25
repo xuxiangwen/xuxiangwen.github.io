@@ -51,6 +51,7 @@ cat /proc/version        #查看内核
 ~~~shell
 lsof -i:80  
 netstat -lnp|grep 80
+sudo iptables -t nat -L -n
 ~~~
 
 **其他**

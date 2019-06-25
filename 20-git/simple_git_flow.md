@@ -77,6 +77,7 @@
     git rebase origin/master
      
     git push -u origin $feature 
+    git lg -10
     ~~~
     
 5. 合并到master分支.  到此feature的开发完成了.   本步骤可以由开发人员来做, 但建议指派专人来做, 这种情况下, 开发人员通过邮件或聊天工具提出合并的请求.  
@@ -93,16 +94,20 @@
     # 合并分支feature name到master分支
     git merge --no-ff $feature 
     
-    git push origin master            
     ~~~
-~~~
     
- 当需要发布release时, 可以打上版本号. 
+    然后同步到远程库
     
-    ~~~shell
+    ~~~
+    git push origin master            
+    git lg -10
+    ~~~
+    
+     当需要发布release时, 可以打上版本号. 
+    ~~~
     git tag -a v1.1.0    
     git push origin v1.1.0
-~~~
+    ~~~
 
 ### 关于Pull Request
 
