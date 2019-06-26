@@ -86,11 +86,11 @@
     git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
     ~~~
     
-    `git lg`可以清晰的显示每次提交的内容，以及branch。示例如下
+    `git lg`可以清晰的显示每次提交的内容，以及branch。示例如下：
     
     ![1561508745238](image/1561508745238.png)
     
-5. 合并到master分支.  到此feature的开发完成了.   本步骤可以由开发人员来做, 也可以项目中指定专人来做, 这种情况下, 开发人员通过邮件或聊天工具提出合并的请求.  
+5. 把feature/bugfix合并到master分支.  本步骤可以由开发人员来做, 也可以项目中指定专人来做, 这种情况下, 开发人员通过邮件或聊天工具提出合并的请求.    到此，feature/bugfix的工作才真正完成了.  
 
     ~~~shell
     # 获取分支内容
