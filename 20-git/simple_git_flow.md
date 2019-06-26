@@ -10,7 +10,7 @@
 
 > 在同一时间, 一个feature/bug-fix建议由一个人完成. 
 >
-> 实际工作中，可以通过设置，可以禁止直接把代码提交到master分支。[代码](git.md#%E9%81%BF%E5%85%8D%E7%9B%B4%E6%8E%A5%E6%8A%8A%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4%E5%88%B0master)
+> 实际工作中，可以通过设置，禁止直接把代码提交到master分支。[代码](git.md#%E9%81%BF%E5%85%8D%E7%9B%B4%E6%8E%A5%E6%8A%8A%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4%E5%88%B0master)
 
 
 ## 步骤
@@ -29,7 +29,7 @@
     feature=????
     if git branch -vv -a | grep "origin/$feature"
     then
-      echo git checkout -b $feature origin/$feature  #checkout远程feature/bug-fix
+      echo git checkout -b $feature origin/$feature  
       git checkout -b $feature origin/$feature  #checkout远程feature/bug-fix
     else
       echo git checkout -b $feature
@@ -53,14 +53,14 @@
    
    提交commit时，必须给出完整扼要的提交信息，下面是一个范本。
    
-   > ```bash
-   > Present-tense summary under 50 characters
-   > 
-   > * More information about commit (under 72 characters).
-   > * More information about commit (under 72 characters).
-   > 
-   > http://project.management-system.com/ticket/123
-   > ```
+   ```bash
+   Present-tense summary under 50 characters
+   
+   * More information about commit (under 72 characters).
+   * More information about commit (under 72 characters).
+   
+   http://project.management-system.com/ticket/123
+   ```
    
    第一行是不超过50个字的提要，然后空一行，罗列出改动原因、主要变动、以及需要注意的问题。最后，提供对应的网址(比如bug或issue网址). 
    
@@ -106,7 +106,7 @@
     
     ~~~
 
-    然后同步到远程库
+    然后同步到远程master分支。
 
     ~~~
     git push origin master            
