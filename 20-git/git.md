@@ -6,6 +6,8 @@
 
 #### 避免直接把代码提交到master
 
+首先定位到本地的repository目录，然后执行以下脚本。这样当用户`git commit`的时候，会触发警告，并提交失败。
+
 ~~~shell
 cat << EOF > .git/hooks/pre-commit
 #!/bin/sh
@@ -22,7 +24,7 @@ EOF
 chmod 755 .git/hooks/pre-commit
 ~~~
 
-
+> 建议一个项目中，每个开发人员都在本地开发环境进行上述设置。
 
 #### [What's the difference between HEAD^ and HEAD~ in Git?](https://stackoverflow.com/questions/2221658/whats-the-difference-between-head-and-head-in-git)
 
