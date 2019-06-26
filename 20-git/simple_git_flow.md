@@ -90,7 +90,7 @@
     
     ![1561508745238](image/1561508745238.png)
     
-5. 把feature/bugfix合并到master分支.  本步骤可以由开发人员来做, 也可以项目中指定专人来做, 这种情况下, 开发人员通过邮件或聊天工具提出合并的请求.    到此, feature/bugfix的工作才真正完成了.  
+5. 把feature/bugfix合并到master分支.  本步骤可以由开发人员来做, 也可以项目中指定专人来做, 这种情况下, 开发人员通过邮件或聊天工具提出合并的请求.    
 
     ~~~shell
     # 获取分支内容
@@ -119,8 +119,10 @@
     git tag -a v1.1.0    
     git push origin v1.1.0
     ~~~
+    
+      到此, 一个feature/bugfix的工作才真正全部完成了.  
 
-### 关于Pull Request
+### 关于[Pull Request](https://www.zhihu.com/question/21682976)
 
 上面流程中并没有包含`pull request`, 这是由于公司项目中, 项目成员都有repository的write权限, 成员数量一般在2-5人之内,  成员之间有很好的面对面和在线沟通, 所以`pull request`并非绝对必要. 当然, 如果采用`pull request`的流程来替换第5步也可以的.  
 
