@@ -64,7 +64,7 @@
    
    第一行是不超过50个字的提要, 然后空一行, 罗列出改动原因、主要变动、以及需要注意的问题. 最后, 提供对应的网址(比如bug或issue网址). 
    
-4. 全部功能完成和测试通过后, 更新远程库.  
+4. 全部功能完成和测试通过后, 更新远程feature/bugfix分支.  
 
     ~~~shell
     git checkout $feature 
@@ -74,13 +74,14 @@
     then 
       git rebase origin/$feature 
     fi
+    # 在开发过程中, 远程master分支可能会有其他人的提交, 所以也要更新.
     git rebase origin/master
      
     git push -u origin $feature 
     git lg -10     
     ~~~
     
-    上面命令中`git lg`是一个自定义命令, 可以简洁化的输出log, 可以用以下命令创建：
+    上面命令中`git lg`是一个自定义命令, 能简洁化的输出log, 可以用以下命令创建它：
     
     ~~~shell
     git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -90,7 +91,7 @@
     
     ![1561508745238](image/1561508745238.png)
     
-5. 把feature/bugfix合并到master分支.  本步骤可以由开发人员来做, 也可以项目中指定专人来做, 这种情况下, 开发人员通过邮件或聊天工具提出合并的请求.    
+5. 把feature/bugfix分支合并到master分支.  本步骤可以由开发人员来做, 也可以指定专人来做, 这种情况下, 开发人员通过邮件或聊天工具提出合并的请求.    
 
     ~~~shell
     # 获取分支内容
@@ -124,16 +125,16 @@
 
 ### 关于[Pull Request](https://www.zhihu.com/question/21682976)
 
-上面流程中并没有包含`pull request`, 这是由于公司项目中, 项目成员都有repository的write权限, 成员数量一般在2-5人之内,  成员之间有很好的面对面和在线沟通, 所以`pull request`并非绝对必要. 当然, 如果采用`pull request`的流程来替换第5步也可以的.  
+上面步骤中并没有包含`pull request`, 这是由于公司项目中, 项目成员都有repository的write权限, 成员数量一般在2-10人之内,  成员之间都能够面对面交流或进行实时的在线沟通, 因此`pull request`并非绝对必要. 当然, 如果采用`pull request`的流程来替换第5步也可以的.  
 
 ### 和其他git开发流程的比较
 
 目前, 比较主流的git开发流程有:
 
-- git flow:  有些复杂, 要求开发人员, 对于各个分支的作用都非常清楚.   多分支之前的merge比较多, 要求大家严格遵循规范来进行. 
+- git flow:  有些复杂, 要求开发人员, 对于各个分支的作用都非常清楚.   多分支之间的merge比较多. 
   - 默认工作分支是 develop, 但是大部分版本管理工具默认分支都是 master, 开始的时候总是需要切换很麻烦. 
   - Hotfix 和 Release 分支在需要版本快速迭代的项目中, 几乎用不到, 因为刚开发完就直接合并到 master 发版, 出现问题 develop 就直接修复发布下个版本了. 
-  - Hotfix 和 Release 分支, 一个从 master 创建, 一个从 develop 创建, 使用完毕, 需要合并回 develop 和 master. 而且在实际项目管理中, 很多开发者会忘记合并回 develop 或者 master. 
+  - Hotfix 和 Release 分支, 一个从 master 创建, 一个从 develop 创建, 使用完毕, 需要合并回 develop 和 master. 而且在实际中, 很多开发者会忘记合并回 develop 或者 master. 
 - github flow:  最大的优势是简单. 本流程基本和github flow相同, 区别是, 在merge过程中, 不强制使用`pull request`.  
 - gitlab flow: 兼顾了以上两个流程的特点, 应该说是适合大多数项目的. 
 

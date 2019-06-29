@@ -63,10 +63,15 @@ docker exec -it mysql1 bash
 
 ### Elasticserach
 
-**官方**
+**官方** 
+
+https://www.elastic.co/guide/en/elasticsearch/reference/7.2/docker.html
 
 ~~~shell
-docker run  -it --name es-7.1.1 --rm  -v /home/grid/eipi10/elasticsearch/data:/usr/share/elasticsearch/data -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.1.1
+docker run -d -it --name es-7.2.0  -v /home/grid/eipi10/elasticsearch/data:/usr/share/elasticsearch/data -p 19200:9200 -p 19300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+
+docker exec -it es-7.2.0 bash
+docker start es-7.2.0
 ~~~
 
 **自建ELK**
