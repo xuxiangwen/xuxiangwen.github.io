@@ -1,3 +1,9 @@
+### 0. Readme
+
+- [auto_complete.md](auto_complete.md) 自动完成下拉提示, 网上一些示例. 
+- [es_analyzer.md](es_analyzer.md) analyzer的介绍
+- 
+
 ### 1. 常见命令
 
 #### 查看当前节点的所有Index
@@ -42,6 +48,14 @@ curl -X GET 'localhost:9200/_cluster/health?pretty'
 ~~~shell
 curl -X GET 'localhost:9200/_cat/shards?v&pretty'
 ~~~
+
+#### 查看安装了哪些插件
+
+~~~shell
+curl -X GET 'localhost:9200/_cat/plugins?v&pretty'
+~~~
+
+
 
 #### 新增/删除index
 

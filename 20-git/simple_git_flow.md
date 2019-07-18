@@ -104,16 +104,19 @@
     
     # 合并分支feature name到master分支
     git merge --no-ff $feature 
+    ~~~
+    
+执行上面最后一个命令的时候， 会弹出以下界面。在这里可以添加关于合并分支的注释，然后键入`:wq`保存退出。
+    
+![1563436302940](image/1563436302940.png)
+    
+    然后同步到远程master分支. 
     
     ~~~
-
-    然后同步到远程master分支. 
-
-    ~~~
-    git push origin master            
+git push origin master            
     git lg -10
     ~~~
-
+    
      当需要发布release时, 可以打上版本号. 
     
     ~~~

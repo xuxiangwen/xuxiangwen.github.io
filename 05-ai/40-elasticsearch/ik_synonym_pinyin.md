@@ -15,7 +15,7 @@ curl -XPUT 'localhost:9200/test_ik_synonym_pinyin?pretty' -H 'Content-Type: appl
       "filter": {
         "ik_synonym_filter": {
           "type": "synonym",
-          "synonyms_path": "analysis-ik/synonym.txt"
+          "synonyms_path": "analysis-ik/synonym.dic"
         },
         "ik_pinyin_filter" : {
           "type" : "pinyin",
@@ -108,7 +108,20 @@ curl -H 'Content-Type: application/json'  -XPOST localhost:9200/test_ik_synonym_
 
 curl -H 'Content-Type: application/json'  -XPOST localhost:9200/test_ik_synonym_pinyin/_search?pretty  -d'
 {
-    "query" : { "match" : { "content" : "wodenver" }},
+    "query" : { "match" : { "content" : "我的女儿" }},
+    "highlight" : {
+        "pre_tags" : ["<tag1>", "<tag2>"],
+        "post_tags" : ["</tag1>", "</tag2>"],
+        "fields" : {
+            "content" : {}
+        }
+    }
+}
+'
+
+curl -H 'Content-Type: application/json'  -XPOST localhost:9200/test_ik_synonym_pinyin/_search?pretty  -d'
+{
+    "query" : { "match" : { "content" : "nver" }},
     "highlight" : {
         "pre_tags" : ["<tag1>", "<tag2>"],
         "post_tags" : ["</tag1>", "</tag2>"],
@@ -187,7 +200,7 @@ curl -XPOST 'localhost:9200/test_ik_synonym_pinyin/_analyze?pretty' -H 'Content-
 curl -XPOST 'localhost:9200/test_ik_synonym_pinyin/_analyze?pretty' -H 'Content-Type: application/json' -d'
 {
   "analyzer": "ik_max_word_synonym_pinyin",
-  "text":     "马铃薯"
+  "text":     "我爱吃马铃薯"
 }
 '
 
@@ -260,7 +273,7 @@ curl -XPOST 'localhost:9200/test_ik_synonym_pinyin/_analyze?pretty' -H 'Content-
 
 而我的女儿分析中， 也会有`wo`。
 
-~~~
+~~~shell
 curl -XPOST 'localhost:9200/test_ik_synonym_pinyin/_analyze?pretty' -H 'Content-Type: application/json' -d'
 {
   "analyzer": "ik_max_word_synonym_pinyin",

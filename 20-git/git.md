@@ -97,7 +97,21 @@ git push
 
 ##### [Using filter-branch](https://help.github.com/en/articles/removing-sensitive-data-from-a-repository#using-filter-branch)
 
-略, 总体复杂的多. 默认就用BFG啦. 
+和BFG相似的方法。
+
+~~~shell
+file_name=????
+git filter-branch --force --index-filter "git rm --cached --ignore-unmatch $file_name" --prune-empty --tag-name-filter cat -- --all
+
+# 本地记录覆盖github的所有branch和tags
+git push origin --force --all
+git push origin --force --tags
+
+# 如果没有问题的话，强制解除对本地存储库中的所有对象的引用和垃圾收集
+git for-each-ref --format='delete %(refname)' refs/original | git update-ref --stdin
+git reflog expire --expire=now --all
+git gc --prune=now
+~~~
 
 ##### 如何避免类似的泄密事件发生
 

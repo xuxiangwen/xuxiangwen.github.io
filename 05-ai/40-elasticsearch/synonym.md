@@ -22,7 +22,7 @@ curl -X PUT "localhost:9200/test_synonym?pretty" -H 'Content-Type: application/j
                 "filter" : {
                     "synonym" : {
                         "type" : "synonym",
-                        "synonyms_path" : "analysis/synonym.txt"
+                        "synonyms_path" : "analysis/synonym.dic"
                     }
                 }
             }
@@ -45,7 +45,7 @@ curl -X GET "localhost:9200/_cat/indices?v"
 **创建同义词列表**
 
 ```shell
-cat > ./config/analysis/synonym.txt << EOF 
+cat > ./config/analysis/synonym.dic << EOF 
 # Blank lines and lines starting with pound are comments.
 
 # Explicit mappings match any token sequence on the LHS of "=>"
@@ -80,7 +80,7 @@ foo => foo bar, baz
 
 EOF
 
-head ./config/analysis/synonym.txt
+head ./config/analysis/synonym.dic
 ```
 
 **close, open index**
@@ -136,4 +136,10 @@ curl -XPOST 'localhost:9200/test_synonym/_search?pretty'  -H 'Content-Type:appli
 '
 
 ```
+
+**清理**
+
+~~~shell
+rm -rf ./config/analysis/synonym.dic
+~~~
 

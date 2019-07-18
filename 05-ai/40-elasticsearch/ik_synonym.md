@@ -27,7 +27,7 @@ curl -XPUT 'localhost:9200/test_ik_synonym?pretty' -H 'Content-Type: application
       "filter": {
         "ik_synonym_filter": {
           "type": "synonym",
-          "synonyms_path": "analysis-ik/synonym.txt"
+          "synonyms_path": "analysis-ik/synonym.dic"
         }
       }  
     }
@@ -126,8 +126,9 @@ curl -H 'Content-Type: application/json'  -XPOST http://localhost:9200/test_ik_s
 添加同义词列表. 
 
 ~~~shell
-echo 土豆, 马铃薯 >> ./config/analysis-ik/synonym.txt
-cat ./config/analysis-ik/synonym.txt
+echo 土豆, 马铃薯 >> ./config/analysis-ik/custom/synonym.txt
+echo 西红柿, 番茄 >> ./config/analysis-ik/custom/synonym.txt
+cat ./config/analysis-ik/custom/synonym.txt
 ~~~
 
 然后close, open index. 只有这样才能使得更新的同义词表生效.
