@@ -110,10 +110,12 @@
     
 ![1563436302940](image/1563436302940.png)
     
-    然后同步到远程master分支. 
     
+    
+    然后同步到远程master分支. 
+
     ~~~
-git push origin master            
+    git push origin master            
     git lg -10
     ~~~
     
