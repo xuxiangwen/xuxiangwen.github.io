@@ -60,12 +60,11 @@
 
   - 公开。没有安全性限制，可以发布到internet上，让所有人访问。一般包括一些wiki，blog，开源代码等。
   - 私有。信息是私有的，但可以授权任意的人员来访问。个人的一些文章，代码，但并不想公开的，而且不含有公司的敏感信息。
-
 - 公司：仅在公司内部网络才可以访问。
 
   - 公司/部门：信息在公司或部门内部是公开的。比如：公司流程，部门policy等。
 - 项目：信息在项目组内部是公开的，可以授权项目外的同事来访问。比如：项目开发设计文档，源代码等。
-  - 私有：信息是私有的，但可以授权公司的同事来访问。比如：个人的一些资料，文档，代码等。
+- 私有：信息是私有的，但可以授权公司的同事来访问。比如：个人的一些资料，文档，代码等。
 
 
 
@@ -100,13 +99,13 @@
 
 ![img](image/CNHome_Image1_v2.png)
 
-记不得从何时开始，用上了evernote，身边的很多同事也在用onenote。用上这些工具，笔记集中管理，可以多级导航，搜索起来也很方便，应该说效率大大提高 。后来又开始使用有道云笔记，和evernote比起来，它可以编写markdown，笔记分级方便方便，但全文检索能力又不如evernote。
+记不得从何时开始，用上了evernote，身边的很多朋友也在用onenote。用上这些工具，笔记集中管理，可以多级导航，搜索起来也很方便，应该说效率大大提高 。后来又开始使用有道云笔记，和evernote比起来，它可以编写markdown，笔记分级方便方便，但全文检索能力又不如evernote。
 
 
 
 ### 信息时代：zeppelin，jupyter notebook + 思维导图
 
-evernote，onenote等工具很强大，但无法执行程序代码。
+虽然evernote，onenote等工具很强大，但无法执行程序代码。由此，zeppelin，jupyter notebook等工具孕育而生。
 
 ![example notebook of Lorenz differential equations](image/jupyterpreview.png)
 
@@ -240,7 +239,7 @@ Markdown是一种轻量级标记语言，让写作者专注于写作而不用关
 Pandoc是一个标记语言转换工具，可实现不同标记语言间的[格式转换](https://pandoc.org/diagram.jpg)，堪称该领域中的“瑞士军刀”。比如：下面的脚本，可以把markdown转化成html格式的ppt。
 
 ~~~shell
-pandoc -t revealjs -s take_notes_ppt.md \
+pandoc -t F -s take_notes_ppt.md \
        -o take_notes_ppt.html \
        -V revealjs-url=https://revealjs.com \
        -V theme=moon

@@ -21,7 +21,7 @@ curl -X GET 'localhost:9200/customer/_mapping?pretty=true'    #单个index
 
 #### 重新启动elasticsearch
 
-~~~
+~~~shell
 ps -ef | grep elasticsearch
 sudo kill -9 ????
 ./bin/elasticsearch -d
@@ -32,7 +32,7 @@ sudo kill -9 ????
 #### 查看es集群信息
 
 ~~~
-curl -X GET 'localhost:9200'
+curl -X GET 'localhost:9200?pretty=true'
 ~~~
 
 #### 查看节点健康状态
@@ -135,12 +135,6 @@ curl -XGET 'localhost:9200/customer/_doc/1?pretty'
 
 ~~~
 
-#### 删除document
-
-~~~shell
-curl -X DELETE "localhost:9200/customer/_doc/1?pretty"
-~~~
-
 #### 批量处理（bulk processing）
 
 ~~~shell
@@ -149,6 +143,10 @@ curl -X POST "localhost:9200/customer/_bulk?pretty" -H 'Content-Type: applicatio
 {"name": "John Doe" }
 {"index":{"_id":"2"}}
 {"name": "Jane Doe" }
+{"index":{"_id":"3"}}
+{"name": "michael" }
+{"index":{"_id":"4"}}
+{"name1": "rosa" }
 '
 
 curl -XGET 'localhost:9200/customer/_doc/1?pretty'	
@@ -156,7 +154,7 @@ curl -XGET 'localhost:9200/customer/_doc/1?pretty'
 
 更新id=1的document， 并同时删除id=2的document. 
 
-~~~
+~~~shell
 curl -X POST "localhost:9200/customer/_bulk?pretty" -H 'Content-Type: application/json' -d'
 {"update":{"_id":"1"}}
 {"doc": { "name": "John Doe becomes Jane Doe" } }
@@ -164,6 +162,33 @@ curl -X POST "localhost:9200/customer/_bulk?pretty" -H 'Content-Type: applicatio
 '
 
 ~~~
+
+> 在进行bulk insert时，如果插入的记录数过大，可能会照成circuit_breaking_exception异常。这时，最简单的处理方法时把一次性插入的记录数表少，使得内存能够放得下。
+
+#### 删除document
+
+```shell
+curl -X DELETE "localhost:9200/customer/_doc/1?pretty"
+```
+
+#### 删除所有文档
+
+```shell
+curl -X GET "localhost:9200/_cat/indices?v" 
+curl -X POST "localhost:9200/customer/_delete_by_query?pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": { 
+    "match_all": {}
+  }
+}
+'
+
+curl -X GET "localhost:9200/_cat/indices?v" 
+```
+
+
+
+#### 批量处理
 
 #### ES的版本
 
@@ -185,6 +210,18 @@ grep vm.max_map_count /etc/sysctl.conf
 #### Kibana状态
 
 http://aa00:5601/status
+
+### 允许es跨区域转发
+
+configure your config/elasticsearch.yml configuration file with:
+
+~~~
+http.cors.enabled : true
+ 
+http.cors.allow-origin : "*"
+http.cors.allow-methods : OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length
+~~~
 
 
 

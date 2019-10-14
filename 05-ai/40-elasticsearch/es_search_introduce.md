@@ -56,7 +56,7 @@ curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/j
 
 ~~~
 
-**查询acccount number等于20**4
+**查询acccount number等于20**
 
 ~~~shell
 curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'

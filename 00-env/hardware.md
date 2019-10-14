@@ -2,11 +2,22 @@
 
 ~~~shell
 top
-
 glances        #pip install glances  硬件全面信息
 ~~~
 
-**CPU**
+**端口情况**
+
+```shell
+lsof -i:80  
+netstat -lnp|grep 80
+sudo iptables -t nat -L -n
+```
+
+
+
+**其他**
+
+CPU**
 
 ~~~shell
 cat /proc/cpuinfo                                        #CPU状态
@@ -46,15 +57,7 @@ cat /etc/redhat-release  #centos
 cat /proc/version        #查看内核
 ~~~
 
-**端口情况**
 
-~~~shell
-lsof -i:80  
-netstat -lnp|grep 80
-sudo iptables -t nat -L -n
-~~~
-
-**其他**
 
 [*http://cdn.malu.me/cpu/*](http://cdn.malu.me/cpu/)                  *#天梯*
 
@@ -63,3 +66,4 @@ sudo iptables -t nat -L -n
 
 
 ![img](image/untitle.jpe)
+

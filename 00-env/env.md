@@ -27,6 +27,9 @@ http_proxy='http://web-proxy.rose.hp.com:8080' apt-get install -y fontconfig
         
 #以后安装方式，还是要参考官方文档
 
+!pip install --upgrade pyyaml --proxy http://web-proxy.rose.hp.com:8080     
+
+
 #### python 可视化
 !pip install --upgrade seaborn --proxy http://web-proxy.rose.hp.com:8080  
 !pip install --upgrade plotly --proxy http://web-proxy.rose.hp.com:8080 
@@ -49,6 +52,9 @@ http_proxy='http://web-proxy.rose.hp.com:8080' apt-get install -y fontconfig
 #### redshift : read data from database
 !pip install -U psycopg2-binary --proxy http://web-proxy.rose.hp.com:8080 
 
+#### ssh:
+!http_proxy='http://web-proxy.rose.hp.com:8080' apt-get update
+!http_proxy='http://web-proxy.rose.hp.com:8080' apt install -y  openssh-server
 
 #### gensim
 !pip install --upgrade gensim --proxy http://web-proxy.rose.hp.com:8080 
@@ -58,6 +64,9 @@ http_proxy='http://web-proxy.rose.hp.com:8080' apt-get install -y fontconfig
 #### nlp
 !pip install --upgrade jieba --proxy http://web-proxy.rose.hp.com:8080  
 !pip install --upgrade wordcloud --proxy http://web-proxy.rose.hp.com:8080  
+!pip install --upgrade snownlp --proxy http://web-proxy.rose.hp.com:8080 
+!pip install --upgrade pkuseg --proxy http://web-proxy.rose.hp.com:8080 
+!pip install --upgrade thulac --proxy http://web-proxy.rose.hp.com:8080 
 
 ###  Python2   Port :48888
 #### Ali NLP 比赛
@@ -69,7 +78,16 @@ http_proxy='http://web-proxy.rose.hp.com:8080' apt-get install -y fontconfig
 
 ### 安装aws  client
 !pip install --upgrade awscli --user --proxy http://web-proxy.rose.hp.com:8080 
+# 注意在 ts-gpu-py3 中，执行以下语句把aws路径添加到启动文件中。
+# echo export PATH=\"\$PATH:/root/.local/bin\" >> /root/.bashrc
 
+### Boto3 is the Amazon Web Services (AWS) Software Development Kit (SDK) for Python
+!pip install -U  boto3 --proxy http://web-proxy.rose.hp.com:8080 
+
+### 
+!pip install -U  pyLDAvis --proxy http://web-proxy.rose.hp.com:8080 
+
+!pip install -U  yaml --proxy http://web-proxy.rose.hp.com:8080 
 ```
 
 
@@ -176,3 +194,16 @@ config = tf.ConfigProto()
 config.gpu_options.per_process_gpu_memory_fraction = 0.3
 set_session(tf.Session(config=config))
 ```
+
+## 1.4 ubuntu apt代理设置
+
+代理设置，并安装软件。
+
+~~~shell
+echo Acquire::http::Proxy \"http://web-proxy.rose.hp.com:8080\"\; > /etc/apt/apt.conf.d/proxy.conf
+echo Acquire::https::Proxy \"http://web-proxy.rose.hp.com:8080\"\; >> /etc/apt/apt.conf.d/proxy.conf
+cat /etc/apt/apt.conf.d/proxy.conf
+apt update
+apt-get install -y openssh-server
+~~~
+

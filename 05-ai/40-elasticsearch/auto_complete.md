@@ -30,8 +30,6 @@ https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/quic
 
 
 
-
-
 **Getting started with Elasticsearch and Node.js**
 
 https://www.compose.com/articles/getting-started-with-elasticsearch-and-node/
