@@ -5,6 +5,21 @@ lsof -i:80
 netstat -lnp|grep 80
 ~~~
 
+### Ruby开发环境
+
+~~~shell
+docker run -it -d --name ruby-lab -v "$PWD":/usr/src/myapp -w /usr/src/myapp ruby:latest
+docker exec -it ruby-lab bash
+
+# checking
+ruby -v
+gem -v
+gcc -v
+g++ -v
+make -v
+
+~~~
+
 ### PostgreSQL
 
 ~~~shell

@@ -15,9 +15,9 @@ sudo iptables -t nat -L -n
 
 
 
-**其他**
+## **其他**
 
-CPU**
+**CPU**
 
 ~~~shell
 cat /proc/cpuinfo                                        #CPU状态
@@ -44,6 +44,7 @@ gpustat                  #是一个输出格式比较简单的查看nvidia工具
 **Linux系统**
 
 ~~~shell
+cat /etc/*release*       #显示操作系统信息
 cat /proc/uptime         #查看系统运行时间：。第一列 ：系统启动到现在的时间（秒），第二列：系统空闲的时间（秒）
 
 cat /proc/version        #查看linux内核版本
