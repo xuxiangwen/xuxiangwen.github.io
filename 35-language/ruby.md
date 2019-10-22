@@ -1082,7 +1082,7 @@ raise 和 rescue 的异常机制能在发生错误时放弃执行，有时候需
 
 下面例子中，用户键入 '!' 回应任何提示，使用一个 throw 终止与用户的交互。
 
-~~~
+~~~ruby
 program=try.rb
 cat << EOF > $program
 #!/usr/bin/env ruby
