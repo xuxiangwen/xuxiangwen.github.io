@@ -1,0 +1,8 @@
+README.md
+setup.py
+eipi10_pkg_sample/__init__.py
+eipi10_pkg_sample/nestList.py
+eipi10_pkg_sample.egg-info/PKG-INFO
+eipi10_pkg_sample.egg-info/SOURCES.txt
+eipi10_pkg_sample.egg-info/dependency_links.txt
+eipi10_pkg_sample.egg-info/top_level.txt

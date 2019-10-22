@@ -1,0 +1,7 @@
+{
+  "test2.py::test_failing": true,
+  "test_no_mark.py::test_func3": true,
+  "test_parametrize.py::test_passwd_length[123456]": true,
+  "test_with_mark.py::test_func2": true,
+  "test_with_mark.py::test_func3": true
+}
