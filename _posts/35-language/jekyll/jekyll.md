@@ -26,9 +26,24 @@ Jekyll 是一个简单的博客形态的静态站点生产机器。它有一个�
 
    ```
    cd myblog
-   echo  >> _config.yml
-   echo host: 0.0.0.0 >> _config.yml
-   echo port: 4000    >> _config.yml
+   if [ ! -f _config.yml.template ]; then
+     cp _config.yml _config.yml.template
+   fi
+   
+   cp _config.yml.template _config.yml
+   cat << EOF >> _config.yml
+   host: 0.0.0.0 
+   port: 4000 
+   defaults:
+     - 
+       scope:
+         path: ""
+         type: "posts"
+       values:
+           layout: "post"
+           title: "Default Title"
+           
+   EOF
    ```
 
 5. 构建网站并启动一个本地 web服务
@@ -52,16 +67,72 @@ docker run  \
   --volume="$PWD:/srv/jekyll" \
   --volume="$PWD/vendor/bundle:/usr/local/bundle" \
   -it jekyll/jekyll:latest \
-  jekyll build
+  jekyll serve
   
-docker run -d \
+docker run  \
   --volume="$PWD:/srv/jekyll" \
   --volume="$PWD/vendor/bundle:/usr/local/bundle" \
+  -p 14000:4000 \
   -it jekyll/jekyll:latest \
-  jekyll build  
+  jekyll serve  
 ~~~
 
-## [Tutorial](https://jekyllrb.com/tutorials/home/)
+
+
+
+
+
+### themes
+
+#### use theme from gem
+
+查找[jekyll-theme](https://rubygems.org/search?utf8=✓&query=jekyll-theme)
+
+~~~
+theme=classic-jekyll-theme
+# theme=minima
+sed -i  "s/theme:.*/theme: $theme/g" _config.yml
+if [ `grep -c $theme Gemfile` -eq 0 ];then  
+    echo add $theme in Gemfile
+    echo gem \"$theme\" >> Gemfile
+fi  
+bundle update
+
+# 更新layout
+folder=_posts
+layout=post
+for file_name in `ls $folder/*.md`
+do
+  sed -i  "s/layout:.*/layout: $layout/g" $file_name
+done
+
+bundle exec jekyll serve
+~~~
+
+#### custom theme
+
+~~~
+mkdir -p _layouts
+cat << EOF > _layouts/post.html
+---
+author: "xu jian"
+---
+<h1>{{ page.title }}</h1>
+<h3>{{ layout.author }}</h3>
+{{ content }}
+
+EOF
+~~~
+
+查看页面变化， 还原页面。
+
+~~~
+rm -rf _layouts/post.html
+~~~
+
+
+
+
 
 
 

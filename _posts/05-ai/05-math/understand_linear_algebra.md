@@ -4,7 +4,7 @@
 
 1. 从物理上，可以理解为做功。
 
-2.  $$ \frac {a} {|a|}， \frac {b} {|b|} $$都是单位向量，  $cos(\theta ) = \frac {a} {|a|} \cdot \frac {b} {|b |}  $, 其中 $\theta $是两个向量的夹角。
+2.  $$ \frac {a} {\|a\|}， \frac {b} {\|b\|} $$都是单位向量，  $cos(\theta ) = \frac {a} {\|a\|} \cdot \frac {b} {\|b \|}  $, 其中 $\theta $是两个向量的夹角。
 
 3. $a \cdot \frac {b} {|b|} $ 表示a向量在 $b$单位向量上的投影长度。
 
@@ -22,7 +22,7 @@
 
 # 点到平面的距离
 
-![img](image/dd096b404a60f9f534995fafbfee2b23_b.jpg)
+![img](image/dd096b404a60f9f534995fafbfee2b23_b-1573440940843.jpg)
 
 平面方程为:  $ w \cdot x + b = 0$
 
