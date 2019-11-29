@@ -207,3 +207,10 @@ apt update
 apt-get install -y openssh-server
 ~~~
 
+## 1.5 CentOS升级
+
+~~~
+sudo yum clean all
+sudo yum update -y
+~~~
+

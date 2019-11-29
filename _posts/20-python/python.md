@@ -1,8 +1,18 @@
 ## 1 技巧
 
-### 
+### 类和函数注释规范
 
+参见：
 
+- [Python类和方法注释规范](https://blog.csdn.net/lly1122334/article/details/80733908 )
+
+- [Google 开源项目: Python 风格指南](http://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/python_style_rules/#comments)
+
+  
+
+ ![这里写图片描述](image/20180619145509799.png) 
+
+ ![这里写图片描述](image/20180619145520914.png) 
 
 ### Python项目示范目录结构
 
@@ -20,7 +30,7 @@ project
 ├── setup.cfg
 ├── setup.py
 │
-├── docs
+├── data
 │   └── input.csv
 │   └── output.xlsx
 │ 

@@ -1,12 +1,30 @@
-## 互联网协议
+## 互联网架构
 
-![img](image/bg2012052902.png)
+OSI(Open System Interconnection，开放系统互连)七层网络模型称为开放式系统互联参考模型 ，是一个逻辑上的定义，一个规范，它把网络从逻辑上分为了7层。每一层都有相关、相对应的物理设备，比如路由器，交换机。 
 
-### 实体层
+ ![img](image/v2-8241be381782789f7fb5735d8541c506_hd.jpg) 
+
+ ![img](image/20180115133844637.png) 
+
+ ![img](image/20180115133703203.gif) 
+
+ ![img](image/20180115134155605.jpg) 
+
+各层网络所使用协议如下：
+
+- 物理层：RJ45、CLOCK、IEEE802.3 （中继器，集线器）
+- 数据链路：PPP、FR、HDLC、VLAN、MAC （网桥，交换机）
+- 网络层：IP、ICMP、ARP、RARP、OSPF、IPX、RIP、IGRP、 （路由器）
+- 传输层：TCP、UDP、SPX
+- 会话层：NFS、SQL、NETBIOS、RPC
+- 表示层：JPEG、MPEG、ASII
+- 应用层：FTP、DNS、Telnet、SMTP、HTTP、WWW、NFS
+
+### 物理层
 
 把电脑连起来，可以用光缆、电缆、双绞线、无线电波等方式。  主要规定了网络的一些电气特性，作用是负责传送0和1的电信号。 
 
-### 链接层 
+### 数据链接层 
 
 在"实体层"的上方，确定了0和1的分组方式。 
 
@@ -96,6 +114,10 @@
 
 应用程序收到"传输层"的数据，接下来就要进行解读。由于互联网是开放架构，数据来源五花八门，必须事先规定好格式，否则根本无法解读。"应用层"的作用，就是规定应用程序的数据格式。
 
+- 会话层：任务就是向两个实体的表示层提供建立和使用连接的方法。
+- 表示层：它对来自应用层的命令和数据进行解释，对各种语法赋予相应的含义，并按照一定的格式传送给会话层
+- 应用层：应用层为用户提供的服务和协议有：文件服务、目录服务、文件传输服务（FTP）、远程登录服务（Telnet）、电子邮件服务（E-mail）、打印服务、安全服务、网络管理服务、数据库服务等
+
 ![img](image/bg2012052913.png) 
 
 - DHCP协议
@@ -178,5 +200,5 @@ graph TB;
 ## 参考
 
 - [联网协议入门（一）](http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html )
-
 - [互联网协议入门（二）](http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html )
+- [网络7层协议，4层，5层？理清容易混淆的几个概念](https://blog.csdn.net/cc1949/article/details/79063439 )

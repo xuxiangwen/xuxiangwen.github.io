@@ -122,6 +122,7 @@ pip install --user --upgrade setuptools wheel
 开始构建
 
 ~~~python
+rm -rf dist
 python3 setup.py sdist bdist_wheel
 ~~~
 
@@ -134,6 +135,8 @@ python3 setup.py sdist bdist_wheel
 接下来把自己的模块分享到internet上，让全球的程序员都能使用你贡献的代码。由于本文只是一个tutorial，所以不使用正式的平台，而是使用一个测试平台Test Pypi。
 
 1. 在[Test PyPI页面](https://test.pypi.org/account/register/)进行注册。
+
+   eipi10/QA...02
 
 2. 安装twine
 
@@ -157,6 +160,8 @@ python3 setup.py sdist bdist_wheel
 
 1. [https://pypi.org](https://pypi.org/)上注册正式的账户并验证邮箱。
 
+   eipi10/QA...02
+
 2. 上传
 
    ~~~
@@ -170,4 +175,13 @@ python3 setup.py sdist bdist_wheel
    ~~~
 
    
+
+## 代码汇总
+
+~~~
+cd <floder>
+rm -rf dist
+python3 setup.py sdist bdist_wheel
+twine upload dist/*
+~~~
 
