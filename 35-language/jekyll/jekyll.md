@@ -134,3 +134,6 @@ rm -rf _layouts/post.html
 bundle exec jekyll serve --host 0.0.0.0 --port 4000
 ```
 
+
+
+- `_site`文件夹需要你在`.gitignore`中加入屏蔽
