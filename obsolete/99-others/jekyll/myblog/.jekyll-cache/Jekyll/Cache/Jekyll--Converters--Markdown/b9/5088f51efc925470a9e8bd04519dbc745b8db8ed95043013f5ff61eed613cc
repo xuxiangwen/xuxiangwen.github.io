@@ -1,0 +1,1108 @@
+I"+�<h2 id="ruby安装">ruby安装</h2>
+
+<p><strong>安装rbenv</strong></p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-fsSL</span> https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash
+<span class="nb">echo</span> <span class="s1">'export PATH="$HOME/.rbenv/bin:$PATH"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nb">echo eval</span> <span class="se">\"\$\(</span>rbenv init -<span class="se">\)\"</span> <span class="o">&gt;&gt;</span>  ~/.bashrc
+<span class="nb">source</span> ~/.bashrc
+
+rbenv <span class="nt">-v</span>
+</code></pre></div></div>
+
+<p><strong>安装ruby</strong></p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>yum remove <span class="nt">-y</span> ruby
+<span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> readline-devel
+<span class="nv">ruby_file</span><span class="o">=</span>~/.rbenv/cache/ruby-2.6.5.tar.bz2
+<span class="k">if</span> <span class="o">[</span> <span class="o">!</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$ruby_file</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+  </span>wget <span class="s1">'https://cache.ruby-china.com/pub/ruby/2.6/ruby-2.6.5.tar.bz2'</span> <span class="nt">-P</span> ~/.rbenv/cache
+<span class="k">fi
+</span>rbenv <span class="nb">install </span>2.6.5
+rbenv global 2.6.5
+rbenv versions
+
+ruby <span class="nt">-v</span>
+
+</code></pre></div></div>
+
+<p><strong>检查安装</strong></p>
+
+<pre><code class="language-SHELL">curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
+ruby -v
+</code></pre>
+
+<p>如果输出如下信息，表示</p>
+
+<p><img src="image/1571194274287.png" alt="1571194274287" /></p>
+
+<h2 id="进入interactive-ruby">进入Interactive Ruby</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">irb</span>
+</code></pre></div></div>
+
+<h2 id="入门">入门</h2>
+
+<h3 id="hello-world">hello world*</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"Hello World"</span>
+<span class="nb">puts</span> <span class="s2">"Hello World"</span>
+<span class="mi">3</span><span class="o">+</span><span class="mi">2</span>
+<span class="no">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="函数">函数</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">h</span>
+<span class="nb">puts</span> <span class="s2">"Hello World!"</span>
+<span class="k">end</span>
+
+<span class="n">h</span>
+<span class="n">h</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">h</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="s2">"Hello </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">!"</span>
+<span class="k">end</span>
+
+<span class="n">h</span><span class="p">(</span><span class="s2">"Matz"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">h</span><span class="p">(</span><span class="nb">name</span> <span class="o">=</span> <span class="s2">"world"</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="s2">"Hello </span><span class="si">#{</span><span class="nb">name</span><span class="p">.</span><span class="nf">capitalize</span><span class="si">}</span><span class="s2">!"</span>
+<span class="k">end</span>
+
+<span class="n">h</span> <span class="s2">"chris"</span>
+<span class="n">h</span>
+</code></pre></div></div>
+
+<h3 id="类">类</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Greeter</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span> <span class="o">=</span> <span class="s2">"World"</span><span class="p">)</span>
+    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+  <span class="k">end</span>
+  <span class="k">def</span> <span class="nf">say_hi</span>
+    <span class="nb">puts</span> <span class="s2">"Hi </span><span class="si">#{</span><span class="vi">@name</span><span class="si">}</span><span class="s2">!"</span>
+  <span class="k">end</span>
+  <span class="k">def</span> <span class="nf">say_bye</span>
+    <span class="nb">puts</span> <span class="s2">"Bye </span><span class="si">#{</span><span class="vi">@name</span><span class="si">}</span><span class="s2">, come back soon."</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="no">Greeter</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"Pat"</span><span class="p">)</span>
+<span class="n">g</span><span class="p">.</span><span class="nf">say_hi</span>
+<span class="n">g</span><span class="p">.</span><span class="nf">say_bye</span>
+<span class="n">g</span><span class="o">.</span><span class="vi">@name</span>      <span class="c1"># 无法访问</span>
+
+<span class="c1"># 显示实例函数</span>
+<span class="no">Greeter</span><span class="p">.</span><span class="nf">instance_methods</span>
+<span class="no">Greeter</span><span class="p">.</span><span class="nf">instance_methods</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+
+<span class="n">g</span><span class="p">.</span><span class="nf">respond_to?</span><span class="p">(</span><span class="s2">"name"</span><span class="p">)</span>
+<span class="n">g</span><span class="p">.</span><span class="nf">respond_to?</span><span class="p">(</span><span class="s2">"say_hi"</span><span class="p">)</span>
+<span class="n">g</span><span class="p">.</span><span class="nf">respond_to?</span><span class="p">(</span><span class="s2">"to_s"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>获取实例变量名。在 Ruby 里，您可以把一个类打开然后改变它。这些改变会对以后生成的甚至是已经生成的对象产生即时效果。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Greeter
+  attr_accessor :name
+end
+
+g = Greeter.new("Andy")
+g.respond_to?("name")
+g.respond_to?("name=")
+g.say_hi
+g.name="Betty"
+
+g
+Greeter.instance_methods(false)
+</code></pre></div></div>
+
+<p>更加完整的例子：</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span> <span class="o">&gt;</span> <span class="n">ri20min</span><span class="p">.</span><span class="nf">rb</span>
+<span class="c1">#!/usr/bin/env ruby</span>
+
+<span class="k">class</span> <span class="nc">MegaGreeter</span>
+  <span class="nb">attr_accessor</span> <span class="ss">:names</span>
+
+  <span class="c1"># Create the object</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">names</span> <span class="o">=</span> <span class="s2">"World"</span><span class="p">)</span>
+    <span class="vi">@names</span> <span class="o">=</span> <span class="n">names</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Say hi to everybody</span>
+  <span class="k">def</span> <span class="nf">say_hi</span>
+    <span class="k">if</span> <span class="vi">@names</span><span class="p">.</span><span class="nf">nil?</span>
+      <span class="nb">puts</span> <span class="s2">"..."</span>
+    <span class="k">elsif</span> <span class="vi">@names</span><span class="p">.</span><span class="nf">respond_to?</span><span class="p">(</span><span class="s2">"each"</span><span class="p">)</span>
+      <span class="c1"># @names is a list of some kind, iterate!</span>
+      <span class="vi">@names</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">name</span><span class="o">|</span>
+        <span class="nb">puts</span> <span class="s2">"Hello </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">!"</span>
+      <span class="k">end</span>
+    <span class="k">else</span>
+      <span class="nb">puts</span> <span class="s2">"Hello </span><span class="si">#{</span><span class="vi">@names</span><span class="si">}</span><span class="s2">!"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Say bye to everybody</span>
+  <span class="k">def</span> <span class="nf">say_bye</span>
+    <span class="k">if</span> <span class="vi">@names</span><span class="p">.</span><span class="nf">nil?</span>
+      <span class="nb">puts</span> <span class="s2">"..."</span>
+    <span class="k">elsif</span> <span class="vi">@names</span><span class="p">.</span><span class="nf">respond_to?</span><span class="p">(</span><span class="s2">"join"</span><span class="p">)</span>
+      <span class="c1"># Join the list elements with commas</span>
+      <span class="nb">puts</span> <span class="s2">"Goodbye </span><span class="si">#{</span><span class="vi">@names</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s2">", "</span><span class="p">)</span><span class="si">}</span><span class="s2">.  Come back soon!"</span>
+    <span class="k">else</span>
+      <span class="nb">puts</span> <span class="s2">"Goodbye </span><span class="si">#{</span><span class="vi">@names</span><span class="si">}</span><span class="s2">.  Come back soon!"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+<span class="k">end</span>
+
+
+<span class="k">if</span> <span class="kp">__FILE__</span> <span class="o">==</span> <span class="p">\</span><span class="vg">$0</span>
+  <span class="n">mg</span> <span class="o">=</span> <span class="no">MegaGreeter</span><span class="p">.</span><span class="nf">new</span>
+  <span class="n">mg</span><span class="p">.</span><span class="nf">say_hi</span>
+  <span class="n">mg</span><span class="p">.</span><span class="nf">say_bye</span>
+
+  <span class="c1"># Change name to be "Zeke"</span>
+  <span class="n">mg</span><span class="p">.</span><span class="nf">names</span> <span class="o">=</span> <span class="s2">"Zeke"</span>
+  <span class="n">mg</span><span class="p">.</span><span class="nf">say_hi</span>
+  <span class="n">mg</span><span class="p">.</span><span class="nf">say_bye</span>
+
+  <span class="c1"># Change the name to an array of names</span>
+  <span class="n">mg</span><span class="p">.</span><span class="nf">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Albert"</span><span class="p">,</span> <span class="s2">"Brenda"</span><span class="p">,</span> <span class="s2">"Charles"</span><span class="p">,</span>
+    <span class="s2">"Dave"</span><span class="p">,</span> <span class="s2">"Engelbert"</span><span class="p">]</span>
+  <span class="n">mg</span><span class="p">.</span><span class="nf">say_hi</span>
+  <span class="n">mg</span><span class="p">.</span><span class="nf">say_bye</span>
+
+  <span class="c1"># Change to nil</span>
+  <span class="n">mg</span><span class="p">.</span><span class="nf">names</span> <span class="o">=</span> <span class="kp">nil</span>
+  <span class="n">mg</span><span class="p">.</span><span class="nf">say_hi</span>
+  <span class="n">mg</span><span class="p">.</span><span class="nf">say_bye</span>
+<span class="k">end</span>
+
+<span class="no">EOF</span>
+
+<span class="n">chmod</span> <span class="mi">755</span> <span class="n">ri20min</span><span class="p">.</span><span class="nf">rb</span>
+<span class="p">.</span><span class="nf">/</span><span class="n">ri20min</span><span class="p">.</span><span class="nf">rb</span>
+</code></pre></div></div>
+
+<h3 id="irb支持中文">irb支持中文</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export LANG=en_US.UTF-8
+irb
+puts "你好，世界！";
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ruby -e 'puts Encoding.find("locale")'
+</code></pre></div></div>
+
+<h3 id="here-document">Here Document</h3>
+
+<p>“Here Document” 是指建立多行字符串。在 « 之后，您可以指定一个字符串或标识符来终止字符串，且当前行之后直到终止符为止的所有行是字符串的值。</p>
+
+<p>如果终止符用引号括起，引号的类型决定了面向行的字符串类型。请注意« 和终止符之间必须没有空格。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat &lt;&lt; SEOF &gt; here_document.rb
+#!/usr/bin/env ruby
+# -*- coding : utf-8 -*-
+ 
+print &lt;&lt;EOF
+    这是第一种方式创建here document 。
+    多行字符串。
+EOF
+ 
+print &lt;&lt;"EOF";                # 与上面相同
+    这是第二种方式创建here document 。
+    多行字符串。
+EOF
+ 
+print &lt;&lt;\`EOC\`                 # 执行命令
+    echo hi there
+    echo lo there
+EOC
+ 
+print &lt;&lt;"foo", &lt;&lt;"bar"          # 您可以把它们进行堆叠
+    I said foo.
+foo
+    I said bar.
+bar
+
+SEOF
+
+chmod 755 here_document.rb
+./here_document.rb
+</code></pre></div></div>
+
+<h3 id="begin-end">Begin End</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">program</span><span class="o">=</span><span class="n">begin_end</span><span class="p">.</span><span class="nf">rb</span>
+<span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span> <span class="o">&gt;</span> <span class="vg">$program</span>
+<span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">puts</span> <span class="s2">"这是主 Ruby 程序"</span>
+ 
+<span class="k">END</span> <span class="p">{</span>
+   <span class="nb">puts</span> <span class="s2">"停止 Ruby 程序"</span>
+<span class="p">}</span>
+<span class="k">BEGIN</span> <span class="p">{</span>
+   <span class="nb">puts</span> <span class="s2">"初始化 Ruby 程序"</span>
+<span class="p">}</span>
+<span class="no">EOF</span>
+
+<span class="n">chmod</span> <span class="mi">755</span> <span class="vg">$program</span>
+<span class="p">.</span><span class="nf">/</span><span class="vg">$program</span>
+</code></pre></div></div>
+
+<h3 id="集合">集合</h3>
+
+<ul>
+  <li>array</li>
+  <li>hash</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program=collection.rb
+cat &lt;&lt; EOF &gt; $program
+#!/usr/bin/env ruby
+
+puts '----------------------------------'
+ary = [ "fred", 10, 3.14, "This is a string", "last element", ]
+ary.each do |i|
+    puts i
+end
+
+puts '----------------------------------'
+hsh = colors = { "red" =&gt; 0xf00, "green" =&gt; 0x0f0, "blue" =&gt; 0x00f }
+hsh.each do |key, value|
+    print key, " is ", value, "\n"
+end
+
+puts '----------------------------------'
+(10..15).each do |n|
+    print n, ' '
+end
+print "\n" 
+
+puts '----------------------------------'
+nums = Array.new(10) { |e| e = e * 2 }
+puts "#{nums}"
+
+
+puts '----------------------------------'
+months = Hash.new( "month" )
+ 
+puts "#{months[0]}"
+puts "#{months[72]}"
+puts months
+
+
+EOF
+
+chmod 755 $program
+./$program
+</code></pre></div></div>
+
+<h3 id="双引号和单引号区别">双引号和单引号区别</h3>
+
+<p>双引号里面可以 interpolation 以及 escape 。单引号不可以。单引号字符串字面量里只可以用反斜线来转义单引号和反斜线。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = 1
+"#{a}"
+'#{a}'
+puts "a\nb"
+puts 'a\nb'
+</code></pre></div></div>
+
+<h3 id="变量">变量</h3>
+
+<p>Ruby 支持五种类型的变量。</p>
+
+<ul>
+  <li>一般小写字母、下划线开头：变量（Variable）。</li>
+  <li><code class="highlighter-rouge">$</code>开头：全局变量（Global variable）。</li>
+  <li><code class="highlighter-rouge">@</code>开头：实例变量（Instance variable）。</li>
+  <li><code class="highlighter-rouge">@@</code>开头：类变量（Class variable）类变量被共享在整个继承链中</li>
+  <li>大写字母开头：常数（Constant）。</li>
+</ul>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">program</span><span class="o">=</span><span class="n">variable</span><span class="p">.</span><span class="nf">rb</span>
+<span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span> <span class="o">&gt;</span> <span class="vg">$program</span>
+<span class="c1">#!/usr/bin/env ruby</span>
+
+<span class="p">\</span><span class="vg">$global_variable</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="k">class</span> <span class="nc">Class1</span>
+  <span class="k">def</span> <span class="nf">print_global</span>
+      <span class="nb">puts</span> <span class="s2">"全局变量在 Class1 中输出为 #</span><span class="se">\$</span><span class="s2">global_variable"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="k">class</span> <span class="nc">Class2</span>
+  <span class="k">def</span> <span class="nf">print_global</span>
+      <span class="nb">puts</span> <span class="s2">"全局变量在 Class2 中输出为 #</span><span class="se">\$</span><span class="s2">global_variable"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+ 
+<span class="n">class1obj</span> <span class="o">=</span> <span class="no">Class1</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">class1obj</span><span class="p">.</span><span class="nf">print_global</span>
+<span class="n">class2obj</span> <span class="o">=</span> <span class="no">Class2</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">class2obj</span><span class="p">.</span><span class="nf">print_global</span>
+
+<span class="nb">puts</span> <span class="s1">'----------------------------------------------'</span>
+<span class="k">class</span> <span class="nc">Customer</span>
+   <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="nb">name</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span>
+      <span class="vi">@cust_id</span><span class="o">=</span><span class="nb">id</span>
+      <span class="vi">@cust_name</span><span class="o">=</span><span class="nb">name</span>
+      <span class="vi">@cust_addr</span><span class="o">=</span><span class="n">addr</span>
+   <span class="k">end</span>
+   <span class="k">def</span> <span class="nf">display_details</span><span class="p">()</span>
+      <span class="nb">puts</span> <span class="s2">"Customer id </span><span class="si">#@cust_id</span><span class="s2">"</span>
+      <span class="nb">puts</span> <span class="s2">"Customer name </span><span class="si">#@cust_name</span><span class="s2">"</span>
+      <span class="nb">puts</span> <span class="s2">"Customer address </span><span class="si">#@cust_addr</span><span class="s2">"</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+ 
+<span class="c1"># 创建对象</span>
+<span class="n">cust1</span><span class="o">=</span><span class="no">Customer</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"1"</span><span class="p">,</span> <span class="s2">"John"</span><span class="p">,</span> <span class="s2">"Wisdom Apartments, Ludhiya"</span><span class="p">)</span>
+<span class="n">cust2</span><span class="o">=</span><span class="no">Customer</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"2"</span><span class="p">,</span> <span class="s2">"Poul"</span><span class="p">,</span> <span class="s2">"New Empire road, Khandala"</span><span class="p">)</span>
+ 
+<span class="c1"># 调用方法</span>
+<span class="n">cust1</span><span class="p">.</span><span class="nf">display_details</span><span class="p">()</span>
+<span class="n">cust2</span><span class="p">.</span><span class="nf">display_details</span><span class="p">()</span>
+
+<span class="nb">puts</span> <span class="s1">'----------------------------------------------'</span>
+<span class="k">class</span> <span class="nc">Customer</span>
+   <span class="vc">@@no_of_customers</span><span class="o">=</span><span class="mi">0</span>
+   <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="nb">name</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span>
+      <span class="vi">@cust_id</span><span class="o">=</span><span class="nb">id</span>
+      <span class="vi">@cust_name</span><span class="o">=</span><span class="nb">name</span>
+      <span class="vi">@cust_addr</span><span class="o">=</span><span class="n">addr</span>
+   <span class="k">end</span>
+   <span class="k">def</span> <span class="nf">display_details</span><span class="p">()</span>
+      <span class="nb">puts</span> <span class="s2">"Customer id </span><span class="si">#@cust_id</span><span class="s2">"</span>
+      <span class="nb">puts</span> <span class="s2">"Customer name </span><span class="si">#@cust_name</span><span class="s2">"</span>
+      <span class="nb">puts</span> <span class="s2">"Customer address </span><span class="si">#@cust_addr</span><span class="s2">"</span>
+    <span class="k">end</span>
+    <span class="k">def</span> <span class="nf">total_no_of_customers</span><span class="p">()</span>
+       <span class="vc">@@no_of_customers</span> <span class="o">+=</span> <span class="mi">1</span>
+       <span class="nb">puts</span> <span class="s2">"Total number of customers: </span><span class="si">#@@no_of_customers</span><span class="s2">"</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+ 
+<span class="c1"># 创建对象</span>
+<span class="n">cust1</span><span class="o">=</span><span class="no">Customer</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"1"</span><span class="p">,</span> <span class="s2">"John"</span><span class="p">,</span> <span class="s2">"Wisdom Apartments, Ludhiya"</span><span class="p">)</span>
+<span class="n">cust2</span><span class="o">=</span><span class="no">Customer</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"2"</span><span class="p">,</span> <span class="s2">"Poul"</span><span class="p">,</span> <span class="s2">"New Empire road, Khandala"</span><span class="p">)</span>
+ 
+<span class="c1"># 调用方法</span>
+<span class="n">cust1</span><span class="p">.</span><span class="nf">total_no_of_customers</span><span class="p">()</span>
+<span class="n">cust2</span><span class="p">.</span><span class="nf">total_no_of_customers</span><span class="p">()</span>
+
+<span class="nb">puts</span> <span class="s1">'----------------------------------------------'</span>
+<span class="k">class</span> <span class="nc">Example</span>
+   <span class="no">VAR1</span> <span class="o">=</span> <span class="mi">100</span>
+   <span class="no">VAR2</span> <span class="o">=</span> <span class="mi">200</span>
+   <span class="k">def</span> <span class="nf">show</span>
+       <span class="nb">puts</span> <span class="s2">"第一个常量的值为 </span><span class="si">#{</span><span class="no">VAR1</span><span class="si">}</span><span class="s2">"</span>
+       <span class="nb">puts</span> <span class="s2">"第二个常量的值为 </span><span class="si">#{</span><span class="no">VAR2</span><span class="si">}</span><span class="s2">"</span>
+   <span class="k">end</span>
+<span class="k">end</span>
+ 
+<span class="c1"># 创建对象</span>
+<span class="n">object</span><span class="o">=</span><span class="no">Example</span><span class="p">.</span><span class="nf">new</span><span class="p">()</span>
+<span class="n">object</span><span class="p">.</span><span class="nf">show</span>
+
+<span class="no">EOF</span>
+
+<span class="n">chmod</span> <span class="mi">755</span> <span class="vg">$program</span>
+<span class="p">.</span><span class="nf">/</span><span class="vg">$program</span>
+</code></pre></div></div>
+
+<p><strong>Ruby 伪变量</strong></p>
+
+<p>它们是特殊的变量，有着局部变量的外观，但行为却像常量。您不能给这些变量赋任何值。</p>
+
+<ul>
+  <li><strong>self:</strong> 当前方法的接收器对象。</li>
+  <li><strong>true:</strong> 代表 true 的值。</li>
+  <li><strong>false:</strong> 代表 false 的值。</li>
+  <li><strong>nil:</strong> 代表 undefined 的值。</li>
+  <li><strong>__FILE__:</strong> 当前源文件的名称。</li>
+  <li><strong>__LINE__:</strong> 当前行在源文件中的编号。</li>
+</ul>
+
+<h3 id="双冒号运算符-">双冒号运算符 “::”</h3>
+
+<p>两个冒号 <strong>::</strong> 来引用类或模块中的常量</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MR_COUNT = 0        # 定义在主 Object 类上的常量
+module Foo
+  MR_COUNT = 0
+  ::MR_COUNT = 1    # 设置全局计数为 1
+  MR_COUNT = 2      # 设置局部计数为 2
+end
+puts MR_COUNT       # 这是全局常量
+puts Foo::MR_COUNT  # 这是 "Foo" 的局部常量
+
+CONST = ' out there'
+class Inside_one
+   CONST = proc {' in there'}
+   def where_is_my_CONST
+      ::CONST + ' inside one'
+   end
+end
+class Inside_two
+   CONST = ' inside two'
+   def where_is_my_CONST
+      CONST
+   end
+end
+puts Inside_one.new.where_is_my_CONST
+puts Inside_two.new.where_is_my_CONST
+puts Object::CONST + Inside_two::CONST
+puts Inside_two::CONST + CONST
+puts Inside_one::CONST
+puts Inside_one::CONST.call + Inside_two::CONST
+</code></pre></div></div>
+
+<h3 id="多行注释">多行注释</h3>
+
+<p>使用 <strong>=begin</strong> 和 <strong>=end</strong> 语法注释多行，如下所示：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program=comment.rb
+cat &lt;&lt; EOF &gt; $program
+#!/usr/bin/env ruby
+
+puts "Hello, Ruby!"
+ 
+=begin
+这是一个多行注释。
+可扩展至任意数量的行。
+但 =begin 和 =end 只能出现在第一行和最后一行。 
+=end
+
+EOF
+
+chmod 755 $program
+./$program
+</code></pre></div></div>
+
+<h3 id="循环">循环</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program=loop.rb
+cat &lt;&lt; EOF &gt; $program
+#!/usr/bin/env ruby
+
+puts '----------------------------------------------'
+i = 0
+num = 5
+ 
+while i &lt; num  do
+   puts("在循环语句中 i = #{i}" )
+   i +=1
+end
+
+puts '----------------------------------------------'
+\$i = 0
+\$num = 5
+begin
+   puts("在循环语句中 i = #\$i" )
+   \$i +=1
+end while \$i &lt; \$num
+
+puts '----------------------------------------------'
+\$i = 0
+\$num = 5
+ 
+until \$i &gt; \$num  do
+   puts("在循环语句中 i = #\$i" )
+   \$i +=1;
+end
+
+puts '----------------------------------------------'
+\$i = 0
+\$num = 5
+begin
+   puts("在循环语句中 i = #\$i" )
+   \$i +=1;
+end until \$i &gt; \$num
+
+puts '----------------------------------------------'
+for i in 0..5
+   puts "局部变量的值为 #{i}"
+end
+
+puts '----------------------------------------------'
+(0..5).each do |i|
+   puts "局部变量的值为 #{i}"
+end
+
+EOF
+
+chmod 755 $program
+./$program
+</code></pre></div></div>
+
+<h3 id="块block">块（block）</h3>
+
+<ul>
+  <li>块由大量的代码组成。</li>
+  <li>您需要给块取个名称。</li>
+  <li>块中的代码总是包含在大括号 {} 内。</li>
+  <li>块总是从与其具有相同名称的函数调用。这意味着如果您的块名称为 <em>test</em>，那么您要使用函数 <em>test</em> 来调用这个块。</li>
+  <li>您可以使用 <em>yield</em> 语句来调用块。</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program=block.rb
+cat &lt;&lt; EOF &gt; $program
+#!/usr/bin/env ruby
+
+def test
+   puts "在 test 方法内"
+   yield
+   puts "你又回到了 test 方法内"
+   yield
+end
+test {puts "你在块内"}
+
+puts '----------------------------------------------'
+def test
+   yield 5, 'five'
+   puts "在 test 方法内"
+   yield 100, 'one hundred'
+end
+test {|a, b| puts "你在块 #{a} 内 #{b}"}
+
+puts '----------------------------------------------'
+def test
+  yield
+end
+test{ puts "Hello world"}
+
+puts '----------------------------------------------'
+def test(&amp;block)
+   block.call
+end
+test { puts "Hello World!"}
+
+EOF
+
+chmod 755 $program
+./$program
+</code></pre></div></div>
+
+<h3 id="模块module">模块（Module）</h3>
+
+<p>模块（Module）是一种把方法、类和常量组合在一起的方式。模块（Module）为您提供了两大好处。</p>
+
+<ul>
+  <li>模块提供了一个<em>命名空间</em>和避免名字冲突。</li>
+  <li>模块实现了 <em>mixin</em> 装置。</li>
+</ul>
+
+<p>模块（Module）定义了一个命名空间，相当于一个沙盒，在里边您的方法和常量不会与其他地方的方法常量冲突。</p>
+
+<p>模块类似与类，但有一下不同：</p>
+
+<ul>
+  <li>模块不能实例化</li>
+  <li>模块没有子类</li>
+  <li>模块只能被另一个模块定义</li>
+</ul>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span> <span class="o">&gt;</span> <span class="n">support</span><span class="p">.</span><span class="nf">rb</span>
+<span class="k">module</span> <span class="nn">Week</span>
+   <span class="no">FIRST_DAY</span> <span class="o">=</span> <span class="s2">"Sunday"</span>
+   <span class="k">def</span> <span class="nc">Week</span><span class="o">.</span><span class="nf">weeks_in_month</span>
+      <span class="nb">puts</span> <span class="s2">"You have four weeks in a month"</span>
+   <span class="k">end</span>
+   <span class="k">def</span> <span class="nc">Week</span><span class="o">.</span><span class="nf">weeks_in_year</span>
+      <span class="nb">puts</span> <span class="s2">"You have 52 weeks in a year"</span>
+   <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">EOF</span>
+
+<span class="n">program</span><span class="o">=</span><span class="n">module</span><span class="p">.</span><span class="nf">rb</span>
+<span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span> <span class="o">&gt;</span> <span class="vg">$program</span>
+<span class="c1">#!/usr/bin/env ruby</span>
+
+<span class="p">\</span><span class="vg">$LOAD_PATH</span> <span class="o">&lt;&lt;</span> <span class="s1">'.'</span>
+<span class="nb">require</span> <span class="s2">"support"</span>
+ 
+<span class="k">class</span> <span class="nc">Decade</span>
+<span class="kp">include</span> <span class="no">Week</span>
+   <span class="n">no_of_yrs</span><span class="o">=</span><span class="mi">10</span>
+   <span class="k">def</span> <span class="nf">no_of_months</span>
+      <span class="nb">puts</span> <span class="no">Week</span><span class="o">::</span><span class="no">FIRST_DAY</span>
+      <span class="n">number</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="mi">12</span>
+      <span class="nb">puts</span> <span class="n">number</span>
+   <span class="k">end</span>
+<span class="k">end</span>
+<span class="n">d1</span><span class="o">=</span><span class="no">Decade</span><span class="p">.</span><span class="nf">new</span>
+<span class="nb">puts</span> <span class="no">Week</span><span class="o">::</span><span class="no">FIRST_DAY</span>
+<span class="no">Week</span><span class="p">.</span><span class="nf">weeks_in_month</span>
+<span class="no">Week</span><span class="p">.</span><span class="nf">weeks_in_year</span>
+<span class="n">d1</span><span class="p">.</span><span class="nf">no_of_months</span>
+
+<span class="no">EOF</span>
+
+
+<span class="n">chmod</span> <span class="mi">755</span> <span class="vg">$program</span>
+<span class="p">.</span><span class="nf">/</span><span class="vg">$program</span>
+</code></pre></div></div>
+
+<h3 id="mixins">Mixins</h3>
+
+<p>Ruby 不直接支持多重继承，但是 Ruby 的模块（Module）有另一个神奇的功能。它几乎消除了多重继承的需要，提供了一种名为 <em>mixin</em> 的装置。</p>
+
+<p>Ruby 没有真正实现多重继承机制，而是采用成为mixin技术作为替代品。将模块include到类定义中，模块中的方法就mix进了类中。</p>
+
+<p>下面代码中：</p>
+
+<ul>
+  <li>模块 A 由方法 a1 和 a2 组成。</li>
+  <li>模块 B 由方法 b1 和 b2 组成。</li>
+  <li>类 Sample 包含了模块 A 和 B。</li>
+  <li>类 Sample 可以访问所有四个方法，即 a1、a2、b1 和 b2。</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program=mixin.rb
+cat &lt;&lt; EOF &gt; $program
+#!/usr/bin/env ruby
+
+module A
+   def a1
+     puts "a1"
+   end
+   def a2
+     puts "a2"   
+   end
+end
+module B
+   def b1
+     puts "b1"   
+   end
+   def b2
+     puts "b2"   
+   end
+end
+ 
+class Sample
+include A
+include B
+   def s1
+     puts "s1"
+   end
+end
+ 
+samp=Sample.new
+samp.a1
+samp.a2
+samp.b1
+samp.b2
+samp.s1
+
+EOF
+
+chmod 755 $program
+./$program
+</code></pre></div></div>
+
+<h3 id="时间">时间</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program=time.rb
+cat &lt;&lt; EOF &gt; $program
+#!/usr/bin/env ruby
+
+time1 = Time.new
+ 
+puts "当前时间 : " + time1.inspect
+ 
+# Time.now 功能相同
+time2 = Time.now
+puts "当前时间 : " + time2.inspect
+
+puts '----------------------------------------------'
+time = Time.new
+ 
+# Time 的组件
+puts "当前时间 : " + time.inspect
+puts time.year    # =&gt; 日期的年份
+puts time.month   # =&gt; 日期的月份（1 到 12）
+puts time.day     # =&gt; 一个月中的第几天（1 到 31）
+puts time.wday    # =&gt; 一周中的星期几（0 是星期日）
+puts time.yday    # =&gt; 365：一年中的第几天
+puts time.hour    # =&gt; 23：24 小时制
+puts time.min     # =&gt; 59
+puts time.sec     # =&gt; 59
+puts time.usec    # =&gt; 999999：微秒
+puts time.zone    # =&gt; "UTC"：时区名称
+
+puts '----------------------------------------------'
+# July 8, 2008
+Time.local(2008, 7, 8)  
+# July 8, 2008, 09:10am，本地时间
+Time.local(2008, 7, 8, 9, 10)   
+# July 8, 2008, 09:10 UTC
+Time.utc(2008, 7, 8, 9, 10)  
+# July 8, 2008, 09:10:11 GMT （与 UTC 相同）
+Time.gm(2008, 7, 8, 9, 10, 11)
+
+puts '----------------------------------------------'
+time = Time.new
+ 
+puts time.to_s
+puts time.ctime
+puts time.localtime
+puts time.strftime("%Y-%m-%d %H:%M:%S")
+
+puts '----------------------------------------------'
+now = Time.now           # 当前时间
+puts now
+ 
+past = now - 10          # 10 秒之前。Time - number =&gt; Time
+puts past
+ 
+future = now + 10        # 从现在开始 10 秒之后。Time + number =&gt; Time
+puts future
+ 
+diff = future - now      # =&gt; 10  Time - Time =&gt; 秒数
+puts diff
+
+EOF
+
+chmod 755 $program
+./$program
+</code></pre></div></div>
+
+<h3 id="范围range">范围（Range）</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program=range.rb
+cat &lt;&lt; EOF &gt; $program
+#!/usr/bin/env ruby
+
+range1 = (1..10).to_a
+range2 = ('bar'..'bat').to_a
+puts "#{range1}"
+puts "#{range2}"
+
+puts '----------------------------------------------'
+digits = 0..9
+ 
+puts digits.include?(5)
+ret = digits.min
+puts "最小值为 #{ret}"
+ 
+ret = digits.max
+puts "最大值为 #{ret}"
+ 
+ret = digits.reject {|i| i &lt; 5 }
+puts "不符合条件的有 #{ret}"
+ 
+digits.each do |digit|
+   puts "在循环中 #{digit}"
+end
+
+puts '----------------------------------------------'
+score = 70
+ 
+result = case score
+when 0..40
+    "糟糕的分数"
+when 41..60
+    "快要及格"
+when 61..70
+    "及格分数"
+when 71..100
+       "良好分数"
+else
+    "错误的分数"
+end
+
+puts result
+
+puts '----------------------------------------------'
+if ((1..10) === 5)
+  puts "5 在 (1..10)"
+end
+ 
+if (('a'..'j') === 'c')
+  puts "c 在 ('a'..'j')"
+end
+ 
+if (('a'..'j') === 'z')
+  puts "z 在 ('a'..'j')"
+end
+
+EOF
+
+chmod 755 $program
+./$program
+</code></pre></div></div>
+
+<h3 id="迭代器iterator">迭代器（iterator）</h3>
+
+<p>迭代器（iterator）是<em>集合</em>支持的方法。存储一组数据成员的对象称为集合。在这里我们将讨论两种迭代器，<em>each</em> 和 <em>collect</em>。</p>
+
+<ul>
+  <li>each： 迭代器返回数组或哈希的所有元素。</li>
+  <li>collect： 返回整个集合，不管它是数组或者是哈希。感觉类似map-reduce中的map。</li>
+</ul>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">program</span><span class="o">=</span><span class="n">iterator</span><span class="p">.</span><span class="nf">rb</span>
+<span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span> <span class="o">&gt;</span> <span class="vg">$program</span>
+<span class="c1">#!/usr/bin/env ruby</span>
+
+<span class="nb">puts</span> <span class="s1">'----------------------------------------------'</span>
+<span class="n">ary</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">ary</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+   <span class="nb">puts</span> <span class="n">i</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="s1">'----------------------------------------------'</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="no">Array</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="nf">collect</span><span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="n">x</span> <span class="p">}</span>
+<span class="nb">puts</span> <span class="n">b</span>
+
+<span class="nb">puts</span> <span class="s1">'----------------------------------------------'</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="nf">collect</span><span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="mi">10</span><span class="o">*</span><span class="n">x</span><span class="p">}</span>
+<span class="nb">puts</span> <span class="n">b</span>
+
+<span class="no">EOF</span>
+
+<span class="n">chmod</span> <span class="mi">755</span> <span class="vg">$program</span>
+<span class="p">.</span><span class="nf">/</span><span class="vg">$program</span>
+</code></pre></div></div>
+
+<h3 id="输入输出">输入输出</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program=input_output.rb
+cat &lt;&lt; EOF &gt; $program
+#!/usr/bin/env ruby
+
+puts '----------------------------------------------'
+val1 = "This is variable one"
+val2 = "This is variable two"
+puts val1
+puts val2
+
+puts '----------------------------------------------'
+puts "Enter a value :"
+val = gets
+puts val
+
+puts '----------------------------------------------'
+# 与 puts 语句不同，puts 语句输出整个字符串到屏幕上，而 putc 语句可用于依次输出一个字符。
+str="Hello Ruby!"
+putc str
+
+puts '----------------------------------------------'
+# print 语句与 puts 语句类似。唯一的不同在于 puts 语句在输出内容后会跳到下一行，而使用 print 语句时，光标定位在同一行。
+print "Hello World"
+print "Good Morning"
+
+
+EOF
+
+chmod 755 $program
+./$program
+</code></pre></div></div>
+
+<p><strong><a href="https://www.cnblogs.com/yjmyzz/archive/2010/02/22/1671130.html">puts,p,print的区别</a></strong></p>
+
+<p>puts 输出内容后，会自动换行(如果内容参数为空，则仅输出一个换行符号)；另外如果内容参数中有转义符，输出时将先处理转义再输出
+p 基本与puts相同，但不会处理参数中的转义符号
+print 基本与puts相同，但输出内容后，不会自动在结尾加上换行符</p>
+
+<p>另外，在输出双字节的字符，比如全角英文或汉字时，p会输出对应的二个字节对应的数字，而非字符</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s = "aaaa\nbb\tbb"
+p s
+p "****************"
+puts s
+p "****************"
+print s
+
+s = "中"
+ 
+p s
+puts s
+print s
+</code></pre></div></div>
+
+<h3 id="文件操作">文件操作</h3>
+
+<ul>
+  <li><em>File.new</em> 方法创建一个 <em>File</em> 对象用于读取、写入或者读写，读写权限取决于 mode 参数。最后，您可以使用 <em>File.close</em> 方法来关闭该文件。</li>
+  <li><em>File.open</em> 方法创建一个新的 file 对象，并把该 file 对象赋值给文件。但是，<em>File.open</em> 和 <em>File.new</em> 方法之间有一点不同。不同点是 <em>File.open</em> 方法可与块关联，而 <em>File.new</em> 方法不能。</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program=file.rb
+cat &lt;&lt; EOF &gt; $program
+#!/usr/bin/env ruby
+
+puts '----------------------------------------------'
+aFile = File.new("input.txt", "w+")
+if aFile
+   aFile.syswrite("ABCDEFGHIJKLKMNOPQ\nRSTUVW\nXYZ\n")
+   aFile.rewind
+   # 方法 each_byte 是个可以迭代字符串中每个字符
+   aFile.each_byte {|ch| putc ch; putc ?. }   
+else
+   puts "Unable to open file!"
+end
+puts
+
+puts '----------------------------------------------'
+aFile = File.new("input.txt", "r")
+if aFile
+   content = aFile.sysread(10)
+   puts content
+else
+   puts "Unable to open file!"
+end
+
+puts '----------------------------------------------'
+arr = IO.readlines("input.txt")
+puts arr[0]
+puts arr[1]
+
+puts '----------------------------------------------'
+IO.foreach("input.txt"){|block| puts block}
+
+
+EOF
+
+chmod 755 $program
+./$program
+</code></pre></div></div>
+
+<h3 id="异常">异常</h3>
+
+<ul>
+  <li>使用 <em>rescue</em> 块捕获异常，然后使用 <em>retry</em> 语句从开头开始执行 <em>begin</em> 块。</li>
+  <li>使用 <em>raise</em> 语句抛出异常</li>
+  <li>使用 ensure语句，无论是否抛出异常，保证一些处理在代码块结束时完成</li>
+  <li>使用 <em>else</em> 子句，表示如果没有异常则执行，它一般是放置在 <em>rescue</em> 子句之后，任意 <em>ensure</em> 之前。</li>
+</ul>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">program</span><span class="o">=</span><span class="n">exception</span><span class="p">.</span><span class="nf">rb</span>
+<span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span> <span class="o">&gt;</span> <span class="vg">$program</span>
+<span class="c1">#!/usr/bin/env ruby</span>
+
+<span class="nb">puts</span> <span class="s1">'----------------------------------------------'</span>
+<span class="k">begin</span>
+   <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"/unexistant_file"</span><span class="p">)</span>
+   <span class="k">if</span> <span class="n">file</span>
+      <span class="nb">puts</span> <span class="s2">"File opened successfully"</span>
+   <span class="k">end</span>
+<span class="k">rescue</span>
+      <span class="n">file</span> <span class="o">=</span> <span class="no">STDIN</span>
+<span class="k">end</span>
+<span class="nb">print</span> <span class="n">file</span><span class="p">,</span> <span class="s2">"=="</span><span class="p">,</span> <span class="no">STDIN</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+
+<span class="nb">puts</span> <span class="s1">'----------------------------------------------'</span>
+<span class="n">fname</span> <span class="o">=</span> <span class="s2">"/unexistant_file"</span>
+<span class="k">begin</span>
+   <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+   <span class="k">if</span> <span class="n">file</span>
+      <span class="nb">puts</span> <span class="s2">"File opened successfully"</span>
+   <span class="k">end</span>
+<span class="k">rescue</span>
+   <span class="n">fname</span> <span class="o">=</span> <span class="s2">"input.txt"</span>
+   <span class="nb">puts</span> <span class="s1">'change file name'</span>
+   <span class="k">retry</span>
+<span class="k">end</span>
+
+
+<span class="nb">puts</span> <span class="s1">'----------------------------------------------'</span>
+<span class="k">begin</span>  
+    <span class="nb">puts</span> <span class="s1">'I am before the raise.'</span>  
+    <span class="k">raise</span> <span class="s1">'An error has occurred.'</span>  
+    <span class="nb">puts</span> <span class="s1">'I am after the raise.'</span>  
+<span class="k">rescue</span>  
+    <span class="nb">puts</span> <span class="s1">'I am rescued.'</span>  
+<span class="k">end</span>  
+<span class="nb">puts</span> <span class="s1">'I am after the begin block.'</span>
+
+<span class="nb">puts</span> <span class="s1">'----------------------------------------------'</span>
+<span class="k">begin</span>  
+  <span class="k">raise</span> <span class="s1">'A test exception.'</span>  
+<span class="k">rescue</span> <span class="no">Exception</span> <span class="o">=&gt;</span> <span class="n">e</span>  
+  <span class="nb">puts</span> <span class="n">e</span><span class="p">.</span><span class="nf">message</span>  
+  <span class="nb">puts</span> <span class="n">e</span><span class="p">.</span><span class="nf">backtrace</span><span class="p">.</span><span class="nf">inspect</span>  
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="s1">'----------------------------------------------'</span>
+<span class="k">begin</span>
+  <span class="k">raise</span> <span class="s1">'A test exception.'</span>
+<span class="k">rescue</span> <span class="no">Exception</span> <span class="o">=&gt;</span> <span class="n">e</span>
+  <span class="nb">puts</span> <span class="n">e</span><span class="p">.</span><span class="nf">message</span>
+  <span class="nb">puts</span> <span class="n">e</span><span class="p">.</span><span class="nf">backtrace</span><span class="p">.</span><span class="nf">inspect</span>
+<span class="k">ensure</span>
+  <span class="nb">puts</span> <span class="s2">"Ensuring execution"</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="s1">'----------------------------------------------'</span>
+<span class="k">begin</span>
+ <span class="c1"># 抛出 'A test exception.'</span>
+ <span class="nb">puts</span> <span class="s2">"I'm not raising exception"</span>
+<span class="k">rescue</span> <span class="no">Exception</span> <span class="o">=&gt;</span> <span class="n">e</span>
+  <span class="nb">puts</span> <span class="n">e</span><span class="p">.</span><span class="nf">message</span>
+  <span class="nb">puts</span> <span class="n">e</span><span class="p">.</span><span class="nf">backtrace</span><span class="p">.</span><span class="nf">inspect</span>
+<span class="k">else</span>
+   <span class="nb">puts</span> <span class="s2">"Congratulations-- no errors!"</span>
+<span class="k">ensure</span>
+  <span class="nb">puts</span> <span class="s2">"Ensuring execution"</span>
+<span class="k">end</span>
+
+<span class="no">EOF</span>
+
+<span class="n">chmod</span> <span class="mi">755</span> <span class="vg">$program</span>
+<span class="p">.</span><span class="nf">/</span><span class="vg">$program</span>
+</code></pre></div></div>
+
+<p><strong>Catch 和 Throw</strong></p>
+
+<p>raise 和 rescue 的异常机制能在发生错误时放弃执行，有时候需要在正常处理时跳出一些深层嵌套的结构。此时 catch 和 throw 就派上用场了。</p>
+
+<p><em>catch</em> 定义了一个使用给定的名称（可以是 Symbol 或 String）作为标签的块。块会正常执行直到遇到一个 throw。</p>
+
+<p>下面例子中，用户键入 ‘!’ 回应任何提示，使用一个 throw 终止与用户的交互。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program=try.rb
+cat &lt;&lt; EOF &gt; $program
+#!/usr/bin/env ruby
+
+def promptAndGet(prompt)
+   print prompt
+   res = readline.chomp
+   throw :quitRequested if res == "!"
+   return res
+end
+ 
+catch :quitRequested do
+   name = promptAndGet("Name: ")
+   age = promptAndGet("Age: ")
+   sex = promptAndGet("Sex: ")
+   # ..
+   # 处理信息
+end
+
+
+
+EOF
+
+chmod 755 $program
+./$program
+</code></pre></div></div>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+  <li><a href="https://www.ruby-lang.org/zh_cn/documentation/quickstart/">20 minutes quickstart</a></li>
+  <li><a href="https://www.runoob.com/ruby/ruby-tutorial.html">Ruby 教程</a></li>
+</ul>
+
+:ET
