@@ -2,6 +2,8 @@
 
 **安装rbenv**
 
+rbenv 用来管理多个版本的 ruby 在用户目录的安装和使用.
+
 ~~~shell
 curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc

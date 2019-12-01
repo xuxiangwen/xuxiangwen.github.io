@@ -22,6 +22,8 @@ Jekyll 是一个简单的博客形态的静态站点生产机器。它有一个�
    jekyll new myblog
    ```
 
+   > 默认的路径在`/home/grid/eipi10/xuxiangwen.github.io/99-others/jekyll/myblog`
+
 4. 进入新创建的目录
 
    ```
@@ -62,13 +64,7 @@ mkdir -p docker-myblog/vendor/bundle
 cd docker-myblog
 echo host: 0.0.0.0 > _config.yml
 echo port: 4000    >> _config.yml
-
-docker run  \
-  --volume="$PWD:/srv/jekyll" \
-  --volume="$PWD/vendor/bundle:/usr/local/bundle" \
-  -it jekyll/jekyll:latest \
-  jekyll serve
-  
+ 
 docker run  \
   --volume="$PWD:/srv/jekyll" \
   --volume="$PWD/vendor/bundle:/usr/local/bundle" \
@@ -131,8 +127,9 @@ rm -rf _layouts/post.html
 ~~~
 
 
+# 2. github pages
 
-
-
-
+```
+bundle exec jekyll serve --host 0.0.0.0 --port 4000
+```
 
