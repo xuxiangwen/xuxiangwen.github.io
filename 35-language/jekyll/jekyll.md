@@ -62,7 +62,8 @@ Jekyll 是一个简单的博客形态的静态站点生产机器。它有一个�
 mkdir -p docker-myblog
 mkdir -p docker-myblog/vendor/bundle
 cd docker-myblog
-echo host: 0.0.0.0 > _config.yml
+rm _config.yml
+echo host: 0.0.0.0 >> _config.yml
 echo port: 4000    >> _config.yml
  
 docker run  \
