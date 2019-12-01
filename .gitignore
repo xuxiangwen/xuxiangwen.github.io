@@ -8,3 +8,4 @@ model
 data
 .project
 Gemfile.lock
+_site
