@@ -132,15 +132,12 @@ A^\mathrm{T} \cdot \frac{\mathrm{d}f((Au)^\mathrm{T})}{\mathrm{d}Au}=
 A^\mathrm{T} \cdot diag(\frac {\partial f(v_1)} {\partial v_1}_, ... \frac {\partial f(v_i)} {\partial v_i}_, ... \frac {\partial f(v_m)} {\partial v_m})
 $
 
-
-
 $
 \frac{\mathrm{d}g(f(u^\mathrm{T}))}{\mathrm{d}u} = 
 \frac{\mathrm{d}f(u^\mathrm{T})}{\mathrm{d}u}  \cdot \frac{\mathrm{d}g(f(u^\mathrm{T}))}{\mathrm{d}f(u)} = 
 diag(\frac {\partial f(u_1)} {\partial u_1}_, ... \frac {\partial f(u_i)} {\partial u_i}_, ... \frac {\partial f(u_d)} {\partial u_d}) \cdot
 diag(\frac {\partial g(w_1)} {\partial w_1}_, ... \frac {\partial g(w_i)} {\partial w_i}_, ... \frac {\partial g(w_d)} {\partial w_d})
 $
-
 
 $
 \frac{\mathrm{d}g(f((Au)^\mathrm{T}))}{\mathrm{d}u} = 

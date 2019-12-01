@@ -101,6 +101,7 @@
    chmod 755 NVIDIA-Linux-x86_64-440.36.run
    sudo  ./NVIDIA-Linux-x86_64-440.36.run
    sudo systemctl set-default graphical.target     #设置运行级别回图形模式
+   sudo systemctl get-default
    sudo shutdown -r now
    ~~~
 
