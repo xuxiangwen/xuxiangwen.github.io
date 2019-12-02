@@ -58,8 +58,8 @@ EOF
 >
 > - jekyll build： 构建站点并输出到目录`_site`
 > - jekyll serve： 
->   - 构建站点并输出到目录`_site`，并监控本地变化，重建静态站点
->   - 运行一个本地网站`http://localhost:4000`
+>     - 构建站点并输出到目录`_site`，并监控本地变化，重建静态站点
+>     - 运行一个本地网站`http://localhost:4000`
 
 
 
@@ -250,7 +250,7 @@ Jekyll一般使用结构来存储CSS, JS, image。
 ...
 ~~~
 
-### Sass
+#### Sass
 
 [sass](http://www.ruanyifeng.com/blog/2012/06/sass.html)是一种CSS的开发工具，提供了许多便利的写法，大大节省了设计者的时间，使得CSS的开发，变得简单和可维护。
 
@@ -386,6 +386,23 @@ cat << EOF > _config.yml
 collections:
   authors:
     output: true
+    
+defaults:
+  - scope:
+      path: ""
+      type: "authors"
+    values:
+      layout: "author"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+  
 EOF
 
 mkdir -p _authors
