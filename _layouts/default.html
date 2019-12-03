@@ -38,6 +38,14 @@
         </section>
 
         <aside id="sidebar">
+ <ul>
+  {% for post in site.posts %}
+    <li>
+      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+    </li>
+  {% endfor %}
+</ul>
+
           {% if site.show_downloads %}
             <a href="{{ site.github.zip_url }}" class="button">
               <small>Download</small>
