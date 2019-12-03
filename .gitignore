@@ -3,6 +3,7 @@
 .env/*
 .idea/*
 .ipynb_checkpoints
+.sass-cache
 large-file/*
 model
 data
