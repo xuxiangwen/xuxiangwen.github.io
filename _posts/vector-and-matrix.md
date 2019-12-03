@@ -20,8 +20,6 @@ $$
 
 $$
 
-        
-
 向量可以看成是$n$维空间中一个点的坐标，比如，下图中，向量$\begin{bmatrix}2 \\ 1\end{bmatrix}$可以表示为a的坐标。
 
  ![img](image/fig5.png) 
