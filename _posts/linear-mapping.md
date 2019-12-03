@@ -211,6 +211,7 @@ $$
 \mathbf {\beta_n} &= \mathbf {v_n} - \sum_{i=1}^{n-1} (\mathbf {v_n} \cdot \mathbf {\eta_i}) \mathbf {\eta_i} & \mathbf {\eta_n} =  \frac {\mathbf {\beta_n}}  {\| \mathbf {\beta_n}\|}  
 \end{align}
 $$
+
 其中$\begin{bmatrix} \mathbf {\eta_1} & \mathbf {\eta_2} & \cdots & \mathbf {\eta_n} \end{bmatrix}$就是经过变换后的正交矩阵。
 
 通过上面的分析，可以得出：一组（线性无关）的向量总可以通过线性变换变成正交矩阵。
@@ -222,6 +223,7 @@ $$
 #### 内积和投影
 
 还可以从内积角度来理解线性映射。
+
 $$
 \begin{align} 
 \mathbf{\beta} &= \mathbf A \cdot \mathbf{\alpha}  \\
@@ -241,6 +243,7 @@ $$
 \end{bmatrix} 
 \end{align}
 $$
+
 通过上面的推导可以看出，$\mathbf \beta$可以理解为向量$\mathbf \alpha$和$\mathbf  A$各个行向量的内积。线性映射的过程，就是把$\mathbf \alpha$从$n$维空间映射到$m$维空间的过程。
 
 当$\mathbf {a_1}, \mathbf {a_2}, \cdots, \mathbf {a_m}$是单位向量时，**$\mathbf \beta$是向量$\mathbf \alpha$ 在$\mathbf  A$各个行向量上的投影**，即以行向量为基的坐标系上的坐标。
