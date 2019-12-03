@@ -1,5 +1,4 @@
 ---
-layout: post 
 title: 向量和矩阵
 categories: 线性代数
 ---
