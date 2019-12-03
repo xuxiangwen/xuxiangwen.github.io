@@ -1,7 +1,11 @@
 title: 欢迎来到eipi10!
 description: 记录了学习的经历和所得，分享给所有的朋友
 theme: jekyll-theme-architect
-show_downloads: true
+permalink: pretty 
+show_downloads: false
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
 defaults:
   - scope:
       path: ""
