@@ -4,7 +4,19 @@
 
 1. 从物理上，可以理解为做功。
 
-2.  $$ \frac {a} {\|a\|}， \frac {b} {\|b\|} $$都是单位向量，  $cos(\theta ) = \frac {a} {\|a\|} \cdot \frac {b} {\|b \|}  $, 其中 $\theta $是两个向量的夹角。
+2.  
+
+
+$$
+
+
+ \frac {a} {\|a\|}， \frac {b} {\|b\|} 
+
+
+$$
+
+
+都是单位向量，  $cos(\theta ) = \frac {a} {\|a\|} \cdot \frac {b} {\|b \|}  $, 其中 $\theta $是两个向量的夹角。
 
 3. $a \cdot \frac {b} {|b|} $ 表示a向量在 $b$单位向量上的投影长度。
 
@@ -31,9 +43,21 @@
 
 空间任意一点$x$到平面的距离是:  
 
+
+
+
 $$
+
+
+
 \gamma = \frac 1 {|w|} (w \cdot x + b)
+
+
+
 $$
+
+
+
 
 - $ \gamma >0 $，表示$x$在平面上方
 - $\gamma<0$，表示$x$在平面下方
@@ -57,7 +81,13 @@ $$
   $ \gamma = \frac 1 {|w|}(w \cdot x) $
 
 然后对平面做一个坐标变化，把坐标原点变换到$x_1$
+
+
+
 $$
+
+
+
 x_1 = 
 \begin{bmatrix} 
 0 \\
@@ -67,11 +97,29 @@ x_1 =
 0 \\
 0
 \end{bmatrix}
+
+
+
 $$
+
+
+
 新的平面方程变成
+
+
+
 $$
+
+
+
 w \cdot x^{'}
+
+
+
 $$
+
+
+
 其中 $x = x^{'}+ x_1 $
 
 $ \gamma_x = \gamma_{x^{'}} = \frac 1 {|w|} w \cdot  x^{'} = \frac 1 {|w|} w \cdot  (x-x_1) = \frac 1 {|w|} (w \cdot x + b) $
@@ -92,6 +140,18 @@ w
 \end{bmatrix}
 $，则平面方程变成$w^{'}  \cdot x^{'}=0$
 
-$$ \gamma_{x^{'}} = \frac 1 {|w^{'}|} w^{'} \cdot x^{'} $$
+
+
+
+$$
+
+
+ \gamma_{x^{'}} = \frac 1 {|w^{'}|} w^{'} \cdot x^{'} 
+
+
+$$
+
+
+
 
 略！

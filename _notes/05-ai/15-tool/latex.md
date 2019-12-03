@@ -109,9 +109,21 @@ $L_C = L_A \cap (L_B \cup L_C)$ : L_C = L_A \cap (L_B \cup L_C) 并集和交集
 ### 公式编号
 
 
+
+
+
 $$
+
+
+
 E=mc^2\tag{1}
+
+
+
 $$
+
+
+
 
 
 

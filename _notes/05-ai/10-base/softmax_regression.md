@@ -274,11 +274,35 @@ Since we want to predict probabilities, it would be logical for us to define sof
 
 If you write down the expression for crossentropy as a function of softmax logits (a), you'll see:
 
-$$ loss = - log \space {e^{a_{correct}} \over {\underset i \sum e^{a_i} } } $$
+
+
+
+$$
+
+
+ loss = - log \space {e^{a_{correct}} \over {\underset i \sum e^{a_i} } } 
+
+
+$$
+
+
+
 
 If you take a closer look, ya'll see that it can be rewritten as:
 
-$$ loss = - a_{correct} + log {\underset i \sum e^{a_i} } $$
+
+
+
+$$
+
+
+ loss = - a_{correct} + log {\underset i \sum e^{a_i} } 
+
+
+$$
+
+
+
 
 It's called Log-softmax and it's better than naive log(softmax(a)) in all aspects:
 * Better numerical stability

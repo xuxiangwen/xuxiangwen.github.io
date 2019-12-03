@@ -13,11 +13,19 @@ categories: mathematics linear_algebra
 
  向量（vector）是线性代数中的基本概念，也是机器学习的基础数据表示形式。           
 
+
+
 $$
+
+
         
 \mathbf{a} = \begin{bmatrix}a_1 \\ a_2 \\ \ldots \\ a_n\end{bmatrix}        
 
+
+
 $$
+
+
         
 
 向量可以看成是$n$维空间中一个点的坐标，比如，下图中，向量$\begin{bmatrix}2 \\ 1\end{bmatrix}$可以表示为a的坐标。
@@ -32,11 +40,19 @@ $$
 
 把向量看成一个点的坐标，很容易得到向量的加法规则。          
 
+
+
 $$
+
+
         
 \mathbf{a} + \mathbf{b} = \mathbf{c}        
 
+
+
 $$
+
+
         
 ![image-20191108105013452](image/image-20191108105013452.png)
 
@@ -46,12 +62,20 @@ $$
 
  向量的大小也叫向量的模，公式如下。          
 
+
+
 $$
+
+
         
 \| \mathbf{a} \| = 
 \sqrt{a_{1}^{2} + a_{2}^{2} + \ldots + a_{n}^{2}}        
 
+
+
 $$
+
+
         
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/05-ai/50-my-course/machine_learning/c0002.ipynb#向量大小)。
@@ -60,11 +84,19 @@ $$
 
 向量的默认形式是以一列排列的，称之为**列向量**，如果对列向量进行转置，就变成了**行向量**。          
 
+
+
 $$
+
+
         
 \mathbf{a^T} = \begin{bmatrix}a_1 & a_2 & \ldots  & a_n\end{bmatrix}        
 
+
+
 $$
+
+
         
 $\mathbf {a^T}$表示$\mathbf a$的转置，是一个行向量。
 
@@ -76,7 +108,11 @@ $\mathbf {a^T}$表示$\mathbf a$的转置，是一个行向量。
 
 矩阵的表示如下：        
 
+
+
 $$
+
+
         
 \mathbf A = 
 \begin{bmatrix} 
@@ -86,13 +122,21 @@ a_{21} & a_{22} & \cdots & a_{2n}  \\
 a_{m1} & a_{m2} & \cdots & a_{mn} 
 \end{bmatrix}        
 
+
+
 $$
+
+
         
 上面的$\mathbf A$为$ m  \times  n$阶矩阵，如果$m=n$，则称之为**方阵**。
 
 矩阵可以看成行向量或者列向量的组合。比如：        
 
+
+
 $$
+
+
         
 \mathbf A = 
 \begin{bmatrix} 
@@ -107,7 +151,11 @@ a_{m1} & a_{m2} & \cdots & a_{mn}
 \begin{bmatrix} \mathbf {a_1^{'}} & \mathbf a_2^{'} & \cdots & \mathbf a_p^{'} 
 \end{bmatrix}        
 
+
+
 $$
+
+
         
 其中$\mathbf {a_i^T} = \begin{bmatrix} 
 a_{i1} & a_{i2} & \cdots & a_{in} \end{bmatrix}，\mathbf {a_j^{'}} = \begin{bmatrix} 
@@ -119,11 +167,19 @@ a_{1j} \\  a_{2j} \\ \cdots \\  a_{mj} \end{bmatrix}$
 
 假设$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$m \times n $阶矩阵，则        
 
+
+
 $$
+
+
         
 \mathbf A + \mathbf B = \begin{bmatrix}c_{11} & c_{12} & \cdots & c_{1n} \\c_{21} & c_{22} & \cdots & c_{2n} \\\vdots & \vdots & \ddots  & \vdots \\ c_{m1} & c_{m2} & \cdots & c_{mn} \\\end{bmatrix}        
 
+
+
 $$
+
+
         
 其中$c_{ij} = a_{ij} + b_{ij} $，也就是两个矩阵中相同位置的数分别相加，其结果也是$m \times n $阶矩阵。
 
@@ -137,7 +193,11 @@ $$
 
 公式如下：        
 
+
+
 $$
+
+
         
 \mathbf A \cdot \mathbf B = \begin{bmatrix}
 c_{11} & c_{12} & \cdots & c_{1p} \\
@@ -146,7 +206,11 @@ c_{21} & c_{22} & \cdots & c_{2p} \\
 c_{m1} & c_{m2} & \cdots & c_{mp} \\
 \end{bmatrix}        
 
+
+
 $$
+
+
         
 其中 $ c_{ij}=  \sum_{k=0}^{n} a_{ik}b_{kj} $
 
@@ -162,7 +226,11 @@ $$
 
 假设$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$m \times n $阶矩阵，则        
 
+
+
 $$
+
+
         
 \mathbf A \circ  \mathbf B = \begin{bmatrix}
 c_{11} & c_{12} & \cdots & c_{1n} \\
@@ -171,7 +239,11 @@ c_{21} & c_{22} & \cdots & c_{2n} \\
 c_{m1} & c_{m2} & \cdots & c_{mn} \\
 \end{bmatrix}        
 
+
+
 $$
+
+
         
 其中$c_{ij} = a_{ij} b_{ij}$，也就是两个矩阵中相同位置的数分别相乘，其结果也是$m \times n $阶矩阵。
 
@@ -185,7 +257,11 @@ $$
 
  如果$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$1 \times  n$阶矩阵，可以得到，        
 
+
+
 $$
+
+
         
 \mathbf A + \mathbf B = \begin{bmatrix}
 a_{11} + b_{11} & c_{12}+ b_{12}& \cdots & c_{1n} + b_{1n} \\
@@ -194,7 +270,11 @@ a_{21} + b_{11} & c_{22}+ b_{12}& \cdots & c_{2n} + b_{1n} \\
 a_{m1} + b_{11} & c_{m2}+ b_{12}& \cdots & c_{mn} + b_{1n} \\
 \end{bmatrix}        
 
+
+
 $$
+
+
         
 即下图所示：
 
@@ -202,7 +282,11 @@ $$
 
 同理，假设$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$m \times 1 $阶矩阵，则：        
 
+
+
 $$
+
+
         
 \mathbf A + \mathbf B = \begin{bmatrix}
 a_{11} + b_{11} & c_{12}+ b_{11}& \cdots & c_{1n} + b_{11} \\
@@ -211,7 +295,11 @@ a_{21} + b_{21} & c_{22}+ b_{11}& \cdots & c_{2n} + b_{21} \\
 a_{m1} + b_{m1} & c_{m2}+ b_{m1}& \cdots & c_{mn} + b_{m1} \\
 \end{bmatrix}        
 
+
+
 $$
+
+
         
 哈达玛积也可以按照上面所说逻辑，进行Broadcasting。
 
@@ -221,7 +309,11 @@ $$
 
 沿着对角线对矩阵进行反转，称之为矩阵转置，转置后的矩阵，记为$\mathbf {A^T}$。假设$\mathbf A$为$ m  \times  n$阶矩阵，$\mathbf {A^T}$是$n \times m$阶矩阵。示例如下。        
 
+
+
 $$
+
+
         
 {
 \begin{bmatrix}
@@ -235,12 +327,20 @@ $$
 4 & 5
 \end{bmatrix}        
 
+
+
 $$
+
+
         
 
 如果矩阵是个方阵，当$\mathbf {A^T} = \mathbf  {A} $，称之为**对称矩阵**。比如：        
 
+
+
 $$
+
+
         
 {
 \begin{bmatrix}
@@ -255,7 +355,11 @@ $$
 4 & 5 & 2 
 \end{bmatrix}        
 
+
+
 $$
+
+
         
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/05-ai/50-my-course/machine_learning/c0002.ipynb#矩阵转置)。
@@ -266,7 +370,11 @@ $$
 
 假设：        
 
+
+
 $$
+
+
         
 \mathbf A = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\a_{21} & a_{22} & \cdots & a_{2n}  \\ \vdots & \vdots  & \vdots & \vdots \\a_{m1} & a_{m2} & \cdots & a_{mn}  \\\end{bmatrix} = 
 \begin{bmatrix} \mathbf {a_1^{'}} & \mathbf a_2^{'} & \cdots & \mathbf {a_p^{'} }
@@ -275,11 +383,19 @@ $$
 \end{bmatrix} 
 \\        
 
+
+
 $$
+
+
         
 根据矩阵乘法可得：        
 
+
+
 $$
+
+
         
 \mathbf A \cdot \mathbf b =
 \begin{bmatrix} 
@@ -289,7 +405,11 @@ a_{21}b_1 + a_{22}b_2 + \cdots + a_{2n}b_n \\
 a_{m1}b_1 + a_{m2}b_2 + \cdots + a_{mn}b_n \\
 \end{bmatrix}        
 
+
+
 $$
+
+
         
 公式右边，一列一列的看，可以找到规律：
 
@@ -297,7 +417,11 @@ $$
 
 推导出：        
 
+
+
 $$
+
+
         
 \begin{align}
 \mathbf A \cdot \mathbf b &= 
@@ -316,7 +440,11 @@ a_{1n} \\  a_{2n} \\ \cdots \\  a_{mn} \end{bmatrix} b_n
 \mathbf {a_n^{'}} \cdot  {b_n}
 \end{align}        
 
+
+
 $$
+
+
         
 
 
@@ -332,7 +460,11 @@ $$
 
 单位矩阵是指是$n \times n$阶矩阵， 其主对角线元素为$1$，其余元素为$0$ ，记为$\mathbf {I_n}$。        
 
+
+
 $$
+
+
         
 \mathbf {I_n} = 
 \begin{bmatrix}
@@ -343,7 +475,11 @@ $$
 0 & 0 &  \cdots & 1 \\
 \end{bmatrix}        
 
+
+
 $$
+
+
         
 如果说矩阵是一个以列向量为轴的坐标系，则单位矩阵是标准坐标系。单位矩阵就像初等数学里的$1$一样，和任何向量相乘，都不改变原向量的大小和方向。
 
