@@ -3,6 +3,8 @@ title: 向量内积
 categories: mathematics linear_algebra
 date: 2019-12-03
 ---
+向量内积非常基础和重要，它是机器学习中计算的基本方式。
+
 ### 向量内积
 
 也称向量点积（Dot Product） ，是两个向量各个分量分别相乘，然后全部相加而得。
