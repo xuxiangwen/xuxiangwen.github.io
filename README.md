@@ -21,7 +21,7 @@ defaults:
       path: ""
       type: "posts"
     values:
-      layout: "default"
+      layout: "post"
   - scope:
       path: ""
     values:
@@ -138,6 +138,8 @@ _bin/md_clean.sh _posts/vector-and-matrix.md
 ~~~
 
 ### 发布blog
+
+zh
 
 ~~~
 _bin/publish.sh _posts
