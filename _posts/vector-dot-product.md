@@ -5,8 +5,7 @@ date: 2019-12-03
 ---
 ### 向量内积
 
-向量内积也称向量点积（Dot Product） ，是两个向量各个分量分别相乘，然后全部相加而得。
-
+也称向量点积（Dot Product） ，是两个向量各个分量分别相乘，然后全部相加而得。
 $$
 \mathbf{a}\cdot \mathbf{b} = 
 \begin{bmatrix} a_1 \\ a_2 \\ \ldots \\ a_n
