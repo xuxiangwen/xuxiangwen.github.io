@@ -4,7 +4,7 @@ WSGI（Web Server Gateway Interface）是Python应用程序（或者框架、套
 
 之所以有这层透明，是因为Web Server和Web Application之间有一套规范的接口，这套接口帮我们隐藏了很多HTTP相关的细节。这套接口规范就是WSGI（Web Server Gateway Interface）。
 
-![img](image/271340537504265.png)
+![img](images/271340537504265.png)
 
 W要实现WSGI协议，必须同时实现`Web serve`r和`Web application`，当前运行在WSGI协议之上的web框架有`Torando`,`Flask`,`Django`
 

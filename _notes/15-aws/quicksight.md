@@ -1,7 +1,7 @@
 
 ### Workflow
 
-![img](image/quicksight-workflow-overview.png)
+![img](images/quicksight-workflow-overview.png)
 
 ### SPICE
 

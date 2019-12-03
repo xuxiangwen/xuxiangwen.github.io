@@ -27,7 +27,7 @@ p(k)=\binom{n}{k}*p^k*(1-p)^{n-k}
 
 $$
 
-![Probability mass function for the binomial distribution](image/300px-Binomial_distribution_pmf.svg.png)  ![Cumulative distribution function for the binomial distribution](image/300px-Binomial_distribution_cdf.svg.png)
+![Probability mass function for the binomial distribution](images/300px-Binomial_distribution_pmf.svg.png)  ![Cumulative distribution function for the binomial distribution](images/300px-Binomial_distribution_cdf.svg.png)
 
 概率密度函数（Probability density function）                                   累计分布函数（Cumulative distribution function）
 
@@ -94,7 +94,7 @@ P\{X = k\} = \frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}},\quad i = 0,1,\l
 
 $$
 
-![Hypergeometric PDF plot](image/300px-HypergeometricPDF.png)  ![Hypergeometric CDF plot](image/300px-HypergeometricCDF.png)  
+![Hypergeometric PDF plot](images/300px-HypergeometricPDF.png)  ![Hypergeometric CDF plot](images/300px-HypergeometricCDF.png)  
 
 ### 通俗理解和应用
 
@@ -139,7 +139,7 @@ $$
 
 其中$\lambda$是一段时间事件平均发生的平均次数， $k$是事件发生的次数。下图中，可以看到当$\lambda$越大，泊松分布约接近于正态分布，当$\lambda $≥50，泊松分布基本上就等于正态分布了。
 
-![Plot of the Poisson PMF](image/325px-Poisson_pmf.svg.png)  c![Plot of the Poisson CDF](image/Poisson_cdf.svg.png)
+![Plot of the Poisson PMF](images/325px-Poisson_pmf.svg.png)  c![Plot of the Poisson CDF](images/Poisson_cdf.svg.png)
 
 概率密度函数（Probability density function）                                   累计分布函数（Cumulative distribution function）
 
@@ -152,7 +152,7 @@ Poisson分布和二项分布关系紧密，推导过程如下。
 1. 可以把单位时间分成$n$份，n非常大，则可以认为每一份时间中事件发生的概率$p=\frac \lambda n$
 2. 根据二项分布的原理 ，可以得出
 
-![d](image/p28770212.webp)
+![d](images/p28770212.webp)
 
 ### 数学期望和方差
 
@@ -169,24 +169,24 @@ $$
 
 1.独立增量。任何两段不相交的时间区间内，事件发生的次数互不影响
 
-2.平稳增量。时间区间 ![[公式]](image/equation-1565153500234.svg) 内，事件发生的次数只与区间长度 ![[公式]](image/equation-1565146874578.svg) 有关，而与时间区间的起点 ![[公式]](image/equation-1565146873921.svg) /终点 ![[公式]](image/equation-1565146874625.svg) 无关
+2.平稳增量。时间区间 ![[公式]](images/equation-1565153500234.svg) 内，事件发生的次数只与区间长度 ![[公式]](images/equation-1565146874578.svg) 有关，而与时间区间的起点 ![[公式]](images/equation-1565146873921.svg) /终点 ![[公式]](images/equation-1565146874625.svg) 无关
 
-3.稀疏性。在泊松过程的时间t趋于0的时候，发生次数大于1的概率远小于发生次数为1的概率。定量表示为 ![[公式]](image/equation-1565153637828.svg) 。其中， ![[公式]](image/equation-1565146873790.svg) 表示长度为t的时间区间内，事件发生次数等于1的概率， ![[公式]](image/equation-1565153500207.svg) 表示长度为t的时间区间内，事件发生次数大于1的概率
+3.稀疏性。在泊松过程的时间t趋于0的时候，发生次数大于1的概率远小于发生次数为1的概率。定量表示为 ![[公式]](images/equation-1565153637828.svg) 。其中， ![[公式]](images/equation-1565146873790.svg) 表示长度为t的时间区间内，事件发生次数等于1的概率， ![[公式]](images/equation-1565153500207.svg) 表示长度为t的时间区间内，事件发生次数大于1的概率
 
 只要满足上述三个性质的随机过程，都是泊松过程。相应地，也满足泊松分布。
 
 **严格的数学描述**
 
- 随机过程 ![[公式]](image/equation-1565153637815.svg) 表示 ![[公式]](image/equation-1565147121827.svg) 到 ![[公式]](image/equation-1565147121838.svg) 时间内事件 ![[公式]](image/equation-1565147121839.svg) 发生的次数，满足 ![[公式]](image/equation-1565153500208.svg) 且取值为整数，当 ![[公式]](https://www.zhihu.com/equation?tex=s%3Ct) 时， ![[公式]](https://www.zhihu.com/equation?tex=N%28s%29%5Cleq+N%28t%29) 且 ![[公式]](https://www.zhihu.com/equation?tex=N%28t%29-N%28s%29) 表示 ![[公式]](https://www.zhihu.com/equation?tex=%28s%2Ct%5D) 时间内事件 ![[公式]](image/equation-1565147121839.svg) 发生的次数，那么 ![[公式]](image/equation-1565153637815.svg) 是一个**计数过程**。
+ 随机过程 ![[公式]](images/equation-1565153637815.svg) 表示 ![[公式]](images/equation-1565147121827.svg) 到 ![[公式]](images/equation-1565147121838.svg) 时间内事件 ![[公式]](images/equation-1565147121839.svg) 发生的次数，满足 ![[公式]](images/equation-1565153500208.svg) 且取值为整数，当 ![[公式]](https://www.zhihu.com/equation?tex=s%3Ct) 时， ![[公式]](https://www.zhihu.com/equation?tex=N%28s%29%5Cleq+N%28t%29) 且 ![[公式]](https://www.zhihu.com/equation?tex=N%28t%29-N%28s%29) 表示 ![[公式]](https://www.zhihu.com/equation?tex=%28s%2Ct%5D) 时间内事件 ![[公式]](images/equation-1565147121839.svg) 发生的次数，那么 ![[公式]](images/equation-1565153637815.svg) 是一个**计数过程**。
 
-随机过程![[公式]](image/equation-1565147121837.svg) 满足以下三条件：
+随机过程![[公式]](images/equation-1565147121837.svg) 满足以下三条件：
 
-1. ![[公式]](image/equation-1565153637979.svg) 是计数过程，且 ![[公式]](https://www.zhihu.com/equation?tex=N%280%29%3D0) 
+1. ![[公式]](images/equation-1565153637979.svg) 是计数过程，且 ![[公式]](https://www.zhihu.com/equation?tex=N%280%29%3D0) 
 2. 平稳独立增量过程
 3. 存在 ![[公式]](https://www.zhihu.com/equation?tex=%5Clambda%3E0) 使 
          ![[公式]](https://www.zhihu.com/equation?tex=P%28N%28t%2Bh%29-N%28t%29%3D1%29%3D%5Clambda+h%2Bo%28h%29%2C+P%28N%28t%2Bh%29-N%28t%29%5Cgeq+2%29%3Do%28h%29) 
-         或者 3. 存在 ![[公式]](https://www.zhihu.com/equation?tex=%5Clambda%3E0) 使 ![[公式]](image/equation-1565153637982.svg) 
-         那么 ![[公式]](image/equation-1565147121837.svg) 是一个**泊松过程。**  
+         或者 3. 存在 ![[公式]](https://www.zhihu.com/equation?tex=%5Clambda%3E0) 使 ![[公式]](images/equation-1565153637982.svg) 
+         那么 ![[公式]](images/equation-1565147121837.svg) 是一个**泊松过程。**  
 
 ### 参考
 
@@ -215,7 +215,7 @@ f(x;\lambda) = \begin{equation}
 
 $$
 
-![æºçå¯åº¦å½æ°](image/325px-Exponential_distribution_pdf.png)  ![ç´¯ç§¯åéå½æ°](image/325px-Exponential_distribution_cdf.png)
+![æºçå¯åº¦å½æ°](images/325px-Exponential_distribution_pdf.png)  ![ç´¯ç§¯åéå½æ°](images/325px-Exponential_distribution_cdf.png)
 
 概率密度函数（Probability density function）                                   累计分布函数（Cumulative distribution function）
 
@@ -266,7 +266,7 @@ $$
 - $Gamma(x|\alpha) = \frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)} $
 - $x=\beta t$
 
-![Probability density plots of gamma distributions](image/325px-Gamma_distribution_pdf.png)      ![Cumulative distribution plots of gamma distributions](image/325px-Gamma_distribution_cdf.png)
+![Probability density plots of gamma distributions](images/325px-Gamma_distribution_pdf.png)      ![Cumulative distribution plots of gamma distributions](images/325px-Gamma_distribution_cdf.png)
 
 概率密度函数（Probability density function）                                   累计分布函数（Cumulative distribution function）
 
@@ -316,7 +316,7 @@ f(x;\alpha,\beta)={x^{\alpha-1}(1-x)^{\beta-1} \over \int_0^1x^{\alpha-1}(1-x)^{
 
 $$
 
-![Probability density function for the Beta distribution](image/325px-Beta_distribution_pdf.svg.png)   ![Probability density function for the Beta distribution](image/325px-Beta_distribution_pdf.svg.png)
+![Probability density function for the Beta distribution](images/325px-Beta_distribution_pdf.svg.png)   ![Probability density function for the Beta distribution](images/325px-Beta_distribution_pdf.svg.png)
 
 概率密度函数（Probability density function）                                   累计分布函数（Cumulative distribution function）
 
@@ -357,7 +357,7 @@ $$
 
 **共轭的意义**在于是共轭特性可以使得先验分布和后验分布的形式相同，这样一方面合符人的直观（它们应该是相同形式的）另外一方面是可以形成一个先验链，即现在的后验分布可以作为下一次计算的先验分布，如果形式相同，就可以形成一个链条，后验又可以作为下一次的先验分布。
 
-![1_thumb2](image/743682-20160906152616223-880609362.png)
+![1_thumb2](images/743682-20160906152616223-880609362.png)
 
 ## 参考
 

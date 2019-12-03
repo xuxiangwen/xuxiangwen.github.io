@@ -190,7 +190,7 @@ curl -X GET "localhost:9200/_cat/indices?v"
 
 详见https://www.elastic.co/cn/subscriptions
 
-![1561533579198](image/1561533579198.png)
+![1561533579198](images/1561533579198.png)
 
 #### Production模式
 

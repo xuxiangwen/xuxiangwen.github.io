@@ -32,7 +32,7 @@ Gitlab flow 分成两种情况，适应不同的开发流程。
 
 ### 持续发布
 
-![img](image/bg2015122306.png)
+![img](images/bg2015122306.png)
 
 对于"持续发布"的项目，它建议在`master`分支以外，再建立不同的环境分支。比如，"开发环境"的分支是`master`，"预发环境"的分支是`pre-production`，"生产环境"的分支是`production`。
 
@@ -40,7 +40,7 @@ Gitlab flow 分成两种情况，适应不同的开发流程。
 
 ### 版本发布
 
-![img](image/bg2015122307.png)
+![img](images/bg2015122307.png)
 
 对于"版本发布"的项目，建议的做法是每一个稳定版本，都要从`master`分支拉出一个分支，比如`2-3-stable`、`2-4-stable`等等。
 

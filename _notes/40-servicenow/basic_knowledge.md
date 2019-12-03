@@ -2,13 +2,13 @@
 
 OSI(Open System Interconnection，开放系统互连)七层网络模型称为开放式系统互联参考模型 ，是一个逻辑上的定义，一个规范，它把网络从逻辑上分为了7层。每一层都有相关、相对应的物理设备，比如路由器，交换机。 
 
- ![img](image/v2-8241be381782789f7fb5735d8541c506_hd.jpg) 
+ ![img](images/v2-8241be381782789f7fb5735d8541c506_hd.jpg) 
 
- ![img](image/20180115133844637.png) 
+ ![img](images/20180115133844637.png) 
 
- ![img](image/20180115133703203.gif) 
+ ![img](images/20180115133703203.gif) 
 
- ![img](image/20180115134155605.jpg) 
+ ![img](images/20180115134155605.jpg) 
 
 各层网络所使用协议如下：
 
@@ -32,7 +32,7 @@ OSI(Open System Interconnection，开放系统互连)七层网络模型称为开
 
    以太网规定，一组电信号构成一个数据包，叫做"帧"（Frame）。每一帧分成两个部分：标头（Head）和数据（Data）。  "标头"包含数据包的一些说明项，比如发送者、接受者、数据类型等等；"数据"则是数据包的具体内容。 
 
-   ![img](image/bg2012052904.png) 
+   ![img](images/bg2012052904.png) 
 
 -  MAC地址 
 
@@ -40,7 +40,7 @@ OSI(Open System Interconnection，开放系统互连)七层网络模型称为开
 
   每块网卡出厂的时候，都有一个全世界独一无二的MAC地址，长度是48个二进制位，通常用12个十六进制数表示。 
 
-   ![img](image/bg2012052906.png) 
+   ![img](images/bg2012052906.png) 
 
    前6个十六进制数是厂商编号，后6个是该厂商的网卡流水号。有了MAC地址，就可以定位网卡和数据包的路径了。 
 
@@ -74,7 +74,7 @@ OSI(Open System Interconnection，开放系统互连)七层网络模型称为开
 
      根据IP协议发送的数据，就叫做IP数据包。 可以把IP数据包直接放进以太网数据包的"数据"部分，因此完全不用修改以太网的规格。  IP数据包也分为"标头"和"数据"两个部分。 见下图红色部分。
 
-     ![img](image/bg2012052910.png) 
+     ![img](images/bg2012052910.png) 
 
      "标头"部分主要包括版本、长度、IP地址等信息，"数据"部分则是IP数据包的具体内容。 
 
@@ -100,7 +100,7 @@ OSI(Open System Interconnection，开放系统互连)七层网络模型称为开
 
    必须在数据包中加入端口信息，这就需要新的协议。最简单的实现叫做UDP协议。  UDP数据包，也是由"标头"和"数据"两部分组成。 见下图绿色部分。
 
-   ![img](image/bg2012052912.png) 
+   ![img](images/bg2012052912.png) 
 
    "标头"部分主要定义了发出端口和接收端口，"数据"部分就是具体的内容。 
 
@@ -118,11 +118,11 @@ OSI(Open System Interconnection，开放系统互连)七层网络模型称为开
 - 表示层：它对来自应用层的命令和数据进行解释，对各种语法赋予相应的含义，并按照一定的格式传送给会话层
 - 应用层：应用层为用户提供的服务和协议有：文件服务、目录服务、文件传输服务（FTP）、远程登录服务（Telnet）、电子邮件服务（E-mail）、打印服务、安全服务、网络管理服务、数据库服务等
 
-![img](image/bg2012052913.png) 
+![img](images/bg2012052913.png) 
 
 - DHCP协议
 
-  ![img](image/bg2012061102.png) 		
+  ![img](images/bg2012061102.png) 		
 
   1. 最前面的"以太网标头"，设置发出方（本机）的MAC地址和接收方（DHCP服务器）的MAC地址。前者就是本机网卡的MAC地址，后者这时不知道，就填入一个广播地址：FF-FF-FF-FF-FF-FF。
 
@@ -139,11 +139,11 @@ OSI(Open System Interconnection，开放系统互连)七层网络模型称为开
 
    发送数据包，必须要知道对方的IP地址。[DNS协议](http://en.wikipedia.org/wiki/Domain_Name_System)可以将网址转换成IP地址。
 
-   ![img](image/bg2012061105.png) 
+   ![img](images/bg2012061105.png) 
 
 ### 总结
 
-![img](image/bg2012052913.png)
+![img](images/bg2012052913.png)
 
  新加入的计算机通过DHCP服务，知道了自己的IP地址、子网掩码、网关地址、DNS服务器等等参数。
 

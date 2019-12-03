@@ -193,7 +193,7 @@ git reset --hard HEAD          #丢掉本地修改. 把版本库刷到暂存区�
 >
 > Resets the index and working tree. Any changes to tracked files in the working tree since <commit> are discarded.
 
-![img](image/182238305101646.png)
+![img](images/182238305101646.png)
 
 **撤销加入到暂存器的文件/目录**
 
@@ -211,7 +211,7 @@ git reset --mixed [commit-id]       # 如果[commit-id]没有指定, 会把当�
 >
 > Resets the index but not the working tree (i.e., the changed files are preserved but not marked for commit) and reports what has not been updated.
 
-![img](image/182238202609380.png)
+![img](images/182238202609380.png)
 
 **把当前HEAD的指针指向某一个commit**
 
@@ -225,7 +225,7 @@ git reset --soft  [commit-id]
 >
 > Does not touch the index file or the working tree at all (but resets the head to <commit>, just like all modes do). This leaves all your changed files "Changes to be committed", as git status would put it.
 
-![img](image/182237338854646.png)
+![img](images/182237338854646.png)
 
 #### 查看远程仓库
 
@@ -266,7 +266,7 @@ git reset --hard 【merge前的版本号】
 
 ![工作目录、暂存区域以及 Git 仓库。](https://progit.bootcss.com/images/areas.png)
 
-![Git三大区域](image/2429e4d2661e60027537aea0077f6e40.png)
+![Git三大区域](images/2429e4d2661e60027537aea0077f6e40.png)
 
 #### 提交对象
 
@@ -335,7 +335,7 @@ Git 作为一个源码管理系统，不可避免涉及到多人协作。
 
 协作必须有一个规范的工作流程，让大家有效地合作，使得项目井井有条地发展下去。"工作流程"在英语里，叫做"workflow"或者"flow"，原意是水流，比喻项目像水流那样，顺畅、自然地向前流动，不会发生冲击、对撞、甚至漩涡。
 
-![img](image/bg2015122301.png)
+![img](images/bg2015122301.png)
 
 主要有三种广泛使用的工作流程：
 

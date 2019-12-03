@@ -60,5 +60,5 @@ cat /proc/version        #查看内核
 
 [*http://topic.expreview.com/CPU/*](http://topic.expreview.com/CPU/)     *#天梯*
 
-![img](image/untitle.jpe)
+![img](images/untitle.jpe)
 

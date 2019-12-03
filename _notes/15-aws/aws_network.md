@@ -6,8 +6,8 @@
 
 这几个东东, 和网络多层协议的关系, 还是要搞清楚. 
 
-![Architecture](image/architecture.png)
+![Architecture](images/architecture.png)
 
 ###  Configure  Route Table 
 
-![Peering Connections](image/peering.png)
+![Peering Connections](images/peering.png)

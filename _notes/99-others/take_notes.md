@@ -1,6 +1,6 @@
 # 记笔记
 
-![bg](image/pexels-photo-373076.jpeg)
+![bg](images/pexels-photo-373076.jpeg)
 
 # 前言
 
@@ -26,7 +26,7 @@
 
 在学习Spark的时候，第一次接触了zeppelin，它是Web笔记形式的交互式数据查询分析工具，可以用scala和sql等语言展示数据，也可以用markdown来编写文档。这种代码，图表和文档混合的方式，真的感觉耳目一新。jupyter notebook也是如此，支持python, r, julia, and scala等40多种语言。下图中可以看到很多图表展示，和报表工具不同，在右上角的区域有可以修改的程序代码。这是一种专属于程序员的文档形式。
 
-![Apache Zeppelin](image/ApacheZeppelin_02.jpg)
+![Apache Zeppelin](images/ApacheZeppelin_02.jpg)
 
 ---
 
@@ -40,7 +40,7 @@
 
 大家或许都看过廖雪峰老师的网站，写的很好懂。就像下图中所说“中文，免费，零起点，完整示例”。
 
-![1557704516822](image/1557704516822.png)
+![1557704516822](images/1557704516822.png)
 
 ## 笔记的安全性
 
@@ -75,13 +75,13 @@
 
 大家都是使用这些工具开始的，主要缺点是文件分散在计算机的各处，时间长了，放在哪里都忘了，查找起来很不方便。
 
-![img](image/ximg_5b6e4770e6897.jpg.pagespeed.gp+jp+jw+pj+ws+js+rj+rp+rw+ri+cp+md.ic.tfq1D0waRx.jpg)
+![img](images/ximg_5b6e4770e6897.jpg.pagespeed.gp+jp+jw+pj+ws+js+rj+rp+rw+ri+cp+md.ic.tfq1D0waRx.jpg)
 
 ### 工业时代：evernote， onenote， 有道云笔记
 
 采用这些强大的工具，我们可以编写出如下图一样精美的笔记。
 
-![img](image/CNHome_Image1_v2.png)
+![img](images/CNHome_Image1_v2.png)
 
 记不得从何时开始，用上了evernote，身边的很多朋友也在用onenote。用上这些工具，笔记集中管理，可以多级导航，搜索起来也很方便，应该说效率大大提高 。后来又开始使用有道云笔记，和evernote比起来，它可以编写markdown，笔记分级方便方便，但全文检索能力又不如evernote。
 
@@ -89,13 +89,13 @@
 
 虽然evernote，onenote等工具很强大，但无法执行程序代码。由此，zeppelin，jupyter notebook等工具孕育而生。
 
-![example notebook of Lorenz differential equations](image/jupyterpreview.png)
+![example notebook of Lorenz differential equations](images/jupyterpreview.png)
 
 #### 思维导图
 
 思维导图，则另辟蹊径，是表达发散性思维的有效图形思维工具。它运用图文并重的技巧，把各级主题的关系用相互隶属与相关的层级图表现出来，把主题关键词与图像、颜色等建立记忆链接。
 
-![1557381669838](image/1557381669838.png)
+![1557381669838](images/1557381669838.png)
 
 ### 互联时代：  github(pages, wiki) + typora(markdown) + jupyter notebook + pandoc ...
 
@@ -108,7 +108,7 @@
 
 上面两个问题的答案或许是分享。知识的根本目的和价值是分享。
 
-![Data linkage and data sharing in clinical trials: Good in principle, complex in practice](image/pic1_0.png)
+![Data linkage and data sharing in clinical trials: Good in principle, complex in practice](images/pic1_0.png)
 
 > 当需要分享知识的时候，往往会花上心思，这使得知识更易于理解，更加有价值。
 
@@ -158,21 +158,21 @@ GitHub Pages是一个用来展现GitHub中个人，组织或者项目的静态�
 
 - 在一个界面完成编辑和展现，和word比较类似。大多数其他的工具有两个窗口，一个是markdown编辑窗口，一个是展现窗口，这样无疑就要占用很大屏幕区域。由于我们写笔记时，可能会参照其他的资料，这些资料也会占据一块屏幕区域，Typora这种方式，大大节省了区域的占用。下图中，可以看出有道云笔记的空间实在有些憋屈。
 
-  ![1557737550595](image/1557737550595.png)
+  ![1557737550595](images/1557737550595.png)
 
-  ![1557737768652](image/1557737768652.png)
+  ![1557737768652](images/1557737768652.png)
 
   
 
 - 添加图片的效率很高。在Typora中可以进行如下设置，当copy图片的时候，自动拷贝到一个指定目录，真的太方便了。很多工具没有注意到这一点，非常遗憾。
 
-![1557737839389](image/1557737839389.png)
+![1557737839389](images/1557737839389.png)
 
 #### Markdown
 
 Markdown是一种轻量级标记语言，让写作者专注于写作而不用关注样式，而且可以很容易把Markdown转化成其他的文件格式，比如：html, pdf, word, ppt等等。下面是markdown语言和展现的对应关系，相信大家几分钟就能掌握。
 
-![markdown](image/markdown.png)
+![markdown](images/markdown.png)
 
 #### Markdown vs. Word
 
@@ -221,7 +221,7 @@ pandoc -t F -s take_notes_ppt.md \
 
 Microsoft Teams是非常强大的协作工具。里面可以容纳各种软件，当然也包括OneNote。采用这两个产品，能实现很好的记录和分享。
 
-![1557710385911](image/1557710385911.png)
+![1557710385911](images/1557710385911.png)
 
 ## github + typora vs. teams + onenote ...
 

@@ -52,23 +52,23 @@
 
 ### 原始社会：文本文件，word，excel文件
 
-![img](image/ximg_5b6e4770e6897.jpg.pagespeed.gp+jp+jw+pj+ws+js+rj+rp+rw+ri+cp+md.ic.tfq1D0waRx.jpg)
+![img](images/ximg_5b6e4770e6897.jpg.pagespeed.gp+jp+jw+pj+ws+js+rj+rp+rw+ri+cp+md.ic.tfq1D0waRx.jpg)
 
 最开始大家都是使用这些来记录个人工作生活信息的。最大的问题是，文件分散在计算机的各处，时间长了，放在哪里都忘了，更别提更新了。
 
 ### 工业时代：evernote， onenote， 网易云笔记
 
-![img](image/CNHome_Image1_v2.png)
+![img](images/CNHome_Image1_v2.png)
 
 记不得从何时开始，用上了evernote，身边的很多同事也在用onenote。用上这些工具，笔记集中管理，可以多级导航，搜索起来也很方便，应该说效率大大提高 。后来又开始使用网易云笔记，和evernote比起来，它可以编写markdown，笔记分级方便方便，但全文检索能力又不如evernote。
 
 ### 信息时代：zeppelin，jupyter notebook + 思维导图
 
-![example notebook of Lorenz differential equations](image/jupyterpreview.png)
+![example notebook of Lorenz differential equations](images/jupyterpreview.png)
 
 [my example](http://15.15.165.218:18888/notebooks/eipi10/xuxiangwen.github.io/base/model_evaluation.ipynb)
 
-![1557381669838](image/1557381669838.png)
+![1557381669838](images/1557381669838.png)
 
 evernote，onenote等工具很强大，但无法执行程序代码。在学习Spark的时候，第一次接触了zeppelin，它是Web笔记形式的交互式数据查询分析工具，可以用scala和sql等语言展示数据，也可以用markdown来编写文档。这种代码，报表（可视化）和文档混合的方式，真的感觉耳目一新。jupyter notebook也是如此，支持python, r, julia, and scala等40多种语言。
 
@@ -93,7 +93,7 @@ GitHub Pages  Example
 - markdown
 - image enhanced
 
-![1557385341070](image/1557385341070.png)
+![1557385341070](images/1557385341070.png)
 
  [example eigenvector-singular.md](..\math\eigenvector-singular.md) 
 

@@ -19,13 +19,13 @@
 
 在application menu中可以定义多个Navigation Tab。
 
-![The More tab is only available when there are more than five icons on the Navigation Bar.](image/app_store_learnv2_mobileapps_newyork_mobileapps_images_servicenow_ma_moretab.png) 
+![The More tab is only available when there are more than five icons on the Navigation Bar.](images/app_store_learnv2_mobileapps_newyork_mobileapps_images_servicenow_ma_moretab.png) 
 
 > 1. mobile agent和now mobile什么区别？
 
 ## applet launcher
 
- ![The first section title is Newest.  The section uses a horizontal record layout.  The second section title is Recent.  The section uses a vertical icon layout including icons and record counts.](image/app_store_learnv2_mobileapps_newyork_mobileapps_images_servicenow_ma_appletlaunchersectionsearthquakes.png) 
+ ![The first section title is Newest.  The section uses a horizontal record layout.  The second section title is Recent.  The section uses a vertical icon layout including icons and record counts.](images/app_store_learnv2_mobileapps_newyork_mobileapps_images_servicenow_ma_appletlaunchersectionsearthquakes.png) 
 
 Question:
 
@@ -74,7 +74,7 @@ Question:
 - *Tapping a field*
 - Tapping a footer option
 
-![Developers specify how users access functions.](image/app_store_learnv2_mobileapps_newyork_mobileapps_images_servicenow_ma_funclocations.png)
+![Developers specify how users access functions.](images/app_store_learnv2_mobileapps_newyork_mobileapps_images_servicenow_ma_funclocations.png)
 
 ### Action
 

@@ -27,7 +27,7 @@ $$
 
 ### 信息熵 (information entropy)
 
-![img](image/200px-Binary_entropy_plot.svg.png)
+![img](images/200px-Binary_entropy_plot.svg.png)
 
 熵 (entropy) 这一词最初来源于热力学。1948年，香农将热力学中的熵引入信息论，所以也被称为香农熵 (Shannon entropy)，信息熵 (information entropy)。
 
@@ -43,7 +43,7 @@ $$
 
 信息量是描述某一个事件发生的不确定性，而熵是描述整个系统的不确定性。比如，对于一个六面的骰子，每一个面相当于一个事件，而骰子的所有面构成了一个系统。从公式上，也可以看出熵是对系统中所有事件发生的信息量的加权平均(数学期望)。下面看看实际的例子, 假设我们从某婚介网站拿到以下数据. 
 
-![img](image/v2-ccf99fcbded18b80b8d9d8553be1eec6_hd.png)
+![img](images/v2-ccf99fcbded18b80b8d9d8553be1eec6_hd.png)
 
 设随机变量$X=\{帅, 不帅\}$,  $Y=\{嫁, 不嫁\}$ 
 
@@ -132,7 +132,7 @@ $$
 
 再看具体的例子：
 
-![img](image/v2-ccf99fcbded18b80b8d9d8553be1eec6_hd.png)
+![img](images/v2-ccf99fcbded18b80b8d9d8553be1eec6_hd.png)
 
 设随机变量$Y=\{嫁, 不嫁\}$, 可以算得：
 
@@ -140,7 +140,7 @@ $H(Y) = -\frac 1 2\log\frac 1 2-\frac 1 2\log \frac 1 2 = 1$
 
 再设随机变量$X=\{帅, 不帅\}$, 如果我们知道了一个人的长相是帅还是不帅, 再来计算$Y$的熵, 这就是条件熵.
 
-![img](image/v2-83f2f4b00981806c74e330b2d6f91db5_hd.png)
+![img](images/v2-83f2f4b00981806c74e330b2d6f91db5_hd.png)
 
 下面看一下计算过程:
 

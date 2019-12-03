@@ -30,7 +30,7 @@ $$
 
 # 点到平面的距离
 
-![img](image/dd096b404a60f9f534995fafbfee2b23_b-1573440940843.jpg)
+![img](images/dd096b404a60f9f534995fafbfee2b23_b-1573440940843.jpg)
 
 平面方程为:  $ w \cdot x + b = 0$
 

@@ -1,6 +1,7 @@
 ---
 title: 向量和矩阵
 categories: mathematics linear_algebra
+date: 2019-12-03 15:00:30
 ---
 国内教科书中的线性代数（linear algebra），非常严谨，但过于抽象。为了更好的理解，将从两个方面来解释线性代数的各种内容。
 
@@ -22,7 +23,7 @@ $$
 
 向量可以看成是$n$维空间中一个点的坐标，比如，下图中，向量$\begin{bmatrix}2 \\ 1\end{bmatrix}$可以表示为a的坐标。
 
- ![img](image/fig5.png) 
+ ![img](images/fig5.png) 
 
 图中，很容易看出，向量既有大小（长度）也有方向。
 
@@ -40,7 +41,7 @@ $$
 $$
 
         
-![image-20191108105013452](image/image-20191108105013452.png)
+![image-20191108105013452](images/image-20191108105013452.png)
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/05-ai/50-my-course/machine_learning/c0002.ipynb#向量加法)。
 
@@ -145,7 +146,7 @@ $$
 
 英文称Matmul Product。当$\mathbf A$ 是$m\times n$矩阵，$\mathbf B$是$n\times p$阶矩阵，它们的乘积$\mathbf A \cdot \mathbf B$是一个$m\times p$阶矩阵 。矩阵的乘法仅当第一个矩阵$\mathbf A $的列数和另一个矩阵$\mathbf B$的行数相等时才能进行。矩阵乘法计算规则是：乘积矩阵中的每个元素等于$\mathbf A$的每一行，乘以$\mathbf B$的每一列，然后相加汇总。
 
-![img](image/6135025-dae2263a2c50de24.webp)
+![img](images/6135025-dae2263a2c50de24.webp)
 
 公式如下：        
 
@@ -164,7 +165,7 @@ $$
         
 其中 $ c_{ij}=  \sum_{k=0}^{n} a_{ik}b_{kj} $
 
-示例如下：![img](image/6135025-4c09309e9b4a0bae.jpg) 
+示例如下：![img](images/6135025-4c09309e9b4a0bae.jpg) 
 
 > 由于矩阵乘法的普遍性，一般用 $\mathbf A  \mathbf B$表示  $\mathbf A \cdot \mathbf B$
 
@@ -216,7 +217,7 @@ $$
         
 即下图所示：
 
-![Image result for broadcasting 矩阵](image/eqMVre.png)
+![Image result for broadcasting 矩阵](images/eqMVre.png)
 
 同理，假设$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$m \times 1 $阶矩阵，则：        
 
@@ -321,7 +322,7 @@ $$
         
 公式右边，一列一列的看，可以找到规律：
 
-![image-20191114084056190](image/image-20191114084056190.png)
+![image-20191114084056190](images/image-20191114084056190.png)
 
 推导出：        
 

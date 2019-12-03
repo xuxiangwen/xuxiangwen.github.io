@@ -2,7 +2,7 @@
 
 git rebase操作的实质是丢弃一些现有的提交，然后相应地新建一些内容一样但实际上不同的提交。
 
-![rebase-on-master](image/rebase-on-master.gif)
+![rebase-on-master](images/rebase-on-master.gif)
 
 为了体会`rebase`, 可以体验下面几个场景. 
 
@@ -78,7 +78,7 @@ git lg --all
 
 假设创建了一个特性分支 `server`，为服务端添加了一些功能，提交了 `C3` 和 `C4`。 然后从 `C3` 上创建了特性分支 `client`，为客户端添加了一些功能，提交了 `C8` 和 `C9`。 最后，你回到 `server` 分支，又提交了 `C10`。
 
-![从一个特性分支里再分出一个特性分支的提交历史。](image/interesting-rebase-1.png)
+![从一个特性分支里再分出一个特性分支的提交历史。](images/interesting-rebase-1.png)
 
 **初始化环境**
 
@@ -143,7 +143,7 @@ git rebase --onto master server client
 
 以上命令的意思是：“取出 `client` 分支，找出处于 `client` 分支和 `server` 分支的共同祖先之后的修改，然后把它们在 `master` 分支上重放一遍”。 这理解起来有一点复杂，不过效果非常酷。
 
-![截取特性分支上的另一个特性分支，然后变基到其他分支。](image/interesting-rebase-2.png)
+![截取特性分支上的另一个特性分支，然后变基到其他分支。](images/interesting-rebase-2.png)
 
 把client快速合并进master
 
@@ -152,7 +152,7 @@ git checkout master
 git merge client
 ~~~
 
-![快进合并 master 分支，使之包含来自 client 分支的修改。](image/interesting-rebase-3.png)
+![快进合并 master 分支，使之包含来自 client 分支的修改。](images/interesting-rebase-3.png)
 
 接下来你决定将 `server` 分支中的修改也整合进来。使用 `git rebase [basebranch] [topicbranch]`命令可以直接将特性分支（即本例中的 `server`）变基到目标分支（即 `master`）上。 ****
 
@@ -160,7 +160,7 @@ git merge client
 git rebase master server  
 ~~~
 
-![将 server 中的修改变基到 master 上。](image/interesting-rebase-4.png)
+![将 server 中的修改变基到 master 上。](images/interesting-rebase-4.png)
 
 把server快速合并进master, 并删除client, server分支.   
 
@@ -172,7 +172,7 @@ git branch -d client
 git branch -d server
 ~~~
 
-![最终的提交历史。](image/interesting-rebase-5.png)
+![最终的提交历史。](images/interesting-rebase-5.png)
 
 ## 用 reword 和 fixup 打磨提交颗粒
 
@@ -182,7 +182,7 @@ git branch -d server
 
 首先看看, 整理前后的版本树. 
 
-![img](image/1dc954ff48cc92c871c8baa574c8211c.png)
+![img](images/1dc954ff48cc92c871c8baa574c8211c.png)
 
 **初始环境**
 
@@ -228,7 +228,7 @@ git rebase -i HEAD^^^   # 整理前面几次的提交.
 
 这时会出现如下内容:
 
-![1557909780916](image/1557909780916.png)
+![1557909780916](images/1557909780916.png)
 
 根据如下的命令, 对历史提交进行修改. 
 
@@ -243,15 +243,15 @@ git rebase -i HEAD^^^   # 整理前面几次的提交.
 
 修改后的样子如下: 
 
-![1557909805321](image/1557909805321.png)
+![1557909805321](images/1557909805321.png)
 
 保存退出后, 将会出现如下的窗口,  在里面我们输入如下新的submit message. 
 
-![1557909919914](image/1557909919914.png)
+![1557909919914](images/1557909919914.png)
 
 再次保存退出后, 将会出现如下的窗口,  在里面我们输入如下新的submit message. 
 
-![1557909983151](image/1557909983151.png)
+![1557909983151](images/1557909983151.png)
 
 查看版本树.
 
@@ -259,7 +259,7 @@ git rebase -i HEAD^^^   # 整理前面几次的提交.
 git lg --all
 ~~~
 
-![1557910316413](image/1557910316413.png)
+![1557910316413](images/1557910316413.png)
 
 ## 参考
 

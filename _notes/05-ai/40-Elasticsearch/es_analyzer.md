@@ -6,7 +6,7 @@ Analyzer 一般由三部分构成，character filters、tokenizers、token filte
 
 Analyzer 的内部就是一条流水线. 
 
-![分析过程](image/2014-09-07-flow.png)
+![分析过程](images/2014-09-07-flow.png)
 
 - 字符过滤（character filter）: 对字符串进行操作. 一个analyzer可以由0到多个character filters.
 

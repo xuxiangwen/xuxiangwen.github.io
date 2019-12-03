@@ -12,14 +12,14 @@ http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso
 
 2. 把下载的镜像文件用UltralISO打开。
 
-   ![1563518482644](image/1563518482644.png)
+   ![1563518482644](images/1563518482644.png)
 
 3. 在UltraISO中，选择菜单`Bootable > Write Disk Image`
-   ![1563518802458](image/1563518802458.png)
+   ![1563518802458](images/1563518802458.png)
    
 4. 弹出窗口上，在Message中选择要刻录的U盘，然后点击`Write`按钮开始刻录。
 
-   ![1563519224791](image/1563519224791.png)
+   ![1563519224791](images/1563519224791.png)
 
 ​         
 
@@ -27,11 +27,11 @@ http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso
 
 1. 开机选择U盘启动，将会看到如下界面。
 
-    [![centos01](image/160727212054473.jpg)](http://www.linuxidc.com/upload/2016_07/160727212054473.jpg)
+    [![centos01](images/160727212054473.jpg)](http://www.linuxidc.com/upload/2016_07/160727212054473.jpg)
 
 3.   选择第一项，然后按TAB键。在屏幕底部会出现一行命令。
 
-    ![centos02](image/160727212054474.jpg)
+    ![centos02](images/160727212054474.jpg)
 
     > 如果选择Install Centos7，直接回车并安装，经常发生找不到安装盘的情况，为了避免这种情况，需要获取U盘的设备名称。
 
@@ -41,7 +41,7 @@ http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso
     > vmlinuz initrd=initrd.img linux dd quiet
     ~~~
     改好之后回车，然后就会列出设备列表了，在这个列表里面，找到U盘。下图中sdc4是U盘所对应设备名称。
-    ![linuxdd](image/160727212054476.jpg)
+    ![linuxdd](images/160727212054476.jpg)
 
 5. 再次通过U盘重新启动电脑，进行到第2步， 然后根据上面获取到的U盘设备名称， 将命令修改为：
 

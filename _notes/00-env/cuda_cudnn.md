@@ -14,7 +14,7 @@
 
 首先要保证操作系统和软件包符合下表的要求。
 
-![image-20191128130850307](image/image-20191128130850307.png)
+![image-20191128130850307](images/image-20191128130850307.png)
 
 ## 2. [安装之前](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions)
 
@@ -133,7 +133,7 @@
 
    在 [CUDA Download](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=CentOS&target_version=7&target_type=rpmlocal) 选择合适的CUDA版本，选择了rpm（local），将会出现如下安装代码。
 
-   ![image-20191128155025778](image/image-20191128155025778.png)
+   ![image-20191128155025778](images/image-20191128155025778.png)
 
    ~~~shell
    wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-rhel7-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
@@ -177,7 +177,7 @@
 
 1. 下载cuDNN。打开 https://developer.nvidia.com/cudnn ，登录以后，选择最新版本后，点击`uDNN Library for Linux`链接进行下载。
 
-   ![image-20191129081140250](image/image-20191129081140250.png)
+   ![image-20191129081140250](images/image-20191129081140250.png)
 
 2. 安装
 

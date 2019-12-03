@@ -5,7 +5,7 @@
 
 ### Jensen不等式
 
-![1564619158308](image/1564619158308.png)
+![1564619158308](images/1564619158308.png)
 
 如果f是凸函数，X是随机变量，$,  \lambda_i \geq 0, \sum\limits_{i=1}^m\lambda_i =1$,   那么
 

@@ -2,7 +2,7 @@
 
 [MNIST](http://yann.lecun.com/exdb/mnist/)（Mixed National Institute of Standards and Technology）数据集是著名的手写数字数据集，被誉为数据科学领域的`果蝇`。
 
-![img](image/8389494-c279133be28eb263.webp)
+![img](images/8389494-c279133be28eb263.webp)
 
 数据分为四部分。
 

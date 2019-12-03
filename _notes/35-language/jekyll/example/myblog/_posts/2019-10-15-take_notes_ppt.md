@@ -14,7 +14,7 @@ categories: others
 ###### Created by Xu Jian
 ###### May, 2019
 
-![bg](image/pexels-photo-373076.jpeg)
+![bg](images/pexels-photo-373076.jpeg)
 
 ---
 
@@ -48,7 +48,7 @@ categories: others
 
 学习Spark的时，接触了zeppelin，它采用scala和sql等语言编写代码，用markdown来编写文档。
 
-![Apache Zeppelin](image/ApacheZeppelin_02.jpg)
+![Apache Zeppelin](images/ApacheZeppelin_02.jpg)
 
 > *[juputer notebook example](http://15.15.165.218:18888/notebooks/eipi10/xuxiangwen.github.io/base/model_evaluation.ipynb)*
 
@@ -60,7 +60,7 @@ categories: others
 - 易于复现：好的笔记，也应该是容易被重现的
 - 持续更新
 
-![1557704516822](image/1557704516822.png)
+![1557704516822](images/1557704516822.png)
 
 ---
 
@@ -105,19 +105,19 @@ categories: others
 
 文件分散在计算机的各处，时间长了，放在哪里都忘了，查找起来很不方便。
 
-![](image/ximg_5b6e4770e6897.jpg.pagespeed.gp+jp+jw+pj+ws+js+rj+rp+rw+ri+cp+md.ic.tfq1D0waRx.jpg)
+![](images/ximg_5b6e4770e6897.jpg.pagespeed.gp+jp+jw+pj+ws+js+rj+rp+rw+ri+cp+md.ic.tfq1D0waRx.jpg)
 
 ---
 
 ### 工业时代：evernote， onenote， 有道云笔记
 
-![](image/CNHome_Image1_v2.png)
+![](images/CNHome_Image1_v2.png)
 
 ---
 
 ### 信息时代：zeppelin，jupyter notebook + 思维导图
 
-![](image/jupyterpreview.png)
+![](images/jupyterpreview.png)
 
 ---
 
@@ -125,7 +125,7 @@ categories: others
 
 思维导图，则另辟蹊径，是表达发散性思维的有效图形思维工具。
 
-![](image/1557381669838.png)
+![](images/1557381669838.png)
 
 ---
 
@@ -141,7 +141,7 @@ categories: others
 
 知识的根本目的和价值是分享。
 
-![](image/pic1_0.png)
+![](images/pic1_0.png)
 
 > *当需要分享知识的时候，往往会花上心思，这使得知识更易于理解，更加有价值。*
 
@@ -149,7 +149,7 @@ categories: others
 
 #### 流程
 
-![1557703072934](image/1557703072934.png)
+![1557703072934](images/1557703072934.png)
 
 ---
 
@@ -209,7 +209,7 @@ will give you a seamless experience as both a reader and a writer.
 
 is a lightweight markup language with plain text formatting syntax. Its design allows it to be converted to many output formats
 
-![](image/markdown.png)
+![](images/markdown.png)
 
 ---
 
@@ -263,7 +263,7 @@ pandoc -t revealjs -s take_notes_ppt.md \
 
 ## [Microsoft Teams](https://teams.microsoft.com/l/team/19%3a129aaf7cba7a4aaaa63e3a0ba2d62974%40thread.skype/conversations?groupId=86e56ee6-d7c1-4577-8d2e-cc4a31e0eba9&tenantId=ca7981a2-785a-463d-b82a-3db87dfc3ce6>) + OneNote ...
 
-![1557710385911](image/1557710385911.png)
+![1557710385911](images/1557710385911.png)
 
 > [China IT  BBS OneNote](https://hp.sharepoint.com/sites/ChinaITBBS/_layouts/15/WopiFrame.aspx?sourcedoc={4a88b013-0cfe-47c7-8aad-44b814ce33dd}&action=editnew)
 

@@ -1,6 +1,6 @@
 线性回归是利用称为线性回归方程的[最小二乘](https://zh.wikipedia.org/wiki/最小二乘法)函数对一个或多个[自变量](https://zh.wikipedia.org/wiki/自变量)和[因变量](https://zh.wikipedia.org/w/index.php?title=因变量&action=edit&redlink=1)之间关系进行建模的一种[回归分析](https://zh.wikipedia.org/wiki/回归分析). 
 
-![Linear regression.svg](image/220px-Linear_regression.svg.png)
+![Linear regression.svg](images/220px-Linear_regression.svg.png)
 
 ## 1.模型
 
@@ -22,7 +22,7 @@ $w = {(X^\mathrm{T}X)^{-1}}X^\mathrm{T}y  $
 
 #### 3.11 投影
 
-![](image/projection.jpg)
+![](images/projection.jpg)
 
 可以把$\hat y$ 看成是$y$ 在$X$向量空间的投影, 而$w$看成$\hat y$在$X$的坐标.  所以$ \hat y  - y $得到的向量应该和$X$垂直. 也就是满足如下公式.
 

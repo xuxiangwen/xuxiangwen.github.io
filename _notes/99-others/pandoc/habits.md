@@ -72,7 +72,7 @@ contents...
 
 :::
 
-![img](image/Tarako_spaghetti.jpg)
+![img](images/Tarako_spaghetti.jpg)
 
 . . .
 
