@@ -11,10 +11,14 @@ categories: mathematics linear_algebra
 
 ### 向量
 
- 向量（vector）是线性代数中的基本概念，也是机器学习的基础数据表示形式。   
+ 向量（vector）是线性代数中的基本概念，也是机器学习的基础数据表示形式。           
+
 $$
-\mathbf{a} = \begin{bmatrix}a_1 \\ a_2 \\ \ldots \\ a_n\end{bmatrix}
+        
+\mathbf{a} = \begin{bmatrix}a_1 \\ a_2 \\ \ldots \\ a_n\end{bmatrix}        
+
 $$
+        
 
 向量可以看成是$n$维空间中一个点的坐标，比如，下图中，向量$\begin{bmatrix}2 \\ 1\end{bmatrix}$可以表示为a的坐标。
 
@@ -26,30 +30,42 @@ $$
 
 #### 向量加法
 
-把向量看成一个点的坐标，很容易得到向量的加法规则。  
+把向量看成一个点的坐标，很容易得到向量的加法规则。          
+
 $$
-\mathbf{a} + \mathbf{b} = \mathbf{c}
+        
+\mathbf{a} + \mathbf{b} = \mathbf{c}        
+
 $$
+        
 ![image-20191108105013452](image/image-20191108105013452.png)
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/05-ai/50-my-course/machine_learning/c0002.ipynb#向量加法)。
 
 #### 向量大小
 
- 向量的大小也叫向量的模，公式如下。  
+ 向量的大小也叫向量的模，公式如下。          
+
 $$
+        
 \| \mathbf{a} \| = 
-\sqrt{a_{1}^{2} + a_{2}^{2} + \ldots + a_{n}^{2}}
+\sqrt{a_{1}^{2} + a_{2}^{2} + \ldots + a_{n}^{2}}        
+
 $$
+        
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/05-ai/50-my-course/machine_learning/c0002.ipynb#向量大小)。
 
 #### 向量转置
 
-向量的默认形式是以一列排列的，称之为**列向量**，如果对列向量进行转置，就变成了**行向量**。  
+向量的默认形式是以一列排列的，称之为**列向量**，如果对列向量进行转置，就变成了**行向量**。          
+
 $$
-\mathbf{a^T} = \begin{bmatrix}a_1 & a_2 & \ldots  & a_n\end{bmatrix}
+        
+\mathbf{a^T} = \begin{bmatrix}a_1 & a_2 & \ldots  & a_n\end{bmatrix}        
+
 $$
+        
 $\mathbf {a^T}$表示$\mathbf a$的转置，是一个行向量。
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/05-ai/50-my-course/machine_learning/c0002.ipynb#向量转置)。
@@ -58,20 +74,26 @@ $\mathbf {a^T}$表示$\mathbf a$的转置，是一个行向量。
 
 在数学中，矩阵（[Matrix](https://baike.baidu.com/item/Matrix/3543921)）是一个按照长方阵列排列的复数或实数集合。
 
-矩阵的表示如下：
+矩阵的表示如下：        
+
 $$
+        
 \mathbf A = 
 \begin{bmatrix} 
 a_{11} & a_{12} & \cdots & a_{1n} \\
 a_{21} & a_{22} & \cdots & a_{2n}  \\ 
 \vdots & \vdots  & \vdots & \vdots \\
 a_{m1} & a_{m2} & \cdots & a_{mn} 
-\end{bmatrix}
+\end{bmatrix}        
+
 $$
+        
 上面的$\mathbf A$为$ m  \times  n$阶矩阵，如果$m=n$，则称之为**方阵**。
 
-矩阵可以看成行向量或者列向量的组合。比如：
+矩阵可以看成行向量或者列向量的组合。比如：        
+
 $$
+        
 \mathbf A = 
 \begin{bmatrix} 
 a_{11} & a_{12} & \cdots & a_{1n} \\
@@ -83,8 +105,10 @@ a_{m1} & a_{m2} & \cdots & a_{mn}
 \mathbf {a_1^T} \\ 
 \mathbf {a_2^T} \\ \vdots \\ \mathbf {a_m^T} \end{bmatrix} =
 \begin{bmatrix} \mathbf {a_1^{'}} & \mathbf a_2^{'} & \cdots & \mathbf a_p^{'} 
-\end{bmatrix}
+\end{bmatrix}        
+
 $$
+        
 其中$\mathbf {a_i^T} = \begin{bmatrix} 
 a_{i1} & a_{i2} & \cdots & a_{in} \end{bmatrix}，\mathbf {a_j^{'}} = \begin{bmatrix} 
 a_{1j} \\  a_{2j} \\ \cdots \\  a_{mj} \end{bmatrix}$
@@ -93,10 +117,14 @@ a_{1j} \\  a_{2j} \\ \cdots \\  a_{mj} \end{bmatrix}$
 
 #### 矩阵加法
 
-假设$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$m \times n $阶矩阵，则
+假设$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$m \times n $阶矩阵，则        
+
 $$
-\mathbf A + \mathbf B = \begin{bmatrix}c_{11} & c_{12} & \cdots & c_{1n} \\c_{21} & c_{22} & \cdots & c_{2n} \\\vdots & \vdots & \ddots  & \vdots \\ c_{m1} & c_{m2} & \cdots & c_{mn} \\\end{bmatrix}
+        
+\mathbf A + \mathbf B = \begin{bmatrix}c_{11} & c_{12} & \cdots & c_{1n} \\c_{21} & c_{22} & \cdots & c_{2n} \\\vdots & \vdots & \ddots  & \vdots \\ c_{m1} & c_{m2} & \cdots & c_{mn} \\\end{bmatrix}        
+
 $$
+        
 其中$c_{ij} = a_{ij} + b_{ij} $，也就是两个矩阵中相同位置的数分别相加，其结果也是$m \times n $阶矩阵。
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/05-ai/50-my-course/machine_learning/c0002.ipynb#矩阵加法)。
@@ -107,15 +135,19 @@ $$
 
 ![img](image/6135025-dae2263a2c50de24.webp)
 
-公式如下：
+公式如下：        
+
 $$
+        
 \mathbf A \cdot \mathbf B = \begin{bmatrix}
 c_{11} & c_{12} & \cdots & c_{1p} \\
 c_{21} & c_{22} & \cdots & c_{2p} \\
 \vdots & \vdots & \ddots  & \vdots \\ 
 c_{m1} & c_{m2} & \cdots & c_{mp} \\
-\end{bmatrix}
+\end{bmatrix}        
+
 $$
+        
 其中 $ c_{ij}=  \sum_{k=0}^{n} a_{ik}b_{kj} $
 
 示例如下：![img](image/6135025-4c09309e9b4a0bae.jpg) 
@@ -128,15 +160,19 @@ $$
 
 还有一种非常普遍，而且简单的矩阵相乘，称之为哈达玛积（Hadamard product）。
 
-假设$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$m \times n $阶矩阵，则
+假设$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$m \times n $阶矩阵，则        
+
 $$
+        
 \mathbf A \circ  \mathbf B = \begin{bmatrix}
 c_{11} & c_{12} & \cdots & c_{1n} \\
 c_{21} & c_{22} & \cdots & c_{2n} \\
 \vdots & \vdots & \ddots  & \vdots \\ 
 c_{m1} & c_{m2} & \cdots & c_{mn} \\
-\end{bmatrix}
+\end{bmatrix}        
+
 $$
+        
 其中$c_{ij} = a_{ij} b_{ij}$，也就是两个矩阵中相同位置的数分别相乘，其结果也是$m \times n $阶矩阵。
 
 > 在大多数程序框架（numpy， pytorch等）中，都乘法符号`*`来表示哈达玛积，而矩阵乘法反而用其它符号或函数（比如，matmul， dot等）来表示。而这些框架之所以这样定义，或许因为哈达玛积和矩阵加法的机制完全相同（除了一个是乘，一个是加），更加符合大多数人的直觉。
@@ -147,36 +183,46 @@ $$
 
 矩阵加法和哈达玛积都要求矩阵的行和列的阶数完全相同，但如果不同，能否进行计算呢？答案是可以，但是需要满足一些条件，这种方式叫做Broadcasting。以加法为例。
 
- 如果$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$1 \times  n$阶矩阵，可以得到，
+ 如果$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$1 \times  n$阶矩阵，可以得到，        
+
 $$
+        
 \mathbf A + \mathbf B = \begin{bmatrix}
 a_{11} + b_{11} & c_{12}+ b_{12}& \cdots & c_{1n} + b_{1n} \\
 a_{21} + b_{11} & c_{22}+ b_{12}& \cdots & c_{2n} + b_{1n} \\
 \vdots & \vdots & \ddots  & \vdots \\ 
 a_{m1} + b_{11} & c_{m2}+ b_{12}& \cdots & c_{mn} + b_{1n} \\
-\end{bmatrix}
+\end{bmatrix}        
+
 $$
+        
 即下图所示：
 
 ![Image result for broadcasting 矩阵](image/eqMVre.png)
 
-同理，假设$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$m \times 1 $阶矩阵，则：
+同理，假设$\mathbf A$ 是$m\times n$阶矩阵，$\mathbf B$也是$m \times 1 $阶矩阵，则：        
+
 $$
+        
 \mathbf A + \mathbf B = \begin{bmatrix}
 a_{11} + b_{11} & c_{12}+ b_{11}& \cdots & c_{1n} + b_{11} \\
 a_{21} + b_{21} & c_{22}+ b_{11}& \cdots & c_{2n} + b_{21} \\
 \vdots & \vdots & \ddots  & \vdots \\ 
 a_{m1} + b_{m1} & c_{m2}+ b_{m1}& \cdots & c_{mn} + b_{m1} \\
-\end{bmatrix}
+\end{bmatrix}        
+
 $$
+        
 哈达玛积也可以按照上面所说逻辑，进行Broadcasting。
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/05-ai/50-my-course/machine_learning/c0002.ipynb#Broadcasting)。
 
 #### 矩阵转置
 
-沿着对角线对矩阵进行反转，称之为矩阵转置，转置后的矩阵，记为$\mathbf {A^T}$。假设$\mathbf A$为$ m  \times  n$阶矩阵，$\mathbf {A^T}$是$n \times m$阶矩阵。示例如下。
+沿着对角线对矩阵进行反转，称之为矩阵转置，转置后的矩阵，记为$\mathbf {A^T}$。假设$\mathbf A$为$ m  \times  n$阶矩阵，$\mathbf {A^T}$是$n \times m$阶矩阵。示例如下。        
+
 $$
+        
 {
 \begin{bmatrix}
 1 & 2 & 4 \\
@@ -187,11 +233,15 @@ $$
 1 & 0  \\
 2 & -3  \\
 4 & 5
-\end{bmatrix}
-$$
+\end{bmatrix}        
 
-如果矩阵是个方阵，当$\mathbf {A^T} = \mathbf  {A} $，称之为**对称矩阵**。比如：
 $$
+        
+
+如果矩阵是个方阵，当$\mathbf {A^T} = \mathbf  {A} $，称之为**对称矩阵**。比如：        
+
+$$
+        
 {
 \begin{bmatrix}
 1 & 2 & 4 \\
@@ -203,8 +253,10 @@ $$
 1 & 2 & 4 \\
 2 & -3 & 5 \\
 4 & 5 & 2 
-\end{bmatrix}
+\end{bmatrix}        
+
 $$
+        
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/05-ai/50-my-course/machine_learning/c0002.ipynb#矩阵转置)。
 
@@ -212,31 +264,41 @@ $$
 
 如果说向量代表坐标系中的一个点的坐标，那么矩阵则可以代表什么呢？如果一个矩阵乘以一个列向量（可以看成$1 \times n$阶矩阵），会发生什么呢？
 
-假设：
+假设：        
+
 $$
+        
 \mathbf A = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\a_{21} & a_{22} & \cdots & a_{2n}  \\ \vdots & \vdots  & \vdots & \vdots \\a_{m1} & a_{m2} & \cdots & a_{mn}  \\\end{bmatrix} = 
 \begin{bmatrix} \mathbf {a_1^{'}} & \mathbf a_2^{'} & \cdots & \mathbf {a_p^{'} }
 \end{bmatrix}，
 \mathbf b = \begin{bmatrix} b_{1}  \\b_{2}  \\ \vdots \\b_{n}
 \end{bmatrix} 
-\\
+\\        
+
 $$
-根据矩阵乘法可得：
+        
+根据矩阵乘法可得：        
+
 $$
+        
 \mathbf A \cdot \mathbf b =
 \begin{bmatrix} 
 a_{11}b_1 + a_{12}b_2 + \cdots + a_{1n}b_n \\
 a_{21}b_1 + a_{22}b_2 + \cdots + a_{2n}b_n \\
 \vdots \\
 a_{m1}b_1 + a_{m2}b_2 + \cdots + a_{mn}b_n \\
-\end{bmatrix}
+\end{bmatrix}        
+
 $$
+        
 公式右边，一列一列的看，可以找到规律：
 
 ![image-20191114084056190](image/image-20191114084056190.png)
 
-推导出：
+推导出：        
+
 $$
+        
 \begin{align}
 \mathbf A \cdot \mathbf b &= 
 \begin{bmatrix} 
@@ -252,8 +314,10 @@ a_{1n} \\  a_{2n} \\ \cdots \\  a_{mn} \end{bmatrix} b_n
 \mathbf {a_2^{'}} \cdot {b_2} + 
 \cdots + 
 \mathbf {a_n^{'}} \cdot  {b_n}
-\end{align}
+\end{align}        
+
 $$
+        
 
 
 公式右边，可以想象一个以$\mathbf {a_1^{'}},  \mathbf a_2^{'},  \cdots,  \mathbf {a_p^{'}}$为坐标轴的坐标系，则$ b_1, b_2, \cdots,  b_n$可以看成是这个坐标系中的一点的坐标，即基于这个坐标系的向量。
@@ -266,8 +330,10 @@ $$
 
 #### 单位矩阵
 
-单位矩阵是指是$n \times n$阶矩阵， 其主对角线元素为$1$，其余元素为$0$ ，记为$\mathbf {I_n}$。
+单位矩阵是指是$n \times n$阶矩阵， 其主对角线元素为$1$，其余元素为$0$ ，记为$\mathbf {I_n}$。        
+
 $$
+        
 \mathbf {I_n} = 
 \begin{bmatrix}
 1 & 0 &  \cdots & 0 \\
@@ -275,8 +341,10 @@ $$
 
 \vdots & \vdots & \ddots & \vdots \\
 0 & 0 &  \cdots & 1 \\
-\end{bmatrix}
+\end{bmatrix}        
+
 $$
+        
 如果说矩阵是一个以列向量为轴的坐标系，则单位矩阵是标准坐标系。单位矩阵就像初等数学里的$1$一样，和任何向量相乘，都不改变原向量的大小和方向。
 
 ### 参考
