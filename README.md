@@ -139,7 +139,7 @@ _bin/md_clean.sh _posts/vector-and-matrix.md
 
 ### 发布blog
 
-zh
+每一篇文章，其front matter中必须有日期，然后通过下面命令进行发布。
 
 ~~~
 _bin/publish.sh _posts
