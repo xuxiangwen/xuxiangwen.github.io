@@ -1,7 +1,7 @@
 ---
 title: 向量和矩阵
 categories: mathematics linear_algebra
-date: 2019-12-03 15:00:30
+date: 2019-12-03
 ---
 国内教科书中的线性代数（linear algebra），非常严谨，但过于抽象。为了更好的理解，将从两个方面来解释线性代数的各种内容。
 
