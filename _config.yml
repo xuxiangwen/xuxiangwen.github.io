@@ -1,14 +1,18 @@
-theme: jekyll-theme-architect
 title: 欢迎来到eipi10!
-description: 记录了学习的经历和所得，分享给所有的朋友i
+description: 记录了学习的经历和所得，分享给所有的朋友
+theme: jekyll-theme-architect
+permalink: pretty 
+show_downloads: false
+markdown: kramdown
+highlighter: rouge
 defaults:
   - scope:
       path: ""
       type: "posts"
     values:
-      layout: "post"
+      layout: "default"
   - scope:
       path: ""
     values:
       layout: "default"
-
+      

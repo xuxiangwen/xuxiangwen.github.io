@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Index
+title: theme
 ---
 
 ## Welcome to GitHub Pages
