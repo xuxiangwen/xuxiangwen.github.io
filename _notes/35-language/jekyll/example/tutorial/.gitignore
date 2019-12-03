@@ -1,0 +1,12 @@
+*.swp
+*.pyc
+.env/*
+.idea/*
+.ipynb_checkpoints
+.sass-cache
+large-file/*
+model
+data
+.project
+Gemfile.lock
+_site
