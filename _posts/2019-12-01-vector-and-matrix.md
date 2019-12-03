@@ -1,8 +1,6 @@
 ---
 title: 向量和矩阵
-categories: 
-  - mathematics
-  - linear_algebra
+categories: mathematics linear_algebra
 ---
 国内教科书中的线性代数（linear algebra），非常严谨，但过于抽象。为了更好的理解，将从两个方面来解释线性代数的各种内容。
 
@@ -281,3 +279,11 @@ $$
 \end{bmatrix}
 $$
 如果说矩阵是一个以列向量为轴的坐标系，则单位矩阵是标准坐标系。单位矩阵就像初等数学里的$1$一样，和任何向量相乘，都不改变原向量的大小和方向。
+
+### 参考
+
+- [机器学习的数学基础：向量篇]( https://www.hahack.com/math/math-vector/ )
+- [什么是矩阵](https://www.jianshu.com/p/f9826690133c)
+- [矩阵乘法](https://zh.wikipedia.org/wiki/%E7%9F%A9%E9%99%A3%E4%B9%98%E6%B3%95)
+- [矩阵乘法的本质是什么？](https://www.zhihu.com/question/21351965/answer/176777987 )
+

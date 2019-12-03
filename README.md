@@ -8,12 +8,14 @@ title: README
 ### 配置_config.yml
 
 ~~~
-cat << EOF >> _config.yml
+cat << EOF > _config.yml
 title: 欢迎来到eipi10!
 description: 记录了学习的经历和所得，分享给所有的朋友
 theme: jekyll-theme-architect
 permalink: pretty 
-show_downloads: true
+show_downloads: false
+markdown: kramdown
+highlighter: rouge
 defaults:
   - scope:
       path: ""
@@ -47,6 +49,52 @@ EOF
 
 cat Gemfile
 ~~~
+
+### theme
+
+#### Stylesheet
+
+在 `@import` 后面添加自定义的 CSS (or Sass, including imports)
+
+~~~
+mkdir -p assets/css
+cat << EOF > assets/css/style.scss
+---
+---
+
+@import "{{ site.theme }}";
+
+EOF
+~~~
+
+> *Note: If you'd like to change the theme's Sass variables, you must set new values before the `@import` line in your stylesheet.*
+
+#### Layouts
+
+~~~
+mkdir -p _layouts
+wget https://raw.githubusercontent.com/pages-themes/architect/master/_layouts/default.html -P _layouts
+~~~
+
+
+
+~~~
+mkdir -p _includes
+cat << EOF >> _includes/head.html
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> 
+  
+EOF
+~~~
+
+
 
 ### 安装依赖包
 
