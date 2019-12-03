@@ -1,7 +1,7 @@
 ---
 title: 点到平面的距离
 categories: mathematics linear_algebra
-date: 2019-12-04
+date: 2019-12-03
 ---
 上文中说到，$\mathbf w \cdot \mathbf x = 0$，表示一个过原点，且垂直于$\mathbf w$的平面方程。而对于空间中任意平面，其平面方程为：$ \mathbf w  \cdot \mathbf x + b = 0$，该平面垂直于$\mathbf w$，但不一定过原点。
 
