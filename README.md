@@ -71,12 +71,14 @@ EOF
 
 #### Layouts
 
+为了更好的展现效果，需要自定义layout，下面代码从原来的theme中下载layout。
+
 ~~~
 mkdir -p _layouts
 wget https://raw.githubusercontent.com/pages-themes/architect/master/_layouts/default.html -P _layouts
 ~~~
 
-
+#### Latex支持
 
 ~~~
 mkdir -p _includes
@@ -92,6 +94,23 @@ cat << EOF >> _includes/head.html
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> 
   
 EOF
+~~~
+
+#### 整理latex
+
+markdown中的latex部分，\$\$表示居中，在github pages中需要前面必须有一个空行才可以达到这样的效果。
+
+**整理文件夹**
+
+~~~
+_bin/md_clean.sh _posts
+_bin/md_clean.sh _notes
+~~~
+
+**整理一个文件**
+
+~~~
+_bin/md_clean.sh <file_path>
 ~~~
 
 
