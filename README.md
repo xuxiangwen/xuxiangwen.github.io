@@ -12,6 +12,7 @@ cat << EOF >> _config.yml
 title: 欢迎来到eipi10!
 description: 记录了学习的经历和所得，分享给所有的朋友
 theme: jekyll-theme-architect
+permalink: pretty 
 show_downloads: true
 defaults:
   - scope:
