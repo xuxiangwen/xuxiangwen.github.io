@@ -1,7 +1,7 @@
 ---
 title: 线性映射和线性变换
 categories: mathematics linear_algebra
-date: 2019-12-03
+date: 2019-12-05
 ---
 在线性代数中，线性映射（linear mapping）和线性变换（linear transformation）经常被提到。线性映射指从一个向量空间$\mathbf V$到另一个向量空间$\mathbf W$的映射且保持加法运算和数量乘法运算，而线性变换是线性空间$\mathbf V$到其自身的线性映射，是一种特殊的线性映射。
 
@@ -58,13 +58,9 @@ $
 
 上面的解释或许还是有些抽象，用坐标轴变换来解释旋转会形象的多。
 
-1. 
-
 $$
- \mathbf{\beta} = \mathbf A \cdot \mathbf{\alpha} = \mathbf {a_1} \alpha_1 + \mathbf {a_2} \alpha_2 
+\mathbf{\beta} = \mathbf A \cdot \mathbf{\alpha} = \mathbf {a_1} \alpha_1 + \mathbf {a_2} \alpha_2
 $$
-
-。
 
    - 把$\mathbf {a_1}$和$\mathbf {a_2}$看成是新的坐标轴，和标准坐标轴相比，这个坐标轴逆时针旋转了$\theta $。
    - 向量$\mathbf {\beta}$在新坐标轴下的坐标是$\begin{bmatrix} 
@@ -72,7 +68,7 @@ $$
      \alpha_2 
      \end{bmatrix} $
 
-2. 假设$\alpha$和$X$轴的角度是$\phi$，可以得出向量$\mathbf {\beta}$和$\mathbf {a_1}$(新$X$轴)的角度必然也是$\phi$，则向量$\mathbf {\beta}$和$X$轴的角度是 $\phi + \theta $ 。就这样看上去，矩阵$ \mathbf{A} $正好把向量$\mathbf{\alpha}$逆时针旋转了$ \theta$。
+- $\alpha$和$X$轴的角度是$\phi$，可以得出向量$\mathbf {\beta}$和$\mathbf {a_1}$(新$X$轴)的角度必然也是$\phi$，则向量$\mathbf {\beta}$和$X$轴的角度是 $\phi + \theta $ 。就这样看上去，矩阵$ \mathbf{A} $正好把向量$\mathbf{\alpha}$逆时针旋转了$ \theta$。
 
 同理，很容易把上述方法推广到$n$维: 
 
