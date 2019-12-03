@@ -252,7 +252,6 @@ a_{1n} \\  a_{2n} \\ \cdots \\  a_{mn} \end{bmatrix} b_n
 \mathbf {a_2^{'}} \cdot {b_2} + 
 \cdots + 
 \mathbf {a_n^{'}} \cdot  {b_n}
-
 \end{align}
 $$
 
