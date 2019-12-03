@@ -50,7 +50,29 @@ EOF
 cat Gemfile
 ~~~
 
-### theme
+### 安装依赖包
+
+#### 第一次
+
+~~~
+bundle install
+~~~
+
+#### 更新
+
+~~~
+bundle update
+~~~
+
+### 运行
+
+##### 本地开发
+
+~~~
+bundle exec jekyll serve --host 0.0.0.0 --port 4000
+~~~
+
+### 配置theme
 
 #### Stylesheet
 
@@ -80,6 +102,8 @@ wget https://raw.githubusercontent.com/pages-themes/architect/master/_layouts/de
 
 #### Latex支持
 
+默认情况下，不支持Latex（也就是\$\$或\$）。
+
 ~~~
 mkdir -p _includes
 cat << EOF >> _includes/head.html
@@ -96,47 +120,28 @@ cat << EOF >> _includes/head.html
 EOF
 ~~~
 
-#### 整理latex
+### 整理latex
 
 markdown中的latex部分，\$\$表示居中，在github pages中需要前面必须有一个空行才可以达到这样的效果。
 
-**整理文件夹**
+#### **整理文件夹**
 
 ~~~
 _bin/md_clean.sh _posts
 _bin/md_clean.sh _notes
 ~~~
 
-**整理一个文件**
+#### **整理一个文件**
 
 ~~~
-_bin/md_clean.sh <file_path>
+_bin/md_clean.sh _posts/vector-and-matrix.md
 ~~~
 
-
-
-### 安装依赖包
-
-#### 第一次
+### 发布blog
 
 ~~~
-bundle install
-~~~
-
-#### 更新
-
-~~~
-bundle update
-~~~
-
-
-
-### 运行
-
-##### 本地开发
-
-~~~
-bundle exec jekyll serve --host 0.0.0.0 --port 4000
+_bin/publish.sh _posts
+_bin/publish.sh _posts/vector-and-matrix.md
 ~~~
 
 
