@@ -16,6 +16,7 @@ publish_one(){
   file_folder=$(dirname "$filepath")
   file_name=$(basename "$filepath")  
   
+  echo -------------------------------------------------------
   echo start publish $filepath
   
   # check if the file_name contains date
