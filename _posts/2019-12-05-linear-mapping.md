@@ -22,7 +22,9 @@ date: 2019-12-05
 线性映射可以用矩阵表示，这也是矩阵最重要的意义之一。方式如下：
 
 $$
+
 \mathbf A \cdot \mathbf{\alpha} = \mathbf{\beta}
+
 $$
 
 其中$f = \mathbf A， \mathbf{\alpha} \in \mathbf V， \mathbf {\beta} \in \mathbf W  $。为了加深理解，下面看最简单的线性变换：旋转，缩放以及正交化。
@@ -32,11 +34,13 @@ $$
 在同一向量空间，最基本的线性变换之一是旋转。在二维空间，如下矩阵$\mathbf A$将会把向量进行逆时针旋转$\theta $。
 
 $$
+
 \mathbf A = 
 \begin{bmatrix} 
 \cos {(\theta)} & -\sin {(\theta)} \\
 \sin {(\theta)} & \cos {(\theta)} 
 \end{bmatrix} = \begin{bmatrix} \mathbf {a_1}   &  \mathbf {a_2} \end{bmatrix}
+
 $$
 
 其中$\mathbf {a_1} = \begin{bmatrix} 
@@ -59,7 +63,9 @@ $
 上面的解释或许还是有些抽象，用坐标轴变换来解释旋转会形象的多。
 
 $$
+
 \mathbf{\beta} = \mathbf A \cdot \mathbf{\alpha} = \mathbf {a_1} \alpha_1 + \mathbf {a_2} \alpha_2
+
 $$
 
    - 把$\mathbf {a_1}$和$\mathbf {a_2}$看成是新的坐标轴，和标准坐标轴相比，这个坐标轴逆时针旋转了$\theta $。
@@ -73,7 +79,9 @@ $$
 同理，很容易把上述方法推广到$n$维: 
 
 $$
+
 \mathbf{\beta} = \mathbf A \cdot \mathbf{\alpha} = \mathbf {a_1} \alpha_1 + \mathbf {a_2} \alpha_2 + \cdots \mathbf {a_n} \alpha_n
+
 $$
 
 - 把$\mathbf {a_1}, \mathbf {a_2}, \cdots, \mathbf {a_n}$看成是新的坐标轴。
@@ -94,14 +102,17 @@ $$
 在二维空间，下面的矩阵会对向量各个分量进行拉伸和缩放。
 
 $$
+
 \mathbf A = 
 \begin{bmatrix} 
 s_1 & 0 \\
 0 & s_2
 \end{bmatrix}
+
 $$
 
 $$
+
 \mathbf{\beta} = 
 \mathbf A \cdot \mathbf{\alpha} = 
 \begin{bmatrix} 
@@ -109,6 +120,7 @@ s_1 & 0 \\
 0 & s_2
 \end{bmatrix} \cdot \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix} = 
 \begin{bmatrix} s_1\alpha_1 \\ s_2\alpha_2 \end{bmatrix}
+
 $$
 
 下图中$\mathbf A = 
@@ -122,6 +134,7 @@ $$
 同样推广到$n$维空间。
 
 $$
+
 \mathbf A = 
 \begin{bmatrix} 
 s_1 & 0 & \cdots & 0 \\
@@ -129,18 +142,23 @@ s_1 & 0 & \cdots & 0 \\
 0 & 0 & \ddots & 0  \\
 0 & 0 & 0 & s_n  \\
 \end{bmatrix}
+
 $$
 
 上面矩阵的对角线不为0，其他都为0，这样的矩阵称之为**对角矩阵（ diagonal matrix ）**，它的对象线的数对向量的各个分量进行拉伸和缩放。对角矩阵的另外一种更加简化的表达是：
 
 $$
+
 \mathbf A = diag(s_1, s_2, \cdots, s_n)
+
 $$
 
 或者
 
 $$
+
 \mathbf A = diag(\mathbf s)  
+
 $$
 
 其中$\mathbf s = \begin{bmatrix} s_1 \\ s_2 \\ \vdots \\ s_n \end{bmatrix}$
@@ -160,6 +178,7 @@ $$
 所用的两个矩阵分别是：
 
 $$
+
 \mathbf {A_1} = 
 \begin{bmatrix} 
 2 & 0 \\
@@ -173,6 +192,7 @@ $$
 1.732 & -0.25 \\
 1 & 0.433 
 \end{bmatrix}
+
 $$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#缩放+旋转)。
@@ -187,21 +207,31 @@ $$
 ![image-20191121102923460](/assets/images/image-20191121102923460.png)
 
 公式表达如下：
+
 $$
+
 \begin{align}
 \mathbf {\beta_1} &= \mathbf {v_1}       \\
 \mathbf {\beta_2} &= \mathbf {v_2} - (\mathbf {v_2} \cdot \frac {\mathbf {\beta_1}}  {\| \mathbf {\beta_1}\|} ) \frac {\mathbf {\beta_1}}  {\| \mathbf {\beta_1}\|} 
 \end{align} \\
+
 $$
+
 然后进行缩放：
+
 $$
+
 \mathbf {\eta_1} =  \frac {\mathbf {\beta_1}}  {\| \mathbf {\beta_1}\|}  \\
 \mathbf {\eta_2} =  \frac {\mathbf {\beta_2}}  {\| \mathbf {\beta_2}\|}
+
 $$
+
 以上方法，可以推广到$n$维，称之为[格拉姆-施密特正交化](https://zh.wikipedia.org/wiki/%E6%A0%BC%E6%8B%89%E5%A7%86-%E6%96%BD%E5%AF%86%E7%89%B9%E6%AD%A3%E4%BA%A4%E5%8C%96)。
 
  ![img](/assets/images/300px-GSO.png) 
+
 $$
+
 \begin{align}
 \mathbf {V} &= \begin{bmatrix} \mathbf {v_1} & \mathbf {v_2} & \cdots & \mathbf {v_n} \end{bmatrix} \\
 \mathbf {\beta_1} &= \mathbf {v_1}     & \mathbf {\eta_1} =  \frac {\mathbf {\beta_1}}  {\| \mathbf {\beta_1}\|}  \\
@@ -210,6 +240,7 @@ $$
 \vdots \\
 \mathbf {\beta_n} &= \mathbf {v_n} - \sum_{i=1}^{n-1} (\mathbf {v_n} \cdot \mathbf {\eta_i}) \mathbf {\eta_i} & \mathbf {\eta_n} =  \frac {\mathbf {\beta_n}}  {\| \mathbf {\beta_n}\|}  
 \end{align}
+
 $$
 
 其中$\begin{bmatrix} \mathbf {\eta_1} & \mathbf {\eta_2} & \cdots & \mathbf {\eta_n} \end{bmatrix}$就是经过变换后的正交矩阵。
@@ -225,6 +256,7 @@ $$
 还可以从内积角度来理解线性映射。
 
 $$
+
 \begin{align} 
 \mathbf{\beta} &= \mathbf A \cdot \mathbf{\alpha}  \\
 \mathbf{\beta} &= 
@@ -242,6 +274,7 @@ $$
 \mathbf {a_m^T}\cdot  \mathbf{\alpha} 
 \end{bmatrix} 
 \end{align}
+
 $$
 
 通过上面的推导可以看出，$\mathbf \beta$可以理解为向量$\mathbf \alpha$和$\mathbf  A$各个行向量的内积。线性映射的过程，就是把$\mathbf \alpha$从$n$维空间映射到$m$维空间的过程。
