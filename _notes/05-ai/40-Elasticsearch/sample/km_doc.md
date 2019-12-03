@@ -293,8 +293,6 @@ curl -X GET 'localhost:9200/_cat/indices?v'
 # less km_doc.log
 ~~~
 
-
-
 ## 验证和分析
 
 ~~~shell
@@ -319,9 +317,6 @@ curl -XGET '15.15.165.218:9200/km_doc/_search?pretty&size=5' -H 'Content-Type: a
   }
 }
 '
-
-
-
 
 curl -XGET '15.15.165.218:9200/km_doc/_search?pretty&size=5' -H 'Content-Type: application/json' -d'
 {
@@ -539,7 +534,6 @@ curl -XGET '15.15.165.218:9200/km_doc/_search?pretty&size=5' -H 'Content-Type: a
 {"query":{"bool":{"should":[{"match":{"question":{"query":"硬盘","boost":1}}},{"match":{"answer":{"query":"硬盘","boost":2}}}]}},"size":100}
 '
 
-
 curl -XPOST '15.15.165.218:9200/km_doc/_search?pretty&size=5' -H 'Content-Type: application/json' -d'
 {
 	"query": {
@@ -574,8 +568,6 @@ curl -XPOST '15.15.165.218:9200/km_doc/_search?pretty&size=5' -H 'Content-Type: 
 	"size": 100
 }'
 ~~~
-
-
 
 ~~~
 curl -X POST "localhost:9200/km_doc/_close"

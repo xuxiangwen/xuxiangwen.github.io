@@ -140,7 +140,6 @@ $\begin{align} y_1 &= P \cdot y_2  \\
 \end{align}
 $
 
-
 # 5. 协方差和相关系数矩阵的意义
 
 协方差的几何意义是X和Y在中心化后的两个向量之间的内积的平均。物理上认为内积是两个向量的功。
@@ -155,9 +154,7 @@ $\href {https://www.zhihu.com/question/36339816} {多维高斯分布是如何由
 
 $\href {http://blog.csdn.net/u010182633/article/details/45937051} {协方差矩阵的几何解释}$ 
 
-
 理解以上两篇文章，也能够很轻松理解马氏距离。其实这些东西根本上就是一个东西。
-
 
 ```python
 import numpy as np
@@ -189,8 +186,6 @@ print(my_corrcoef(x))
      [-1.  1.]]
     [[ 1. -1.]
      [-1.  1.]]
-
-
 
 ```python
 

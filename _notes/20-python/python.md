@@ -49,8 +49,6 @@ project
     └── test_something.py
 ~~~
 
-
-
 ### Flask
 
 flask repository包括以下内容.

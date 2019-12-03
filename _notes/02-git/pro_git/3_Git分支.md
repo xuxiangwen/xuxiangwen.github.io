@@ -76,8 +76,6 @@ git log --oneline --decorate
 
 `testing` 分支向前移动了，但是 `master` 分支却没有，它仍然指向运行 `git checkout` 时所指的对象。
 
-
-
 ![HEAD 分支随着提交操作自动向前移动。](https://progit.bootcss.com/images/advance-testing.png)15. HEAD 分支随着提交操作自动向前移动*
 
 ```console
@@ -133,8 +131,6 @@ echo create > branch_demo.txt
 git add branch_demo.txt
 git commit -m 'add branch_demo.txt'
 ```
-
-
 
 #### 新建分支
 
@@ -336,7 +332,6 @@ Conflicts:
 #	.git/MERGE_HEAD
 # and try again.
 
-
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
 # On branch master
@@ -456,8 +451,6 @@ git push origin serverfix
 ```
 
 这里有些工作被简化了。 Git 自动将 `serverfix` 分支名字展开为 `refs/heads/serverfix:refs/heads/serverfix`，那意味着，“推送本地的 serverfix 分支来更新远程仓库上的 serverfix 分支。你也可以运行 `git push origin serverfix:serverfix`，它会做同样的事 - 相当于它说，“推送本地的 serverfix 分支，将其作为远程仓库的 serverfix 分支” 可以通过这种格式来推送本地分支到一个命名不相同的远程分支。 如果并不想让远程仓库上的分支叫做 `serverfix`，可以运行 `git push origin serverfix:awesomebranch` 来将本地的 `serverfix` 分支推送到远程仓库上的 `awesomebranch` 分支。
-
-
 
 一次其他协作者从服务器上抓取数据时，他们会在本地生成一个远程分支 `origin/serverfix`，指向服务器的 `serverfix` 分支的引用：
 

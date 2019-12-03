@@ -6,8 +6,6 @@
 
 https://joshhu.gitbooks.io/dockercommands/content/
 
-
-
 ### 安装Docker
 
 https://yeasy.gitbooks.io/docker_practice/content/install/centos.html
@@ -41,10 +39,6 @@ sudo usermod -aG docker $USER
 docker run hello-world
 ~~~
 
-
-
-
-
 ### 启动docker
 
 ~~~shell
@@ -60,13 +54,9 @@ sudo systemctl start docker
 docker swarm init
 ~~~
 
-
-
 #### 加入swarm
 
 ~~~
 docker swarm join --token SWMTKN-1-1ngrjkqk2356wfhuibeforvbfsn7rlfbol5foglcnegvsbcnd1-9aw3kcsq5ish8c0cs37cbpj8o 15.15.165.218:2377
 ~~~
-
-
 

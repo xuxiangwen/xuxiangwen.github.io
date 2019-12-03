@@ -14,8 +14,6 @@
 
 作为一个技术宅，很喜欢学习一些自己感兴趣的技术，在学习的过程中，深感记笔记非常的重要。
 
-
-
 ---
 
 # 笔记
@@ -38,7 +36,6 @@
 
 ---
 
-
 ### 交互文档：jupyter notebook， zeppelin
 
 学习Spark的时，接触了zeppelin，它采用scala和sql等语言编写代码，用markdown来编写文档。
@@ -48,7 +45,6 @@
 > *[juputer notebook example](http://15.15.165.218:18888/notebooks/eipi10/xuxiangwen.github.io/base/model_evaluation.ipynb)*
 
 ---
-
 
 ## 什么是好笔记
 
@@ -99,7 +95,6 @@
 
 ### 原始社会：文本文件，word，excel文件
 
-
 文件分散在计算机的各处，时间长了，放在哪里都忘了，查找起来很不方便。
 
 ![](image/ximg_5b6e4770e6897.jpg.pagespeed.gp+jp+jw+pj+ws+js+rj+rp+rw+ri+cp+md.ic.tfq1D0waRx.jpg)
@@ -118,26 +113,19 @@
 
 ---
 
-
 #### 思维导图
 
 思维导图，则另辟蹊径，是表达发散性思维的有效图形思维工具。
 
 ![](image/1557381669838.png)
 
-
-
 ---
 
-
 ### 互联时代：  github(pages, wiki) + typora(markdown) +  pandoc ...
-
 
 面临的问题：
 - 工具的强大，造成笔记太多，如何使笔记更有价值？
 - 学习时记笔记，开发时写文档，分享时写ppt，如何用统一的方式来管理？
-
-
 
 ---
 
@@ -181,7 +169,6 @@ GitHub Pages is a static site hosting service designed to host your personal, or
 
 [![What is GitHub Pages?](http://img.youtube.com/vi/2MsN8gpT6jY/0.jpg)](http://www.youtube.com/watch?v=2MsN8gpT6jY "What is GitHub Pages?")
 
-
 > [Projects using GitHub Pages](https://github.com/showcases/github-pages-examples)
 > [Open source organizations using GitHub Pages](https://github.com/showcases/open-source-organizations)
 
@@ -190,7 +177,6 @@ GitHub Pages is a static site hosting service designed to host your personal, or
 #### [GitHub Wiki](https://help.github.com/en/articles/about-wikis)
 
 host documentation for your repository in a wiki.
-
 
 > [confluence](https://rndwiki.corp.hpicorp.net/confluence/display/DSCDC/Solution+Architecture)
 > [wechat user profile](https://github.azc.ext.hp.com/jian-xu3/user-profile/wiki)
@@ -255,7 +241,6 @@ pandoc -t revealjs -s take_notes_ppt.md \
 
 ---
 
-
 ## 工具的要求
 
 并不是对单一工具的，而是对于所用的工具集来说的。
@@ -266,14 +251,11 @@ pandoc -t revealjs -s take_notes_ppt.md \
 - 快速检索。不好的例子有有道云笔记的搜索功能
 - 易于分享。支持分享到项目，部门，公司或互联网。
 
-
-
 ---
 
 ## [Microsoft Teams](https://teams.microsoft.com/l/team/19%3a129aaf7cba7a4aaaa63e3a0ba2d62974%40thread.skype/conversations?groupId=86e56ee6-d7c1-4577-8d2e-cc4a31e0eba9&tenantId=ca7981a2-785a-463d-b82a-3db87dfc3ce6>) + OneNote ...
 
 ![1557710385911](image/1557710385911.png)
-
 
 > [China IT  BBS OneNote](https://hp.sharepoint.com/sites/ChinaITBBS/_layouts/15/WopiFrame.aspx?sourcedoc={4a88b013-0cfe-47c7-8aad-44b814ce33dd}&action=editnew)
 
@@ -297,8 +279,6 @@ pandoc -t revealjs -s take_notes_ppt.md \
 	- teams + onenote 简单易用，更加成熟
 	- github + typora 开放自由，扩展性更好
 - 对于程序员来说，github + typora 更有诱惑性。
-
-
 
 ---
 
@@ -328,8 +308,4 @@ pandoc -t revealjs -s take_notes_ppt.md \
 #### Thank you :smile:
 ##### Thank you :smile:
 ###### Thank you :smile:
-
-
-
-
 

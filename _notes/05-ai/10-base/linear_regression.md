@@ -6,8 +6,6 @@
 
 $ \hat y = Xw$
 
-
-
 ## 2. 损失函数
 
 $\begin{align}
@@ -15,8 +13,6 @@ J(w) &= \frac 1 {2m}  \sum_{i=1}^m (\hat y_i - y_i)^2    \\
      &= \frac 1 {2m} (\hat  y - y)^\mathrm{T}( \hat  y  - y)      \\
      &= \frac 1 {2m} (Xw - y)^\mathrm{T}(Xw - y)     
 \end{align}$
-
-
 
 ## 3. 算法
 
@@ -36,8 +32,6 @@ X^T (Xw - y) = 0  \\
 w = {(X^\mathrm{T}X)^{-1}}X^\mathrm{T}y  
 \end{align}$
 
-
-
 #### 3.12 梯度极值法
 
 $\begin{align}
@@ -55,8 +49,6 @@ $\begin{align}
 & w = {(X^\mathrm{T}X)^{-1}}X^\mathrm{T}y  
 \end{align} $
 
-
-
 ### 3.13 梯度下降
 
 $\nabla{w} = \frac 1 m X^\mathrm{T}(Xw - y)  $ 
@@ -68,5 +60,4 @@ $\nabla{w} = \frac 1 m X^\mathrm{T}(Xw - y)  $
 - [线代随笔11-线性回归相关的向量求导]( http://bourneli.github.io/linear-algebra/calculus/2016/04/28/linear-algebra-11-derivate-of-linear-regression.html)
 - [线代随笔12-线性回归的矩阵推导](http://bourneli.github.io/linear-algebra/calculus/2016/04/30/linear-algebra-12-linear-regression-matrix-calulation.html )
 - [机器学习实战教程：线性回归基础篇之预测鲍鱼年龄](http://cuijiahua.com/blog/2017/11/ml_11_regression_1.html) : 这里面介绍了线性回归，加权线性回归，局部加权线性回归。
-
 

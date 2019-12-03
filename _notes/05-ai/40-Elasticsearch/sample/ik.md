@@ -300,7 +300,6 @@ docker exec -it `docker ps  | grep elk_elasticsearch | awk '{print $1}'` bash
     cat stopword.dic
     ~~~
 
-
 ​    
 ​    
 ​    > 在docker_elk中，词库位于/home/grid/eipi10/docker-elk/analysis-ik/ik_config
@@ -312,11 +311,8 @@ docker exec -it `docker ps  | grep elk_elasticsearch | awk '{print $1}'` bash
     docker exec -it `docker ps  | grep elk_elasticsearch | awk '{print $1}'` bash
     ```
 
-
 ​    
 ​      再次运行上面两个查询, 这次结果符合预期. 
-
-
 
 ### 热更新 IK 分词使用方法
 

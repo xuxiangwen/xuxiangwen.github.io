@@ -194,7 +194,6 @@
    cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2  
    ~~~
 
-
 ## 其它
 
 ### 修复vncserver

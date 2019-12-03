@@ -1,7 +1,5 @@
 ### 
 
-
-
 ### 3. 启用Linux 文档的 Windows 子系统
 
 1. 开启开发者模式。按下Windows, 输入For developers，在弹出窗口中选择“Developer Mode”。
@@ -17,8 +15,6 @@ Enable-WindowsOptionalFeature -Online -FeatureName v
 ~~~shell
 bash
 ~~~
-
-
 
 ### 2. 查看你的Windows版本
 

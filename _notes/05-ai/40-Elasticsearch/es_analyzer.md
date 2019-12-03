@@ -2,8 +2,6 @@
 
 Analyzer 一般由三部分构成，character filters、tokenizers、token filters。掌握了 Analyzer 的原理，就可以根据我们的应用场景配置 Analyzer。
 
-
-
 ## 2 Analyzer 的组成要素
 
 Analyzer 的内部就是一条流水线. 
@@ -45,8 +43,6 @@ Analyzer 的内部就是一条流水线.
 - Token 过滤（token filter）: 对token列表再进行处理. 一个analyzer可以由0到多个token filter.
 
   比如, [`lowercase`](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-lowercase-tokenfilter.html) token filter把所有token变成小写. [`stop`](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-stop-tokenfilter.html) token filter用于移除公共的stop words. [`synonym`](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-synonym-tokenfilter.html) token filter把同义词加入到token列表中.  
-
-
 
 ## 3.  测试Analyzer
 
@@ -143,10 +139,6 @@ curl -X GET "localhost:9200/my_index/_analyze?pretty" -H 'Content-Type: applicat
 '
 
 ~~~
-
-
-
-
 
 ## 参考
 

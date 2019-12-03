@@ -61,4 +61,3 @@ GitHub Pages is a static site hosting service designed to host your personal, or
 - [How to embed youtube video to markdown file, GitHub or GitLab comments](http://sviridovserg.com/2017/05/22/embed-youtube-to-markdown/#)： 把youtube视频放到markdown中
 - [YouTube->Markdown](http://embedyoutube.org)：同上
 
-

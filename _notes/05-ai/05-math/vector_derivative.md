@@ -145,8 +145,6 @@ $
 A^\mathrm{T} \cdot diag(\frac {\partial f(v_1)} {\partial v_1}_, ... \frac {\partial f(v_i)} {\partial v_i}_, ... \frac {\partial f(v_m)} {\partial v_m}) \cdot diag(\frac {\partial g(x_1)} {\partial x_1}_, ... \frac {\partial g(x_i)} {\partial x_i}_, ... \frac {\partial g(x_m)} {\partial x_m})
 $
 
-
-
 阿达马乘积, 它具有对称性。
 
 $
@@ -172,12 +170,9 @@ $\frac{\mathrm{d}\log((Au)^\mathrm{T})}{\mathrm{d}u} =
 A^\mathrm{T} \cdot diag(1/Au) 
 $
 
-
 ## 3. 矩阵导数
 
 比起向量导数，矩阵的导数更加难以表达，很多时候是一个超矩阵。超矩阵是指矩阵里面的每个元素本身也是矩阵。它也有一些基本的运算公式。目前很多公式也是推断，还需要找更多相关书来阅读一下。
-
-
 
 设 $ A \in R^{m \times n} $
 
@@ -204,8 +199,6 @@ $
 \frac{\mathrm{d}A^\mathrm{T}A}{\mathrm{d}A} = 2A  ？
 $
 
-
-
 上面的$\mathrm{II}$是一个超矩阵，它的绝对维度是$ (m \times n) \times (m \times n) $。 感觉它是一个变形金刚，它可以变成任意的形式，可以把它看成是一个$ m \times m $的矩阵，则每个元素是$ n \times n $，也可以把它看成是一个$ n \times n $的矩阵，则每个元素是$ m \times m $。它能和维度为m的向量相乘，也能和维度为n的向量相乘。而这些相乘都不会改变结果。 
 
 $
@@ -219,7 +212,6 @@ $
 \end{bmatrix}
 $ 
 
-
 看一个具体的例子，下面第一个公式非常容易已知的向量导数推出，但下面的第二个公式就没有这么容易了，因为X是一个矩阵。
 
 $\frac{\mathrm{d}(Xw)^\mathrm{T}Xw}{\mathrm{d}w} =  \frac{\mathrm{d}w^\mathrm{T}X^\mathrm{T}Xw}{\mathrm{d}w} = 2X^\mathrm{T}Xw $
@@ -231,7 +223,6 @@ $\frac{\mathrm{d}(Xw)^\mathrm{T}Xw}{\mathrm{d}X} =  \frac{\mathrm{d}w^\mathrm{T}
 设$J=(Xw)^\mathrm{T}Xw $
 
 另外一种想法，关于矩阵和矩阵之间导数，可以转化成向量之间的导数。即把矩阵先变成向量，然后求两个向量的导数，然后再根据需要把向量变成相关矩阵。
-
 
 ### 方法一
 这个方法的来源于李飞腾的https://zhuanlan.zhihu.com/p/22473137 。他提出一个维数相容原则。
@@ -311,8 +302,6 @@ $\nabla{w} =  -{X^\mathrm{T} y}|_{sign(Xw)<>y} =  -{X^\mathrm{T} y}|_{y^\mathrm{
 # 参考
 
 1.  $\href {http://blog.csdn.net/u010976453/article/details/54381248}{机器学习中的线性代数之矩阵求导}$ 
-
-
 
 ```python
 

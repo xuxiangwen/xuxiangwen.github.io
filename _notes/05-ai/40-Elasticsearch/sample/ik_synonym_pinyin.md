@@ -119,7 +119,6 @@ curl -H 'Content-Type: application/json'  -XPOST localhost:9200/test_ik_synonym_
 }
 '
 
-
 curl -H 'Content-Type: application/json'  -XPOST localhost:9200/test_ik_synonym_pinyin/_search?pretty  -d'
 {
     "query" : { "match" : { "content" : "nver" }},

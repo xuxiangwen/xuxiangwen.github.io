@@ -35,10 +35,7 @@ name = "example_pkg_zx1"
 
 EOF
 
-
 ~~~
-
-
 
 ## 2. 发布模块
 
@@ -55,7 +52,6 @@ nestList.py是一个可以打印缩进列表的示例函数,示例代码如下�
                 ["anna", "jhon", "richard", ["nio", "lily"]], 
                 "bluce"]        
     nestList.print_list(alist)
-
 
 EOF
 
@@ -81,7 +77,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 EOF
-
 
 cat << EOF > setup.py
 import setuptools
@@ -127,8 +122,6 @@ python3 setup.py sdist bdist_wheel
 ~~~
 
 构建完成后会创建多个文件及目录，其中dist目录下会生成.whl和.tar.gz两个文件.
-
-
 
 ## 3. 上传模块到PyPI(Python Package Index)
 

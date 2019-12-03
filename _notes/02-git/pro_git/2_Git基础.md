@@ -161,8 +161,6 @@ git log --pretty=oneline   # oneline 将每个提交放在一行显示，查看�
 | `%cr` | 提交日期，按多久以前的方式显示              |
 | `%s`  | 提交说明                                    |
 
-
-
 当 oneline 或 format 与另一个 `log` 选项 `--graph` 结合使用时尤其有用。 这个选项添加了一些ASCII字符串来形象地展示你的分支、合并历史：
 
 ```console

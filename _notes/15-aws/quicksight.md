@@ -1,16 +1,11 @@
 
-
 ### Workflow
 
 ![img](image/quicksight-workflow-overview.png)
 
-
-
 ### SPICE
 
 SPICE 是 Amazon QuickSight 的内存中优化计算引擎，它是专为实现快速即时的数据可视化设计的。每个付费用户都会收到 10 GB SPICE 容量Data
-
-
 
 ### Data
 

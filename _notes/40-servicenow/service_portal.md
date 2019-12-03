@@ -13,10 +13,6 @@
 - Approvals
 - And more!
 
-
-
-
-
 ## Widget
 
 Widget是构建portal页面工程的重用的组件。它由以下内容构成

@@ -11,38 +11,6 @@ W要实现WSGI协议，必须同时实现`Web serve`r和`Web application`，当�
 - Web Server：接收来自客户端的HTTP，然后将请求交给Web Application
 - Web Application：根据请求来调用相应的处理逻辑，生成response；通过Web Server把response发送给客户端
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 参考
 
 - [WSGI简介](https://www.cnblogs.com/wilber2013/p/4763067.html)

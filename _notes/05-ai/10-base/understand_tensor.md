@@ -15,7 +15,6 @@
 
 - $\href {http://suquark.github.io/deep_learning/2016/07/04/insight-into-a-dl-frontend-1.html} {深入理解 Deep\  Learning 前端框架 (I)} $
 
-
 ```python
 
 ```

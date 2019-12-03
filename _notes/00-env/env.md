@@ -29,7 +29,6 @@ http_proxy='http://web-proxy.rose.hp.com:8080' apt-get install -y fontconfig
 
 !pip install --upgrade pyyaml --proxy http://web-proxy.rose.hp.com:8080     
 
-
 #### python 可视化
 !pip install --upgrade seaborn --proxy http://web-proxy.rose.hp.com:8080  
 !pip install --upgrade plotly --proxy http://web-proxy.rose.hp.com:8080 
@@ -90,7 +89,6 @@ http_proxy='http://web-proxy.rose.hp.com:8080' apt-get install -y fontconfig
 !pip install -U  yaml --proxy http://web-proxy.rose.hp.com:8080 
 ```
 
-
 ```python
 !pip install --upgrade wordcloud --proxy http://web-proxy.rose.hp.com:8080
 ```
@@ -115,9 +113,6 @@ print('nltk.__version__', nltk.__version__)
 print('gensim.__version__', gensim.__version__)
 
 ```
-
-
-
 
 ## 1.2  git忽略设置（.gitignore）
 
@@ -156,7 +151,6 @@ current_path = '.'
 current_data_path = current_path + "/data"
 current_model_path = current_path + "/model"
 
-
 logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
 logging.root.setLevel(level=logging.INFO)
 
@@ -168,7 +162,6 @@ import os
 import pandas as pd
 import re
 import time
-
 
 from pprint import pprint
 from eipi10.ml2.utils import *

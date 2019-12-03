@@ -6,54 +6,27 @@ Bayesian学派说概率是一个人对于一件事的信念强度，概率是主
 
 最简单的形式
 
-
-
 $$
-
-
 
 P(A|B)  =  \frac {P(B|A)P(B)} {P(B)}
 
-
-
 $$
-
-
-
-
 
 分布是离散的
 
-
-
 $$
-
-
 
 \pi(\theta_i|x) = \frac{f(x|\theta_i)\pi(\theta_i)}{\sum_i f(x|\theta_i)\pi(\theta_i)}
 
-
-
 $$
-
-
 
 分布是连续的
 
-
-
 $$
-
-
 
 \pi(\theta|x) = \frac{f(x|\theta)\pi(\theta)}{\int_\Theta f(x|\theta)\pi(\theta)d\theta}
 
-
-
 $$
-
-
-
 
 -  $\pi$指的是参数的概率分布
 -  $\pi(\theta)$指的是先验概率

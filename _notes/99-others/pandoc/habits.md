@@ -5,8 +5,6 @@ author: Michael
 date: May 13, 2019
 ---
 
-
-
 ## Slide One
 
 Slide 1 has background_image.png as its background.
@@ -15,13 +13,9 @@ Slide 1 has background_image.png as its background.
 pandoc -t revealjs -s habits.md -o habits_revealjs.html -V revealjs-url=https://revealjs.com  -V theme=sky
 ~~~
 
-
-
 ## hello abcde  {data-background-image="image/pexels-photo-326311.jpeg"}
 
-
 Slide 2 has a special image for its background, even though the heading has no content.
-
 
 # In the morning
 
@@ -78,9 +72,7 @@ contents...
 
 :::
 
-
 ![img](image/Tarako_spaghetti.jpg)
-
 
 . . .
 

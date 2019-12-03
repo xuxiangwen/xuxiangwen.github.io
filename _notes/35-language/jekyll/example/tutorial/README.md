@@ -1,5 +1,4 @@
 
-
 # [Step by Step Tutorial](https://jekyllrb.com/docs/step-by-step/01-setup/)
 
 从scratch 一步一步构建Jekyll site。
@@ -61,8 +60,6 @@ EOF
 >     - 构建站点并输出到目录`_site`，并监控本地变化，重建静态站点
 >     - 运行一个本地网站`http://localhost:4000`
 
-
-
 ## 2. Liquid
 
 Liquid是一个模板语言，包含三部分： [objects](https://www.jekyll.com.cn/docs/step-by-step/02-liquid/#objects), [tags](https://www.jekyll.com.cn/docs/step-by-step/02-liquid/#tags) and [filters](https://www.jekyll.com.cn/docs/step-by-step/02-liquid/#filters).
@@ -109,8 +106,6 @@ cat << EOF > index.html
 
 EOF
 ~~~
-
-
 
 ## 3. Front Matter
 
@@ -508,7 +503,6 @@ layout: default
 {{ content }}
 EOF
 
-
 ~~~
 
 访问http://localhost:4000
@@ -545,8 +539,4 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 ~~~
-
-
-
-
 

@@ -1,14 +1,10 @@
 CORS（Cross-Origin Resource Sharing 跨源资源共享），当一个请求url的协议、域名、端口三者之间任意一与当前页面地址不同即为跨域。
 
-
-
 ## CORS的安全隐患
 
 跨域请求和Ajax技术都会极大地提高页面的体验，但同时也会带来安全的隐患，其中最主要的隐患来自于CSRF（Cross-site request forgery）跨站请求伪造。
 
 ![img](image/dd2d206d5afa78c483611418500872bc.png)
-
-
 
 ## CORS验证机制
 
@@ -16,8 +12,6 @@ CORS（Cross-Origin Resource Sharing 跨源资源共享），当一个请求url�
 这种机制让Web应用服务器能支持跨站访问控制，使跨站数据传输更加安全，减轻跨域HTTP请求的风险。
 
 CORS验证机制需要客户端和服务端协同处理。目前主流浏览器都已基本提供对跨域资源共享的支持，移动端浏览器也几乎全部支持。
-
-
 
 ## 客户端处理机制
 
@@ -45,6 +39,4 @@ CORS验证机制需要客户端和服务端协同处理。目前主流浏览器�
 - 服务器端接到请求后，会根据自己的跨域规则，通过Access-Control-Allow-Origin和Access-Control-Allow-Methods响应头，来返回验证结果。如果验证成功，则会直接返回访问的资源内容。
 
 ### 预先请求
-
-
 

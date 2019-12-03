@@ -179,7 +179,6 @@ OSI(Open System Interconnection，开放系统互连)七层网络模型称为开
 - 1>2>3>4>5
 - 1>2>3>6>7>8>9
 
-
 ~~~mermaid
 graph TB; 	
     A[visit website] --> |1.web site/DNS|B(DNS server)
@@ -195,7 +194,6 @@ graph TB;
     E --> |9. target MAC|A
 
 ~~~
-
 
 ## 参考
 

@@ -10,8 +10,6 @@ Pytest 是 Python 的一种单元测试框架，与 Python 自带的 unittest �
 pip install pytest
 ~~~
 
-
-
 ## First Function
 
 下面是最简单的测试方法。其中一个是成功的，一个是失败的。
@@ -37,8 +35,6 @@ pytest test2.py
 > pytest 使用 `.` 标识测试成功（`PASSED`）
 >
 > pytest 使用 `F` 标识测试失败（`FAILED`）
-
-
 
 # 2. 测试函数
 
@@ -177,8 +173,6 @@ pytest -v test_xfail.py
 >
 > 如果预见的是失败，但实际运行测试却成功通过，pytest 使用 `X` 进行标记（`XPASS`）
 
-
-
 ## 参数化
 
 当对一个测试函数进行测试时，通常会给函数传递多组参数。比如测试账号登陆，我们需要模拟各种千奇百怪的账号密码。当然，我们可以把这些参数写在测试函数内部进行遍历。不过虽然参数众多，但仍然是一个测试，当某组参数导致断言失败，测试也就终止了。
@@ -186,8 +180,6 @@ pytest -v test_xfail.py
 通过异常捕获，我们可以保证程所有参数完整执行，但要分析测试结果就需要做不少额外的工作。
 
 在 pytest 中，我们有更好的解决方法，就是参数化测试，即每组参数都独立执行一次测试。使用的工具就是 `pytest.mark.parametrize(argnames, argvalues)`。
-
-
 
 ~~~
 cat << EOF > test_parametrize.py
@@ -230,8 +222,6 @@ EOF
 pytest -v test_parametrize.py
 ~~~
 
-
-
 #  3. 固件fixture
 
 固件（Fixture）是一些函数，pytest 会在执行测试函数之前（或之后）加载运行它们。我们可以利用固件做任何事情，其中最常见的可能就是数据库的初始连接和最后关闭操作。
@@ -242,7 +232,6 @@ pytest -v test_parametrize.py
 @pytest.fixture()
 def postcode():
     return '010'
-
 
 def test_postcode(postcode):
     assert postcode == '010'
@@ -263,13 +252,11 @@ def db():
 
     print('Connection closed')
 
-
 def search_user(user_id):
     d = {
         '001': 'xiaoming'
     }
     return d[user_id]
-
 
 def test_search(db):
     assert search_user('001') == 'xiaoming'
@@ -298,16 +285,13 @@ import pytest
 def func_scope():
     pass
 
-
 @pytest.fixture(scope='module')
 def mod_scope():
     pass
 
-
 @pytest.fixture(scope='session')
 def sess_scope():
     pass
-
 
 @pytest.fixture(scope='class')
 def class_scope():
@@ -331,8 +315,6 @@ EOF
 pytest --setup-show test_scope.py 
 ~~~
 
-
-
 ## 自动执行
 
 目前为止，所有固件的使用都是手动指定，或者作为参数，或者使用 `usefixtures`。如果我们想让固件自动执行，可以在定义时指定 `autouse` 参数。
@@ -343,7 +325,6 @@ import pytest
 import time
 
 DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
-
 
 @pytest.fixture(scope='session', autouse=True)
 def timer_session_scope():
@@ -356,7 +337,6 @@ def timer_session_scope():
     print('finished: {}'.format(time.strftime(DATE_FORMAT, time.localtime(finished))))
     print('Total time cost: {:.3f}s'.format(finished - start))
 
-
 @pytest.fixture(autouse=True)
 def timer_function_scope():
     start = time.time()
@@ -366,7 +346,6 @@ def timer_function_scope():
 
 def test_1():
     time.sleep(1)
-
 
 def test_2():
     time.sleep(2)
@@ -386,7 +365,6 @@ pytest -s test_autouse.py
 @pytest.fixture(name='age')
 def calculate_average_age():
     return 28
-
 
 def test_age(age):
     assert age == 28
@@ -413,7 +391,6 @@ import pytest
 def param(request):
     return request.param
 
-
 @pytest.fixture(autouse=True)
 def db(param):
     print('\nSucceed to connect %s:%s' % param)
@@ -421,7 +398,6 @@ def db(param):
     yield
 
     print('\nSucceed to close %s:%s' % param)
-
 
 def test_api():
     assert 1 == 1
@@ -471,8 +447,6 @@ EOF
 pytest --setup-show test_tmpdir.py
 ~~~
 
-
-
 ### pytestconfig
 
 用 `pytestconfig`，可以很方便的读取命令行参数和配置文件。`pytestconfig` 其实是 `request.config` 的快捷方式，所以也可以自定义固件实现命令行参数读取。
@@ -489,7 +463,6 @@ def pytest_addoption(parser):
 @pytest.fixture
 def config(request):
     return request.config
-
 
 EOF
 

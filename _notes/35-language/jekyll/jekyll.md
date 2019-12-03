@@ -17,11 +17,6 @@ Jekyll 是一个简单的博客形态的静态站点生产机器。它有一个�
 - [入门](example\myblog\README.md) 
 -  [Docker](example\docker-myblog\README.md) 
 
-
-
-
-
-
 ### themes
 
 #### use theme from gem
@@ -69,7 +64,6 @@ EOF
 ~~~
 rm -rf _layouts/post.html
 ~~~
-
 
 # 
 

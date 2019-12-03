@@ -21,8 +21,6 @@ e^{ \theta_k^T x^{(i)} } \\
 \end{align} 
 $ 
 
-
-
 其中 $ \theta_1, \theta_2, \ldots, \theta_k \in R^{n+1} $ 是模型的参数。请注意
 $\begin{align} 
 \frac{1}{ \sum_{j=1}^{k}{e^{ \theta_j^T x^{(i)} }} } 
@@ -138,7 +136,6 @@ a_i = h(z_i) =   \frac {e^{z_i}}  {\sum e^{z_i}}
 \end{align}
 $
 
-
 $
 \begin{align}
 J_i = - y_i^\mathrm{T} \cdot \log a_i 
@@ -157,7 +154,6 @@ $
 \end{align}
 $
 
-
 $
 \begin{align}
 \frac {\partial {J_i}} {\partial z_i} 
@@ -171,9 +167,6 @@ $
 $由于  \sum y_i = 1， 故 d^\mathrm{T} \cdot y_i = 1  $
 
 $\begin{align} \frac {\partial {J_i}} {\partial z_i} = a_i - y_i \end{align} $
-
-
-
 
 对于所有样本，可以推出：
 
@@ -232,10 +225,6 @@ $\textbf{神经网络中，为何经常采用softmax，而不是logistic regress
 
 logistic主要会调整第二个神经元的参数，第一个神经元几乎没有调整。而softmax会让两个神经元同时均匀的调整参数，这样似乎更好。
 
-
-
-
-
 ### 2.6 cross entropy 更加简洁的形式
 
 下面是前面说的交叉熵求损失函数的，其实可以更加简单。
@@ -268,41 +257,23 @@ So why not just use log-softmax throughout our computation and never actually bo
 
 Here you are! We've defined the both loss functions for you so that you could focus on neural network part.
 
-
-
 Since we want to predict probabilities, it would be logical for us to define softmax nonlinearity on top of our network and compute loss given predicted probabilities. However, there is a better way to do so.
 
 If you write down the expression for crossentropy as a function of softmax logits (a), you'll see:
 
-
-
-
 $$
-
 
  loss = - log \space {e^{a_{correct}} \over {\underset i \sum e^{a_i} } } 
 
-
 $$
-
-
-
 
 If you take a closer look, ya'll see that it can be rewritten as:
 
-
-
-
 $$
-
 
  loss = - a_{correct} + log {\underset i \sum e^{a_i} } 
 
-
 $$
-
-
-
 
 It's called Log-softmax and it's better than naive log(softmax(a)) in all aspects:
 * Better numerical stability
@@ -312,7 +283,6 @@ It's called Log-softmax and it's better than naive log(softmax(a)) in all aspect
 So why not just use log-softmax throughout our computation and never actually bother to estimate probabilities.
 
 Here you are! We've defined the both loss functions for you so that you could focus on neural network part.
-
 
 ```python
 

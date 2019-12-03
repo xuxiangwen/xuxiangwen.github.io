@@ -13,8 +13,6 @@ netstat -lnp|grep 80
 sudo iptables -t nat -L -n
 ```
 
-
-
 ## **其他**
 
 **CPU**
@@ -58,13 +56,9 @@ cat /etc/redhat-release  #centos
 cat /proc/version        #查看内核
 ~~~
 
-
-
 [*http://cdn.malu.me/cpu/*](http://cdn.malu.me/cpu/)                  *#天梯*
 
 [*http://topic.expreview.com/CPU/*](http://topic.expreview.com/CPU/)     *#天梯*
-
-
 
 ![img](image/untitle.jpe)
 

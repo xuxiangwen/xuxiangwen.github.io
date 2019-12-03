@@ -9,7 +9,6 @@
 
 $n_l$是神经网络的总层数（包括一个输入层，若干个隐藏层和一个输出层，所以至少是两层）, $l$是指网络中的第$l$层，$S_l$是指第$l$层网络中神经元的个数。$ f(x) $是神经元的激活函数。
 
-
 假设输入层$X \in  R^{n \times m}\ \ $(m个样本，每个样本是n维), $Y\in R^{S_{n_l} \times m} \ \ $ ($a^{(n_l)}$ 也是相同维度的矩阵)， 则
 
 $ S_1 = n $ 
@@ -21,7 +20,6 @@ $ z^{(l)} \  $的维数是 $ {S_{l} \times m}$
 $ a^{(l)} \  $的维数是 $ {S_{l} \times m}$
 
 $ W^{(l)} \  $的维数是 $ {S_{l+1} \times S_{l}}$
-
 
 基本运算公式有：
 
@@ -36,8 +34,6 @@ $z^{(l+1)}=W^{(l+1)} \cdot  a^{(l)} + b^{(l+1)}
 $a^{(l+1)} =f(z^{(l+1)}) $
 
 $\begin{align} h_{W, b \ \  }(X) = a^{(n_l)} = f(z^{(n_l)}) \end{align}$
-
-
 
 下面来看一下Cost函数：
 
@@ -56,7 +52,6 @@ J(W, b) = \frac 1 {2m} \sum\limits_{i=1}^m (h_{W, b \ \ }(x_i)-y_i)^\mathrm{T}(h
 
 ### 2.1 第一种方法
 
-
 如果从每个神经元来看， 
 
 设$Y = \begin{bmatrix} y_1  \\ y_2  \\ \ldots  \\ y_{s_{n_l}}  \end{bmatrix}, 
@@ -70,10 +65,7 @@ $ J(W, b) =
 \frac 1 {2m} \sum\limits_{i=1}^{s_{n_l}} (a_i^{(n_l)}-y_i)^\mathrm{T}(a_i^{(n_l)}-y_i) = 
 \frac 1 {2m} \sum\limits_{i=1}^{s_{n_l}} (f(z_i^{(n_l)})-y_i) ^\mathrm{T}(f(z_i^{(n_l)})-y_i)   $
 
-
 具体的步骤参考$\href {http://ufldl.stanford.edu/wiki/index.php/%E5%8F%8D%E5%90%91%E4%BC%A0%E5%AF%BC%E7%AE%97%E6%B3%95}{UFLDL教程}$
-
-
 
 ### 2.2 第二种方法
 
@@ -91,7 +83,6 @@ $
 $ x_1, y_1,  z_1^{(l)}, a_1^{(l)}$ 都是列向量。先看单个样本的损失函数。
 
 $ J_i(W, b) = \frac 1 {2m}  (h_{W, b \ }(x_i)-y_i)^\mathrm{T}(h_{W, b \ }(x_i)-y_i)  $ 
-
 
 $\begin{align} \delta_i^{(n_l)} = \frac {\mathrm{d} J_i(W, b)} {\mathrm{d} z_i^{(n_l)}} 
 =  \frac {\mathrm{d} {(a_i^{(n_l)})}^\mathrm{T}} {\mathrm{d} z_i^{(n_l)}} \cdot  \frac {\mathrm{d} J_i(W, b)} {\mathrm{d} a_i^{(n_l)}}  
@@ -138,12 +129,9 @@ $\begin{align}
 &=  (W^{(l+1)} \ )^\mathrm{T} \cdot \delta_i^{(l+1)} \  .* f'(z_i^{(l)}) 
 \end{align}$
 
-
-
 再次仔细观察上面公式，左右两个表达式的维度都是$S_{l} \times 1$, 这样很容易推广到m个样本的情况。这里的关键也是理解阿达马乘积的特性。
 
 $ \delta^{(l)} =  (W^{(l+1)} \ )^\mathrm{T} \cdot \delta^{(l+1)} \ .* f'(z^{(l)})   $
-
 
 接下来看$w_i^{(l)}$的梯度。这一次$w_i^{(l)}$ 和 $z_i^{(l)}$ 是行向量。采用行向量的原因是，$w_i^{(l)}$是指一个神经元的参数，它只用于计算对应的$z_i^{(l+1)}$，在求导的时候我们只需要把$z_i^{(l+1)}$作为中间变量即可。
 
@@ -183,7 +171,6 @@ $ \frac {\mathrm{d} J(W)} {\mathrm{d} \theta^{(l)}}
 
 $n_l$是神经网络的总层数（包括一个输入层，若干个隐藏层和一个输出层，所以至少是两层）, $l$是指网络中的第$l$层，$S_l$是指第$l$层网络中神经元的个数。$ f(x) $是神经元的激活函数。
 
-
 假设输入层$X\in R^{n \times m}\ \ $(m个样本，每个样本是n维), $Y\in R^{S_{n_l} \times m} \ \  $($a^{(n_l)}也是相同维度的矩阵$)， 则
 
 $ S_1 = n $ 
@@ -195,9 +182,6 @@ $ z^{(l)} \ $的维数是 $ {S_{l} \times m}$
 $ a^{(l)} \ $的维数是 $ {S_{l} \times m}$
 
 $ W^{(l)} \ $的维数是 $ {S_{l+1} \times S_{l}}$
-
-
-
 
 ### 3.1 基本计算公式
 
@@ -244,11 +228,9 @@ $
 
 $ \delta^{(l)} = (W^{(l+1)}  \ )^\mathrm{T} \cdot \delta^{(l+1)}\ .* f'(z^{(l)})    $
 
-
 $ \frac {\mathrm{d} J
 (W, b)} {\mathrm{d} \theta^{(l)}} 
 =  \delta^{(l)} \cdot  (c^{(l-1)} \ )^\mathrm{T} + \frac 1 {m} [0, W^{{l}}]  $  
-
 
 初略查看了，感觉这两个实现都不是那么好。看来看去还是ufldl里的最好。
 

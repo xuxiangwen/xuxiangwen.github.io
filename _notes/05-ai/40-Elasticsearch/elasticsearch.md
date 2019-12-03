@@ -55,8 +55,6 @@ curl -X GET 'localhost:9200/_cat/shards?v&pretty'
 curl -X GET 'localhost:9200/_cat/plugins?v&pretty'
 ~~~
 
-
-
 #### 新增/删除index
 
 ~~~shell
@@ -186,8 +184,6 @@ curl -X POST "localhost:9200/customer/_delete_by_query?pretty" -H 'Content-Type:
 curl -X GET "localhost:9200/_cat/indices?v" 
 ```
 
-
-
 #### 批量处理
 
 #### ES的版本
@@ -205,8 +201,6 @@ sysctl -w vm.max_map_count=262144
 grep vm.max_map_count /etc/sysctl.conf
 ~~~
 
-
-
 #### Kibana状态
 
 http://aa00:5601/status
@@ -223,19 +217,13 @@ http.cors.allow-methods : OPTIONS, HEAD, GET, POST, PUT, DELETE
 http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length
 ~~~
 
-
-
 ## 2. 概念
 
 [Elasticsearch](http://www.elasticsearch.org/)是一款基于 Apache Lucene 构建的开源搜索引擎，它采用 Java 编写并使用 Lucene 构建索引、提供搜索功能，Elasticsearch 的目标是让全文搜索变得简单，开发者可以通过它简单明了的 RESTFul API 轻松地实现搜索功能，而不必去面对 Lucene 的复杂性。
 
-
-
 #### Index
 
 Elastic 会索引所有字段，经过处理后写入一个反向索引（Inverted Index）。查找数据的时候，直接查找该索引。所以，Elastic 数据管理的顶层单位就叫做 Index（索引）。每个 Index 的名字必须是小写。
-
-
 
 #### Document
 
@@ -244,10 +232,6 @@ Index 里面单条的记录称为 Document（文档）。许多条 Document 构�
 Document 使用 JSON 格式表示，下面是一个例子。
 
 {   "user": "张三",   "title": "工程师",   "desc": "数据库管理" }
-
-
-
-
 
 ## 好文章
 

@@ -124,8 +124,6 @@ aws iam create-policy --policy-name mike-dms --policy-document file://policy
 rm policy
 ~~~
 
-
-
 #### [Namespace of AWS Service](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
 
 | Service                                         | Namespace         |
@@ -150,8 +148,6 @@ rm policy
 | Amazon Simple Notification Service (Amazon SNS) | sns               |
 | Amazon Simple Queue Service (Amazon SQS)        | sqs               |
 | Amazon Simple Storage Service (Amazon S3)       | s3                |
-
-
 
 ### 2. AWS cli ec2命令
 
@@ -183,8 +179,6 @@ aws ec2 authorize-security-group-ingress --region cn-north-1 --group-name mike-t
 
 aws ec2 describe-security-groups --region cn-north-1   --group-names mike-tcph-test
 ```
-
-
 
 ### 1. Proxy
 

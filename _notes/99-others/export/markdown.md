@@ -1,15 +1,9 @@
 
-
-
 # 前言
 
 作为一个技术宅，很喜欢来学习一些自己感兴趣的技术，在学习的过程中，深感记笔记非常的重要。笔记记得好，即使过上几年，再次翻看，还能记忆犹新。对于成年人，记忆力比起年轻时候都会有不同程度衰减，由此记笔记尤甚重要。下面介绍一下这方面的心得。
 
-
-
 # 笔记
-
-
 
 ## 笔记种类
 
@@ -62,15 +56,11 @@
 
 最开始大家都是使用这些来记录个人工作生活信息的。最大的问题是，文件分散在计算机的各处，时间长了，放在哪里都忘了，更别提更新了。
 
-
-
 ### 工业时代：evernote， onenote， 网易云笔记
 
 ![img](image/CNHome_Image1_v2.png)
 
 记不得从何时开始，用上了evernote，身边的很多同事也在用onenote。用上这些工具，笔记集中管理，可以多级导航，搜索起来也很方便，应该说效率大大提高 。后来又开始使用网易云笔记，和evernote比起来，它可以编写markdown，笔记分级方便方便，但全文检索能力又不如evernote。
-
-
 
 ### 信息时代：zeppelin，jupyter notebook + 思维导图
 
@@ -84,13 +74,9 @@ evernote，onenote等工具很强大，但无法执行程序代码。在学习Sp
 
 思维导图，则另辟蹊径，它是表达发散性思维的有效图形思维工具，它运用图文并重的技巧，把各级主题的关系用相互隶属与相关的层级图表现出来，把主题关键词与图像、颜色等建立记忆链接。
 
-
-
 ### 互联时代：  github(pages, wiki) + typora(markdown) + jupyter notebook + pandoc ...
 
 **[GitHub Pages](<https://pages.github.com/>)** is a static site hosting service designed to host your personal, organization, or project pages directly from a GitHub repository. 
-
-
 
 [![What is GitHub Pages?](http://img.youtube.com/vi/2MsN8gpT6jY/0.jpg)](http://www.youtube.com/watch?v=2MsN8gpT6jY "What is GitHub Pages?")
 
@@ -110,8 +96,6 @@ GitHub Pages  Example
 ![1557385341070](image/1557385341070.png)
 
  [example eigenvector-singular.md](..\math\eigenvector-singular.md) 
-
-
 
 **Markdown vs. Word**
 
@@ -138,8 +122,6 @@ GitHub Pages  Example
 
 **Pandoc**是一个标记语言转换工具，可实现不同标记语言间的格式转换，堪称该领域中的“瑞士军刀”。
 
-
-
 由于工具的强大，记笔记的效率很高，这使得我们记录了太多的笔记，这反而造成了信息的泛滥，如何保证信息的价值呢？而且，学习时记笔记，开发写文档，项目管理，team活动也有产生很多文档，这些内容如何能用统一的方式来维护呢？
 
 这些问题的答案或许是——分享。多记笔记是第一步，接下来还需要高质量的笔记，这些笔记是真正（自己）的知识，这些知识非常适合来分享。当我们需要分享知识的时候，一般都会花上一些心思，这使得知识更加有价值，易于理解。开发文档和项目文档又何尝不是如此，传统的方式，文档很少有持续维护，内容枯燥，大家也不愿意看。采用wiki或者blog等方式，生产高质量，易于理解的内容。在分享过程中，知识贡献者和知识使用者都能各取所需，这也是开源的精神所在。
@@ -147,8 +129,6 @@ GitHub Pages  Example
 采用typora可以在本地非常方便的编写markdown文档，然后用github可以很容易分享给其他人。 在公司内部，其实我们一直有信息交流，分享的平台，但问题是，功能和性能很难得到非常有效的保证。有的时候，性能很慢，打开一个文档需要10秒；有的时候同步很慢；有的时候编辑麻烦，格式不支持，很无奈。总而言之，这是一种基于中心化管理的方式，位于中心的服务承载了太多的职责，而每一项往往都很难做的很好。而github不同，它代表的是一种分布式的管理方式，所有的编辑都可以在本地来做，我们可以用自己喜欢的工具，速度飞快，畅快随心。github只是你本地库的一种同步，这种同步先天支持很好的分享和协同。
 
 以上这些工具，我们都会混合使用，没有一种工具可以解决所有的问题。
-
-
 
 ## 工具的要求
 
@@ -176,8 +156,6 @@ GitHub Pages  Example
 
 以上这些工具，我们都会混合使用，没有一种工具可以解决所有的问题。
 
-
-
 ## github + typora vs. teams + onenote ...
 
 |              | teams + onenote ... | github + typora ... | description                                                  |
@@ -189,12 +167,6 @@ GitHub Pages  Example
 | 易于分享     | 4                   | 5                   | 前者适合公司内部分享，后者都适合，而且同一个文档可以发不到多个平台 |
 
 个人观点，总体上两套工具集合都。前者最大的特点是简单易用，后者最大特点在于开放自由。对于程序员来说，后面的方案更有诱惑性。
-
-
-
-
-
-
 
 ## 参考
 

@@ -256,8 +256,6 @@ git checkout 【merge操作时所在的分支】
 git reset --hard 【merge前的版本号】
 ```
 
-
-
 ## 2. Git 原理
 
 #### 三大区域
@@ -265,8 +263,6 @@ git reset --hard 【merge前的版本号】
 - 工作区: Working Directory. 在git帮助中, 把它称为`working tree`.
 - 暂存区: Staging Area.  在git帮助中, 把它称为`the index file`.
 - 版本库: Repository
-
-
 
 ![工作目录、暂存区域以及 Git 仓库。](https://progit.bootcss.com/images/areas.png)
 
@@ -303,10 +299,6 @@ git reset --hard 【merge前的版本号】
 
 #### 提交信息
 
-
-
-
-
 ## 3. Git GUI
 
 #### GitKrken
@@ -337,8 +329,6 @@ wget https://github.com/shiftkey/desktop/releases/download/release-1.6.6-linux2/
 sudo yum install GitHubDesktop-linux-1.6.6-linux2.rpm
 ~~~
 
-
-
 ## 4. Git Flow
 
 Git 作为一个源码管理系统，不可避免涉及到多人协作。
@@ -352,8 +342,6 @@ Git 作为一个源码管理系统，不可避免涉及到多人协作。
 > - Git flow
 > - Github flow
 > - Gitlab flow
-
-
 
 上文摘自[阮一峰](http://www.ruanyifeng.com/)的 [Git 工作流程](http://www.ruanyifeng.com/blog/2015/12/git-workflow.html)。
 

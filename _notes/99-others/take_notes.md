@@ -2,19 +2,13 @@
 
 ![bg](image/pexels-photo-373076.jpeg)
 
-
-
 # 前言
 
 作为一个技术宅，很喜欢学习一些自己感兴趣的技术，在学习的过程中，深感记笔记非常的重要。对于成年人，记忆力比起年轻时候都会有不同程度衰减，由此记笔记尤甚重要。下面介绍一下这方面的心得。
 
-
-
 # 笔记
 
 笔记记得好，即使过上几年，再次翻看，还能记忆犹新。
-
-
 
 ## 笔记种类
 
@@ -27,8 +21,6 @@
 - 文章。经过自己整理，总结，或者创作出的内容。相对正式，常用wiki，blog等发布。
 
 对于一篇笔记，可以属于多个类别，比如：项目中的文档，可以通过blog单独发布出来，作为一篇文章分享给更多人。相对而言，交互文档会陌生一些，下面介绍一下。
-
-
 
 ### 交互文档：jupyter notebook， zeppelin
 
@@ -50,8 +42,6 @@
 
 ![1557704516822](image/1557704516822.png)
 
-
-
 ## 笔记的安全性
 
 既然要分享，笔记的安全性非常重要。不同的笔记也有不同的发布范围。
@@ -65,8 +55,6 @@
   - 公司/部门：信息在公司或部门内部是公开的。比如：公司流程，部门policy等。
 - 项目：信息在项目组内部是公开的，可以授权项目外的同事来访问。比如：项目开发设计文档，源代码等。
 - 私有：信息是私有的，但可以授权公司的同事来访问。比如：个人的一些资料，文档，代码等。
-
-
 
 # 工具
 
@@ -83,15 +71,11 @@
 
 > 以上这些工具，我们都会混合使用，没有一种工具可以解决所有的问题。
 
-
-
 ### 原始社会：文本文件，word，excel文件
 
 大家都是使用这些工具开始的，主要缺点是文件分散在计算机的各处，时间长了，放在哪里都忘了，查找起来很不方便。
 
 ![img](image/ximg_5b6e4770e6897.jpg.pagespeed.gp+jp+jw+pj+ws+js+rj+rp+rw+ri+cp+md.ic.tfq1D0waRx.jpg)
-
-
 
 ### 工业时代：evernote， onenote， 有道云笔记
 
@@ -101,23 +85,17 @@
 
 记不得从何时开始，用上了evernote，身边的很多朋友也在用onenote。用上这些工具，笔记集中管理，可以多级导航，搜索起来也很方便，应该说效率大大提高 。后来又开始使用有道云笔记，和evernote比起来，它可以编写markdown，笔记分级方便方便，但全文检索能力又不如evernote。
 
-
-
 ### 信息时代：zeppelin，jupyter notebook + 思维导图
 
 虽然evernote，onenote等工具很强大，但无法执行程序代码。由此，zeppelin，jupyter notebook等工具孕育而生。
 
 ![example notebook of Lorenz differential equations](image/jupyterpreview.png)
 
-
-
 #### 思维导图
 
 思维导图，则另辟蹊径，是表达发散性思维的有效图形思维工具。它运用图文并重的技巧，把各级主题的关系用相互隶属与相关的层级图表现出来，把主题关键词与图像、颜色等建立记忆链接。
 
 ![1557381669838](image/1557381669838.png)
-
-
 
 ### 互联时代：  github(pages, wiki) + typora(markdown) + jupyter notebook + pandoc ...
 
@@ -126,8 +104,6 @@
 - 工具的强大，造成笔记太多，如何使笔记更有价值？
 - 学习时记笔记，开发时写文档，需要展示时写ppt，如何用统一的方式来记录和分享呢？
 
-
-
 #### 分享
 
 上面两个问题的答案或许是分享。知识的根本目的和价值是分享。
@@ -135,8 +111,6 @@
 ![Data linkage and data sharing in clinical trials: Good in principle, complex in practice](image/pic1_0.png)
 
 > 当需要分享知识的时候，往往会花上心思，这使得知识更易于理解，更加有价值。
-
-
 
 整个知识分享的流程如下：
 
@@ -160,8 +134,6 @@ graph LR;
 
 > 上面的图其实也是用一种代码（[mermaid](https://github.com/knsv/mermaid)）也写成的。
 
-
-
 #### [GitHub Pages](https://pages.github.com)
 
 GitHub Pages是一个用来展现GitHub中个人，组织或者项目的静态的网站。它是我们流程中分享的主要平台。
@@ -174,15 +146,11 @@ GitHub Pages是一个用来展现GitHub中个人，组织或者项目的静态�
 >
 > [Open source organizations using GitHub Pages](https://github.com/showcases/open-source-organizations)
 
-
-
 #### [GitHub Wiki](https://help.github.com/en/articles/about-wikis)
 
 就wiki本身来说，功能似乎有些弱，但如果定位成分享项目的一些知识，则非常合适。
 
 >  总结起来，GitHub Pages, Wiki的最大优势：流量优势。因为在日常开发中，Github和GitHub Enterprise使用的比例非常的高。
-
-
 
 #### [Markdown Editer: Typora](<https://typora.io/>)
 
@@ -200,15 +168,11 @@ GitHub Pages是一个用来展现GitHub中个人，组织或者项目的静态�
 
 ![1557737839389](image/1557737839389.png)
 
-
-
 #### Markdown
 
 Markdown是一种轻量级标记语言，让写作者专注于写作而不用关注样式，而且可以很容易把Markdown转化成其他的文件格式，比如：html, pdf, word, ppt等等。下面是markdown语言和展现的对应关系，相信大家几分钟就能掌握。
 
 ![markdown](image/markdown.png)
-
-
 
 #### Markdown vs. Word
 
@@ -232,8 +196,6 @@ Markdown是一种轻量级标记语言，让写作者专注于写作而不用关
 
 > 自从用上了markdown，再也不看不上word了。
 
-
-
 #### Pandoc
 
 Pandoc是一个标记语言转换工具，可实现不同标记语言间的[格式转换](https://pandoc.org/diagram.jpg)，堪称该领域中的“瑞士军刀”。比如：下面的脚本，可以把markdown转化成html格式的ppt。
@@ -245,8 +207,6 @@ pandoc -t F -s take_notes_ppt.md \
        -V theme=moon
 ~~~
 
-
-
 ## 工具的要求
 
 并不是对单一工具的，而是对于所用的工具集来说的。
@@ -257,19 +217,11 @@ pandoc -t F -s take_notes_ppt.md \
 - 快速检索。不好的例子有有道云笔记的搜索功能。有道云笔记每次搜索时的目录是当前目录，而不是最根层的目录。我的一般工作的场景是，有道云笔记打开，定位到某个笔记本，随时在上面做一些记录，当工作中，发现了某个问题，而且记得笔记本中记录过，这时回到有道云笔记，去搜索一下，这时想搜索的范围一般是所有文档，而不是当前目录或当前文档。
 - 易于分享。支持分享到项目，部门，公司或互联网。
 
-
-
 ## Microsoft Teams + OneNote ...
-
-
 
 Microsoft Teams是非常强大的协作工具。里面可以容纳各种软件，当然也包括OneNote。采用这两个产品，能实现很好的记录和分享。
 
 ![1557710385911](image/1557710385911.png)
-
-
-
-
 
 ## github + typora vs. teams + onenote ...
 
@@ -289,13 +241,9 @@ Microsoft Teams是非常强大的协作工具。里面可以容纳各种软件�
 
 >  对于程序员来说，github + typora 更有诱惑性
 
-
-
 ## 总结
 
 无论使用任何工具，无论如何记笔记，只要让更多知识得到更好的分享，就能获得更大价值。
-
-
 
 ## 参考
 

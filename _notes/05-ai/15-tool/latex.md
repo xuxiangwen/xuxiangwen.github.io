@@ -14,10 +14,7 @@ LaTeX中导数、极限、求和、积分 http://blog.csdn.net/foreverdengwei/ar
 
 LaTeX大括号公式和一般括号总结 https://blog.csdn.net/miao0967020148/article/details/78712811 
 
-
-
 ## 符号
-
 
 $\approx$ : \approx 约等于
 
@@ -45,8 +42,6 @@ $\sum\limits_i^m$ : \sum\limits_i^m
 
 $\lVert {w} \rVert _{2} = w^\mathrm{T}w$: \lVert {w} \rVert _{2} = w^\mathrm{T}w
 
-
-
 ### 对齐
 
 $\hat{y}$  = \hat{y}
@@ -61,8 +56,6 @@ y &= x + 5 \\
 &= 3 + 5 \\
 &= 8
 \end{align}
-
-
 
 ### 大括号
 
@@ -86,8 +79,6 @@ BP = \begin{equation}
 
 $\left( \frac{a}{b} \right)$：   \left( \frac{a}{b} \right)
 
-
-
 ### 集合操作 
 
 $\cap$  :  \cap 交集  
@@ -104,30 +95,13 @@ $\mathbb{Z}$  : \mathbb{Z} 实数
 $\mathbb{N}$  : \mathbb{N} 实数 
 $L_C = L_A \cap (L_B \cup L_C)$ : L_C = L_A \cap (L_B \cup L_C) 并集和交集  
 
-
-
 ### 公式编号
 
-
-
-
-
 $$
-
-
 
 E=mc^2\tag{1}
 
-
-
 $$
-
-
-
-
-
-
-
 
 ### Excel转化成markdown Table
 

@@ -74,15 +74,11 @@ git lg --all
     D---E---F---G master
 ```
 
-
-
 ### 有趣的例子
 
 假设创建了一个特性分支 `server`，为服务端添加了一些功能，提交了 `C3` 和 `C4`。 然后从 `C3` 上创建了特性分支 `client`，为客户端添加了一些功能，提交了 `C8` 和 `C9`。 最后，你回到 `server` 分支，又提交了 `C10`。
 
 ![从一个特性分支里再分出一个特性分支的提交历史。](image/interesting-rebase-1.png)
-
-
 
 **初始化环境**
 
@@ -176,11 +172,7 @@ git branch -d client
 git branch -d server
 ~~~
 
-
-
 ![最终的提交历史。](image/interesting-rebase-5.png)
-
-
 
 ## 用 reword 和 fixup 打磨提交颗粒
 
@@ -210,7 +202,6 @@ git checkout -b develop
 touch C2.txt
 git add .
 git commit -m "C2-详情页布局完成一半"
-
 
 # 创建提交 C3
 touch C3.txt
@@ -262,19 +253,13 @@ git rebase -i HEAD^^^   # 整理前面几次的提交.
 
 ![1557909983151](image/1557909983151.png)
 
-
-
 查看版本树.
 
 ~~~shell
 git lg --all
 ~~~
 
-
-
 ![1557910316413](image/1557910316413.png)
-
-
 
 ## 参考
 

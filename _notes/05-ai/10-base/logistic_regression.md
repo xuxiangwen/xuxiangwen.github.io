@@ -54,7 +54,6 @@ $\nabla{w} =  - \frac 1 m X^\mathrm{T} \cdot diag(1-h(Xw))\cdot y +
 
 $\nabla{w} = \frac 1 m X^\mathrm{T} \cdot (h(Xw) - y) + \frac \lambda m w$
 
-
 ## 2. 方式二
 
 设  $y \in \{-1， 1\}$
@@ -99,7 +98,6 @@ p_{y=0} = h(x)= \frac {e^{-x}} {1+e^{-x}}  \\
 \log {\frac {p_{y=1}} {p_{y=0} }} = x
 $
 
-
 这里加入一些对$e, e^x$的理解。我们都知道
 
 $e = \lim\limits_{n\to\infty}(1+ \frac 1 n)^n$
@@ -113,16 +111,13 @@ $e^x = \lim\limits_{n\to\infty}(1+ \frac x n)^n$
 2. [e (数学常数)](https://zh.wikipedia.org/wiki/E_(%E6%95%B0%E5%AD%A6%E5%B8%B8%E6%95%B0))
 3. [数学常数e的含义](http://www.ruanyifeng.com/blog/2011/07/mathematical_constant_e.html)
 
-
 ```python
 
 ```
 
-
 ```python
 
 ```
-
 
 ```python
 

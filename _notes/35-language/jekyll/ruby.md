@@ -41,8 +41,6 @@ ruby -v
 
 ![1571194274287](image/1571194274287.png)
 
-
-
 ## 进入Interactive Ruby
 
 ```ruby
@@ -171,7 +169,6 @@ class MegaGreeter
   end
 
 end
-
 
 if __FILE__ == \$0
   mg = MegaGreeter.new
@@ -303,14 +300,12 @@ puts '----------------------------------'
 nums = Array.new(10) { |e| e = e * 2 }
 puts "#{nums}"
 
-
 puts '----------------------------------'
 months = Hash.new( "month" )
  
 puts "#{months[0]}"
 puts "#{months[72]}"
 puts months
-
 
 EOF
 
@@ -657,7 +652,6 @@ d1.no_of_months
 
 EOF
 
-
 chmod 755 $program
 ./$program
 ~~~
@@ -915,7 +909,6 @@ puts '----------------------------------------------'
 print "Hello World"
 print "Good Morning"
 
-
 EOF
 
 chmod 755 $program
@@ -984,7 +977,6 @@ puts arr[1]
 puts '----------------------------------------------'
 IO.foreach("input.txt"){|block| puts block}
 
-
 EOF
 
 chmod 755 $program
@@ -1014,7 +1006,6 @@ rescue
 end
 print file, "==", STDIN, "\n"
 
-
 puts '----------------------------------------------'
 fname = "/unexistant_file"
 begin
@@ -1027,7 +1018,6 @@ rescue
    puts 'change file name'
    retry
 end
-
 
 puts '----------------------------------------------'
 begin  
@@ -1104,15 +1094,11 @@ catch :quitRequested do
    # 处理信息
 end
 
-
-
 EOF
 
 chmod 755 $program
 ./$program
 ~~~
-
-
 
 ## 参考
 

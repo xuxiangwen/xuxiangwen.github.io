@@ -164,8 +164,6 @@ pip install --upgrade torch torchvision --proxy http://web-proxy.rose.hp.com:808
 echo export PATH=\"\$PATH:/root/.local/bin\" >> /root/.bashrc
 ~~~
 
-
-
 **tensoarflow 1.5**
 
 当时阿里nlp比赛时，使用了1.5
@@ -211,25 +209,13 @@ https://hacpai.com/article/1508232710946  基于 docker 搭建 hadoop 跨主机�
 
 https://itbilu.com/nodejs/core/Nkvh9yS4W.html 文件下载服务器
 
-
-
-
-
-
-
-
-
 **Hadoop-Spark**
-
-
 
 *cd /home/grid/eipi10/docker-hadoop/centos-base*
 
 *docker rmi --force microsheen/centos-base:latest*
 
 *docker build -t microsheen/centos-base:latest .*
-
-
 
 *cd /home/grid/eipi10/docker-hadoop/hadoop-base*
 
@@ -247,26 +233,16 @@ https://itbilu.com/nodejs/core/Nkvh9yS4W.html 文件下载服务器
 
 *cat hadoop/etc/hadoop/core-site.xml*
 
-
-
 *docker stack deploy -c docker-compose.yml hadoop*
-
-
 
 https://blog.newnius.com/setup-hadoop-cluster-based-on-docker-swarm.html   基于Docker Swarm搭建Hadoop集群
 
 https://hacpai.com/article/1508232710946  基于 docker 搭建 hadoop 跨主机集群
-
-
-
-
 
 **Service**
 
 **file-server**
 
 https://itbilu.com/nodejs/core/Nkvh9yS4W.html 文件下载服务器
-
-
 
   
