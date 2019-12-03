@@ -1,12 +1,18 @@
+---
+layout: default
+title: README
+---
+
 ## Github Pages配置
 
 ### 配置_config.yml
 
 ~~~
 cat << EOF >> _config.yml
-theme: jekyll-theme-architect
 title: 欢迎来到eipi10!
-description: 记录了学习的经历和所得，分享给所有的朋友i
+description: 记录了学习的经历和所得，分享给所有的朋友
+theme: jekyll-theme-architect
+show_downloads: true
 defaults:
   - scope:
       path: ""
@@ -35,7 +41,7 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 gem "jekyll"
 gem "jekyll-theme-architect"
-gem "github-pages"
+gem "github-pages", group: :jekyll_plugins
 EOF
 
 cat Gemfile
