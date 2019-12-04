@@ -7,9 +7,9 @@ date: 2019-12-05
 
 通俗来说，线性映射把一个坐标系中的点，映射到另外一个坐标系中的点，比如：阳光下物体的影子，就是把三维的物体映射到二维的平面上。而线性变换是在同一个坐标系中完成的。比如：二维平面中，对一个图形，进行旋转，缩放。
 
- ![File:Eigenvectors.gif](/assets/images/Eigenvectors.gif) 
+ ![File:Eigenvectors.gif](/assets/images/Eigenvectors-1575459117113.gif) 
 
-#### 定义
+### 定义
 
 设 $$\mathbf V，\mathbf W $$为两个向量空间， 如果$$f:\mathbf V \rightarrow \mathbf W$$满足
 
@@ -29,7 +29,7 @@ $$
 
 其中$$f = \mathbf A， \mathbf{\alpha} \in \mathbf V， \mathbf {\beta} \in \mathbf W  $$。为了加深理解，下面看最简单的线性变换：旋转，缩放以及正交化。
 
-#### 旋转
+### 旋转
 
 在同一向量空间，最基本的线性变换之一是旋转。在二维空间，如下矩阵$$\mathbf A$$将会把向量进行逆时针旋转$$\theta $$。
 
@@ -56,7 +56,7 @@ $$
 
 如下图所见，向量$$\mathbf {a_1}$$是一个单位向量，和$$\mathbf X$$轴的角度是$$\theta $$，向量$$\mathbf {a_2}$$也是一个单位向量，和$$\mathbf {a_1}$$刚好垂直。
 
-![image-20191113134724199](/assets/images/image-20191113134724199.png)
+![image-20191113134724199](/assets/images/image-20191113134724199-1575459117113.png)
 
 上图中$$\theta = 30^{\circ}$$，$$\alpha$$和$$\mathbf X$$ 轴的角度$$\phi=45^{\circ}$$，经过线性变换后，$$\beta $$和$$\mathbf X $$轴的角度是$$75^{\circ}$$，也就是说，矩阵正好把向量逆时针旋转了$$ 30^{\circ}$$。
 
@@ -73,8 +73,7 @@ $$
      \alpha_1 \\
      \alpha_2 
      \end{bmatrix} $$
-
-- $$\alpha$$和$$X$$轴的角度是$$\phi$$，可以得出向量$$\mathbf {\beta}$$和$$\mathbf {a_1}$$(新$$X$$轴)的角度必然也是$$\phi$$，则向量$$\mathbf {\beta}$$和$$X$$轴的角度是 $$\phi + \theta $$ 。就这样看上去，矩阵$$ \mathbf{A} $$正好把向量$$\mathbf{\alpha}$$逆时针旋转了$$ \theta$$。
+   - $$\alpha$$和$$X$$轴的角度是$$\phi$$，可以得出向量$$\mathbf {\beta}$$和$$\mathbf {a_1}$$(新$$X$$轴)的角度必然也是$$\phi$$，则向量$$\mathbf {\beta}$$和$$X$$轴的角度是 $$\phi + \theta $$ 。就这样看上去，矩阵$$ \mathbf{A} $$正好把向量$$\mathbf{\alpha}$$逆时针旋转了$$ \theta$$。
 
 同理，很容易把上述方法推广到$$n$$维: 
 
@@ -97,7 +96,7 @@ $$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#旋转)。
 
-#### 缩放
+### 缩放
 
 在二维空间，下面的矩阵会对向量各个分量进行拉伸和缩放。
 
@@ -129,7 +128,7 @@ $$
 0 & 0.5
 \end{bmatrix}$$，对圆进行了缩放：$$\mathbf x $$轴$$2$$倍，$$\mathbf y$$轴$$0.5$$倍。
 
-![image-20191114131858572](/assets/images/image-20191114131858572.png)
+![image-20191114131858572](/assets/images/image-20191114131858572-1575459117113.png)
 
 同样推广到$$n$$维空间。
 
@@ -165,13 +164,13 @@ $$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#缩放)。
 
-#### 旋转+缩放
+### 旋转+缩放
 
 正交矩阵带来了旋转，对角矩阵进行了缩放，而旋转，缩放都是一种简单运动，复杂一点的运动可以组合多个旋转，缩放，由此可以把线性映射（变换）理解成一种组合运动。
 
 下图中，对圆先进行缩放：$$\mathbf x $$轴$$2$$倍，$$\mathbf y$$轴$$0.5$$倍，然后再进行旋转$$30^{\circ} $$。
 
-![image-20191114134924766](/assets/images/image-20191114134924766.png)
+![image-20191114134924766](/assets/images/image-20191114134924766-1575459117113.png)
 
 蓝色的圆是原图，绿色的椭圆是缩放后的，红色的椭圆是绿色椭圆旋转后的样子。$$\mathbf {a_1}, \mathbf {a_2}$$是两种变换叠加后矩阵的列向量。可以这么理解，如果以它们为坐标轴，红色的椭圆就是圆。
 
@@ -197,14 +196,14 @@ $$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#缩放+旋转)。
 
-#### 正交化
+### 正交化
 
 一个平行四边形，通过改变角度，可以很容易变成一个长方形。与此类似，[正交化](https://zh.wikipedia.org/wiki/%E6%AD%A3%E4%BA%A4%E5%8C%96)是指把一组（线性无关）的向量经过线性变换后，使得各个向量之间相互垂直（内积为0），然后再对向量进行缩放，使得每个向量成为单位向量。容易想象，在一个二维平面，任意两个向量（不共线），首先通过变换使得两个向量垂直，然后进行缩放，可以把它们变成正交矩阵。
 
 下图中，$$\mathbf {v_2^{'}}$$是$$
 \mathbf {v_2}$$在$$\mathbf {v_1}$$上的投影，$$\mathbf {v_2} - \mathbf {v_2^{'}}$$就可以得到垂直于$$\mathbf {v_1}$$的向量$$\mathbf {\beta_2}$$。
 
-![image-20191121102923460](/assets/images/image-20191121102923460.png)
+![image-20191121102923460](/assets/images/image-20191121102923460-1575459117113.png)
 
 公式表达如下：
 
@@ -228,7 +227,7 @@ $$
 
 以上方法，可以推广到$$n$$维，称之为[格拉姆-施密特正交化](https://zh.wikipedia.org/wiki/%E6%A0%BC%E6%8B%89%E5%A7%86-%E6%96%BD%E5%AF%86%E7%89%B9%E6%AD%A3%E4%BA%A4%E5%8C%96)。
 
- ![img](/assets/images/300px-GSO.png) 
+ ![img](/assets/images/300px-GSO-1575459117114.png) 
 
 $$
 
@@ -251,9 +250,9 @@ $$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#正交化)。
 
-#### 内积和投影
+### 内积和投影
 
-还可以从内积角度来理解线性映射。
+还可以从内积角度来理解线性映射。    
 
 $$
 
@@ -281,7 +280,7 @@ $$
 
 当$$\mathbf {a_1}, \mathbf {a_2}, \cdots, \mathbf {a_m}$$是单位向量时，**$$\mathbf \beta$$是向量$$\mathbf \alpha$$ 在$$\mathbf  A$$各个行向量上的投影**，即以行向量为基的坐标系上的坐标。
 
-#### 参考
+### 参考
 
 - [百度百科：线性变换](https://baike.baidu.com/item/%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2)
 - [回顾线性空间](https://scientificrat.com/2017/10/11/%E5%9B%9E%E9%A1%BE%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4/)
