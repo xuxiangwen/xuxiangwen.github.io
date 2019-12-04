@@ -1,6 +1,6 @@
 ---
 title: 向量内积
-categories: 线性代数
+categories: "linear algebra 1"
 date: 2019-12-03
 ---
 向量内积非常基础和重要，它是机器学习中计算的基本方式。
