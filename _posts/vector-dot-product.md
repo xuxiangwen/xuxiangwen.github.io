@@ -3,19 +3,10 @@ title: 向量内积
 categories: linear-algebra
 date: 2019-12-03
 ---
-向量内积非常基础和重要，它是机器学习中计算的基本方式。
-
-### 向量内积
-
-也称向量点积（Dot Product） ，是两个向量各个分量分别相乘，然后全部相加而得。
+向量内积也称向量点积（Dot Product） ，是两个向量各个分量分别相乘，然后全部相加而得。
 
 $$
-\mathbf{a}\cdot \mathbf{b} = 
-\begin{bmatrix} a_1 \\ a_2 \\ \ldots \\ a_n
-\end{bmatrix} \cdot 
-\begin{bmatrix} b_1 \\ b_2 \\ \ldots \\ b_n 
-\end{bmatrix} = 
-a_{1}b_{1} + a_{2}b_{2} + \ldots + a_{n}b_{n} = \sum a_ib_i
+\mathbf{a}\cdot \mathbf{b} = \begin{bmatrix} a_1 \\ a_2 \\ \ldots \\ a_n\end{bmatrix} \cdot \begin{bmatrix} b_1 \\ b_2 \\ \ldots \\ b_n \end{bmatrix} = a_{1}b_{1} + a_{2}b_{2} + \ldots + a_{n}b_{n} = \sum a_ib_i
 $$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#向量内积)。
@@ -28,9 +19,9 @@ $$
 
 一个列向量，可以看成$1 \times n$阶矩阵，一个行向量可以看成$n \times 1$阶矩阵。上面公式右边的表达形式，能够使得向量内积和矩阵乘法用统一的表达方式表达。
 
-#### 夹角余弦
+### 夹角余弦
 
-![image-20191112123802508](images/image-20191112123802508.png)
+![image-20191112123802508](images/image-20191112123802508-1575458885809.png)
 
 进一步推导，还可以得到以下公式
 
@@ -54,11 +45,11 @@ $$
 
 如果两个向量是垂直的，即夹角是$90^\circ $，则其内积为$0$。
 
-![image-20191113102631841](images/image-20191113102631841.png)
+![image-20191113102631841](images/image-20191113102631841-1575458885810.png)
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#两个垂直向量的内积)。
 
-#### 单位向量
+### 单位向量
 
  指大小等于1的向量。可以用$\frac {\mathbf b} {\|\mathbf b\|}$表示单位向量。
 
@@ -68,7 +59,7 @@ $$
 \mathbf{a}\cdot \frac {\mathbf b} {\|\mathbf b\|} = \|\mathbf a \| \cos \theta
 $$
 
-#### 几何意义
+### 几何意义
 
 如下图所示，$\|\mathbf a \| \cos \theta$是向量$\mathbf a$在向量$\mathbf b$上投影的长度。
 
@@ -88,14 +79,12 @@ $$
 \cos \theta = \frac {\mathbf{a}}  {\|\mathbf a \|}  \cdot \frac {\mathbf b} {\|\mathbf b\|}
 $$
 
-#### 其他意义
+### 其他意义
 
 - 物理上，向量内积可以理解为做[功](https://zh.wikipedia.org/wiki/%E5%8A%9F)。 功就是力与位移的内积。
-
-$$
+  $$
   \mathbf W = \mathbf F \cdot \mathbf d = \|\mathbf F \| \|\mathbf d\| \cos \theta
-  
-$$
+  $$
 
   其中$\mathbf W$ ：功，$\mathbf F$：力， $\mathbf d$：位移。
 
@@ -113,7 +102,7 @@ $$
 
 > 平面上方和下方是以w的方向作为参照的，如果和w同向，就是上方，反之就是下方。
 
-#### 再看矩阵乘法
+### 再看矩阵乘法
 
 基于向量内积，可以简化矩阵乘法的表达形式。
 
