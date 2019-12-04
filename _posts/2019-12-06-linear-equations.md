@@ -96,7 +96,7 @@ $$
 
 $$
 
- {\mathbf y}
+{\mathbf y}
 
 $$
 
