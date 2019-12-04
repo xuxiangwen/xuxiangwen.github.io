@@ -26,9 +26,17 @@ defaults:
       path: ""
     values:
       layout: "default"
-      
+
+# Gitalk settings
+gitalk_clientID: 8278f492ce9a6b43f85d
+gitalk_clientSecret: 68a96d3c76e8ac218d9afa4e93add583ce3535c4
+gitalk_repo: xuxiangwen.github.io
+gitalk_owner: xuxiangwen
 EOF
+
 ~~~
+
+
 
 ### 配置Gemfile
 
