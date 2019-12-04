@@ -136,13 +136,15 @@ header h2 {
 aside#sidebar h2 {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: normal;
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
   line-height: 1.3;
   color: #9ddcff;
   letter-spacing: 0; }
 
- 
+
+
 EOF
 ~~~
 
