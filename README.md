@@ -140,10 +140,16 @@ aside#sidebar h2 {
   font-weight: normal;
   font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
   line-height: 1.3;
-  color: #9ddcff;
   letter-spacing: 0; }
 
-
+aside#sidebar h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #9ddcff;
+  letter-spacing: 0; }
 
 EOF
 ~~~
