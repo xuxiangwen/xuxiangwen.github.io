@@ -70,9 +70,9 @@ $\mathbf {a^T}$表示$\mathbf a$的转置，是一个行向量。
 $$
 \mathbf A = 
 \begin{bmatrix} 
-a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{11} & a_{12} & \cdots & a_{1n} \\d
 a_{21} & a_{22} & \cdots & a_{2n}  \\ 
-\vdots & \vdots  & \vdots & \vdots \\
+\vdots & \vdots  & \ddots & \vdots \\
 a_{m1} & a_{m2} & \cdots & a_{mn} 
 \end{bmatrix}
 $$
@@ -86,7 +86,7 @@ $$
 \begin{bmatrix} 
 a_{11} & a_{12} & \cdots & a_{1n} \\
 a_{21} & a_{22} & \cdots & a_{2n}  \\ 
-\vdots & \vdots  & \vdots & \vdots \\
+\vdots & \vdots  & \ddots & \vdots \\
 a_{m1} & a_{m2} & \cdots & a_{mn} 
 \end{bmatrix} =
 \begin{bmatrix} 
