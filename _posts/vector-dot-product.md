@@ -1,6 +1,6 @@
 ---
 title: 向量内积
-categories: mathematics linear_algebra
+categories: linear_algebra
 date: 2019-12-03
 ---
 向量内积非常基础和重要，它是机器学习中计算的基本方式。
@@ -10,14 +10,12 @@ date: 2019-12-03
 也称向量点积（Dot Product） ，是两个向量各个分量分别相乘，然后全部相加而得。
 
 $$
-
 \mathbf{a}\cdot \mathbf{b} = 
 \begin{bmatrix} a_1 \\ a_2 \\ \ldots \\ a_n
 \end{bmatrix} \cdot 
 \begin{bmatrix} b_1 \\ b_2 \\ \ldots \\ b_n 
 \end{bmatrix} = 
 a_{1}b_{1} + a_{2}b_{2} + \ldots + a_{n}b_{n} = \sum a_ib_i
-
 $$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#向量内积)。
@@ -25,9 +23,7 @@ $$
 向量内积的等价表达形式是：
 
 $$
-
 \mathbf{a}\cdot \mathbf{b} = \mathbf a^{\mathbf T} \cdot \mathbf b
-
 $$
 
 一个列向量，可以看成$1 \times n$阶矩阵，一个行向量可以看成$n \times 1$阶矩阵。上面公式右边的表达形式，能够使得向量内积和矩阵乘法用统一的表达方式表达。
@@ -39,9 +35,7 @@ $$
 进一步推导，还可以得到以下公式
 
 $$
-
 \mathbf{a}\cdot \mathbf{b} = \|\mathbf a \| \|\mathbf b\| \cos \theta
-
 $$
 
 其中$\theta$表示两个向量之间的夹角。
@@ -49,7 +43,6 @@ $$
 下面来推导上面公式。首先，把向量$\mathbf a, \mathbf b$看成是两条边,  则第三边为 $\mathbf c=\mathbf a- \mathbf b $，根据[余弦定理](https://baike.baidu.com/item/%E4%BD%99%E5%BC%A6%E5%AE%9A%E7%90%86)，有：
 
 $$
-
 \begin{aligned}
 \| \mathbf c\|^2 &= \| \mathbf a\|^2 + \| \mathbf b\|^2 - 2\| \mathbf a\|\|\mathbf  b\|cos\theta \\
 \| \mathbf a\|\| \mathbf b\|cos\theta &= \frac {\| \mathbf a\|^2 + \| \mathbf b\|^2 - \| \mathbf c\|^2  } 2 \\
@@ -57,7 +50,6 @@ $$
 \| \mathbf a\|\| \mathbf b\|cos\theta &= \sum a_ib_i = \mathbf a \cdot \mathbf  b \\
 \mathbf{a}\cdot \mathbf{b} &= \|\mathbf a \| \|\mathbf b\| \cos \theta
 \end{aligned}
-
 $$
 
 如果两个向量是垂直的，即夹角是$90^\circ $，则其内积为$0$。
@@ -73,9 +65,7 @@ $$
 这样公式可以变成：
 
 $$
-
 \mathbf{a}\cdot \frac {\mathbf b} {\|\mathbf b\|} = \|\mathbf a \| \cos \theta
-
 $$
 
 #### 几何意义
@@ -87,9 +77,7 @@ $$
 把上节公式左右调换：
 
 $$
-
 \|\mathbf a \| \cos \theta = \mathbf{a}\cdot \frac {\mathbf b} {\|\mathbf b\|}
-
 $$
 
 可以得出：**向量的投影等于该向量和（被投影）单位向量的内积。**
@@ -97,9 +85,7 @@ $$
 如果把$ \|\mathbf a \|$移动到等号右边，可以得出，**夹角余弦等于单位向量的内积**。
 
 $$
-
 \cos \theta = \frac {\mathbf{a}}  {\|\mathbf a \|}  \cdot \frac {\mathbf b} {\|\mathbf b\|}
-
 $$
 
 #### 其他意义
@@ -107,10 +93,8 @@ $$
 - 物理上，向量内积可以理解为做[功](https://zh.wikipedia.org/wiki/%E5%8A%9F)。 功就是力与位移的内积。
 
 $$
-
   \mathbf W = \mathbf F \cdot \mathbf d = \|\mathbf F \| \|\mathbf d\| \cos \theta
   
-
 $$
 
   其中$\mathbf W$ ：功，$\mathbf F$：力， $\mathbf d$：位移。
@@ -138,16 +122,13 @@ $$
 把矩阵$\mathbf A$表示成多个行向量的组合，矩阵$\mathbf B $表示成多个列向量的组合。
 
 $$
-
 \mathbf A = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\a_{21} & a_{22} & \cdots & a_{2n}  \\\vdots & \vdots  & \vdots & \vdots \\a_{m1} & a_{m2} & \cdots & a_{mn}  \\\end{bmatrix} = \begin{bmatrix} \mathbf {a_1^T} \\ \mathbf {a_2^T} \\ \vdots \\ \mathbf {a_m^T} \end{bmatrix}，
 \mathbf B = \begin{bmatrix} b_{11} & b_{12} & \cdots & b_{1p} \\b_{21} & b_{22} & \cdots & b_{2p}  \\p\vdots & \vdots  & \vdots & \vdots \\b_{n1} & b_{n2} & \cdots & a_{np}  \\\end{bmatrix} = \begin{bmatrix} \mathbf {b_1} & \mathbf {b_2} & \cdots & \mathbf {b_p} \end{bmatrix}
-
 $$
 
 矩阵乘法可以看成是行向量和列向量的内积，所以矩阵乘法也可以看成是**矩阵的内积**。
 
 $$
-
 \mathbf A \cdot \mathbf B = 
 \begin{bmatrix} \mathbf {a_1^T} \\ \mathbf {a_2^T} \\ \vdots \\ \mathbf {a_m^T} \end{bmatrix} \cdot
 \begin{bmatrix} \mathbf {b_1} & \mathbf {b_2} & \cdots & \mathbf {b_p} \end{bmatrix} =
@@ -157,7 +138,6 @@ $$
 \vdots & \vdots  & \vdots & \vdots \\
 \mathbf {a_m^T} \cdot \mathbf {b_1} & \mathbf {a_m^T} \cdot \mathbf {b_2} & \cdots & \mathbf {a_m^T} \cdot \mathbf {b_p} 
 \end{bmatrix}
-
 $$
 
 其中$\mathbf {a_i^T} \cdot \mathbf {b_j}$ 是向量的内积，是一个标量。
@@ -167,7 +147,6 @@ $$
 相似的思路，还可以换一种角度来看，把矩阵$\mathbf A$表示成多个列向量的组合，而矩阵$\mathbf B $表示成多个行向量的组合。
 
 $$
-
 \mathbf A = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\a_{21} & a_{22} & \cdots & a_{2n}  \\ \vdots & \vdots  & \vdots & \vdots \\a_{m1} & a_{m2} & \cdots & a_{mn}  \\\end{bmatrix} = 
 \begin{bmatrix} \mathbf {\alpha_1} & \mathbf {\alpha_2} & \cdots & \mathbf {\alpha_n} \end{bmatrix}，
 \mathbf B = \begin{bmatrix} b_{11} & b_{12} & \cdots & b_{1p} \\b_{21} & b_{22} & \cdots & b_{2p}  \\\vdots & \vdots  & \vdots & \vdots \\b_{n1} & b_{n2} & \cdots & b_{np}  \\
@@ -178,7 +157,6 @@ $$
 \begin{bmatrix} \mathbf {\alpha_1} & \mathbf {\alpha_2} & \cdots & \mathbf {\alpha_n} \end{bmatrix} \cdot
 \begin{bmatrix} \mathbf {\beta_1^T} \\ \mathbf {\beta_2^T} \\ \vdots \\ \mathbf {\beta_n^T} \end{bmatrix} = 
 \mathbf {\alpha_1} \cdot \mathbf {\beta_1^T} + \mathbf {\alpha_2} \cdot \mathbf {\beta_2^T} + \cdots+ \mathbf {\alpha_n} \cdot \mathbf {\beta_n^T}
-
 $$
 
 其中$\mathbf \alpha_i \cdot \beta_j^T$是一个$m \times p$阶的矩阵，它是由一个列向量和行向量相乘而得，称之为向量的[外积](https://zh.wikipedia.org/wiki/%E5%A4%96%E7%A7%AF)（Outer product）。

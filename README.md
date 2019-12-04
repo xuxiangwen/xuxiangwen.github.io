@@ -86,6 +86,53 @@ cat << EOF > assets/css/style.scss
 
 @import "{{ site.theme }}";
 
+
+header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+  background: #2e7bcf url(../images/header-bg.jpg) 0 0 repeat-x;
+  border-bottom: solid 1px #275da1; }
+
+header h1 {
+  width: 540px;
+  margin-top: 0;
+  margin-bottom: 0.2em;
+  font-size: 36px;
+  font-weight: normal;
+  line-height: 1;
+  color: #fff;
+  letter-spacing: -1px; }
+  
+header h2 {
+  width: 540px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1.3;
+  color: #9ddcff;
+  letter-spacing: 0; }  
+  
+.inner {
+  position: relative;
+  width: 940px;
+  margin: 0 auto; }
+
+#main-content {
+  float: left;
+  width: 690px; }
+  
+#main-content h1 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+  font-size: 36px;
+  font-weight: normal;
+  color: #474747;
+  text-indent: 6px;
+  letter-spacing: -1px; }
+
 EOF
 ~~~
 
