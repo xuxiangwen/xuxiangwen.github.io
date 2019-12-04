@@ -42,7 +42,16 @@ publish_one(){
   echo cp $filepath $publish_path
   cp $filepath $publish_path
   sed -i 's/(images\//(\/assets\/images\//g'  $publish_path  
-  
+
+  # add line break 
+  sed  's/\$\$/\n\$\$\n/g' $publish_path  > $script_path/temp.md
+  cat -s $script_path/temp.md > $publish_path
+  rm -rf $script_path/temp.md 
+
+  # convert one dollar sign to two-dollar sign
+  sed -i 's/\$/\$\$/g' $publish_path  
+  sed -i 's/\$\$\$\$/\$\$/g' $publish_path
+
   # copy image
   echo cp $file_folder/images/* $jekyll_image_path
   cp $file_folder/images/* $jekyll_image_path
