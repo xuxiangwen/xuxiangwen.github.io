@@ -1,6 +1,6 @@
 ---
 title: 线性映射和线性变换
-categories: ["linear algebra"]
+categories: ["linear-algebra"]
 date: 2019-12-05
 ---
 在线性代数中，线性映射（linear mapping）和线性变换（linear transformation）经常被提到。线性映射指从一个向量空间$$\mathbf V$$到另一个向量空间$$\mathbf W$$的映射且保持加法运算和数量乘法运算，而线性变换是线性空间$$\mathbf V$$到其自身的线性映射，是一种特殊的线性映射。
