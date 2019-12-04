@@ -17,7 +17,7 @@ date: 2019-12-04
 
 $$
 
-\gamma = \frac 1 {|\mathbf w|} (\mathbf w \cdot \mathbf x + b)
+\gamma = \frac 1 {\|\mathbf w\|} (\mathbf w \cdot \mathbf x + b)
 
 $$
 
@@ -32,7 +32,7 @@ $$
 
 \mathbf x - \mathbf{x_0} = \gamma  \frac {\mathbf w} {\|\mathbf w\|}
  \\
- \mathbf w \cdot (\mathbf  x- \mathbf{x_0}) = \mathbf w \cdot \gamma  \frac {\mathbf w} {|\mathbf  w|}
+ \mathbf w \cdot (\mathbf  x- \mathbf{x_0}) = \mathbf w \cdot \gamma  \frac {\mathbf w} {\|\mathbf  w\|}
 
 $$
 
@@ -40,7 +40,7 @@ $$
 
 $$
 
-\gamma = \frac 1 {|\mathbf  w|}(\mathbf  w \cdot \mathbf  x + b)
+\gamma = \frac 1 {\|\mathbf  w\|}(\mathbf  w \cdot \mathbf  x + b)
 
 $$
 
