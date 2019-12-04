@@ -1,5 +1,5 @@
-title: Welcome to eipi10
-description: stay hungry, stay foolish
+title: 欢迎来到eipi10!
+description: 记录了学习的经历和所得，分享给所有的朋友
 theme: jekyll-theme-architect
 permalink: pretty 
 show_downloads: false
@@ -15,4 +15,9 @@ defaults:
       path: ""
     values:
       layout: "default"
-      
+
+# Gitalk settings
+comment_gitalk_clientId: 8278f492ce9a6b43f85d
+comment_gitalk_clientSecret: 68a96d3c76e8ac218d9afa4e93add583ce3535c4
+comment_gitalk_repo: xuxiangwen.github.io
+github_username: xuxiangwen
