@@ -94,6 +94,9 @@ cat << EOF > assets/css/style.scss
 
 @import "{{ site.theme }}";
 
+body {
+  font-size: 14px;
+}
 
 header {
   padding-top: 20px;
@@ -110,7 +113,19 @@ header h2 {
   
  
 #main-content h1 {
-  font-size: 36px;
+  font-size: 32px;
+}
+
+#main-content h2 {
+  font-size: 28px;
+}
+
+#main-content h3 {
+  font-size: 24px;
+}
+
+#main-content h4 {
+  font-size: 18px;
 }
 
 aside#sidebar h2 {
@@ -125,7 +140,7 @@ aside#sidebar h2 {
 aside#sidebar h3 {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: normal;
   line-height: 1.5;
   color: #9ddcff;
