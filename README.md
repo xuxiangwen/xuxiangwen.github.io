@@ -9,8 +9,8 @@ title: README
 
 ~~~
 cat << EOF > _config.yml
-title: 欢迎来到eipi10!
-description: 记录了学习的经历和所得，分享给所有的朋友
+title: Weclome to eipi10
+description: stay hungry, stay foolish
 theme: jekyll-theme-architect
 permalink: pretty 
 show_downloads: false
@@ -112,7 +112,7 @@ header h2 {
 #main-content h1 {
   font-size: 36px;
 }
-  
+
 aside#sidebar h2 {
   margin-top: 0;
   margin-bottom: 0;
@@ -135,6 +135,16 @@ EOF
 ~~~
 
 > *Note: If you'd like to change the theme's Sass variables, you must set new values before the `@import` line in your stylesheet.*
+
+~~~
+body {
+  background: white; }
+aside#sidebar {
+  min-height: 100%;
+  background: #fafafa; }
+~~~
+
+
 
 #### Layouts
 
