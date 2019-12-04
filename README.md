@@ -132,7 +132,17 @@ header h2 {
   color: #474747;
   text-indent: 6px;
   letter-spacing: -1px; }
+  
+aside#sidebar h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 26px;
+  font-weight: normal;
+  line-height: 1.3;
+  color: #9ddcff;
+  letter-spacing: 0; }
 
+ 
 EOF
 ~~~
 
