@@ -76,7 +76,7 @@ $$
 - $\mathbf y \not\in \mathbf A$，则方程的最优解，应该是向量$\mathbf y$在$\mathbf A$上的最大分量，而这个最大分量就是投影。假设$\hat {\mathbf y}$ 是
 
 $$
- {\mathbf y}
+{\mathbf y}
 $$
 
  在$\mathbf A$向量空间的投影, $\mathbf x$看成$\hat {\mathbf y}$在$\mathbf A$的坐标.  所以$ \hat {\mathbf y}  - \mathbf y $得到的向量应该和$\mathbf A$中所有的列向量垂直. 也就是满足如下公式.
