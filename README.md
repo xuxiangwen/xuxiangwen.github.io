@@ -120,31 +120,42 @@ cat << EOF >> _includes/head.html
 EOF
 ~~~
 
-### 整理latex
+### 发布blog
+
+每一篇markdown文件，然后通过下面命令进行生成发布。
+
+~~~
+# 重新生成所有的发布文件
+_bin/publish.sh _posts     
+# 指定文件生成发布文件
+_bin/publish.sh _posts/vector-and-matrix.md
+~~~
+
+上面命令主要做了：
+
+1. 从要发布的markdown文件的front matter中获取日期，然后复制文件，新的文件名是`<日期>-<原文件名>`
+2. 删除之前发布的文件
+3. 把文件中图片的相对路径由`images`改成`/assets/images`
+4. 把`$$`前后各添加一个换行符。在typora中，如果`$$`是一行的开始，是默认居中，而在github pages中默认显示的是和文本混合在一起（inline mode），在前后添加换行符后，解决这个问题。
+5. 把单个`$`换成`$$`。一个`$`在github pages中，对于其中换行符号`\\`会变成`\`，`$$`可以正常显示。
+6. 把图片从markdown文件所在目录的`images`中拷贝到`/assets/images`目录中去。
+
+### Obsolete
+
+#### 整理latex(这部分逻辑已经放到`发布blog`中)
 
 markdown中的latex部分，\$\$表示居中，在github pages中需要前面必须有一个空行才可以达到这样的效果。
 
-#### **整理文件夹**
+**整理文件夹**
 
 ~~~
 _bin/md_clean.sh _posts
 _bin/md_clean.sh _notes
 ~~~
 
-#### **整理一个文件**
+**整理一个文件**
 
 ~~~
 _bin/md_clean.sh _posts/vector-and-matrix.md
 ~~~
-
-### 发布blog
-
-每一篇文章，其front matter中必须有日期，然后通过下面命令进行发布。
-
-~~~
-_bin/publish.sh _posts
-_bin/publish.sh _posts/vector-and-matrix.md
-~~~
-
-
 
