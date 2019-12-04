@@ -16,9 +16,7 @@ date: 2019-12-04
 空间任意一点$x$到平面的距离是:  
 
 $$
-
-\gamma = \frac 1 {|\mathbf w|} (\mathbf w \cdot \mathbf x + b)
-
+\gamma = \frac 1 {\|\mathbf w\|} (\mathbf w \cdot \mathbf x + b)
 $$
 
 - $ \gamma >0 $，表示$\mathbf x$在平面上方
@@ -29,19 +27,15 @@ $$
 假设点$\mathbf {x_0} $是指点$ \mathbf x  $在超平面上的投影点，即$\vec {x_0x}$ 平行于$ \mathbf w$。
 
 $$
-
 \mathbf x - \mathbf{x_0} = \gamma  \frac {\mathbf w} {\|\mathbf w\|}
  \\
- \mathbf w \cdot (\mathbf  x- \mathbf{x_0}) = \mathbf w \cdot \gamma  \frac {\mathbf w} {|\mathbf  w|}
-
+ \mathbf w \cdot (\mathbf  x- \mathbf{x_0}) = \mathbf w \cdot \gamma  \frac {\mathbf w} {\|\mathbf  w\|}
 $$
 
  由于$ \mathbf w \cdot \mathbf  {x_0} + b = 0  $, 即 $ \mathbf w  \cdot \mathbf {x_0}  = -b  $, 上面的公式可以变成
 
 $$
-
-\gamma = \frac 1 {|\mathbf  w|}(\mathbf  w \cdot \mathbf  x + b)
-
+\gamma = \frac 1 {\|\mathbf  w\|}(\mathbf  w \cdot \mathbf  x + b)
 $$
 
 #### 意义
