@@ -17,7 +17,7 @@ defaults:
       layout: "default"
 
 # Gitalk settings
-comment_gitalk_clientId: 8278f492ce9a6b43f85d
-comment_gitalk_clientSecret: 68a96d3c76e8ac218d9afa4e93add583ce3535c4
-comment_gitalk_repo: xuxiangwen.github.io
-github_username: xuxiangwen
+gitalk_clientID: 8278f492ce9a6b43f85d
+gitalk_clientSecret: 68a96d3c76e8ac218d9afa4e93add583ce3535c4
+gitalk_repo: xuxiangwen.github.io
+gitalk_owner: xuxiangwe
