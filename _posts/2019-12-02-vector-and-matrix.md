@@ -323,26 +323,24 @@ A
 
 $$\begin{bmatrix}
     a & b \\ b & c
-\end{bmatrix}$$
+\end{bmatrix}$$A
 
-B
-
-$\begin{bmatrix}
+B$$\begin{bmatrix}
     x & y \\ y & z
-\end{bmatrix}$
+\end{bmatrix}$$B
 
 C
 
-$\begin{bmatrix}
+C$$\begin{bmatrix}
     u & v \\\\ v & w
-\end{bmatrix}$
+\end{bmatrix}$$C
 
-D
+DD
 
-$\begin{bmatrix}
+DD$\begin{bmatrix}
     r & s \\ s & t
-\end{bmatrix}$
+\end{bmatrix}$DD
 
 E
 
-$\begin{bmatrix}i & j \\ j & k\end{bmatrix}$
+$\begin{bmatrix}i & j \\ j & k\end{bmatrix}$E
