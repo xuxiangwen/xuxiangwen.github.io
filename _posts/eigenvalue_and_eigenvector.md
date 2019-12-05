@@ -1,7 +1,7 @@
 ---
 title: 特征值和特征向量
 categories: linear-algebra
-date: 2019-12-06
+date: 2019-12-05
 ---
 对于一个给定的$n \times n $方阵$\mathbf A$，对特征向量（eigenvector） $\mathbf v$进行线性变换之后，得到的新向量仍然与原来的$\mathbf v$保持在同一条直线上，但其长度或方向（即特征值eigenvalue）也许会改变。即 
 $$

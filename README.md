@@ -3,22 +3,29 @@ layout: default
 title: README
 ---
 
-# Github Pages+Jekyll
+## Github Pages+Jekyll
 
-## 发布
+### 发布
 
 1. 编写blog，把blog提交到github下_posts目录。
 2. 发布blog。
 
-~~~
+~~~shell
 ~/eipi10/xuxiangwen.github.io/_bin/publish.sh
 ~~~
 
+### 本地开发和测试
 
+~~~shell
+cd ~/eipi10/xuxiangwen.github.io
+git pull
+_bin/generate.sh _posts
+bundle exec jekyll serve --host 0.0.0.0 --port 4000
+~~~
 
-## 部署
+### 部署
 
-### 配置_config.yml
+#### 配置_config.yml
 
 ~~~
 cat << EOF > _config.yml
@@ -51,7 +58,7 @@ EOF
 
 
 
-### 配置Gemfile
+#### 配置Gemfile
 
 ~~~
 cat << EOF >> Gemfile
@@ -71,31 +78,23 @@ EOF
 cat Gemfile
 ~~~
 
-### 安装依赖包
+#### 安装依赖包
 
-#### 第一次
+##### 第一次
 
 ~~~
 bundle install
 ~~~
 
-#### 更新
+##### 更新
 
 ~~~
 bundle update
 ~~~
 
-### 运行
+#### 配置theme
 
-##### 本地开发
-
-~~~
-bundle exec jekyll serve --host 0.0.0.0 --port 4000
-~~~
-
-### 配置theme
-
-#### Stylesheet
+##### Stylesheet
 
 在 `@import` 后面添加自定义的 CSS (or Sass, including imports)
 
@@ -172,7 +171,7 @@ aside#sidebar {
   background: #fafafa; }
 ~~~
 
-#### Layouts
+##### Layouts
 
 为了更好的展现效果，需要自定义layout，下面代码从原来的theme中下载layout。
 
@@ -181,9 +180,9 @@ mkdir -p _layouts
 wget https://raw.githubusercontent.com/pages-themes/architect/master/_layouts/default.html -P _layouts
 ~~~
 
-#### Latex支持
+##### Latex支持
 
-默认情况下，不支持Latex（也就是\$\$或\$）。
+默认情况下，不支持Latex（也就是解释\$\$或\$）。
 
 ~~~
 mkdir -p _includes
@@ -201,15 +200,15 @@ cat << EOF >> _includes/head.html
 EOF
 ~~~
 
-### 发布blog
+#### 生成blog
 
-每一篇markdown文件，然后通过下面命令进行生成发布。
+每一篇markdown文件，然后通过下面命令进行生成。
 
 ~~~
 # 重新生成所有的发布文件
-_bin/publish.sh _posts     
+_bin/generate.sh _posts     
 # 指定文件生成发布文件
-_bin/publish.sh _posts/vector-and-matrix.md
+_bin/generate.sh _posts/vector-and-matrix.md
 ~~~
 
 上面命令主要做了：
@@ -223,7 +222,9 @@ _bin/publish.sh _posts/vector-and-matrix.md
 
 ### Obsolete
 
-#### 整理latex(这部分逻辑已经放到`发布blog`中)
+#### 整理latex
+
+>  这部分逻辑已经放到`生成blog`中
 
 markdown中的latex部分，\$\$表示居中，在github pages中需要前面必须有一个空行才可以达到这样的效果。
 
