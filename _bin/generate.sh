@@ -52,6 +52,10 @@ generate_one(){
   sed -i 's/\$/\$\$/g' $publish_path  
   sed -i 's/\$\$\$\$/\$\$/g' $publish_path
 
+  # add line break between { and {
+  sed -i 's/{{/{ \n {/g' $publish_path
+  sed -i 's/{ {/{ \n {/g' $publish_path
+
   # copy image
   echo cp $file_folder/images/* $jekyll_image_path
   cp $file_folder/images/* $jekyll_image_path
