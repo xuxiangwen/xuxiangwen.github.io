@@ -1,8 +1,3 @@
----
-layout: default
-title: README
----
-
 ## Github Pages+Jekyll
 
 ### 发布
