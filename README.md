@@ -9,13 +9,11 @@ title: README
 
 1. 编写blog，把blog提交到github下_posts目录。
 
-   > 
-
 2. 发布blog。
 
-~~~shell
-~/eipi10/xuxiangwen.github.io/_bin/publish.sh
-~~~
+   ~~~
+   ~/eipi10/xuxiangwen.github.io/_bin/publish.sh
+   ~~~
 
 ### 本地开发和测试
 
@@ -221,7 +219,8 @@ _bin/generate.sh _posts/vector-and-matrix.md
 3. 把文件中图片的相对路径由`images`改成`/assets/images`
 4. 把`$$`前后各添加一个换行符。在typora中，如果`$$`是一行的开始，是默认居中，而在github pages中默认显示的是和文本混合在一起（inline mode），在前后添加换行符后，解决这个问题。
 5. 把单个`$`换成`$$`。一个`$`在github pages中，对于其中换行符号`\\`会变成`\`，`$$`可以正常显示。
-6. 把图片从markdown文件所在目录的`images`中拷贝到`/assets/images`目录中去。
+6. 在`{{`中间插入一个换行符，避免被Jekyll识别为Liquid。
+7. 把图片从markdown文件所在目录的`images`中拷贝到`/assets/images`目录中去。
 
 ### Obsolete
 
