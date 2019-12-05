@@ -59,14 +59,14 @@ $$
 $$
 \begin{align}
 \mathbf {\beta} &= \mathbf A \mathbf \alpha \\
-\mathbf {\beta} &= \mathbf {V} \mathbf{\Lambda} \mathbf {{V}^{-1}}\mathbf \alpha
+\mathbf {\beta} &= \mathbf {V} \mathbf{\Lambda} \mathbf { {V}^{-1} }\mathbf \alpha
 \end{align}
 $$
 可以分为三步来解释：
 
-- $\mathbf {{V}^{-1}}\mathbf \alpha$可以看成$ \mathbf \alpha$ 在坐标系$\mathbf V$中的坐标
-- $\mathbf{\Lambda} (\mathbf {{V}^{-1}}\mathbf \alpha)$相当于对这个坐标进行了缩放
-- $\mathbf {V} (\mathbf{\Lambda} \mathbf {{V}^{-1}}\mathbf \alpha)$相当于把缩放后的坐标，再映射回标准坐标系
+- $\mathbf { {V}^{-1}}\mathbf \alpha$可以看成$ \mathbf \alpha$ 在坐标系$\mathbf V$中的坐标
+- $\mathbf{\Lambda} (\mathbf { {V}^{-1}}\mathbf \alpha)$相当于对这个坐标进行了缩放
+- $\mathbf {V} (\mathbf{\Lambda} \mathbf { {V}^{-1}}\mathbf \alpha)$相当于把缩放后的坐标，再映射回标准坐标系
 
 这种空间变换的方式，不禁让人想起科幻小说[文明](https://book.douban.com/subject/25723455/ )里面提到的一种空战技术——`空闪`，大概意思是指战斗机在格斗的时候，跳跃到第四空间（超光速空间），然后再从第四空间跳跃回三维空间。在三维空间来看，这个战斗机瞬间消失了，然后瞬间出现在另外一个有利的攻击位置。
 
@@ -82,9 +82,9 @@ $$
 $$
 而且，由于$\mathbf V$是正交矩阵，所以，$\mathbf V$和$\mathbf {V^{T}}$也可以理解为旋转，则
 
-- $\mathbf {{V}^{T}}\mathbf \alpha$可以看成对$ \mathbf \alpha$进行旋转。
-- $\mathbf{\Lambda} (\mathbf {{V}^{T}}\mathbf \alpha) $相当于对这个坐标进行了缩放
-- $\mathbf {V} (\mathbf{\Lambda} \mathbf {{V}^{T}}\mathbf \alpha) $相当于把缩放后的坐标，再进行反向旋转
+- $\mathbf { {V}^{T}}\mathbf \alpha$可以看成对$ \mathbf \alpha$进行旋转。
+- $\mathbf{\Lambda} (\mathbf { {V}^{T}}\mathbf \alpha) $相当于对这个坐标进行了缩放
+- $\mathbf {V} (\mathbf{\Lambda} \mathbf { {V}^{T}}\mathbf \alpha) $相当于把缩放后的坐标，再进行反向旋转
 
 下面进一步看看$\mathbf A$有什么特性。
 $$

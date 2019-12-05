@@ -8,6 +8,9 @@ title: README
 ### 发布
 
 1. 编写blog，把blog提交到github下_posts目录。
+
+   > 
+
 2. 发布blog。
 
 ~~~shell
