@@ -3,7 +3,20 @@ layout: default
 title: README
 ---
 
-## Github Pages配置
+# Github Pages+Jekyll
+
+## 发布
+
+1. 编写blog，把blog提交到github下_posts目录。
+2. 发布blog。
+
+~~~
+~/eipi10/xuxiangwen.github.io/_bin/publish.sh
+~~~
+
+
+
+## 部署
 
 ### 配置_config.yml
 
@@ -158,8 +171,6 @@ aside#sidebar {
   min-height: 100%;
   background: #fafafa; }
 ~~~
-
-
 
 #### Layouts
 
