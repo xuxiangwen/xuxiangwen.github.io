@@ -232,4 +232,5 @@ $$
 
 ### 参考
 
+- [《新理解矩阵4》：相似矩阵的那些事儿](https://spaces.ac.cn/archives/1777)
 - [线性代数中，特征值与特征向量在代数和几何层面的实际意义是什么](https://www.zhihu.com/question/20507061)
