@@ -41,36 +41,36 @@ $$
 
 - $\mathbf y \in \mathbf A$，则$\mathbf x$和$\mathbf y$维度必然相同，也就是说$\mathbf A$是一个方阵。可以得出：
 
-$$
+  $$
   \mathbf {x= {A^{-1}} \cdot y}
-$$
+  $$
 
-其中$\mathbf {A^{-1}}$是称之为[逆矩阵](https://zh.wikipedia.org/wiki/%E9%80%86%E7%9F%A9%E9%98%B5)（inverse matrix），逆矩阵又称**反矩阵**。给定一个$n$ 阶方阵$\mathbf A$，若存在$n$阶方阵$\mathbf B$，使得 $\mathbf A \cdot \mathbf B = \mathbf B \cdot \mathbf A = \mathbf {I_n}$，其中$\mathbf {I_n}$是$n$阶矩阵，则称$\mathbf A$是可逆的，且$\mathbf B$是$\mathbf A$的逆矩阵，记为$\mathbf  {A^{-1}}$。
+  其中$\mathbf {A^{-1}}$是称之为[逆矩阵](https://zh.wikipedia.org/wiki/%E9%80%86%E7%9F%A9%E9%98%B5)（inverse matrix），逆矩阵又称**反矩阵**。给定一个$n$ 阶方阵$\mathbf A$，若存在$n$阶方阵$\mathbf B$，使得 $\mathbf A \cdot \mathbf B = \mathbf B \cdot \mathbf A = \mathbf {I_n}$，其中$\mathbf {I_n}$是$n$阶矩阵，则称$\mathbf A$是可逆的，且$\mathbf B$是$\mathbf A$的逆矩阵，记为$\mathbf  {A^{-1}}$。
 
   假设
+  $$
+      \mathbf A = \begin{bmatrix} \mathbf {a_1^T} \\ \mathbf {a_2^T} \\  \vdots \\ a_n^T\end{bmatrix}，
 
-$$
-  \mathbf A = \begin{bmatrix} \mathbf {a_1^T} \\ \mathbf {a_2^T} \\  \vdots \\ a_n^T\end{bmatrix}，
+      \mathbf B = \begin{bmatrix} \mathbf {b_1} & \mathbf {b_2} &  \cdots & b_n\end{bmatrix}，
+  $$
+    则
 
-  \mathbf B = \begin{bmatrix} \mathbf {b_1} & \mathbf {b_2} &  \cdots & b_n\end{bmatrix}，
-$$
-  则
+  $$
+\mathbf A \cdot \mathbf B =
+      \begin{bmatrix} 
+      \mathbf {a_1^Tb_1} & \mathbf {a_1^Tb_2} & \cdots &  \mathbf {a_1^Tb_n} \\ 
+      \mathbf {a_2^Tb_1} & \mathbf {a_2^Tb_2} & \cdots &  \mathbf {a_2^Tb_n} \\ 
+      \vdots &  \vdots  & \ddots & \vdots \\
+      \mathbf {a_n^Tb_1} & \mathbf {a_n^Tb_2} & \cdots &  \mathbf {a_n^Tb_n} \\ 
+      \end{bmatrix} = \begin{bmatrix}
+      1 & 0 &  \cdots & 0 \\
+      0 & 1 &  \cdots & 0 \\
+  
+    \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 &  \cdots & 1 \\
+      \end{bmatrix}
+  $$
 
-$$
-  \mathbf A \cdot \mathbf B =
-  \begin{bmatrix} 
-  \mathbf {a_1^Tb_1} & \mathbf {a_1^Tb_2} & \cdots &  \mathbf {a_1^Tb_n} \\ 
-  \mathbf {a_2^Tb_1} & \mathbf {a_2^Tb_2} & \cdots &  \mathbf {a_2^Tb_n} \\ 
-  \vdots &  \vdots  & \ddots & \vdots \\
-  \mathbf {a_n^Tb_1} & \mathbf {a_n^Tb_2} & \cdots &  \mathbf {a_n^Tb_n} \\ 
-  \end{bmatrix} = \begin{bmatrix}
-  1 & 0 &  \cdots & 0 \\
-  0 & 1 &  \cdots & 0 \\
-
-  \vdots & \vdots & \ddots & \vdots \\
-  0 & 0 &  \cdots & 1 \\
-  \end{bmatrix}
-$$
   可以看出，$\mathbf A$的行向量和的其逆矩阵的列向量，对角线方向内积为$1$，其它内积为$0$（相互垂直）。
 
 - $\mathbf y \not\in \mathbf A$，则方程的最优解，应该是向量$\mathbf y$在$\mathbf A$上的最大分量，而这个最大分量就是投影。假设$\hat {\mathbf y}$ 是${\mathbf y}$ 在$\mathbf A$向量空间的投影, $\mathbf x$看成$\hat {\mathbf y}$在$\mathbf A$的坐标.  所以$ \hat {\mathbf y}  - \mathbf y $得到的向量应该和$\mathbf A$中所有的列向量垂直. 也就是满足如下公式.
