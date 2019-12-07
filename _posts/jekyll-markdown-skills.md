@@ -97,7 +97,7 @@ $\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\$
 - Typora中显示: ![image-20191207152516193](images/image-20191207152516193.png)
 - Jekyll中显示: ![image-20191207153717571](images/image-20191207153717571.png)
 
-解决的方法很简单，把 \$ 变成 \$\$ ，即
+解决的方法很简单，把一个 \$ 变成两个 ，即
 
 ~~~
 $$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$
