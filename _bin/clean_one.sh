@@ -5,7 +5,8 @@ jekyll_image_path=$2
 file_folder=$(dirname "$markdown_file")
 file_name=$(basename "$markdown_file")
 
-markdown_file_clean=/clean_
+markdown_file_clean=$file_folder/clean_$file_name
+echo 
 cp $markdown_file  $markdown_file_clean
 # 修改图片的引用路径
 sed -i 's/(images\//(\/assets\/images\//g'  $markdown_file_clean
