@@ -68,7 +68,7 @@ $$
 
 ![image-20191207152351788](images/image-20191207152351788.png)
 
-在Jekyll中，数学公式和文本`公式一:`在一行，而且靠左显示。这样的效果非常难看。解决办法也很简单，即把所有的\$\$前后都插入一个空行，就可以解决这个问题，插入代码如下。
+在Jekyll中，数学公式和文本`公式一:`在一行，而且靠左显示。这样的效果非常难看。解决办法也很简单，即把所有的\$\$前后都插入一个空行，就可以解决这个问题，代码如下。
 
 ~~~shell
 markdown_file=<Markdown File>
@@ -89,9 +89,18 @@ Typora的Tex/LaTex语法也支持Inline Math，也就是把数学公式和文本
 - Typora中显示: ![image-20191207152516193](images/image-20191207152516193.png)
 - Jekyll中显示: ![image-20191207152610759](images/image-20191207152610759.png)
 
-其实上面公式，对应的语句是一个，即**\$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\$**。解决的方法很简单，把\$变成\$\$，即整个语句变成**\$\$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\$\$**，这样就可以在Typora和Jekyll中获得一样的效果。
+其实上面公式，对应的语句是一个，即
+~~~
+$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\$
+~~~
 
-所以在编写Tex/LaTex，最好就用\$\$而不要用\$。
+解决的方法很简单，把一个\$变成两个\$，即
+
+~~~
+$$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$
+~~~
+
+这样就可以在Typora和Jekyll中获得一样的效果。所以在编写Tex/LaTex，最好就用\$\$而不要用\$。
 
 ### Tex/LaTex中\{\{被Jekyll当作[Liquid](https://jekyllrb.com/docs/liquid/)
 
