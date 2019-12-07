@@ -3,17 +3,17 @@ title: 点到平面的距离
 categories: linear-algebra
 date: 2019-12-04
 ---
-上文中说到，$$\mathbf w \cdot \mathbf x = 0$$，表示一个过原点，且垂直于$$\mathbf w$$的平面方程。而对于空间中任意平面，其平面方程为：$$ \mathbf w  \cdot \mathbf x + b = 0$$，该平面垂直于$$\mathbf w$$，但不一定过原点。
+上文中说到，$\mathbf w \cdot \mathbf x = 0$，表示一个过原点，且垂直于$\mathbf w$的平面方程。而对于空间中任意平面，其平面方程为：$ \mathbf w  \cdot \mathbf x + b = 0$，该平面垂直于$\mathbf w$，但不一定过原点。
 
 ![image-20191111144652944](/assets/images/image-20191111144652944-1575459054585.png)
 
 - 如果是二维空间，则表示是一个直线方程。比如：
 
-  直线$$2x+3y+5=0$$，即$$\begin{bmatrix} 2 \\ 3 \end{bmatrix} \cdot \begin{bmatrix} x \\ y  \end{bmatrix} + 5 = 0$$
+  直线$2x+3y+5=0$，即$\begin{bmatrix} 2 \\ 3 \end{bmatrix} \cdot \begin{bmatrix} x \\ y  \end{bmatrix} + 5 = 0$
 
 - 如果是三维空间, 是一个平面. 如果大于3维空间，则是一个超平面。
 
-空间任意一点$$x$$到平面的距离是:  
+空间任意一点$x$到平面的距离是:  
 
 $$
 
@@ -21,12 +21,12 @@ $$
 
 $$
 
-- $$ \gamma >0 $$，表示$$\mathbf x$$在平面上方
-- $$\gamma<0$$，表示$$\mathbf x$$在平面下方
+- $ \gamma >0 $，表示$\mathbf x$在平面上方
+- $\gamma<0$，表示$\mathbf x$在平面下方
 
 ### 证明
 
-假设点$$\mathbf {x_0} $$是指点$$ \mathbf x  $$在超平面上的投影点，即$$\vec {x_0x}$$ 平行于$$ \mathbf w$$。
+假设点$\mathbf {x_0} $是指点$ \mathbf x  $在超平面上的投影点，即$\vec {x_0x}$ 平行于$ \mathbf w$。
 
 $$
 
@@ -36,7 +36,7 @@ $$
 
 $$
 
- 由于$$ \mathbf w \cdot \mathbf  {x_0} + b = 0  $$, 即 $$ \mathbf w  \cdot \mathbf {x_0}  = -b  $$, 上面的公式可以变成
+ 由于$ \mathbf w \cdot \mathbf  {x_0} + b = 0  $, 即 $ \mathbf w  \cdot \mathbf {x_0}  = -b  $, 上面的公式可以变成
 
 $$
 
