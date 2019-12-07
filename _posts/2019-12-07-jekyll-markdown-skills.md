@@ -28,7 +28,7 @@ cp $file_folder/images/* $jekyll_image_path
 
 需要指定<Markdown File>和<Jekyll Root Path>两个参数。
 
-据说某些Jekyll plugin可以自动J来做上面的动作。比如：[[How to get jekyll to copy sub folder?](https://stackoverflow.com/questions/19580492/how-to-get-jekyll-to-copy-sub-folder)， 大家有兴趣可以看看。
+据说某些Jekyll plugin可以自动J来做上面的动作。比如：[How to get jekyll to copy sub folder?](https://stackoverflow.com/questions/19580492/how-to-get-jekyll-to-copy-sub-folder)， 大家有兴趣可以看看。
 
 > 在windows下，可以安装[git for windows](https://gitforwindows.org/)，然后在git bash中可以执行上面的shell脚本。下文中的所有shell脚本也都是可以在 git bash中执行的。
 
