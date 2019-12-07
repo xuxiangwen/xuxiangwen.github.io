@@ -26,7 +26,7 @@ file_name=$(basename "$markdown_file")
 cp $file_folder/images/* $jekyll_image_path
 ~~~
 
-需要指定<Markdown File>和<Jekyll Root Path>两个参数。
+需要指定`Markdown File`和`Jekyll Root Path`两个参数。
 
 据说某些Jekyll plugin可以自动J来做上面的动作。比如：[How to get jekyll to copy sub folder?](https://stackoverflow.com/questions/19580492/how-to-get-jekyll-to-copy-sub-folder)， 大家有兴趣可以看看。
 
@@ -166,4 +166,4 @@ EOF
 ./clean.sh _posts/<Markdown File> assets/images
 ~~~
 
-<Markdown File>是要清理的Markdown文件。
+`Markdown File`是要清理的Markdown文件。
