@@ -87,7 +87,7 @@ rm -rf temp.md
 Typora的Tex/LaTex语法也支持Inline Math，也就是把数学公式和文本在同一行中显示。比如：$e^{i\pi}+1=0$，其背后的语句是**\$e^{i\pi}+1=0\$**，也就是在两个\$符号中编写Tex/LaTex。然而，采用这种方式编写矩阵时，同样的语句，typora和网页上的效果可能不太一样。
 
 - Typora中显示: ![image-20191207152516193](images/image-20191207152516193.png)
-- Jekyll中显示: ![image-20191207152610759](images/image-20191207152610759.png)
+- Jekyll中显示: ![image-20191207153717571](images/image-20191207153717571.png)
 
 其实上面公式，对应的语句是一个，即
 ~~~
