@@ -104,16 +104,7 @@ Typora的Tex/LaTex语法也支持Inline Math，也就是把数学公式和文本
 
 其实上面公式，对应的语句是一个，即**\$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\$**。解决的方法很简单，把\$变成\$\$，即整个语句变成**`$$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$`**，这样就可以在Typora和Jekyll中获得一样的效果。
 
-所以在编写Tex/LaTex，最好就用\$\$而不要用\$，但如果你有很多已有的文件，不想一个一个修改，也可以用下面的语句来替换。
-
-~~~shell
-markdown_file=<Markdown File>
-sed -i 's/\$/\$\$/g' $markdown_file
-sed -i 's/\$\$\$\$/\$\$/g' $markdown_file
-sed -i 's/\\\$\$/\\\$/g' $markdown_file
-~~~
-
-上面语句中，一个\$会被替换成\$\$。如果你确实想输入\$，则需要在前面加一个转义符\\，也就是变成\\$。
+所以在编写Tex/LaTex，最好就用\$\$而不要用\$。
 
 ### Tex/LaTex中\{\{被Jekyll当作[Liquid](https://jekyllrb.com/docs/liquid/)
 
@@ -149,8 +140,11 @@ Mermaid是一个从文本生成图表和流程图的工具。默认情况下，J
 把上面的shell脚本汇总起来，可以创建下面的脚本来整理markdown文件。
 
 ~~~shell
-markdown_file=<Markdown File>
-jekyll_image_path=<Jekyll Root Path>/assets/images
+cat << EOF > clean.sh
+markdown_file=$1
+jekyll_image_path=$2
+
+cp $markdown_file  $markdown_file.bak
 # 修改图片的引用路径
 sed -i 's/(images\//(\/assets\/images\//g'  $markdown_file
 
@@ -159,7 +153,7 @@ file_folder=$(dirname "$markdown_file")
 file_name=$(basename "$markdown_file")
 cp $file_folder/images/* $jekyll_image_path
 
-
+# Tex/LaTex Display Math换行居中
 awk '{
 if ($0 ~ /^\s*\$\$\s*$/)
 	print "\n"$0"\n"
@@ -168,11 +162,14 @@ else
 }' $markdown_file > temp.md
 cat -s temp.md > $markdown_file
 rm -rf temp.md
+  
+EOF
 ~~~
 
-执行
+在Jekyll根目录，执行以下语句。
 
 ~~~
-
+./clean.sh _posts/<Markdown File> assets/images
 ~~~
 
+<Markdown File>是要清理的Markdown文件。
