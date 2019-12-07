@@ -62,26 +62,11 @@ $$
 ```
 在Typora显示如下:
 
-公式一:
-
-$$
-\begin{align*}
-    y = y(x,t) &= A e^{i\theta} \\
-    &= A (\cos \theta + i \sin \theta) \\
-    &= A (\cos(kx - \omega t) + i \sin(kx - \omega t))
-    \end{align*}
-$$
+![image-20191207152444450](images/image-20191207152444450.png)
 
 其中数学公式居中显示，和`公式一:`不在同一行。然而相同语句，Jekyll中的显示如下：
 
-公式一:
-$$
-\begin{align*}
-  y = y(x,t) &= A e^{i\theta} \\
-  &= A (\cos \theta + i \sin \theta) \\
-  &= A (\cos(kx - \omega t) + i \sin(kx - \omega t))
-  \end{align*}
-$$
+![image-20191207152351788](images/image-20191207152351788.png)
 
 在Jekyll中，数学公式和文本`公式一:`在一行，而且靠左显示。这样的效果非常难看。解决办法也很简单，即把所有的\$\$前后都插入一个空行，就可以解决这个问题，插入代码如下。
 
@@ -101,8 +86,8 @@ rm -rf temp.md
 
 Typora的Tex/LaTex语法也支持Inline Math，也就是把数学公式和文本在同一行中显示。比如：$e^{i\pi}+1=0$，其背后的语句是**\$e^{i\pi}+1=0\$**，也就是在两个\$符号中编写Tex/LaTex。然而，采用这种方式编写矩阵时，同样的语句，typora和网页上的效果可能不太一样。
 
-- Typora中显示: $$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$
-- Jekyll中显示: $\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$
+- Typora中显示: ![image-20191207152516193](images/image-20191207152516193.png)
+- Jekyll中显示: ![image-20191207152610759](images/image-20191207152610759.png)
 
 其实上面公式，对应的语句是一个，即**\$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\$**。解决的方法很简单，把\$变成\$\$，即整个语句变成**\$\$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\$\$**，这样就可以在Typora和Jekyll中获得一样的效果。
 
