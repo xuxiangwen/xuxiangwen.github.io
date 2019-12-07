@@ -63,6 +63,7 @@ $$
 在Typora显示如下:
 
 公式一:
+
 $$
 \begin{align*}
     y = y(x,t) &= A e^{i\theta} \\
@@ -72,6 +73,7 @@ $$
 $$
 
 其中数学公式居中显示，和`公式一:`不在同一行。然而相同语句，Jekyll中的显示如下：
+
 公式一:
 $$
 \begin{align*}
@@ -102,7 +104,7 @@ Typora的Tex/LaTex语法也支持Inline Math，也就是把数学公式和文本
 - Typora中显示: $$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$
 - Jekyll中显示: $\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$
 
-其实上面公式，对应的语句是一个，即**\$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\$**。解决的方法很简单，把\$变成\$\$，即整个语句变成**`$$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$`**，这样就可以在Typora和Jekyll中获得一样的效果。
+其实上面公式，对应的语句是一个，即`$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$`。解决的方法很简单，把\$变成\$\$，即整个语句变成`$$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$`，这样就可以在Typora和Jekyll中获得一样的效果。
 
 所以在编写Tex/LaTex，最好就用\$\$而不要用\$。
 
