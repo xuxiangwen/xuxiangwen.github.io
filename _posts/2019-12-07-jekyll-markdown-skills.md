@@ -36,7 +36,7 @@ cp $file_folder/images/* $jekyll_image_path
 
 默认情况下，Jekyll不能正确显示Tex/LaTex，需要把下面的代码添加Markdown文件所使用的[Layout](https://jekyllrb.com/docs/layouts/)中去。
 
-~~~
+~~~html
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
       tex2jax: {
@@ -89,12 +89,12 @@ rm -rf temp.md
 ### Inline Math对矩阵的显示
 
 Typora的Tex/LaTex语法也支持Inline Math，也就是把数学公式和文本在同一行中显示。比如：$e^{i\pi}+1=0$，其背后的语句是：
-~~~
+~~~markdown
 $e^{i\pi}+1=0$
 ~~~
 然而，采用这种方式编写矩阵时，有的语句，typora和网页上的效果可能不太一样。比如：
 
-~~~
+~~~markdown
 $\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\$
 ~~~
 
@@ -103,7 +103,7 @@ $\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\$
 
 解决的方法很简单，把一个 \$ 变成两个 ，即
 
-~~~
+~~~markdown
 $$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$
 ~~~
 
@@ -113,7 +113,7 @@ $$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$
 
 Jekyll把\{\{和\}\}中内容解析成Liquid，如果Tex/LaTex总包含\{\{，会被误识为Liquid，这样会产生Page Build Error。使用下面脚本，在两个\{中插入一个换行符。
 
-~~~
+~~~shell
 markdown_file=<Markdown File>
 sed -i 's/{\s*{/{ \n {/g' $markdown_file
 ~~~
@@ -122,7 +122,7 @@ sed -i 's/{\s*{/{ \n {/g' $markdown_file
 
 Mermaid是一个从文本生成图表和流程图的工具。默认情况下，Jekyll不能正确显示它，需要把下面的代码添加Markdown文件所使用的[Layout](https://jekyllrb.com/docs/layouts/)中去。
 
-~~~
+~~~html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
 <script>
   var config = {
@@ -140,7 +140,7 @@ Mermaid是一个从文本生成图表和流程图的工具。默认情况下，J
 
 ### Summary
 
-把上面的shell脚本汇总起来，可以创建下面的脚本来整理Markdown文件。
+把上面的shell脚本汇总起来，可以创建下面的脚本。
 
 ~~~shell
 cat << EOF > clean_one.sh
@@ -182,16 +182,16 @@ echo if yes, run 'cp \$markdown_file_clean \$markdown_file' to update.
 EOF
 ~~~
 
-在Jekyll根目录，执行以下语句。
+在Jekyll根目录，执行以下语句，进行文件清理。
 
-~~~
+~~~shell
 markdown_file=<Markdown File>
 ./clean_one.sh $markdown_file assets/images
 ~~~
 
 上面命令，将会生成.clean文件，检查clean文件的内容，如果正确， 执行下面命令，进行替换。
 
-~~~
+~~~shell
 cp $markdown_file_clean $markdown_file
 ~~~
 
