@@ -59,8 +59,8 @@ else
 
   # copy image
   if [ -d $file_folder/images ]; then
-    echo cp $file_folder/images/\* $jekyll_image_path
-    cp $file_folder/images/* $jekyll_image_pathi
+    echo cp $file_folder/images/ to $jekyll_image_path
+    cp $file_folder/images/* $jekyll_image_path
   fi
 }
 
