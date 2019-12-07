@@ -195,39 +195,39 @@ $$
 
   两边乘以一个不为0的实数
 
-$$
+  $$
 
-  \mathbf{A} \mathbf{v_i} = \mathbf {\lambda_i}   \mathbf{v_i} 
+      \mathbf{A} \mathbf{v_i} = \mathbf {\lambda_i}   \mathbf{v_i} 
 
-$$
+  $$
 
-$$
+  $$
 
-  \mathbf{A} p \mathbf{v_i} = \mathbf {\lambda_i}  p \mathbf{v_i} \tag{1}
+      \mathbf{A} p \mathbf{v_i} = \mathbf {\lambda_i}  p \mathbf{v_i} \tag{1}
 
-$$
+  $$
 
   同理，可以得到
 
-$$
+  $$
 
-  \mathbf{A} \mathbf{v_j} = \mathbf {\lambda_i}   \mathbf{v_j}
+      \mathbf{A} \mathbf{v_j} = \mathbf {\lambda_i}   \mathbf{v_j}
 
-$$
+  $$
 
-$$
+  $$
 
-  \mathbf{A} q \mathbf{v_j} = \mathbf {\lambda_i}  q \mathbf{v_j} \tag{2}
+      \mathbf{A} q \mathbf{v_j} = \mathbf {\lambda_i}  q \mathbf{v_j} \tag{2}
 
-$$
+  $$
 
   公式$$(1)$$，$$(2)$$合并，可以得到
 
-$$
+  $$
 
   \mathbf{A} (p \mathbf{v_i} + q \mathbf{v_j} )= \mathbf {\lambda_i}   (p \mathbf{v_i} + q \mathbf{v_j} )
 
-$$
+  $$
 
   显见$$p \mathbf{v_i} + q \mathbf{v_j} $$也是特征向量，它是$$\mathbf {v_i}$$和$$\mathbf {v_j}$$线性组合而来，也就是说$$\mathbf {v_i}$$和$$\mathbf {v_j}$$所在平面的任何一个向量都是特征向量，这个平面上和其它（特征值不同）的特征向量垂直。取平面上任意两个垂直的单位向量，把它们加入特征向量矩阵，则这个矩阵就是正交矩阵。
 

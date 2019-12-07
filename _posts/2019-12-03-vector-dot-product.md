@@ -96,12 +96,12 @@ $$
 ### 其他意义
 
 - 物理上，向量内积可以理解为做[功](https://zh.wikipedia.org/wiki/%E5%8A%9F)。 功就是力与位移的内积。
-  
-$$
+
+  $$
 
   \mathbf W = \mathbf F \cdot \mathbf d = \|\mathbf F \| \|\mathbf d\| \cos \theta
-  
-$$
+
+  $$
 
   其中$$\mathbf W$$ ：功，$$\mathbf F$$：力， $$\mathbf d$$：位移。
 
@@ -117,7 +117,7 @@ $$
   - $$\mathbf w \cdot \mathbf u > 0 $$，则点u在平面上方（$$\mathbf w$$和$$\mathbf u$$的夹角小于90度）
   - $$\mathbf w \cdot \mathbf u < 0 $$，则点u在平面下方（$$\mathbf w$$和$$\mathbf u$$的夹角大于90度）
 
-> 平面上方和下方是以w的方向作为参照的，如果和w同向，就是上方，反之就是下方。
+  > 平面上方和下方是以w的方向作为参照的，如果和w同向，就是上方，反之就是下方。
 
 ### 再看矩阵乘法
 
