@@ -49,7 +49,7 @@ $$
 
   假设
   $$
-      \mathbf A = \begin{bmatrix} \mathbf {a_1^T} \\ \mathbf {a_2^T} \\  \vdots \\ a_n^T\end{bmatrix}，
+  \mathbf A = \begin{bmatrix} \mathbf {a_1^T} \\ \mathbf {a_2^T} \\  \vdots \\ a_n^T\end{bmatrix}，
 
       \mathbf B = \begin{bmatrix} \mathbf {b_1} & \mathbf {b_2} &  \cdots & b_n\end{bmatrix}，
   $$

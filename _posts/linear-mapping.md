@@ -39,7 +39,7 @@ $$
 \end{bmatrix} = \begin{bmatrix} \mathbf {a_1}   &  \mathbf {a_2} \end{bmatrix}
 $$
 
-其中$$\mathbf {a_1} = \begin{bmatrix} 
+其中$\mathbf {a_1} = \begin{bmatrix} 
 \cos {(\theta)}  \\
 \sin {(\theta)} 
 \end{bmatrix} ，
@@ -48,8 +48,7 @@ $$
 -\sin{(\theta)}  \\
 \cos{(\theta)} 
 \end{bmatrix} 
-$$
-
+$
 如下图所见，向量$$\mathbf {a_1}$$是一个单位向量，和$$\mathbf X$$轴的角度是$$\theta $$，向量$$\mathbf {a_2}$$也是一个单位向量，和$$\mathbf {a_1}$$刚好垂直。
 
 ![image-20191113134724199](images/image-20191113134724199-1575459117113.png)
@@ -57,11 +56,9 @@ $$
 上图中$$\theta = 30^{\circ}$$，$$\alpha$$和$$\mathbf X$$ 轴的角度$$\phi=45^{\circ}$$，经过线性变换后，$$\beta $$和$$\mathbf X $$轴的角度是$$75^{\circ}$$，也就是说，矩阵正好把向量逆时针旋转了$$ 30^{\circ}$$。
 
 上面的解释或许还是有些抽象，用坐标轴变换来解释旋转会形象的多。
-
 $$
 \mathbf{\beta} = \mathbf A \cdot \mathbf{\alpha} = \mathbf {a_1} \alpha_1 + \mathbf {a_2} \alpha_2
 $$
-
    - 把$$\mathbf {a_1}$$和$$\mathbf {a_2}$$看成是新的坐标轴，和标准坐标轴相比，这个坐标轴逆时针旋转了$$\theta $$。
    - 向量$$\mathbf {\beta}$$在新坐标轴下的坐标是$$\begin{bmatrix} 
      \alpha_1 \\
@@ -70,11 +67,9 @@ $$
    - $$\alpha$$和$$X$$轴的角度是$$\phi$$，可以得出向量$$\mathbf {\beta}$$和$$\mathbf {a_1}$$(新$$X$$轴)的角度必然也是$$\phi$$，则向量$$\mathbf {\beta}$$和$$X$$轴的角度是 $$\phi + \theta $$ 。就这样看上去，矩阵$$ \mathbf{A} $$正好把向量$$\mathbf{\alpha}$$逆时针旋转了$$ \theta$$。
 
 同理，很容易把上述方法推广到$$n$$维: 
-
 $$
 \mathbf{\beta} = \mathbf A \cdot \mathbf{\alpha} = \mathbf {a_1} \alpha_1 + \mathbf {a_2} \alpha_2 + \cdots \mathbf {a_n} \alpha_n
 $$
-
 - 把$$\mathbf {a_1}, \mathbf {a_2}, \cdots, \mathbf {a_n}$$看成是新的坐标轴。
  - 向量$$\mathbf {\beta}$$在新坐标轴下的坐标是$$\begin{bmatrix} 
    \alpha_1 \\
@@ -91,7 +86,6 @@ $$
 ### 缩放
 
 在二维空间，下面的矩阵会对向量各个分量进行拉伸和缩放。
-
 $$
 \mathbf A = 
 \begin{bmatrix} 
@@ -109,7 +103,6 @@ s_1 & 0 \\
 \end{bmatrix} \cdot \begin{bmatrix} \alpha_1 \\ \alpha_2 \end{bmatrix} = 
 \begin{bmatrix} s_1\alpha_1 \\ s_2\alpha_2 \end{bmatrix}
 $$
-
 下图中$$\mathbf A = 
 \begin{bmatrix} 
 2 & 0 \\
@@ -119,7 +112,6 @@ $$
 ![image-20191114131858572](images/image-20191114131858572-1575459117113.png)
 
 同样推广到$$n$$维空间。
-
 $$
 \mathbf A = 
 \begin{bmatrix} 
@@ -129,19 +121,14 @@ s_1 & 0 & \cdots & 0 \\
 0 & 0 & 0 & s_n  \\
 \end{bmatrix}
 $$
-
 上面矩阵的对角线不为0，其他都为0，这样的矩阵称之为**对角矩阵（ diagonal matrix ）**，它的对象线的数对向量的各个分量进行拉伸和缩放。对角矩阵的另外一种更加简化的表达是：
-
 $$
 \mathbf A = diag(s_1, s_2, \cdots, s_n)
 $$
-
 或者
-
 $$
 \mathbf A = diag(\mathbf s)  
 $$
-
 其中$$\mathbf s = \begin{bmatrix} s_1 \\ s_2 \\ \vdots \\ s_n \end{bmatrix}$$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#缩放)。
@@ -157,7 +144,6 @@ $$
 蓝色的圆是原图，绿色的椭圆是缩放后的，红色的椭圆是绿色椭圆旋转后的样子。$$\mathbf {a_1}, \mathbf {a_2}$$是两种变换叠加后矩阵的列向量。可以这么理解，如果以它们为坐标轴，红色的椭圆就是圆。
 
 所用的两个矩阵分别是：
-
 $$
 \mathbf {A_1} = 
 \begin{bmatrix} 
@@ -173,7 +159,6 @@ $$
 1 & 0.433 
 \end{bmatrix}
 $$
-
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#缩放+旋转)。
 
 ### 正交化
@@ -210,7 +195,6 @@ $$
 \mathbf {\beta_n} &= \mathbf {v_n} - \sum_{i=1}^{n-1} (\mathbf {v_n} \cdot \mathbf {\eta_i}) \mathbf {\eta_i} & \mathbf {\eta_n} =  \frac {\mathbf {\beta_n}}  {\| \mathbf {\beta_n}\|}  
 \end{align}
 $$
-
 其中$$\begin{bmatrix} \mathbf {\eta_1} & \mathbf {\eta_2} & \cdots & \mathbf {\eta_n} \end{bmatrix}$$就是经过变换后的正交矩阵。
 
 通过上面的分析，可以得出：一组（线性无关）的向量总可以通过线性变换变成正交矩阵。
@@ -222,7 +206,6 @@ $$
 ### 内积和投影
 
 还可以从内积角度来理解线性映射。    
-
 $$
 \begin{align} 
 \mathbf{\beta} &= \mathbf A \cdot \mathbf{\alpha}  \\

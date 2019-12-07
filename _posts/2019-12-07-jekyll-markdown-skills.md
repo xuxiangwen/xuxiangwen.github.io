@@ -112,7 +112,7 @@ Jekyll把\{\{和\}\}中内容解析成Liquid，如果Tex/LaTex总包含\{\{，�
 
 ~~~
 markdown_file=<Markdown File>
-sed -i 's/{{/{ \n {/g' $markdown_file
+sed -i 's/{\s*{/{ \n {/g' $markdown_file
 ~~~
 
 ### 支持[Mermaid](https://mermaidjs.github.io/)
@@ -164,7 +164,7 @@ cat -s temp.md > $markdown_file
 rm -rf temp.md
 
 # 避免\{\{被Jekyll当作Liquid
-sed -i 's/{{/{ \n {/g' $markdown_file
+sed -i 's/{\s*{/{ \n {/g' $markdown_file
   
 EOF
 ~~~
