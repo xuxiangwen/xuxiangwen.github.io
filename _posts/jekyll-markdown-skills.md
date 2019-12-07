@@ -136,34 +136,44 @@ Mermaid是一个从文本生成图表和流程图的工具。默认情况下，J
 
 ### Summary
 
-把上面的shell脚本汇总起来，可以创建下面的脚本来整理markdown文件。
+把上面的shell脚本汇总起来，可以创建下面的脚本来整理Markdown文件。
 
 ~~~shell
-cat << EOF > clean.sh
-markdown_file=$1
-jekyll_image_path=$2
+cat << EOF > clean_one.sh
+# !/bin/bash
+markdown_file=\$1
+jekyll_image_path=\$2
 
-cp $markdown_file  $markdown_file.bak
+file_folder=\$(dirname "\$markdown_file")
+file_name=\$(basename "\$markdown_file")
+
+markdown_file_clean=\$file_folder/clean_\$file_name
+echo $markdown_file_clean
+cp \$markdown_file  \$markdown_file_clean
 # 修改图片的引用路径
-sed -i 's/(images\//(\/assets\/images\//g'  $markdown_file
+sed -i 's/(images\//(\/assets\/images\//g'  \$markdown_file_clean
 
 # 把图片拷贝到Jekyll的图片目录
-file_folder=$(dirname "$markdown_file")
-file_name=$(basename "$markdown_file")
-cp $file_folder/images/* $jekyll_image_path
+if [ -d $file_folder/images ]; then
+  mkdir -p \$jekyll_image_path
+  cp \$file_folder/images/* \$jekyll_image_path
+fi
 
 # Tex/LaTex Display Math换行居中
 awk '{
-if ($0 ~ /^\s*\$\$\s*$/)
-	print "\n"$0"\n"
+if (\$0 ~ /^\s*\\$\\$\s*$/)
+	print "\n"\$0"\n"
 else 
-  print $0
-}' $markdown_file > temp.md
-cat -s temp.md > $markdown_file
+  print \$0
+}' \$markdown_file_clean > temp.md
+cat -s temp.md > \$markdown_file_clean
 rm -rf temp.md
 
 # 避免\{\{被Jekyll当作Liquid
-sed -i 's/{\s*{/{ \n {/g' $markdown_file
+sed -i 's/{\s*{/{ \n {/g' \$markdown_file_clean
+
+echo generate \$markdown_file_clean, please check if the file is correct or not
+echo if yes, run 'cp \$markdown_file_clean \$markdown_file' to update.
   
 EOF
 ~~~
@@ -171,7 +181,15 @@ EOF
 在Jekyll根目录，执行以下语句。
 
 ~~~
-./clean.sh _posts/<Markdown File> assets/images
+markdown_file=<Markdown File>
+./clean_one.sh $markdown_file assets/images
 ~~~
 
-`Markdown File`是要清理的Markdown文件。
+上面命令，将会生成.clean文件，检查clean文件的内容，如果正确， 执行下面命令，进行替换。
+
+~~~
+cp $markdown_file_clean $markdown_file
+~~~
+
+
+
