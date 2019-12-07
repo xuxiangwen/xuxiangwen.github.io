@@ -51,7 +51,6 @@ cp $file_folder/images/* $jekyll_image_path
 ### Display Math换行居中问题。
 
 平时最喜欢用的Markdown编辑器是[Typora]()，它的Tex/LaTex语法支持Display Math ，也就是在\$\$中编写数学公式。比如：
-
 ```Markdown
 $$
 \begin{align*}
@@ -61,7 +60,6 @@ y = y(x,t) &= A e^{i\theta} \\
 \end{align*}
 $$
 ```
-
 在Typora显示如下:
 
 公式一:
