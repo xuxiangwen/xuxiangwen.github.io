@@ -162,6 +162,9 @@ else
 }' $markdown_file > temp.md
 cat -s temp.md > $markdown_file
 rm -rf temp.md
+
+# 避免\{\{被Jekyll当作Liquid
+sed -i 's/{{/{ \n {/g' $markdown_file
   
 EOF
 ~~~
