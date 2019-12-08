@@ -12,7 +12,7 @@ date: 2019-12-07
 
 一般推荐的解决方案是把1234.png拷贝到Jekyll根目录下的assets/images目录，然后修改文件中图片引用路径，即语句变成![img\]\(/assets/images/123.png)。
 
-下面是进行这一替换的shell脚本。
+下面是进行这一替换的shell脚本：
 
 ~~~shell
 markdown_file=<Markdown File>
@@ -69,7 +69,24 @@ $$
 
 ![image-20191207152351788](images/image-20191207152351788.png)
 
-上图中，数学公式和`公式一:`都靠左显示，挤在一行，这样的效果非常难看。解决办法也很简单，即把所有的\$\$前后都插入一个空行，就可以解决这个问题，代码如下。
+上图中，数学公式和`公式一:`都靠左显示，挤在一行，这样的效果非常难看。解决办法也很简单，即把所有的\$\$前后都插入一个空行，新的语句如下：
+
+~~~
+公式一:
+
+$$     
+
+\begin{align*}
+y = y(x,t) &= A e^{i\theta} \\
+&= A (\cos \theta + i \sin \theta) \\
+&= A (\cos(kx - \omega t) + i \sin(kx - \omega t)) 
+\end{align*}
+
+$$        
+
+~~~
+
+下面是shell脚本：
 
 ~~~shell
 markdown_file=<Markdown File>

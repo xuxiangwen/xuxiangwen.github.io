@@ -16,7 +16,7 @@
 cd ~/eipi10/xuxiangwen.github.io
 git pull
 _bin/generate.sh _posts
-bundle exec jekyll serve --host 0.0.0.0 --port 4000
+_bin/start.sh
 ~~~
 
 ### 部署
