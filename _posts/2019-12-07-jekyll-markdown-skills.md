@@ -8,9 +8,9 @@ date: 2019-12-07
 
 ### 图片路径的引用
 
-在本地编写Markdown文件的时候，往往会引用很多本地图片。比如，`![img]( images/1234.png)`，这条语句将会显示（当前目录下）images目录下的1234.png图片。当把Markdown文件放到Jekyll的\_posts目录上，它会把Markdown文件拷贝到_site目录下的某个位置（比如：\_site/others/2019/12/07/），然而这一过程中，它并不会去拷贝Markdown中所引用的图片，这将造成网页中图片无法显示。
+在本地编写Markdown（简称MD）文件的时候，往往会引用很多本地图片。比如，!\[img\]\(images/123.png)，这条语句将会显示（当前目录下）images目录下的123.png图片。当把MD文件放到Jekyll的\_posts目录上，Jekyll会自动把MD文件复制到_site目录下的某个位置（比如：\_site/others/2019/12/07/），然而这一过程中，它并不会去拷贝文件所引用的图片，这将造成网页中图片无法显示。
 
-一般推荐的解决方案是把1234.png拷贝到Jekyll根目录下的assets/images目录，然后修改文件中图片引用路径，即语句变成`![img](/assets/images/1234.png)`。
+一般推荐的解决方案是把1234.png拷贝到Jekyll根目录下的assets/images目录，然后修改文件中图片引用路径，即语句变成![img\]\(/assets/images/123.png)。
 
 下面是进行这一替换的shell脚本。
 
@@ -53,27 +53,23 @@ cp $file_folder/images/* $jekyll_image_path
 平时最喜欢用的Markdown编辑器是[Typora]()，它的Tex/LaTex语法支持Display Math ，也就是在\$\$中编写数学公式。比如：
 ```Markdown
 公式一:
-
-$$
-
+$$                        
 \begin{align*}
 y = y(x,t) &= A e^{i\theta} \\
 &= A (\cos \theta + i \sin \theta) \\
 &= A (\cos(kx - \omega t) + i \sin(kx - \omega t)) 
 \end{align*}
-
-$$
-
+$$                        
 ```
 在Typora显示如下:
 
 ![image-20191207152444450](/assets/images/image-20191207152444450.png)
 
-其中数学公式居中显示，和`公式一:`不在同一行。然而相同语句，Jekyll中的显示如下：
+上图中数学公式居中显示，和`公式一:`分别位于两行。然而相同语句，Jekyll中的显示如下：
 
 ![image-20191207152351788](/assets/images/image-20191207152351788.png)
 
-在Jekyll中，数学公式和文本`公式一:`在一行，而且靠左显示。这样的效果非常难看。解决办法也很简单，即把所有的\$\$前后都插入一个空行，就可以解决这个问题，代码如下。
+上图中，数学公式和`公式一:`都靠左显示，挤在一行，这样的效果非常难看。解决办法也很简单，即把所有的\$\$前后都插入一个空行，就可以解决这个问题，代码如下。
 
 ~~~shell
 markdown_file=<Markdown File>
