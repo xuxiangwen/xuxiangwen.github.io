@@ -75,7 +75,7 @@
 
 大家都是使用这些工具开始的，主要缺点是文件分散在计算机的各处，时间长了，放在哪里都忘了，查找起来很不方便。
 
-![img](images/ximg_5b6e4770e6897.jpg.pagespeed.gp+jp+jw+pj+ws+js+rj+rp+rw+ri+cp+md.ic.tfq1D0waRx.jpg)
+![img](images/ximg_5b6e4770e6897.jpg)
 
 ### 工业时代：evernote， onenote， 有道云笔记
 
