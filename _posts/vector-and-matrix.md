@@ -12,7 +12,7 @@ date: 2019-12-02
 
 ## 向量
 
- 向量（vector）是线性代数中的基本概念，也是机器学习的基v础数据表示形式。 
+ 向量（vector）是线性代数中的基本概念，也是机器学习的基础数据表示形式。 
 
 $$
 \mathbf{a} = \begin{bmatrix}a_1 \\ a_2 \\ \vdots \\ a_n\end{bmatrix}

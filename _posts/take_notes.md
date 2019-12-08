@@ -118,9 +118,9 @@ date: 2019-12-08
 ~~~mermaid
 graph LR; 
     CE --> Git((Git));  
-    Information-->|md|MDE[Markdown Editor: Typora];   
-    Document-->|md|MDE;
-    Article-->|md|MDE;    
+    Information--> MDE[Markdown Editor: Typora];   
+    Document--> MDE;
+    Article--> MDE;    
     ID[Interactive Doc]-->NE[Notebook Editor: Jupyter];
     code --> CE(Code Editor);  
     MDE-->Others[ppt, pdf, word, html];
@@ -180,16 +180,12 @@ Markdown是一种轻量级标记语言，让写作者专注于写作而不用关
 下面把Markdown来比较一下，我们最常用的word。
 
 - 内容与形式分离 vs 所见即所得（内容与形式融合）
-
   - 专注内容书写：Markdown 胜
   - 调整排版：Markdown 胜
   - 文档发布和阅读：Markdown 胜
-
 - 源码输入 vs 所见即所得
-
   - 严谨性：Markdown 胜
 - 功能：Word 胜
-
   - 图片支持： Word 略胜
   - 表格支持： Word 胜
   - 显示和上手难度： Word 胜
@@ -220,7 +216,7 @@ pandoc -t F -s take_notes_ppt.md \
 
 ## 总结
 
-无论使用任何工具，无论如何记笔记，只要让更多知识得到更好的分享，就能获得更大价值。
+无论使用任何工具，无论如何记笔记，只要让更多知识得到更好的分享，就能实现知识的更大价值。
 
 ## 参考
 
@@ -233,5 +229,5 @@ pandoc -t F -s take_notes_ppt.md \
 - [Producing slide shows with pandoc](https://pandoc.org/MANUAL.html#producing-slide-shows-with-pandoc)
 - [mermaid live editor](https://mermaidjs.github.io/mermaid-live-editor)
 - [GitHub Pages](https://pages.github.com)
-- [Creating and Hosting a Personal Site on GitHub](http://jmcglone.com/guides/github-pages): 非常好的入门guide
+- [Creating and Hosting a Personal Site on GitHub](http://jmcglone.com/guides/github-pages)
 
