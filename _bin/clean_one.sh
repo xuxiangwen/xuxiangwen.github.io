@@ -9,7 +9,7 @@ markdown_file_clean=$file_folder/clean_$file_name
 echo 
 cp $markdown_file  $markdown_file_clean
 # 修改图片的引用路径
-sed -i 's/(images\//(\/assets\/images\//g'  $markdown_file_clean
+sed -i 's/\](images\//\](\/assets\/images\//g'  $markdown_file_clean
 
 # 把图片拷贝到Jekyll的图片目录
 if [ -d /images ]; then
@@ -19,7 +19,7 @@ fi
 
 # Tex/LaTex Display Math换行居中
 awk '{
-if ($0 ~ /^\s*\$\$\s*$/)
+if ($0 ~ /^\s*\$\$\s{0,10}$/)
 print "\n"$0"\n"
 else 
   print $0

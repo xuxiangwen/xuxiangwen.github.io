@@ -40,11 +40,11 @@ generate_one(){
   publish_path=$file_folder/${md_date}-$file_name
   echo cp $filepath $publish_path
   cp $filepath $publish_path
-  sed -i 's/(images\//(\/assets\/images\//g'  $publish_path
+  sed -i 's/\](images\//\](\/assets\/images\//g'  $publish_path
 
   # add line break when find $$
   awk '{
-if ($0 ~ /^\s*\$\$\s*$/)
+if ($0 ~ /^\s*\$\$\s{0,10}$/)
 	print "\n"$0"\n"
 else 
   print $0
