@@ -8,11 +8,11 @@ date: 2019-12-07
 
 ### 图片路径的引用
 
-在本地编写Markdown文件的时候，往往会引用很多本地图片。比如，`![img](/assets/images/1575457889152.png)`，这条语句将会显示（当前目录下）`images`目录下的`1575457889152.png`文件。当把Markdown文件部署到Jekyll上，它会根据设定会把文件拷贝到_site目录下的某个位置（比如：`\_site/others/2019/12/08/jekyll-Markdown-skills/`），然而这过程中，它并不会去拷贝Markdown中引用的图片，这将造成在图片在网页中无法显示。
+在本地编写Markdown文件的时候，往往会引用很多本地图片。比如，`![img](/assets/images/1234.png)`，这条语句将会显示（当前目录下）images目录下的1234.png图片。当把Markdown文件放到Jekyll的\_posts目录上，它会把Markdown文件拷贝到_site目录下的某个位置（比如：\_site/others/2019/12/07/），然而这一过程中，它并不会去拷贝Markdown中所引用的图片，这将造成在图片在网页中无法显示。
 
-一般推荐的解决方案是把`1575457889152.png`拷贝到Jekyll根目录下`assets/images`目录，然后把文件中引用语句变成`![img](/assets/images/1575457889152.png)`，
+一般推荐的解决方案是把1234.png拷贝到Jekyll根目录下的assets/images目录，然后修改文件中图片引用路径，即语句变成`![img](/assets/images/1234.png)`。
 
-下面是替换的shell脚本。
+下面是进行这一替换的shell脚本。
 
 ~~~shell
 markdown_file=<Markdown File>
@@ -37,21 +37,22 @@ cp $file_folder/images/* $jekyll_image_path
 默认情况下，Jekyll不能正确显示Tex/LaTex，需要把下面的代码添加Markdown文件所使用的[Layout](https://jekyllrb.com/docs/layouts/)中去。
 
 ~~~html
-  <script type="text/x-mathjax-config">
+<script type="text/x-mathjax-config">
     MathJax.Hub.Config({
       tex2jax: {
         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
         inlineMath: [['$','$']]
       }
     });
-  </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ~~~
 
 ### Display Math换行居中问题
 
 平时最喜欢用的Markdown编辑器是[Typora]()，它的Tex/LaTex语法支持Display Math ，也就是在\$\$中编写数学公式。比如：
 ```Markdown
+公式一:
 
 $$
 
@@ -107,7 +108,7 @@ $\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\$
 $$\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$
 ~~~
 
-这样就可以在Typora和Jekyll中获得一样的效果。所以在编写Tex/LaTex，最好就用 \$\$ 而不要用 \$ 。
+这样就可以在Typora和Jekyll中获得一样的效果。由此，在编写Inline Math的收，最好就用 \$\$ 而不要用 \$ 。
 
 ### Tex/LaTex中\{\{被Jekyll当作[Liquid](https://jekyllrb.com/docs/liquid/)
 
@@ -138,9 +139,9 @@ Mermaid是一个从文本生成图表和流程图的工具。默认情况下，J
 </script>
 ~~~
 
-### Summary
+### 总结
 
-把上面的shell脚本汇总起来，可以创建下面的脚本。
+把上面所用的shell脚本汇总起来，可以创建一个执行文件clean_one.sh。
 
 ~~~shell
 cat << EOF > clean_one.sh
@@ -189,9 +190,9 @@ markdown_file=<Markdown File>
 ./clean_one.sh $markdown_file assets/images
 ~~~
 
-上面命令，将会生成.clean文件，检查clean文件的内容，如果正确， 执行下面命令，进行替换。
+上面命令，在相同目录会生成一个新的文件，文件名是：clean_<原文件名>，然后我们可以检查clean文件的内容。如果正确， 执行下面命令，进行替换。
 
 ~~~shell
-cp $markdown_file_clean $markdown_file
+mv $markdown_file_clean $markdown_file
 ~~~
 
