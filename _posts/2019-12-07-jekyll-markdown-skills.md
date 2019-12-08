@@ -8,7 +8,7 @@ date: 2019-12-07
 
 ### 图片路径的引用
 
-在本地编写Markdown文件的时候，往往会引用很多本地图片。比如，`![img](/assets/images/1234.png)`，这条语句将会显示（当前目录下）images目录下的1234.png图片。当把Markdown文件放到Jekyll的\_posts目录上，它会把Markdown文件拷贝到_site目录下的某个位置（比如：\_site/others/2019/12/07/），然而这一过程中，它并不会去拷贝Markdown中所引用的图片，这将造成在图片在网页中无法显示。
+在本地编写Markdown文件的时候，往往会引用很多本地图片。比如，`![img](/assets/images/1234.png)`，这条语句将会显示（当前目录下）images目录下的1234.png图片。当把Markdown文件放到Jekyll的\_posts目录上，它会把Markdown文件拷贝到_site目录下的某个位置（比如：\_site/others/2019/12/07/），然而这一过程中，它并不会去拷贝Markdown中所引用的图片，这将造成网页中图片无法显示。
 
 一般推荐的解决方案是把1234.png拷贝到Jekyll根目录下的assets/images目录，然后修改文件中图片引用路径，即语句变成`![img](/assets/images/1234.png)`。
 
