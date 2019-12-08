@@ -10,7 +10,7 @@ date: 2019-12-07
 
 在本地编写Markdown（简称MD）文件的时候，往往会引用很多本地图片。比如，!\[img\]\(images/123.png)，这条语句将会显示（当前目录下）images目录下的123.png图片。当把MD文件放到Jekyll的\_posts目录上，Jekyll会自动把MD文件复制到_site目录下的某个位置（比如：\_site/others/2019/12/07/），然而这一过程中，它并不会去拷贝文件所引用的图片，这将造成网页中图片无法显示。
 
-一般推荐的解决方案是把1234.png拷贝到Jekyll根目录下的assets/images目录，然后修改文件中图片引用路径，即语句变成![img\]\(/assets/images/123.png)。
+一般推荐的解决方案是把123.png拷贝到Jekyll根目录下的assets/images目录，然后修改文件中图片引用路径，即语句变成![img\]\(/assets/images/123.png)。
 
 下面是进行这一替换的shell脚本：
 
