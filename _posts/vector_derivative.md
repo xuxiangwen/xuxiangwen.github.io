@@ -12,7 +12,9 @@ date: 2019-12-09
 
 设
 $$
-\mathbf u = \begin{bmatrix} u_1 \\ u_2 \\ \vdots \\ u_n \end{bmatrix},\ \mathbf v = \begin{bmatrix} u_1 \\ u_2 \\ \vdots \\ u_n \end{bmatrix},\ \mathbf w = \begin{bmatrix} w_1 \\ w_2 \\ \vdots \\ w_n \end{bmatrix}
+\mathbf u = \begin{bmatrix} u_1 \\ u_2 \\ \vdots \\ u_n \end{bmatrix},\ 
+\mathbf v = \begin{bmatrix} u_1 \\ u_2 \\ \vdots \\ u_n \end{bmatrix},\ 
+\mathbf w = \begin{bmatrix} w_1 \\ w_2 \\ \vdots \\ w_n \end{bmatrix}
 $$
 则，行向量对于列向量得导数定义如下：
 $$
@@ -132,12 +134,15 @@ $
 而且对角矩阵还有对称的性质，不难得到。
 
 $
-diag(\mathbf {v}) \cdot \mathbf {u}  =   \mathbf {v} \circ \mathbf {u} = \mathbf {u} \circ \mathbf {v} $
-
-$\mathbf {u}^\mathbf{T} \cdot diag(\mathbf {v}) = \mathbf {u}^\mathbf{T} \circ \mathbf {v}^\mathbf{T} = \mathbf {v}^\mathbf{T} \circ  \mathbf {u}^\mathbf{T}  =  (\mathbf {v} \circ  \mathbf {u})^\mathbf{T} =  (\mathbf {u} \circ  \mathbf {v})^\mathbf{T}
+diag(\mathbf {v}) \cdot \mathbf {u}  =   \mathbf {v} \circ \mathbf {u} = \mathbf {u} \circ \mathbf {v} 
 $
 
-$\mathbf {A} \cdot diag(\mathbf {v})  =  \mathbf {A} \circ v^\mathbf{T}  = v^\mathbf{T}  \circ  \mathbf {A}
+$
+\mathbf {u}^\mathbf{T} \cdot diag(\mathbf {v}) = \mathbf {u}^\mathbf{T} \circ \mathbf {v}^\mathbf{T} = \mathbf {v}^\mathbf{T} \circ  \mathbf {u}^\mathbf{T}  =  (\mathbf {v} \circ  \mathbf {u})^\mathbf{T} =  (\mathbf {u} \circ  \mathbf {v})^\mathbf{T}
+$
+
+$
+\mathbf {A} \cdot diag(\mathbf {v})  =  \mathbf {A} \circ v^\mathbf{T}  = v^\mathbf{T}  \circ  \mathbf {A} 
 $
 
 于是，公式还可以进一步简化，最终可以得到如下公式。
@@ -149,7 +154,7 @@ $
 
 $
 \frac{\partial g(f(\mathbf {u}^\mathbf{T}))}{\partial {\mathbf {\mathbf {u}}}} = 
-diag(\frac{\partial f(\mathbf {u})}{\partial {\mathbf {\mathbf {u}}}} \circ  \frac{\partial g(f(\mathbf {u}))}{\partial f(\mathbf {u})})
+diag(\frac{\partial f(\mathbf {u})}{\partial {\mathbf {\mathbf {u}}}} \circ  \frac{\partial g(f(\mathbf {u}))}{\partial f(\mathbf {u})}) 
 $
 
 $
@@ -158,8 +163,6 @@ $
 $
 
 其中$\mathbf v = \mathbf{Au}$
-
-**实际的例子**
 
 下面看几个实际的例子。
 
