@@ -43,7 +43,7 @@ x = torch.randn(5, 3)
 x.numpy()
 ~~~
 
-### CUDA Tensor
+#### CUDA Tensor
 
 ~~~
 if torch.cuda.is_available():
