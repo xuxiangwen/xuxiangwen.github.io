@@ -160,6 +160,22 @@ Mermaid是一个从文本生成图形的工具。目前它可以生成流程图�
 然后，下面的代码可以生成美观的状态图了。
 
 ~~~mermaid
+graph LR; 
+    CE --> Git((Git));  
+    Information--> MDE[Markdown Editor: Typora];   
+    Document--> MDE;
+    Article--> MDE;    
+    ID[Interactive Doc]-->NE[Notebook Editor: Jupyter];
+    code --> CE(Code Editor);  
+    MDE-->Others[ppt, pdf, word, html];
+    NE-->Others;    
+    MDE--> Git; 
+    NE--> Git;
+    Git-->GE["Github Enterprise Pages"];
+    Git-->GitHub["Github Pages"];  
+~~~
+
+~~~mermaid
 classDiagram
 Class01 <|-- AveryLongClass : Cool
 <<interface>> Class01
