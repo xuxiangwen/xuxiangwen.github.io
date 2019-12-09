@@ -81,7 +81,7 @@ $$
 
 $$
 
-上面公式中，向量$$\mathbf {u}$$的每一个成员和向量$$\mathbf {w}$$的每一个成员一一进行求导，其结果是一个同阶的向量。下面来看函数。A
+上面公式中，向量$$\mathbf {u}$$的每一个成员和向量$$\mathbf {w}$$的每一个成员一一进行求导，其结果是一个同阶的向量。下面来看函数。
 
 设$$f, g$$是函数，其输入是向量或矩阵，输出也是同阶的向量或矩阵（比如：$$\mathbf A$$是$$m \times n$$阶矩阵， 则$$f(\mathbf {A})$$也是$$m \times n$$阶矩阵）。
 
@@ -127,70 +127,78 @@ $$
 
 然后可以推得：
 
-$
-\frac{\partial f((\mathbf {Au})^\mathbf{T})}{\partial {\mathbf {u}}} = 
+$$
+
+\begin{align}
+\frac{\partial f((\mathbf {Au})^\mathbf{T})}{\partial {\mathbf {u}}} &= 
 \frac{\partial (\mathbf{A}u)^\mathbf{T}}{\partial {\mathbf {u}}}  \cdot \frac{\partial f((\mathbf {Au})^\mathbf{T})}{\partial \mathbf {Au}} = 
 \mathbf A^\mathbf{T} \cdot \frac{\partial f((\mathbf {Au})^\mathbf{T})}{\partial \mathbf {Au}}=
 \mathbf A^\mathbf{T} \cdot diag(\frac{\partial f(\mathbf {Au})}{\partial \mathbf {Au}})       
-$
-
-$
-\frac{\partial g(f(\mathbf {u}^\mathbf{T}))}{\partial {\mathbf {\mathbf {u}}}} = 
+\\
+\frac{\partial g(f(\mathbf {u}^\mathbf{T}))}{\partial {\mathbf {\mathbf {u}}}} &= 
 \frac{\partial f(\mathbf {u}^\mathbf{T})}{\partial {\mathbf {\mathbf {u}}}}  \cdot \frac{\partial g(f(\mathbf {u}^\mathbf{T}))}{\partial f(\mathbf {u})} = 
-diag(\frac{\partial f(\mathbf {u})}{\partial {\mathbf {\mathbf {u}}}}) \cdot
+diag(\frac{\partial f(\mathbf {u})}{\partial {\mathbf {\mathbf {u}}}}) \cdot 
 diag(\frac{\partial g(f(\mathbf {u}))}{\partial f(\mathbf {u})}) = diag(\frac{\partial f(\mathbf {u})}{\partial {\mathbf {\mathbf {u}}}} \circ  \frac{\partial g(f(\mathbf {u}))}{\partial f(\mathbf {u})}) 
-$
-
-$
-\frac{\partial g(f((\mathbf {Au})^\mathbf{T}))}{\partial {\mathbf {u}}} = 
+\\
+\frac{\partial g(f((\mathbf {Au})^\mathbf{T}))}{\partial {\mathbf {u}}} &= 
 \frac{\partial f((\mathbf {Au})^\mathbf{T})}{\partial {\mathbf {u}}}  \cdot \frac{\partial g(f((\mathbf {Au})^\mathbf{T}))}{\partial f(\mathbf {Au})} = 
 \mathbf A^\mathbf{T} \cdot diag(\frac{\partial f(\mathbf {v})}{\partial {\mathbf {\mathbf {v}}}} \circ  \frac{\partial g(f(\mathbf {v}))}{\partial f(\mathbf {v})}) 
-$
+\end{align}
+
+$$
 
 其中$\mathbf v = \mathbf{Au}$，$\circ $是[哈达玛积](https://zh.wikipedia.org/wiki/%E9%98%BF%E9%81%94%E7%91%AA%E4%B9%98%E7%A9%8D_(%E7%9F%A9%E9%99%A3))，表示两个向量或矩阵的各个分量分别相乘。
 
 而且对角矩阵还有对称的性质，不难得到。
 
-$
-diag(\mathbf {v}) \cdot \mathbf {u}  =   \mathbf {v} \circ \mathbf {u} = \mathbf {u} \circ \mathbf {v} 
-$
+$$
 
-$
-\mathbf {u}^\mathbf{T} \cdot diag(\mathbf {v}) = \mathbf {u}^\mathbf{T} \circ \mathbf {v}^\mathbf{T} = \mathbf {v}^\mathbf{T} \circ  \mathbf {u}^\mathbf{T}  =  (\mathbf {v} \circ  \mathbf {u})^\mathbf{T} =  (\mathbf {u} \circ  \mathbf {v})^\mathbf{T}
-$
+\begin{align}
+diag(\mathbf {v}) \cdot \mathbf {u} &=   \mathbf {v} \circ \mathbf {u} = \mathbf {u} \circ \mathbf {v} 
+\\
+\mathbf {u}^\mathbf{T} \cdot diag(\mathbf {v}) &= \mathbf {u}^\mathbf{T} \circ \mathbf {v}^\mathbf{T} = \mathbf {v}^\mathbf{T} \circ  \mathbf {u}^\mathbf{T}  =  (\mathbf {v} \circ  \mathbf {u})^\mathbf{T} =  (\mathbf {u} \circ  \mathbf {v})^\mathbf{T}
+\\
+\mathbf {A} \cdot diag(\mathbf {v}) & =  \mathbf {A} \circ v^\mathbf{T}  = v^\mathbf{T}  \circ  \mathbf {A} 
+\end{align}
 
-$
-\mathbf {A} \cdot diag(\mathbf {v})  =  \mathbf {A} \circ v^\mathbf{T}  = v^\mathbf{T}  \circ  \mathbf {A} 
-$
+$$
 
 于是，公式还可以进一步简化，最终可以得到如下公式。
 
-$
-\frac{\partial f((\mathbf {Au})^\mathbf{T})}{\partial {\mathbf {u}}} = 
+$$
+
+\begin{align}
+\frac{\partial f((\mathbf {Au})^\mathbf{T})}{\partial {\mathbf {u}}} &= 
 \mathbf A^\mathbf{T} \cdot diag(\frac{\partial f(\mathbf {Au})}{\partial \mathbf {Au}})  =      \mathbf A^\mathbf{T} \circ (\frac{\partial f(\mathbf {Au})}{\partial \mathbf {Au}})^\mathbf{T} =     ( \mathbf A \circ \frac{\partial f(\mathbf {Au})}{\partial \mathbf {Au}})^\mathbf{T} 
-$
-
-$
-\frac{\partial g(f(\mathbf {u}^\mathbf{T}))}{\partial {\mathbf {\mathbf {u}}}} = 
+\\
+\frac{\partial g(f(\mathbf {u}^\mathbf{T}))}{\partial {\mathbf {\mathbf {u}}}} &= 
 diag(\frac{\partial f(\mathbf {u})}{\partial {\mathbf {\mathbf {u}}}} \circ  \frac{\partial g(f(\mathbf {u}))}{\partial f(\mathbf {u})}) 
-$
-
-$
-\frac{\partial g(f((\mathbf {Au})^\mathbf{T}))}{\partial {\mathbf {u}}} = 
+\\
+\frac{\partial g(f((\mathbf {Au})^\mathbf{T}))}{\partial {\mathbf {u}}} &= 
 \mathbf A^\mathbf{T} \cdot diag(\frac{\partial f(\mathbf {v})}{\partial {\mathbf {\mathbf {v}}}} \circ  \frac{\partial g(f(\mathbf {v}))}{\partial f(\mathbf {v})}) =  (\mathbf A \circ \frac{\partial f(\mathbf {v})}{\partial {\mathbf {\mathbf {v}}}} \circ \frac{\partial g(f(\mathbf {v}))}{\partial f(\mathbf {v})})^\mathbf{T}
-$
+\end{align}
+
+$$
 
 其中$\mathbf v = \mathbf{Au}$
 
 下面看几个实际的例子。
 
-$\frac{\mathbf{d}\log(\mathbf {u}^\mathbf{T})}{\mathbf{d}\mathbf {u}} =diag(\frac 1 {\mathbf {u}})
-$
+$$
 
-$\frac{\mathbf{d}\log((\mathbf {A}\mathbf {u})^\mathbf{T})}{\mathbf{d}\mathbf {u}} = 
+\begin{align}
+\frac{\mathbf{d}\log(\mathbf {u}^\mathbf{T})}{\mathbf{d}\mathbf {u}} &=diag(\frac 1 {\mathbf {u}})
+\\ 
+\frac{\mathbf{d}\log((\mathbf {A}\mathbf {u})^\mathbf{T})}{\mathbf{d}\mathbf {u}} &= 
 \frac{\mathbf{d}(\mathbf v)^\mathbf{T}}{\mathbf{d}\mathbf {u}} \cdot \frac {\mathbf{d}\log(v^\mathbf{T})} {\mathbf{d} v} = 
 \mathbf {A}^\mathbf{T} \cdot diag(\frac  1 {\mathbf  v}) = (\mathbf {A} \cdot \frac  1 {\mathbf v})^\mathbf{T} 
-$
+\end{align}
+
+$$
 
 其中$$\frac 1 {\mathbf {u}} = \begin{bmatrix} \frac 1 {u_1} \\ \frac 1 {u_2} \\ \vdots \\ \frac 1 {u_n} \end{bmatrix}$$，$\mathbf v = \mathbf{Au}$，$$\frac 1 {\mathbf {v}} = \begin{bmatrix} \frac 1 {v_1} \\ \frac 1 {v_2} \\ \vdots \\ \frac 1 {v_n} \end{bmatrix}$$
 
+## 参考
+
+- [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
+- [机器学习中的线性代数之矩阵求导](http://blog.csdn.net/u010976453/article/details/54381248)
