@@ -157,48 +157,12 @@ Mermaid是一个从文本生成图形的工具。目前它可以生成流程图�
 </script>
 ~~~
 
-然后，下面的代码可以生成美观的状态图了。
-
-~~~mermaid
-graph LR; 
-    CE --> Git((Git));  
-    Information--> MDE[Markdown Editor: Typora];   
-    Document--> MDE;
-    Article--> MDE;    
-    ID[Interactive Doc]-->NE[Notebook Editor: Jupyter];
-    code --> CE(Code Editor);  
-    MDE-->Others[ppt, pdf, word, html];
-    NE-->Others;    
-    MDE--> Git; 
-    NE--> Git;
-    Git-->GE["Github Enterprise Pages"];
-    Git-->GitHub["Github Pages"];  
-~~~
-
-
+然后，下面的代码可以生成流程图了。
 
 ~~~
-graph LR;
+graph TD;
 A[Christmas] -->|Get money| B(Go shopping);
-B --> C{Let me think};
-C -->|One| D[Laptop];
-C -->|Two| E[iPhone];
-C -->|Three| F[fa:fa-car Car];
-~~~
-
-~~~mermaid
-graph LR;
-A[Christmas] -->|Get money| B(Go shopping);
-B --> C{Let me think};
-C -->|One| D[Laptop];
-C -->|Two| E[iPhone];
-C -->|Three| F[fa:fa-car Car];
-~~~
-
-~~~mermaid
-graph TB;
-A[Christmas] -->|Get money| B(Go shopping);
-B --> C{Let me think};
+B --> C{Let me think};TD
 C -->|One| D[Laptop];
 C -->|Two| E[iPhone];
 C -->|Three| F[fa:fa-car Car];
@@ -213,6 +177,7 @@ C -->|Two| E[iPhone];
 C -->|Three| F[fa:fa-car Car];
 ~~~
 
+> 经过测试，目前好像有些图的类型支持的不太好（好像状态图会显示空白）。不过mermaid是个很活跃的开源软件，估计不久后都会修复。
 
 ### 总结
 
