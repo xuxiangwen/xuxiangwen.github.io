@@ -69,7 +69,7 @@ $$
 \frac{\partial  {u_n} }{\partial {w_n} }
 \end{bmatrix}
 $$
-上面公式中，向量$$\mathbf {u}$$的每一个成员和向量$$\mathbf {w}$$的每一个成员一一进行求导，其结果是一个同阶的向量。下面来看函数。A
+上面公式中，向量$$\mathbf {u}$$的每一个成员和向量$$\mathbf {w}$$的每一个成员一一进行求导，其结果是一个同阶的向量。下面来看函数。
 
 设$$f, g$$是函数，其输入是向量或矩阵，输出也是同阶的向量或矩阵（比如：$$\mathbf A$$是$$m \times n$$阶矩阵， 则$$f(\mathbf {A})$$也是$$m \times n$$阶矩阵）。
 
@@ -178,4 +178,3 @@ $$
 
 - [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
 - [机器学习中的线性代数之矩阵求导](http://blog.csdn.net/u010976453/article/details/54381248)
-
