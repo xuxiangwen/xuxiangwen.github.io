@@ -1,7 +1,7 @@
 ---
 title: 向量导数
 categories: linear-algebra
-date: 2019-12-06
+date: 2019-12-09
 ---
 
 向量导数非常重要，是机器学习中进行梯度下降计算的基本方式。
