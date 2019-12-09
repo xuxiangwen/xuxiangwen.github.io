@@ -137,7 +137,9 @@ sed -i 's/{\s*{/{ \n {/g' $md_file
 
 ### 支持[Mermaid](https://mermaidjs.github.io/)
 
-Mermaid是一个从文本生成图表和流程图的工具。默认情况下，Jekyll不能正确显示它，需要把下面的代码添加到MD文件所使用的[Layout](https://jekyllrb.com/docs/layouts/)中去。
+Mermaid是一个从文本生成图形的工具。目前它可以生成流程图（Flowchart），序列图（Sequence Diagram），类图（Class  Diagram），状态图（State Diagram），甘特图（Gantt ）和饼图（Pie Chart）。
+
+默认情况下，Jekyll不能正确显示它，需要把下面的代码添加到MD文件所使用的[Layout](https://jekyllrb.com/docs/layouts/)中去。
 
 ~~~html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
@@ -154,6 +156,32 @@ Mermaid是一个从文本生成图表和流程图的工具。默认情况下，J
   window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
 </script>
 ~~~
+
+然后，下面的代码可以生成美观的状态图了。
+
+~~~
+stateDiagram
+    [*] --> Still
+    Still --> [*]
+
+    Still --> Moving
+    Moving --> Still
+    Moving --> Crash
+    Crash --> [*]
+~~~
+
+~~~mermaid
+stateDiagram
+    [*] --> Still
+    Still --> [*]
+
+    Still --> Moving
+    Moving --> Still
+    Moving --> Crash
+    Crash --> [*]
+~~~
+
+
 
 ### 总结
 

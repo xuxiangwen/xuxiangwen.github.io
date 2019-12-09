@@ -46,14 +46,11 @@ date: 2019-12-08
 既然要分享，笔记的安全性非常重要。不同的笔记也有不同的发布范围。
 
 - Internet：
-
   - 公开。没有安全性限制，可以发布到internet上，让所有人访问。一般包括一些wiki，blog，开源代码等。
   - 私有。信息是私有的，但可以授权任意的人员来访问。个人的一些文章，代码，但并不想公开的，而且不含有公司的敏感信息。
-- 公司：仅在公司内部网络才可以访问。
-
-  - 公司/部门：信息在公司或部门内部是公开的。比如：公司流程，部门policy等。
+- 公司/部门：仅在公司/部门内部网络才可以访问。有些信息在公司或部门内部是公开的。比如：公司流程，部门policy等。
 - 项目：信息在项目组内部是公开的，可以授权项目外的同事来访问。比如：项目开发设计文档，源代码等。
-- 私有：信息是私有的，但可以授权公司的同事来访问。比如：个人的一些资料，文档，代码等。
+- 私有：信息是私有的，但可以授权公司的同事或者互联网上的朋友来访问。比如：个人的一些资料，文档，代码等。
 
 # 工具
 
@@ -98,7 +95,7 @@ date: 2019-12-08
 
 ![1557381669838](images/1557381669838.png)
 
-### 互联时代：  github(pages, wiki) + typora(markdown) + jupyter notebook + pandoc ...
+### 互联时代：  github pages+ typora(markdown) + jupyter notebook + pandoc ...
 
 面临的问题：
 
@@ -127,17 +124,17 @@ graph LR;
     NE-->Others;    
     MDE--> Git; 
     NE--> Git;
-    Git-->GE["Github Enterprise(pages, wiki)"];
-    Git-->GitHub["Github(pages, wiki)"];  
+    Git-->GE["Github Enterprise Pages"];
+    Git-->GitHub["Github Pages"];  
 ~~~
 
-下面自右向左来详细分析上图中的内容。首先是GitHub Pages和GitHub Wiki。
+下面自右向左来详细分析上图中的内容。首先是GitHub Pages。
 
 > 上面的图其实也是用一种代码（[mermaid](https://github.com/knsv/mermaid)）也写成的。
 
 #### [GitHub Pages](https://pages.github.com)
 
-GitHub Pages是一个用来展现GitHub中个人，组织或者项目的静态的网站。它是我们流程中分享的主要平台。
+GitHub Pages是一个用来展现GitHub中个人，组织或者项目的静态的网站，使用它可以把知识分享到整个互联网。如果GitHub Pages部署到Github Enterprise，则是在公司范围内分享的。
 
 [![What is GitHub Pages?](images/0.jpg)](http://www.youtube.com/watch?v=2MsN8gpT6jY "What is GitHub Pages?")
 
@@ -146,12 +143,6 @@ GitHub Pages是一个用来展现GitHub中个人，组织或者项目的静态�
 > [Projects using GitHub Pages](https://github.com/showcases/github-pages-examples)
 >
 > [Open source organizations using GitHub Pages](https://github.com/showcases/open-source-organizations)
-
-#### [GitHub Wiki](https://help.github.com/en/articles/about-wikis)
-
-就wiki本身来说，功能似乎有些弱，但如果定位成分享项目的一些知识，则非常合适。
-
->  总结起来，GitHub Pages, Wiki的最大优势：流量优势。因为在日常开发中，Github和GitHub Enterprise使用的比例非常的高。
 
 #### [Markdown Editer: Typora](<https://typora.io/>)
 
@@ -212,7 +203,10 @@ pandoc -t F -s take_notes_ppt.md \
 - 多种格式： 信息，文档，表格，代码，图表都能支持。
 - 编辑方便。不方便的例子有jupyter notebook添加图片麻烦。由于jupyter notebook是web站点，添加图片时不得不手工上传到网站上，然后再在notebook代码中定义，这样就使得记笔记的过程总是被中断。
 - 快速检索。不好的例子有有道云笔记的搜索功能。有道云笔记每次搜索时的目录是当前目录，而不是最根层的目录。我的一般工作的场景是，有道云笔记打开，定位到某个笔记本，随时在上面做一些记录，当工作中，发现了某个问题，而且记得笔记本中记录过，这时回到有道云笔记，去搜索一下，这时想搜索的范围一般是所有文档，而不是当前目录或当前文档。
-- 易于分享。支持分享到项目，部门，公司或互联网。
+- 易于分享。支持分享到项目，部门，公司或互联网。根据知识的安全要求，可以把知识可以在不同层次，但分享的方式都相同。
+- 知识的拥有者，拥有知识的控制权。
+
+显然github pages+ typora(markdown) + jupyter notebook + pandoc可以完美的满足上面的所有要求。
 
 ## 总结
 
