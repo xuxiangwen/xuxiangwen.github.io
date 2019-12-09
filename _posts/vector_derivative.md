@@ -132,9 +132,12 @@ $
 而且对角矩阵还有对称的性质，不难得到。
 
 $
-diag(\mathbf {v}) \cdot \mathbf {u}  =   \mathbf {v} \circ \mathbf {u} = \mathbf {u} \circ \mathbf {v} \\
-\mathbf {u}^\mathbf{T} \cdot diag(\mathbf {v}) = \mathbf {u}^\mathbf{T} \circ \mathbf {v}^\mathbf{T} = \mathbf {v}^\mathbf{T} \circ  \mathbf {u}^\mathbf{T}  =  (\mathbf {v} \circ  \mathbf {u})^\mathbf{T} =  (\mathbf {u} \circ  \mathbf {v})^\mathbf{T}\\
-\mathbf {A} \cdot diag(\mathbf {v})  =  \mathbf {A} \circ v^\mathbf{T}  = v^\mathbf{T}  \circ  \mathbf {A} 
+diag(\mathbf {v}) \cdot \mathbf {u}  =   \mathbf {v} \circ \mathbf {u} = \mathbf {u} \circ \mathbf {v} $
+
+$\mathbf {u}^\mathbf{T} \cdot diag(\mathbf {v}) = \mathbf {u}^\mathbf{T} \circ \mathbf {v}^\mathbf{T} = \mathbf {v}^\mathbf{T} \circ  \mathbf {u}^\mathbf{T}  =  (\mathbf {v} \circ  \mathbf {u})^\mathbf{T} =  (\mathbf {u} \circ  \mathbf {v})^\mathbf{T}
+$
+
+$\mathbf {A} \cdot diag(\mathbf {v})  =  \mathbf {A} \circ v^\mathbf{T}  = v^\mathbf{T}  \circ  \mathbf {A}
 $
 
 于是，公式还可以进一步简化，最终可以得到如下公式。
@@ -146,7 +149,7 @@ $
 
 $
 \frac{\partial g(f(\mathbf {u}^\mathbf{T}))}{\partial {\mathbf {\mathbf {u}}}} = 
-diag(\frac{\partial f(\mathbf {u})}{\partial {\mathbf {\mathbf {u}}}} \circ  \frac{\partial g(f(\mathbf {u}))}{\partial f(\mathbf {u})}) 
+diag(\frac{\partial f(\mathbf {u})}{\partial {\mathbf {\mathbf {u}}}} \circ  \frac{\partial g(f(\mathbf {u}))}{\partial f(\mathbf {u})})
 $
 
 $
