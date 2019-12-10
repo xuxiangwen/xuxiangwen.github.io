@@ -4,7 +4,7 @@ theme: jekyll-theme-architect
 permalink: pretty 
 show_downloads: false
 markdown: kramdown
-highlighter: rougei
+highlighter: rouge
 google_analytics: UA-154374268-1
 defaults:
   - scope:
