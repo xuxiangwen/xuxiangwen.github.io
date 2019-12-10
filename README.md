@@ -32,6 +32,7 @@ permalink: pretty
 show_downloads: false
 markdown: kramdown
 highlighter: rouge
+google_analytics: UA-154374268-1
 defaults:
   - scope:
       path: ""
