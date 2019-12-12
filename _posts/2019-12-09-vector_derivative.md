@@ -190,7 +190,7 @@ $$
 \frac{\mathbf{d}\log(\mathbf {u}^\mathbf{T})}{\mathbf{d}\mathbf {u}} &=diag(\frac 1 {\mathbf {u}})
 \\ 
 \frac{\mathbf{d}\log((\mathbf {A}\mathbf {u})^\mathbf{T})}{\mathbf{d}\mathbf {u}} &= 
-\frac{\mathbf{d}(\mathbf v)^\mathbf{T}}{\mathbf{d}\mathbf {u}} \cdot \frac {\mathbf{d}\log(v^\mathbf{T})} {\mathbf{d} v} = 
+\frac{\mathbf{d}(\mathbf v)^\mathbf{T}}{\mathbf{d}\mathbf {u}} \cdot \frac {\mathbf{d}\log(\mathbf {v}^\mathbf{T})} {\mathbf{d} \mathbf {v}} = 
 \mathbf {A}^\mathbf{T} \cdot diag(\frac  1 {\mathbf  v}) = (\mathbf {A} \cdot \frac  1 {\mathbf v})^\mathbf{T} 
 \end{align}
 
