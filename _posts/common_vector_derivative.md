@@ -11,13 +11,13 @@ date: 2019-12-12
 
 $ \frac{\partial \mathbf {w}^\mathbf{T} }{\partial \mathbf {w} } = \mathbf{I_n}$
 
-$\frac{\partial \mathbf {u} }{\partial \mathbf {w} } = 
+$$\frac{\partial \mathbf {u} }{\partial \mathbf {w} } = 
 \begin{bmatrix}
 \frac{\partial  {u_1} }{\partial {w_1} } \\
 \frac{\partial  {u_2} }{\partial {w_2} } \\
 \vdots \\
 \frac{\partial  {u_n} }{\partial {w_n} }
-\end{bmatrix} $
+\end{bmatrix} $$
 
 $\frac{\partial \mathbf {u}^\mathbf{T}\mathbf {v} }{\partial \mathbf {w} } =  \frac{\partial \mathbf {u}^\mathbf{T} }{\partial \mathbf {w} } \cdot \mathbf {v} + \frac{\partial \mathbf {v}^\mathbf{T} }{\partial \mathbf {w} } \cdot \mathbf {u}$
 
