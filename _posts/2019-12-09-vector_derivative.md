@@ -158,7 +158,7 @@ diag(\mathbf {v}) \cdot \mathbf {u} &=   \mathbf {v} \circ \mathbf {u} = \mathbf
 \\
 \mathbf {u}^\mathbf{T} \cdot diag(\mathbf {v}) &= \mathbf {u}^\mathbf{T} \circ \mathbf {v}^\mathbf{T} = \mathbf {v}^\mathbf{T} \circ  \mathbf {u}^\mathbf{T}  =  (\mathbf {v} \circ  \mathbf {u})^\mathbf{T} =  (\mathbf {u} \circ  \mathbf {v})^\mathbf{T}
 \\
-\mathbf {A} \cdot diag(\mathbf {v}) & =  \mathbf {A} \circ v^\mathbf{T}  = v^\mathbf{T}  \circ  \mathbf {A} 
+\mathbf {A} \cdot diag(\mathbf {v}) & =  \mathbf {A} \circ \mathbf {v}^\mathbf{T}  = \mathbf {v}^\mathbf{T}  \circ  \mathbf {A} 
 \end{align}
 
 $$
