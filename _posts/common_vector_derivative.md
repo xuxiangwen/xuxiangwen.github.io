@@ -56,4 +56,3 @@ $
 $\frac{\mathbf{d}\log((\mathbf {A}\mathbf {u})^\mathbf{T})}{\mathbf{d}\mathbf {u}}  = \mathbf {A}^\mathbf{T} \cdot diag(\frac  1 {\mathbf  {Au}}) = \mathbf {A}^\mathbf{T} \circ (\frac  1 {\mathbf  Au})^\mathbf{T}
 $
 
-#### 
