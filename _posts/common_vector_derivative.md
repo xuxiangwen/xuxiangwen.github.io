@@ -23,7 +23,7 @@ $$
 \\ \\
 &\frac{\partial \mathbf {u}^\mathbf{T}\mathbf {v} }{\partial \mathbf {w} } =  \frac{\partial \mathbf {u}^\mathbf{T} }{\partial \mathbf {w} } \cdot \mathbf {v} + \frac{\partial \mathbf {v}^\mathbf{T} }{\partial \mathbf {w} } \cdot \mathbf {u}
 \\ \\
-&\mathbf {A} \cdot diag(\mathbf {v})  =  \mathbf {A} \circ v^\mathbf{T}  = v^\mathbf{T}  \circ  \mathbf {A} 
+&\mathbf {A} \cdot diag(\mathbf {w})  =  \mathbf {A} \circ \mathbf {w}^\mathbf{T}  = \mathbf {w}^\mathbf{T}  \circ  \mathbf {A} 
 \\ \\
 &\frac {\partial f(\mathbf {w}^{\mathbf {T} })} {\partial \mathbf {w} } = diag(\frac {\partial f(\mathbf {w})} {\partial \mathbf {w} }) 
 \\ \\
