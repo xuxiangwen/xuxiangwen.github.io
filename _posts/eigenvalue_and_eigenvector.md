@@ -3,6 +3,7 @@ title: 特征值和特征向量
 categories: linear-algebra
 date: 2019-12-07
 ---
+
 对于一个给定的$$n \times n $$方阵$$\mathbf A$$，对特征向量（eigenvector） $$\mathbf v$$进行线性变换之后，得到的新向量仍然与原来的$$\mathbf v$$保持在同一条直线上，但其长度或方向（即特征值eigenvalue）也许会改变。即 
 $$
 \underbrace{\mathbf{A}}_{n\times n}{\mathbf{v}} = \underbrace{\lambda}_{eigenvalue} \overbrace{\mathbf{v}}^{eigenvector}
@@ -169,3 +170,4 @@ $$
 
 - [《新理解矩阵4》：相似矩阵的那些事儿](https://spaces.ac.cn/archives/1777)
 - [线性代数中，特征值与特征向量在代数和几何层面的实际意义是什么](https://www.zhihu.com/question/20507061)
+

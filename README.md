@@ -19,6 +19,10 @@ _bin/generate.sh _posts
 _bin/start.sh
 ~~~
 
+### Google Analytics
+
+https://analytics.google.com/
+
 ### 部署
 
 #### 配置_config.yml
@@ -52,8 +56,6 @@ gitalk_owner: xuxiangwen
 EOF
 
 ~~~
-
-
 
 #### 配置Gemfile
 
@@ -219,23 +221,4 @@ _bin/generate.sh _posts/vector-and-matrix.md
 7. 把图片从markdown文件所在目录的`images`中拷贝到`/assets/images`目录中去。
 
 ### Obsolete
-
-#### 整理latex
-
->  这部分逻辑已经放到`生成blog`中
-
-markdown中的latex部分，\$\$表示居中，在github pages中需要前面必须有一个空行才可以达到这样的效果。
-
-**整理文件夹**
-
-~~~
-_bin/md_clean.sh _posts
-_bin/md_clean.sh _notes
-~~~
-
-**整理一个文件**
-
-~~~
-_bin/md_clean.sh _posts/vector-and-matrix.md
-~~~
 

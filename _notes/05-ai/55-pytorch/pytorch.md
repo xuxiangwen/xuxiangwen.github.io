@@ -23,11 +23,23 @@ Tensor和 NumPy   ndarray非常相似，不同的是，Tensor可以使用GPU来�
 | reshape                            | x.reshape((-1, 3))        | x.view(-1, 4)  or x.reshape(-1, 3) |
 | 转置                               | x.T                       | x.t() or x.T                       |
 | 向量长度（范数）                   | np.linalg.norm(x)         | x.norm()                           |
+| 逆矩阵                             | np.linalg.inv(A)          | torch.inverse(A)B                  |
+| 垂直方向拼接(行增)                 | np.vstack(A, B)           | torch.cat((A, B), 0)               |
+| 水平方向拼接(列增)                 | np.hstack(A, B)           | torch.cat((A, B), 1)               |
 |                                    |                           |                                    |
 |                                    |                           |                                    |
-|                                    |                           |                                    |
-|                                    |                           |                                    |
-|                                    |                           |                                    |
+
+#### view vs. reshape
+
+view():
+
+- 返回具有新形状的张量.返回的张量将与原始张量共享数据.
+
+reshape():
+
+- 优先执行view()，如果不满足条件，则clone一个。
+
+> 什么条件
 
 #### numpy to torch
 
@@ -56,3 +68,6 @@ if torch.cuda.is_available():
     print(z.to("cpu", torch.double))       # ``.to`` can also change dtype together
 ~~~
 
+#### 自动梯度(Autograd)
+
+Autograd： Automatic Differentiation，自动进行微分计算。
