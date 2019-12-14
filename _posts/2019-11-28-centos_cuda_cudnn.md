@@ -1,6 +1,6 @@
 ---
 title: CentOS下安装CUDA和cuDNN
-categories: linear-algebra
+categories: deep-learning
 date: 2019-11-28
 ---
 本文将详述centos7环境下如何安装nvidia GPU driver, CUDA和cuDNN。这应该是第n次更新安装它们啦，总体上步骤没有太大变化，只是软件的版本有一些改变。和网上类似文章相比，本文中所有的shell命令都可以直接执行，不需要手工去修改文件，所以更加方便。下面看看要安装的内容：
@@ -11,7 +11,7 @@ date: 2019-11-28
 
 - **cuDNN（CUDA Deep Neural Network library）**：是NVIDIA打造的针对深度神经网络的加速库，是一个用于深层神经网络的GPU加速库。如果你要用GPU训练模型，cuDNN不是必须的，但是一般会采用这个加速库。 
 
-首先验证GPU是否是CUDA兼容的。执行以下命令获得显卡信息，然后对照https://developer.nvidia.com/cuda-gpus中的列表，搜寻GPU是否在其中。
+首先验证GPU是否是CUDA兼容的。执行以下命令获得显卡信息，然后对照[CUDA GPUs](https://developer.nvidia.com/cuda-gpus)中的列表，搜寻GPU是否在其中。
 
 ~~~shell
 lspci | grep -i nvidia
@@ -60,16 +60,16 @@ sudo yum update
 
 ## 3. 安装nvida显卡驱动
 
-1. 下载驱动。比如：2019-11-28，1070ti对应的最新版本 440.36 
+1. 下载[nvidia驱动](https://www.nvidia.com/Download/index.aspx?lang=en-us)。比如：2019-11-28，1070ti对应的最新版本 440.36 
 
-   https://www.nvidia.com/Download/index.aspx?lang=en-us
+   ![image-20191214111408934](/assets/images/image-20191214111408934.png)
 
 2. 检查当前驱动情况
 
    ~~~shell
-   sudo yum install nvidia-detect 		# 安装nvida-detect
-   nvidia-detect  -v 					# 检测能够升级到的驱动器版本
-   cat /proc/driver/nvidia/version    	# 查看当前驱动版本
+   sudo yum install nvidia-detect      # 安装nvida-detect
+   nvidia-detect -v                    # 检测能够升级到的驱动器版本
+   cat /proc/driver/nvidia/version     # 查看当前驱动版本
    ~~~
 
 3. 卸载之前驱动。如果第一次安装，忽略。
@@ -131,8 +131,6 @@ sudo yum update
    nvidia-smi
    ~~~
 
-   执行结果，类似下图
-
    ![image-20191214104828475](/assets/images/image-20191214104828475.png)
 
 ## 4. 安装CUDA
@@ -193,7 +191,7 @@ sudo yum update
 
 ## 5. 安装cuDNN
 
-1. 下载cuDNN。打开 https://developer.nvidia.com/cudnn ，登录以后，选择最新版本后，点击`uDNN Library for Linux`链接进行下载。
+1. 下载cuDNN。打开[cuDNN](https://developer.nvidia.com/cudnn) ，登录以后，选择最新版本后，点击`cuDNN Library for Linux`链接进行下载。
 
    ![image-20191129081140250](/assets/images/image-20191129081140250.png)
 
@@ -237,3 +235,4 @@ vncserver :1
 - [Centos7.4安装CUDA9.1](https://blog.veir.me/2018/03/17/centos7-install-cuda9/)
 - [cuDNN安装向导](https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html )
 - [How to Install and Configure VNC Server on CentOS 7](https://vitux.com/centos-vnc-server/)
+
