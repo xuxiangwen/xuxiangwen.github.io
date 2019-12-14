@@ -62,9 +62,9 @@ $$
 $$
 
 \begin{align}
-& \frac{\mathbf{d}\log(\mathbf {u}^\mathbf{T})}{\mathbf{d}\mathbf {u}} =diag(\frac 1 {\mathbf {u}})
+& \frac{\partial \log(\mathbf {u}^\mathbf{T})}{\partial \mathbf {u}} =diag(\frac 1 {\mathbf {u}})
 \\ \\
-& \frac{\mathbf{d}\log((\mathbf {A}\mathbf {u})^\mathbf{T})}{\mathbf{d}\mathbf {u}} = \mathbf {A}^\mathbf{T} \cdot diag(\frac  1 {\mathbf  {Au}}) = \mathbf {A}^\mathbf{T} \circ (\frac  1 {\mathbf  {Au}})^\mathbf{T}
+& \frac{\partial \log((\mathbf {A}\mathbf {u})^\mathbf{T})}{\partial \mathbf {u}} = \mathbf {A}^\mathbf{T} \cdot diag(\frac  1 {\mathbf  {Au}}) = \mathbf {A}^\mathbf{T} \circ (\frac  1 {\mathbf  {Au}})^\mathbf{T}
 \end{align}
 
 $$
