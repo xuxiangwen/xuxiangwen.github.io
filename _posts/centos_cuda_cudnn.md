@@ -60,9 +60,9 @@ sudo yum update
 
 ## 3. 安装nvida显卡驱动
 
-1. 下载驱动。比如：2019-11-28，1070ti对应的最新版本 440.36 
+1. 下载[nvidia驱动](https://www.nvidia.com/Download/index.aspx?lang=en-us)。比如：2019-11-28，1070ti对应的最新版本 440.36 
 
-   https://www.nvidia.com/Download/index.aspx?lang=en-us
+   ![image-20191214111408934](images/image-20191214111408934.png)
 
 2. 检查当前驱动情况
 
