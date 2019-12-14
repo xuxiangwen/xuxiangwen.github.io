@@ -60,3 +60,14 @@ docker swarm init
 docker swarm join --token SWMTKN-1-1ngrjkqk2356wfhuibeforvbfsn7rlfbol5foglcnegvsbcnd1-9aw3kcsq5ish8c0cs37cbpj8o 15.15.165.218:2377
 ~~~
 
+
+
+#### 切换docker所占目录
+
+~~~
+sudo -s
+mv  /var/lib/docker /var/lib/docker-temp
+ln -s /home/docker /var/lib/docker
+mv /var/lib/docker-temp/* /var/lib/docker
+~~~
+

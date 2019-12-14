@@ -1,5 +1,8 @@
- https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html 
-
+---
+title: CentOS下安装CUDA和cuDNN
+categories: linear-algebra
+date: 2019-11-28
+---
 本文将详述centos7环境下如何安装nvidia GPU driver, CUDA和cuDNN。这应该是第n次更新安装它们啦，总体上步骤没有太大变化，只是软件的版本有一些改变。和网上类似文章相比，本文中所有的shell命令都可以直接执行，不需要手工去修改文件，所以更加方便。下面看看要安装的内容：
 
 - **nvidia GPU driver**：英伟达公司显卡驱动。要安装CUDA， cuDNN，这是必要的。
@@ -42,13 +45,13 @@ sudo yum update
 
 根据上节表格中的要求，安装或更新一些软件。
 
-3. 验证gcc的版本。
+1. 验证gcc的版本。
 
    ~~~shell
    gcc --version
    ~~~
 
-4. 验证系统内核版本和安装开发包。
+2. 验证系统内核版本和安装开发包。
 
    ~~~shell
    uname -r
@@ -63,11 +66,11 @@ sudo yum update
 
 2. 检查当前驱动情况
 
-    ~~~shell
-    sudo yum install nvidia-detect 		# 安装nvida-detect
-    nvidia-detect  -v 					# 检测能够升级到的驱动器版本
-    cat /proc/driver/nvidia/version    	# 查看当前驱动版本
-    ~~~
+   ~~~shell
+   sudo yum install nvidia-detect 		# 安装nvida-detect
+   nvidia-detect  -v 					# 检测能够升级到的驱动器版本
+   cat /proc/driver/nvidia/version    	# 查看当前驱动版本
+   ~~~
 
 3. 卸载之前驱动。如果第一次安装，忽略。
 
@@ -127,9 +130,9 @@ sudo yum update
    cat /proc/driver/nvidia/version    
    nvidia-smi
    ~~~
-   
+
    执行结果，类似下图
-   
+
    ![image-20191214104828475](images/image-20191214104828475.png)
 
 ## 4. 安装CUDA
@@ -208,7 +211,7 @@ sudo yum update
    ~~~shell
    cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2  
    ~~~
-   
+
    ![image-20191214105215224](images/image-20191214105215224.png)
 
 ## 6. 其它
@@ -234,9 +237,3 @@ vncserver :1
 - [Centos7.4安装CUDA9.1](https://blog.veir.me/2018/03/17/centos7-install-cuda9/)
 - [cuDNN安装向导](https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html )
 - [How to Install and Configure VNC Server on CentOS 7](https://vitux.com/centos-vnc-server/)
-
-## 更新历史
-
-- 2019-11-28
-  - CUDA:  [v10.2.89](https://docs.nvidia.com/cuda/index.html) 
-  - cuDNN:  10.2

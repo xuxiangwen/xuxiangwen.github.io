@@ -5,6 +5,71 @@ lsof -i:80
 netstat -lnp|grep 80
 ~~~
 
+### Tensorflow
+
+**cpu+docker compose**
+
+~~~shell
+cd ~/eipi10/docker-study/tensorflow
+docker stack deploy -c docker-compose.yml tensorflow
+docker exec -it tensorflow_cpu.1.$(docker service ps tensorflow_cpu -q -f "desired-state=running") bash
+jupyter notebook list
+~~~
+
+**cpu**
+
+~~~shell
+docker run -it  -u $(id -u):$(id -g) --name tf-py3 -v /home/grid/eipi10:/notebooks/eipi10 -p 28888:8888 -p 27007:7007  tensorflow/tensorflow:latest-py3  /run_jupyter.sh --allow-root --NotebookApp.token='xxw'
+docker start tf-py3
+docker exec -it ts-py3 bash
+~~~
+
+**gpu**
+
+~~~shell
+# 第一次
+docker stop tf-gpu-py3
+docker rm tf-gpu-py3
+docker run -it -d --runtime=nvidia --name tf-gpu-py3 -v /home/grid/eipi10:/tf/eipi10 -p 18888:8888 -p 17007:7007  tensorflow/tensorflow:latest-gpu-py3-jupyter  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
+docker logs tf-gpu-py3
+
+# 再次启动
+docker start tf-gpu-py3
+docker exec -it tf-gpu-py3 bash
+~~~
+
+安装一些软件和python package
+
+~~~
+http_proxy='http://web-proxy.rose.hp.com:8080' apt-get update sh
+http_proxy='http://web-proxy.rose.hp.com:8080' apt install -y openssh-server
+scp grid@15.15.165.218:/home/grid/.ssh/id_rs*  /root/.ssh
+
+pip install --upgrade pip --proxy http://web-proxy.rose.hp.com:8080
+pip install --upgrade numpy scipy pandas --proxy http://web-proxy.rose.hp.com:8080 
+pip install --upgrade scikit-image --proxy http://web-proxy.rose.hp.com:8080 
+pip install --upgrade gensim --proxy http://web-proxy.rose.hp.com:8080 
+pip install --upgrade jieba --proxy http://web-proxy.rose.hp.com:8080  
+pip install --upgrade pyyaml --proxy http://web-proxy.rose.hp.com:8080  
+pip install --upgrade sklearn --proxy http://web-proxy.rose.hp.com:8080 
+pip install --upgrade psycopg2-binary --proxy http://web-proxy.rose.hp.com:8080 
+pip install --upgrade pymysql --proxy http://web-proxy.rose.hp.com:8080   
+pip install --upgrade awscli --user --proxy http://web-proxy.rose.hp.com:8080 
+pip install --upgrade torch torchvision --proxy http://web-proxy.rose.hp.com:8080
+echo export PATH=\"\$PATH:/root/.local/bin\" >> /root/.bashrc
+~~~
+
+**tensoarflow 1.5**
+
+当时阿里nlp比赛时，使用了1.5
+
+~~~shell
+nvidia-docker run -it  --name ts-gpu-py2  -v /home/grid/eipi10:/notebooks/eipi10 -p 48888:8888 -p 37007:7007  tensorflow/tensorflow:1.5.0-gpu /run_jupyter.sh --allow-root --NotebookApp.token='xxw'
+docker exec -it ts-gpu-py2 bash
+~~~
+
+### 
+
 ### Ruby开发环境
 
 ~~~shell
@@ -108,69 +173,6 @@ docker run -it --rm --name nodejs  -v "$PWD":/usr/src/app -w /usr/src/app node:8
 
 ~~~shell
 docker run -it --name jpt-spark --rm -v /home/grid/eipi10:/eipi10  -p 8888:8888 jupyter/all-spark-notebook start-notebook.sh --notebook-dir=/eipi10
-~~~
-
-### Tensorflow
-
-**cpu+docker compose**
-
-~~~shell
-cd ~/eipi10/docker-study/tensorflow
-docker stack deploy -c docker-compose.yml tensorflow
-docker exec -it tensorflow_cpu.1.$(docker service ps tensorflow_cpu -q -f "desired-state=running") bash
-jupyter notebook list
-~~~
-
-**cpu**
-
-~~~shell
-docker run -it  -u $(id -u):$(id -g) --name tf-py3 -v /home/grid/eipi10:/notebooks/eipi10 -p 28888:8888 -p 27007:7007  tensorflow/tensorflow:latest-py3  /run_jupyter.sh --allow-root --NotebookApp.token='xxw'
-docker start tf-py3
-docker exec -it ts-py3 bash
-~~~
-
-**gpu**
-
-~~~shell
-# 第一次
-docker stop tf-gpu-py3
-docker rm tf-gpu-py3
-docker run -it -d --runtime=nvidia --name tf-gpu-py3 -v /home/grid/eipi10:/tf/eipi10 -p 18888:8888 -p 17007:7007  tensorflow/tensorflow:latest-gpu-py3-jupyter  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
-docker logs tf-gpu-py3
-
-# 再次启动
-docker start tf-gpu-py3
-docker exec -it tf-gpu-py3 bash
-~~~
-
-安装一些软件和python package
-
-~~~
-http_proxy='http://web-proxy.rose.hp.com:8080' apt-get update sh
-http_proxy='http://web-proxy.rose.hp.com:8080' apt install -y openssh-server
-scp grid@15.15.165.218:/home/grid/.ssh/id_rs*  /root/.ssh
-
-pip install --upgrade pip --proxy http://web-proxy.rose.hp.com:8080
-pip install --upgrade numpy scipy pandas --proxy http://web-proxy.rose.hp.com:8080 
-pip install --upgrade scikit-image --proxy http://web-proxy.rose.hp.com:8080 
-pip install --upgrade gensim --proxy http://web-proxy.rose.hp.com:8080 
-pip install --upgrade jieba --proxy http://web-proxy.rose.hp.com:8080  
-pip install --upgrade pyyaml --proxy http://web-proxy.rose.hp.com:8080  
-pip install --upgrade sklearn --proxy http://web-proxy.rose.hp.com:8080 
-pip install --upgrade psycopg2-binary --proxy http://web-proxy.rose.hp.com:8080 
-pip install --upgrade pymysql --proxy http://web-proxy.rose.hp.com:8080   
-pip install --upgrade awscli --user --proxy http://web-proxy.rose.hp.com:8080 
-pip install --upgrade torch torchvision --proxy http://web-proxy.rose.hp.com:8080
-echo export PATH=\"\$PATH:/root/.local/bin\" >> /root/.bashrc
-~~~
-
-**tensoarflow 1.5**
-
-当时阿里nlp比赛时，使用了1.5
-
-~~~shell
-nvidia-docker run -it  --name ts-gpu-py2  -v /home/grid/eipi10:/notebooks/eipi10 -p 48888:8888 -p 37007:7007  tensorflow/tensorflow:1.5.0-gpu /run_jupyter.sh --allow-root --NotebookApp.token='xxw'
-docker exec -it ts-gpu-py2 bash
 ~~~
 
 ### 战斗民族nlp课程
