@@ -67,9 +67,9 @@ sudo yum update
 2. 检查当前驱动情况
 
    ~~~shell
-   sudo yum install nvidia-detect 		# 安装nvida-detect
+   sudo yum install nvidia-detect      # 安装nvida-detect
    nvidia-detect -v                    # 检测能够升级到的驱动器版本
-   cat /proc/driver/nvidia/version    	# 查看当前驱动版本
+   cat /proc/driver/nvidia/version     # 查看当前驱动版本
    ~~~
 
 3. 卸载之前驱动。如果第一次安装，忽略。

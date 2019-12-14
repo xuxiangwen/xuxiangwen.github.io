@@ -26,7 +26,7 @@ lspci | grep -i nvidia
 
 首先要保证操作系统符合下表的要求。
 
-![image-20191128130850307](images/image-20191128130850307-1576292721152.png)
+![image-20191128130850307](images/image-20191128130850307-1576293467804.png)
 
 在centos7下安装，内核和centos的版本分别需要是3.10和7.7。使用下面命令检查。
 
@@ -63,16 +63,16 @@ sudo yum update
 
 ## 3. 安装nvida显卡驱动
 
-1. 下载驱动。比如：2019-11-28，1070ti对应的最新版本 440.36 
+1. 下载[nvidia驱动](https://www.nvidia.com/Download/index.aspx?lang=en-us)。比如：2019-11-28，1070ti对应的最新版本 440.36 
 
-   https://www.nvidia.com/Download/index.aspx?lang=en-us
+   ![image-20191214111408934](images/image-20191214111408934.png)
 
 2. 检查当前驱动情况
 
    ~~~shell
-   sudo yum install nvidia-detect 		# 安装nvida-detect
-   nvidia-detect  -v 					# 检测能够升级到的驱动器版本
-   cat /proc/driver/nvidia/version    	# 查看当前驱动版本
+   sudo yum install nvidia-detect      # 安装nvida-detect
+   nvidia-detect -v                    # 检测能够升级到的驱动器版本
+   cat /proc/driver/nvidia/version     # 查看当前驱动版本
    ~~~
 
 3. 卸载之前驱动。如果第一次安装，忽略。
@@ -134,7 +134,7 @@ sudo yum update
    nvidia-smi
    ~~~
 
-   ![image-20191214104828475](images/image-20191214104828475-1576292721152.png)
+   ![image-20191214104828475](images/image-20191214104828475-1576293467804.png)
 
 ## 4. 安装CUDA
 
@@ -151,7 +151,7 @@ sudo yum update
 
    在 [CUDA Download](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=CentOS&target_version=7&target_type=rpmlocal) 选择合适的CUDA版本，选择了rpm（local），将会出现如下安装代码。
 
-   ![image-20191128155025778](images/image-20191128155025778-1576292721152.png)
+   ![image-20191128155025778](images/image-20191128155025778-1576293467804.png)
 
    ~~~shell
    wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-rhel7-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
@@ -183,7 +183,7 @@ sudo yum update
    nvcc -V
    ~~~
 
-   ![image-20191214104948843](images/image-20191214104948843-1576292721152.png)
+   ![image-20191214104948843](images/image-20191214104948843-1576293467804.png)
 
 5. 再次检查nvidia。如果出现报错，请返回`3. 安装nvida显卡驱动`中第5步，再次安装显卡驱动。
 
@@ -196,7 +196,7 @@ sudo yum update
 
 1. 下载cuDNN。打开[cuDNN](https://developer.nvidia.com/cudnn) ，登录以后，选择最新版本后，点击`cuDNN Library for Linux`链接进行下载。
 
-   ![image-20191129081140250](images/image-20191129081140250-1576292721152.png)
+   ![image-20191129081140250](images/image-20191129081140250-1576293467804.png)
 
 2. 安装
 
@@ -213,7 +213,7 @@ sudo yum update
    cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2  
    ~~~
 
-   ![image-20191214105215224](images/image-20191214105215224-1576292721152.png)
+   ![image-20191214105215224](images/image-20191214105215224-1576293467804.png)
 
 ## 6. 其它
 
