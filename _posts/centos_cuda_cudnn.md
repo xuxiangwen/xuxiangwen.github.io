@@ -11,7 +11,7 @@ date: 2019-11-28
 
 - **cuDNN（CUDA Deep Neural Network library）**：是NVIDIA打造的针对深度神经网络的加速库，是一个用于深层神经网络的GPU加速库。如果你要用GPU训练模型，cuDNN不是必须的，但是一般会采用这个加速库。 
 
-首先验证GPU是否是CUDA兼容的。执行以下命令获得显卡信息，然后对照https://developer.nvidia.com/cuda-gpus中的列表，搜寻GPU是否在其中。
+首先验证GPU是否是CUDA兼容的。执行以下命令获得显卡信息，然后对照[CUDA GPUs](https://developer.nvidia.com/cuda-gpus)中的列表，搜寻GPU是否在其中。
 
 ~~~shell
 lspci | grep -i nvidia
@@ -131,8 +131,6 @@ sudo yum update
    nvidia-smi
    ~~~
 
-   执行结果，类似下图
-
    ![image-20191214104828475](images/image-20191214104828475.png)
 
 ## 4. 安装CUDA
@@ -193,7 +191,7 @@ sudo yum update
 
 ## 5. 安装cuDNN
 
-1. 下载cuDNN。打开 https://developer.nvidia.com/cudnn ，登录以后，选择最新版本后，点击`uDNN Library for Linux`链接进行下载。
+1. 下载cuDNN。打开[cuDNN](https://developer.nvidia.com/cudnn) ，登录以后，选择最新版本后，点击`cuDNN Library for Linux`链接进行下载。
 
    ![image-20191129081140250](images/image-20191129081140250.png)
 
@@ -237,3 +235,4 @@ vncserver :1
 - [Centos7.4安装CUDA9.1](https://blog.veir.me/2018/03/17/centos7-install-cuda9/)
 - [cuDNN安装向导](https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html )
 - [How to Install and Configure VNC Server on CentOS 7](https://vitux.com/centos-vnc-server/)
+
