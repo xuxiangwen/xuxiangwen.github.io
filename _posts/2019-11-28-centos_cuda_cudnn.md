@@ -1,5 +1,5 @@
 ---
-title: CentOS下安装CUDA和cuDNN
+title: CentOS 7下安装CUDA 10.2
 categories: deep-learning
 date: 2019-11-28
 ---
