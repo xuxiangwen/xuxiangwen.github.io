@@ -139,36 +139,19 @@ cat  .gitignore
 
 **history**
 
-- 【2018-09-25】
+- 【2020-01-13】调整目录到
 - 【2018-10-10】增加keras gpu内存限制
-```python
+- 【2018-09-25】创建
+~~~python
 import sys
-import logging
 
-base_path = '/notebooks/eipi10/python-book/arsenal'
+base_path = '/tf/eipi10/qbz95'
 sys.path.append(base_path)
-current_path = '.'
-current_data_path = current_path + "/data"
-current_model_path = current_path + "/model"
 
-logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
-logging.root.setLevel(level=logging.INFO)
-
-import collections
-import math
-import matplotlib.pyplot as plt
-import numpy as np
-import os
+from qbz95 import config
 import pandas as pd
-import re
-import time
-
-from pprint import pprint
-from eipi10.ml2.utils import *
-
+config = config.get_config('jupyter')
 pd.set_option('display.width', 1000)
-os.environ["https_proxy"] = "http://web-proxy.rose.hp.com:8080"
-os.environ["http_proxy"] = "http://web-proxy.rose.hp.com:8080"
 
 %matplotlib inline
 
@@ -176,10 +159,13 @@ os.environ["http_proxy"] = "http://web-proxy.rose.hp.com:8080"
 %load_ext autoreload
 %autoreload 2
 
-#当module有新的方法的时候，需要运行下面方法。
-# %reload_ext autoreload 
-```
+# #当module有新的方法的时候，需要运行下面方法。
+# %reload_ext autoreload
+
+~~~
+
 keras限定gpu的占用内存
+
 ```python
 import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
@@ -207,3 +193,16 @@ sudo yum clean all
 sudo yum update -y
 ~~~
 
+
+
+
+
+    - **1** (1-bit pixels, black and white, stored with one pixel per byte)
+    - **L** (8-bit pixels, black and white)
+    - **P** (8-bit pixels, mapped to any other mode using a colour palette)
+    - **RGB** (3x8-bit pixels, true colour)
+    - **RGBA** (4x8-bit pixels, true colour with transparency mask)
+    - **CMYK** (4x8-bit pixels, colour separation)
+    - **YCbCr** (3x8-bit pixels, colour video format)
+    - **I** (32-bit signed integer pixels)
+    - **F** (32-bit floating point pixels)

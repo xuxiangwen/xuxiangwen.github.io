@@ -18,9 +18,10 @@
 ### 数据文件下载
 
 ~~~python
-from arsenal.ml3.utils.data_helper import DataHelper
+import os
+from qbz95.ml3.utils.data.datasets import MNIST
 
-local_path = './data'
-train_data_path, train_label_path, test_data_path, test_label_path = DataHelper.download_mnist(local_path)
+local_path = os.path.join('.', 'data/mnist')
+train_data_path, train_label_path, test_data_path, test_label_path = MNIST.download(local_path)
 ~~~
 

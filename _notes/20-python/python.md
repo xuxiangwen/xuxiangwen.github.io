@@ -8,11 +8,9 @@
 
 - [Google 开源项目: Python 风格指南](http://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/python_style_rules/#comments)
 
-  
+ ![img](images/20180619145509799.png) 
 
- ![这里写图片描述](images/20180619145509799.png) 
-
- ![这里写图片描述](images/20180619145520914.png) 
+ ![img](images/20180619145520914.png) 
 
 ### Python项目示范目录结构
 

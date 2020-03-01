@@ -222,7 +222,7 @@ sudo yum update
 如果你使用vncserver进行远程桌面连接centos，安装完nvidia驱动后，可能vncserver不能工作。其大概原因是默认的gnome和显卡驱动中opengl不兼容。所以只要在vncserver中使用另外一个桌面Xfce。
 
    ~~~
-sudo yum groupinstall “Xfce” -y
+sudo yum groupinstall "Xfce" -y
 
 cat << EOF > ~/.vnc/xstartup   
 xrdb $HOME/.Xresources

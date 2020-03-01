@@ -7,9 +7,7 @@
 信息量用于度量信息的不确定性，信息量和事件发生的概率有关，事件发生的概率越小，其信息量越大。某个事件$x$发生的信信息量为：
 
 $$
-
 I(x) = −\log(p(x))
-
 $$
 
 以下两个事件中, 显然事件1的信息量非常大. 
@@ -20,9 +18,7 @@ $$
 当$x, y$是相互独立的事件， 可以得出：
 
 $$
-
 I(x, y)  = I(x) + I(y)
-
 $$
 
 ### 信息熵 (information entropy)
@@ -32,9 +28,7 @@ $$
 熵 (entropy) 这一词最初来源于热力学。1948年，香农将热力学中的熵引入信息论，所以也被称为香农熵 (Shannon entropy)，信息熵 (information entropy)。
 
 $$
-
 H(X) =  - \sum_{i=1}^n {p({x_i})} \log (p({x_i}))~~~~(i = 1,2, \ldots ,n)
-
 $$
 
 其中$X$ 表示的是随机变量，随机变量的取值为 $({x_1},{x_2}, \ldots ,{x_n})$，$p({x_i}) $表示事件发生的概率，且有$\sum {p({x_i})}  = 1$ 。熵可以理解为信息的不确定程度，是随机变量不确定性的度量.  熵越大，随机变量不确定性越大，系统越混乱（无序）。
@@ -69,17 +63,13 @@ print(entropy([1/2, 1/2]))
 对于服从联合分布为$p(x,y)$的一对离散随机变量$(X,Y)$ ,其**联合熵**定义为：
 
 $$
-
 H(X,Y) =  - \sum_{x \in X,y \in Y} {p(x,y)} \ln (p(x,y))
-
 $$
 
 当$X, Y$是相互独立的系统， 可以得出：
 
 $$
-
 H(X,Y) =  H(X) + H(Y)
-
 $$
 
 > 上面公式可以通过$p(x, y) = p(x)p(y)$推出
@@ -98,9 +88,7 @@ print(joint_entropy(XY))
  当$X, Y$非相互独立， 可以得出：
 
 $$
-
 H(X,Y) < H(X) + H(Y）
-
 $$
 
 基本的含义是，既然$X, Y$既然相互有关系，系统的不确定性降低了。比方：有两场比赛，如果有假球发生，既然结果内定了,  没悬念了，大家都不愿看了。
@@ -110,12 +98,10 @@ $$
 若$(X,Y)\sim p(x,y)$，条件熵定义为：
 
 $$
-
 \begin{array}{l}
 H(Y|X) &= \sum_{x \in X} {p(x)H(Y|X = x)} \\ 
        &=  - \sum_{x \in X} {p(x)} \sum_{y \in Y} {p(y|x)\log p(y|x)} \\ 
        &=  - \sum_{x \in X} {\sum_{y \in Y} {p(x,y)\log p(y|x)} }  \end{array}
-
 $$
 
 其物理意义：$X$给定条件下, $Y$ 的条件概率分布的熵对 X 的数学期望。
@@ -123,9 +109,7 @@ $$
 而且
 
 $$
-
 H(Y|X) <= H(Y)
-
 $$
 
 其含义是， 当在一个系统中，知道了$X$的信息，则整个系统的熵是变小的。
@@ -157,14 +141,12 @@ $H(Y) = -\frac 1 2\log\frac 1 2-\frac 1 2\log \frac 1 2 = 1$
 再来计算条件熵:
 
 $$
-
 \begin{array}{l}
 H(Y|X) &= \sum_{x \in X} {p(x)H(Y|X = x)} \\ 
        &= p(X = 不帅)H(Y|X = 不帅) + p(X = 帅)H(Y|X = 帅)  \\ 
  &= \frac 1 3 *  0.811+ \frac 2 3 *  0.954   \\ 
  &= 0.907 <1= H(Y)
  \end{array}
-
 $$
 
 0.907小于1, 也就是当知道了一些信息后, 整个系统不确定性降低了, 也就是熵降低了. 
@@ -185,13 +167,10 @@ print(conditional_entropy(Y_X))
 #### 联合熵和条件熵的关系
 
 $$
-
 H(X,Y) = H(X) + H(Y|X) =  H(Y) + H(X|Y)
-
 $$
 
 $$
-
 \begin{array}{l}
 H(X,Y) &=  - \sum_{x \in X} {\sum_{y \in Y} {p(x,y)\log p(x,y)} } \\
  &=  - \sum_{x \in X} {\sum_{y \in Y} {p(x,y)\log p(x)p(y|x)} } \\
@@ -199,7 +178,6 @@ H(X,Y) &=  - \sum_{x \in X} {\sum_{y \in Y} {p(x,y)\log p(x,y)} } \\
 &=  - \sum_{x \in X} {p(x)\log p(x)}  - \sum_{x \in X} {\sum_{y \in Y} {p(x,y)\log p(y|x)} } \\
 &= H(X) + H(Y|X)
 \end{array}
-
 $$
 
 上面公式可以理解为：描述$ X$ 和 $Y$ 所需的信息是描述 X 自己所需的信息, 加上给定 $X$ 的条件下具体化 $Y $所需的额外信息。可以通俗的理解, 当系统不可知的变量越多, 整个系统越混乱 也就是熵越大.
@@ -207,9 +185,7 @@ $$
 如果做一点儿变化: 
 
 $$
-
 H(Y|X) = H(X,Y) - H(X)
-
 $$
 
 条件熵可以表示为$ (X, Y)$ 发生所包含的熵，减去 $X$ 单独发生包含的熵，即在 $X $发生的前提下， $Y $发生 “新” 带来的熵 。
@@ -217,10 +193,8 @@ $$
 ### 信息增益(Information gain)
 
 $$
-
 IG(Y,X) = H(Y) - H(Y|X) = H(X) - H(X|Y) = IG(X,Y) \\
 IG(Y,X) = IG(X,Y) = H(X) + H(Y) - H(X, Y)
-
 $$
 
 >  上面公式可以用$H(X,Y) = H(X) + H(Y|X) =  H(Y) + H(X|Y)$推出. 
@@ -242,9 +216,7 @@ $$
 假设$p(x),q(x)$ 是随机变量$X$中取不同值时的两个概率分布，那么 $p$的$q$的相对熵是： 
 
 $$
-
 D\left( {p||q} \right) = \sum_x {p\left( x \right)\log \frac{{p\left( x \right)}}{{q\left( x \right)}}}  = {E_{p\left( x \right)}}\log \frac{{p\left( x \right)}}{{q\left( x \right)}}
-
 $$
 
 相对熵又称互熵，鉴别信息，KL 散度（Kullback–Leibler divergence， KLD），Kullback 熵。它是两个随机分布之间距离的度量.  当两个分布相同的时候，KL散度为0，越是不同，KL散度越大。
@@ -252,17 +224,14 @@ $$
 **信息增益和KL散度**
 
 $$
-
- {\begin{array}{l}
+\begin{array}{l}
 IG(X,Y) =H(X)-H(X|Y)\\
 =-\sum_xp(x)logp(x)+\sum_y\sum_xp(x,y)log\frac{p(x,y)}{p(y)}\\
 =-\sum_x\sum_yp(x,y)logp(x)+\sum_y\sum_xp(x,y)log\frac{p(x,y)}{p(y)}\\
 =\sum_y\sum_xp(x,y)log\frac{p(x,y)}{p(y)p(x)} 
 =KL(p(x,y)||p(x)p(y))
-
+\end{array}
 $$
-
- {\end{array}
 
 从上面推导可以看到，信息增益也是一种KL散度，如果$p(x), p(y)$相互独立，分布$p(x,y)$和分布$p(x)p(y)$相同，则信息增益为0。从这个意义上说，信息增益时描述分布是否相互独立的度量。
 
@@ -279,22 +248,18 @@ $$
 交叉熵本质上可以看成,用一个猜测的分布的编码方式去编码其真实的分布,得到的平均编码长度或者信息量。其中$p(x)$是真实的分布，而$q(x)$是猜测的分布. 在机器学习中，经常采用交叉熵来作为损失函数。而且交叉熵的公式和最大似然估计（MLE）推导出来的公式相同，不得不说，信息论这里和概率论在这里融合了。
 
 $$
-
 H(p, q) = - \sum_x p(x)\log\left({q(x)}\right)
-
 $$
 
 **交叉熵和散度的关系**
 下面推导中，由于$H(p)$是常量, 所以可以看到交叉熵和散度的是等价。
 
 $$
-
  \begin{align*}
 D\left( {p||q} \right) &= \sum_x {p\left( x \right)\log \frac{{p\left( x \right)}}{{q\left( x \right)}}} \\
 &=  \sum_x p\left( x \right) \log \left(p\left( x \right)\right) - \sum_x p\left( x \right) \log \left(q\left( x \right)\right)  \\
 &=  H(p, q) - H(p)
  \end{align*}
-
 $$
 
 ### 进阶

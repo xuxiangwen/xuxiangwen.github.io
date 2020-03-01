@@ -9,7 +9,7 @@ glances        #pip install glances  硬件全面信息
 
 ```shell
 lsof -i:80  
-netstat -lnp|grep 80
+netstat -lnp | grep 80
 sudo iptables -t nat -L -n
 ```
 

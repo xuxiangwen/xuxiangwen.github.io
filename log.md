@@ -4,6 +4,8 @@
 
 
 
+https://course.fast.ai/index.html
+
 
 
 ### docker端口转发
