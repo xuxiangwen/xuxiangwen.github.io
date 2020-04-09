@@ -62,3 +62,24 @@ cat /proc/version        #查看内核
 
 ![img](images/untitle.jpe)
 
+### my laptop
+
+电脑型号		惠普HP ZBook 15 G5笔记本
+处理器			Intel(R) Core(TM) i7-8850H CPU @ 2.60GHz
+内存容量			16.0GB
+显卡			1、NVIDIA Quadro P1000
+			        2、Intel(R) UHD Graphics 630
+硬盘			SAMSUNG MZVLB512HAJQ-000H1 (512GB)
+主板			842A (KBC Version 15.31.00)
+网卡			1、Intel(R) Wireless-AC 9560
+			        2、Intel(R) Ethernet Connection (7) I219-LM
+声卡			1、High Definition Audio Device
+			        2、Intel(R) Display Audio
+显示器			CMN:f615  分辨率:1920x1080 
+当前操作系统			Windows 10 64位
+
+DIMM1	三星 DDR4 2666MHz 16GB
+制造日期	2018 年 42 周
+型号	CE M471A2K43DB1-CTD
+序列号	411A03E5
+	

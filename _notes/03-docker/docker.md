@@ -71,3 +71,29 @@ ln -s /home/docker /var/lib/docker
 mv /var/lib/docker-temp/* /var/lib/docker
 ~~~
 
+### Window下Docker Container的时间同步
+
+在window中，如果机器sleep或者hibernate，container的时间和宿主机器时间将会不一致（这篇文章详述了这点https://thorsten-hans.com/docker-on-windows-fix-time-synchronization-issue）。手工解决方法有：
+
+1. restart docker container
+
+   ~~~powershell
+   docker restart uf
+   ~~~
+
+2. eanble "Time Synchronization". run the following scripts in PowerShell as administrator.
+
+   ~~~powershell
+   Get-VMIntegrationService -VMName DockerDesktopVM
+   Disable-VMIntegrationService -Name "Time Synchronization" -VMName DockerDesktopVM
+   Enable-VMIntegrationService -Name "Time Synchronization" -VMName DockerDesktopVM
+   ~~~
+
+   再次检查时间。
+
+   ~~~powershell
+   docker exec -it uf date "+%Y-%m-%dT%H:%M:%S";(get-date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss")
+   ~~~
+
+
+> 或许一个task在Sleep和Hibernate之后运行，可以解决这个问题。参见：https://sumtips.com/how-to/run-program-windows-wakes-up-sleep-hibernate/

@@ -1,3 +1,9 @@
+---
+title: 简单Git开发流程
+categories: others
+date: 2020-04-09
+---
+
 本流程主要参考了[Simple Git workflow is simple](<https://www.atlassian.com/blog/archives/simple-git-workflow-simple>), 根据实际做了一些微调, 更加适合公司内部项目的开发.  总体来说, 这个流程比较简单, 但对于内部的项目来说, 大多应该够用了. 
 
 ![img](images/bg2015122301-1558321591814.png)

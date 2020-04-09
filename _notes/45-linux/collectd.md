@@ -43,7 +43,7 @@ LoadPlugin memory
 LoadPlugin logfile
 <Plugin logfile>
        LogLevel info
-       File "/var/log/collectd/.json.log"
+       File "/var/log/collectd.json.log"
        Timestamp true
        PrintSeverity true
 </Plugin>
@@ -59,7 +59,7 @@ sudo chown root:root /etc/collectd.d/collectd-file.conf
 cat /etc/collectd.d/collectd-file.conf
 ll /etc/collectd.d/collectd-file.conf
 
-sudo systemctl start collectd
+sudo systemctl restart collectd
 # sudo rm -rf /var/log/collectd.json.log
 ~~~
 

@@ -5,8 +5,6 @@ sudo timedatectl set-ntp yes
 sudo timedatectl set-time '2020-02-28 17:47:20'
 ~~~
 
-
-
 ### 集群同步时间
 
 ~~~shell
@@ -42,5 +40,35 @@ chronyc sourcestats -v
 pdsh -R ssh -w $user@$servers chronyc sources -v
 pdsh -R ssh -w $user@$servers date
 pdsh -R ssh -w $user@$servers timedatectl   
+~~~
+
+### SELinux
+
+安全增强型 Linux（Security-Enhanced Linux）简称 SELinux，它是一个 Linux 内核模块，也是 Linux 的一个安全子系统。SELinux 主要由美国国家安全局开发。2.6 及以上版本的 Linux 内核都已经集成了 SELinux 模块。开启SELinux有时会占用大量内存和CPU资源，所以可以选择关闭。
+
+查看状态
+
+~~~shell
+sestatus -v
+~~~
+
+临时关闭
+
+~~~shell
+sudo setenforce 0  
+~~~
+
+永久关闭
+
+~~~shell
+sudo sed -i 's/^SELINUX=.*/SELINUX=disabled/g'  /etc/selinux/config
+~~~
+
+### 重新生成/var/log/messages
+
+~~~shell
+sudo rm -rf /var/log/messages
+sudo systemctl restart rsyslog.service
+sudo schmod 644 /var/log/messages
 ~~~
 
