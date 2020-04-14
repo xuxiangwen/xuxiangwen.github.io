@@ -4,12 +4,16 @@ categories: mathematics
 date: 2020-04-14
 ---
 
-首先看被誉为最美的数学公式之一——欧拉恒等式：
+![img](images/250px-Euler-10_Swiss_Franc_banknote_front.jpg)
+$$
+第六版10元瑞士法郎正面的欧拉肖像
+$$
+[莱昂哈德·欧拉](https://zh.wikipedia.org/wiki/%E8%90%8A%E6%98%82%E5%93%88%E5%BE%B7%C2%B7%E6%AD%90%E6%8B%89)是有史以来最伟大的数学家之一，他在数学的很多领域都有重大贡献。其中就包括被誉为最奇妙的数学公式——[欧拉恒等式](https://zh.wikipedia.org/wiki/%E6%AD%90%E6%8B%89%E6%81%86%E7%AD%89%E5%BC%8F)：
 $$
 e^{i\pi} + 1 =0
 $$
 
-这个公式融合了自然指数$e$，圆周率$\pi$，虚数单位$i$，以及最根本的两个数$0 $和 $1$，没有任何杂质，没有任何冗余，漂亮到了令人敬畏的地步。而欧拉恒等式其实是欧拉公式的特殊形式（当$\theta = \pi$）。[欧拉公式](https://zh.wikipedia.org/wiki/%E6%AD%90%E6%8B%89%E6%81%86%E7%AD%89%E5%BC%8F)是：
+这个公式融合了自然指数$e$，圆周率$\pi$，虚数单位$i$，以及最根本的两个数$0 $和 $1$，没有任何杂质，没有任何冗余，漂亮到了令人敬畏的地步。而欧拉恒等式其实是欧拉公式的特殊形式（当$\theta = \pi$）。[欧拉公式](https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F)是：
 $$
 e^{\mathbf i \theta} = \cos \theta + \mathbf i \sin \theta
 $$
@@ -74,7 +78,7 @@ $$
 e = \lim_{n \to \infty} (1+ \frac 1 n )^n \\
 e^{\theta} = \lim_{n \to \infty} (1+ \frac \theta n )^n
 $$
-上面是实数域的定义，在复数域，可以退推广到
+上面是实数域的定义，在复数域，可以推广到
 $$
 e^i = \lim_{n \to \infty} (1+ \frac {\mathbf i} n )^n \\
 e^{i\theta} = \lim_{n \to \infty} (1+ \frac {\mathbf i\theta} n )^n
@@ -126,4 +130,3 @@ $$
 - [从矩阵的角度来看待复数](https://zhuanlan.zhihu.com/p/30251453)
 - [欧拉公式，复数域的成人礼](https://www.matongxue.com/madocs/2066.html)
 - ["上帝公式"(欧拉公式)真的神到无法触碰？](https://zhuanlan.zhihu.com/p/48392958)
-
