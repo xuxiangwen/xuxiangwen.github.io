@@ -7,7 +7,8 @@
 2. 发布blog。
 
    ~~~
-   ~/eipi10/xuxiangwen.github.io/_bin/publish.sh
+   cd ~/eipi10/xuxiangwen.github.io
+   _bin/publish.sh
    ~~~
 
 ### 本地开发和测试
