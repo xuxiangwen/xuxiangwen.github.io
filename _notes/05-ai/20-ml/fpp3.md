@@ -909,7 +909,7 @@ print(norm.ppf(0.025))  # 计算下限
   y_{t} = S_{t} \times T_{t} \times R_t
   $$
 
-其中$y_t$是原时间序列，$S_t$是seasonal因素，$T_t$是 trend-cycle因素，$R_t$是其余的因素。
+其中$y_t$是原时间序列，$S_t$是周期（seasonal）分量，$T_t$是趋势（ trend-cycle）分量，$R_t$是余项（remainder ）。
 
 - 当$S_t，T_t，R_t$呈现线性关系时，建议使用additive decompositon
 
@@ -922,5 +922,507 @@ print(norm.ppf(0.025))  # 计算下限
   $$
   
 
+下面的例子将使用STL分解的方法来获取各个分量。
 
+#### 美国零售业月度员工数
+
+~~~R
+library(fpp3)
+us_retail_employment <- us_employment %>%
+  filter(year(Month) >= 1990, Title == "Retail Trade") %>%
+  select(-Series_ID)
+us_retail_employment %>%
+  autoplot(Employed) +
+  xlab("Year") + ylab("Persons (thousands)") +
+  ggtitle("Total employment in US retail")
+  
+~~~
+
+![image-20200410101341645](images/image-20200410101341645.png)
+
+#### STL分解
+
+~~~R
+dcmp <- us_retail_employment %>%
+  model(STL(Employed))
+components(dcmp)
+~~~
+
+![image-20200410101759685](images/image-20200410101759685.png)
+
+~~~
+components(dcmp) %>% autoplot() + xlab("Year")
+~~~
+
+![image-20200410102209865](images/image-20200410102209865.png)
+
+> STL（Seasonal and Trend decomposition using Loess），其中Loess即Lowess（locally weighted scatterplot smoothing）为局部加权回归，是对两维散点图进行平滑的常用方法。在3.7小节有详细分析。
+
+#### Trend分量
+
+即$ T_t $，忽略了周期分量和余项。
+
+~~~R
+us_retail_employment %>%
+  autoplot(Employed, color='gray') +
+  autolayer(components(dcmp), trend, color='red') +
+  xlab("Year") + ylab("Persons (thousands)") +
+  ggtitle("Total employment in US retail")
+~~~
+
+![image-20200410102055991](images/image-20200410102055991.png)
+
+#### Seasonally adjusted data
+
+即$y_{t}-S_{t}$
+
+~~~R
+us_retail_employment %>%
+  autoplot(Employed, color='gray') +
+  autolayer(components(dcmp), season_adjust, color='blue') +
+  xlab("Year") + ylab("Persons (thousands)") +
+  ggtitle("Total employment in US retail")
+~~~
+
+![image-20200410102324637](images/image-20200410102324637.png)
+
+### 3.3 移动平均（Moving Averages）
+
+移动平均是经典的时间序列分解方法之一，它是很多其它分解方法的基础。早在上个世纪20年代，该方法就开始被使用，而在50年代被广泛使用。
+
+#### 移动平均平滑
+
+公式如下：
+$$
+\begin{equation}
+  \hat{T}_{t} = \frac{1}{m} \sum_{j=-k}^k y_{t+j}
+\end{equation}
+$$
+称之为$m$-**MA**，其中$m=2k+1$。在每个一个时间点计算自身及其前后$k$个点的平均。移动平均能够很大程度减少数据的随机性，而保留下Trend-Cycle分量。
+
+~~~R
+global_economy %>%
+  filter(Country == "China" | Country == "India" | Country == "Vietnam") %>%
+  autoplot(Exports) +
+  xlab("Year") + ylab("% of GDP") +
+  ggtitle("Total China exports")
+~~~
+
+![image-20200410105840624](images/image-20200410105840624.png)
+
+> 上图可以看到，中国的出口占GDP的比重，在2006达到峰值后，快速下降，这说明中国的经济越来越靠内需而不是出口了。如果比较印度，越南，德国，日本，美国，可以发现越南和德国的出口依存度非常高，也就意味着2020年新冠状病毒疫情对这两个国家的影响是异常大的。由于越南的经济是加工出口页为主，需要大量进口，同时大量出口，这造成出口占GDP比重过大。
+>
+> ~~~R
+> global_economy %>%
+>   filter(Country %in% c("China", "India", "Vietnam", "Japan", "Germany", "United States")) %>%
+>   autoplot(Exports) +
+>   xlab("Year") + ylab("% of GDP") +
+>   ggtitle("Total China exports")
+> ~~~
+>
+> ![image-20200410111641787](images/image-20200410111641787.png)
+
+添加中国出口五年平均。
+
+~~~R
+china_exports <- global_economy %>%
+  filter(Country == "China") %>%
+  mutate(
+    `5-MA` = slide_dbl(Exports, mean, .size = 5, .align = "center")
+  )
+
+china_exports %>%
+  autoplot(Exports) +
+  autolayer(china_exports, `5-MA`, color='red') +
+  xlab("Year") + ylab("Exports (% of GDP)") +
+  ggtitle("Total China exports") +
+  guides(colour=guide_legend(title="series"))
+~~~
+
+![image-20200410143524548](images/image-20200410143524548.png)
+
+> slide_dbl：滚动窗口。
+>
+> autolayer()：可以用来添加一条曲线。
+
+#### 移动平均的移动平均
+
+下面计算$2\times4$-MA。
+$$
+\begin{align*}
+  \hat{T}_{t} &= \frac{1}{2}\Big[
+    \frac{1}{4} (y_{t-2}+y_{t-1}+y_{t}+y_{t+1}) +
+    \frac{1}{4} (y_{t-1}+y_{t}+y_{t+1}+y_{t+2})\Big] \\
+             &= \frac{1}{8}y_{t-2}+\frac14y_{t-1} +
+             \frac14y_{t}+\frac14y_{t+1}+\frac18y_{t+2}.
+\end{align*}
+$$
+
+
+~~~R
+china_exports_ma <- global_economy %>%
+  filter(Country == "China") %>%
+  mutate(
+    `4-MA` = slide_dbl(Exports, mean, .size = 4, .align = "cr"),
+    `2x4-MA` = slide_dbl(`4-MA`, mean, .size = 2, .align = "cl")
+  )
+
+china_exports_ma %>%
+  autoplot(Exports, color='gray') +
+  autolayer(china_exports_ma, vars(`2x4-MA`), color='red') +
+  autolayer(china_exports_ma, vars(`4-MA`), color='blue') +
+  xlab("Year") + ylab("Exports (% of GDP)") +
+  ggtitle("Total China exports") +
+  guides(colour=guide_legend(title="series"))
+~~~
+
+> cl : center-left
+>
+> cr : center-right
+
+![image-20200410151422363](images/image-20200410151422363.png)
+
+可以发现`2x4-MA`曲线，更加的平滑。
+
+#### 估计seasonal数据的trend-cycle
+
+中心化的移动平均（centred moving averages）最通用的用途是估计seasonal数据的trend-cycle。中心化指的时$y_t$总是处于公式的中心。由此，基本规则是：
+
+- 当seasonality（m）是偶数：采用$2×m$-MA 
+- 当seasonality（m）是技术：采用$m$-MA 
+
+~~~R
+library(fpp3)
+us_retail_employment <- us_employment %>%
+  filter(year(Month) >= 1990, Title == "Retail Trade") %>%
+  select(-Series_ID)
+us_retail_employment_ma <- us_retail_employment %>%
+  mutate(
+    `6-MA` = slide_dbl(Employed, mean, .size = 6, .align = "cr"),  
+    `2x6-MA` = slide_dbl(`6-MA`, mean, .size = 2, .align = "cl"),
+    `12-MA` = slide_dbl(Employed, mean, .size = 12, .align = "cr"),
+    `2x12-MA` = slide_dbl(`12-MA`, mean, .size = 2, .align = "cl")
+  )
+
+dcmp <- us_retail_employment %>%
+  model(STL(Employed))
+
+us_retail_employment_ma %>%
+  autoplot(Employed, color='gray') +
+  autolayer(us_retail_employment_ma, vars(`2x12-MA`), color='red') +
+  autolayer(components(dcmp), trend, color='blue') +
+  autolayer(us_retail_employment_ma, vars(`2x6-MA`), color='green') +
+  xlab("Year") + ylab("Persons (thousands)") +
+  ggtitle("Total employment in US retail") +
+  guides(colour=guide_legend(title="series"))
+
+~~~
+
+从time plot中可以看出，雇员数量的周期是12个月，所以采用$2×12$-MA （见红线）。上图中，蓝色线是STL分解的趋势线，而绿线是$2×6$-MA 
+
+- 2x12-MA较好的体现了趋势走向。可以发现红色，蓝色线基本重合（虽然，实际上STL的趋势计算的逻辑要复杂得多）。
+
+- 2x6-MA还是体现了很多seasonality的波动。当m<seasonality时，都会呈现这种波动。
+  
+  ![image-20200410160007108](images/image-20200410160007108.png)
+
+#### 加权移动平均（Weighted  Moving Averages）
+
+公式如下
+$$
+\hat{T}_t = \sum_{j=-k}^k a_j y_{t+j}
+$$
+
+其中$\sum_{j=-k}^{k}a_j=1，a_j=a_{-j}$
+
+上节中，中心化移动平均其实是加权移动平均的一种特例。
+
+### 3.4 经典分解（Classical decomposition）
+
+和移动平均相似，Classical decomposition也是源自上世纪20年代。它相对简单并且是大部分其它分解方法的基础。有两种经典分解方法：
+
+- additive decomposition
+- multiplicative decomposition
+
+在Classical decomposition中，假设周期性成分是恒定不变的。
+
+#### 加法分解（Additive decomposition）
+
+步骤如下：
+
+1. 计算trend-cycle 成分$\hat{T}_t$。采用了移动平均来计算。
+   - 当seasonality（m）是偶数：采用$2×m$-MA 
+   - 当seasonality（m）是技术：采用$m$-MA 
+2. 计算去趋势（detrended ）序列：$y_t - \hat{T}_t$
+3. 估计周期（seasonal ）成分$\hat{S}_t$：计算每一个season的detrended序列的平均值。比如：某个月度时间序列的周期是12个月，分别计算每一个月的平均值，这样可以获得12个值，这些值构成了$\hat{S}_t$。显然这种方法的计算，会使得所有年度的周期（seasonal ）成分完全相同。
+4. 计算余项（remainder component）：$\hat{R}_t = y_t - \hat{T}_t - \hat{S}_t$
+
+下面是上述步骤的示例。
+
+~~~R
+library(fpp3)
+us_retail_employment <- us_employment %>%
+  filter(year(Month) >= 1990, Title == "Retail Trade") %>%
+  select(-Series_ID)
+us_retail_employment %>%
+  model(classical_decomposition(Employed, type = "additive")) %>%
+  components() %>%
+  autoplot() + xlab("Year") +
+  ggtitle("Classical additive decomposition of total US retail employment")
+~~~
+
+![image-20200410215952193](images/image-20200410215952193.png)
+
+> **question**：经典分解法采用了移动平均来计算trend-cycle，但是m是如何确定的。目前猜想是依次尝试多个m，得到其trend-cycle，然后分析其lag自相关系数，或者比较去趋势后的方差，但究竟是如何进行的呢？
+
+#### 乘法分解（Multiplicativedecomposition）
+
+步骤和加法分解几乎相同。
+
+1. 计算trend-cycle 成分$\hat{T}_t$。
+   - 当seasonality（m）是偶数：采用$2×m$-MA 
+   - 当seasonality（m）是技术：采用$m$-MA 
+2. 计算去趋势（detrended ）序列：$ {y_t} / {\hat{T}_t}$
+3. 估计周期（seasonal ）成分$\hat{S}_t$：计算每一个season的detrended序列的平均值。比如：某个月度时间序列的周期是12个月，分别计算每一个月的平均值，这样可以获得12个值，这些值构成了$\hat{S}_t$。显然这种方法的计算，会使得所有年度的周期（seasonal ）成分完全相同。
+4. 计算余项（remainder component）：$\hat{R}_{t} = y_t /( \hat{T}_t \hat{S}_t)$
+
+下面是上述步骤的示例。
+
+~~~R
+us_retail_employment %>%
+  model(classical_decomposition(Employed, type = "multiplicative")) %>%
+  components() %>%
+  autoplot() + xlab("Year") +
+  ggtitle("Classical additive decomposition of total US retail employment")
+~~~
+
+![image-20200410220614816](images/image-20200410220614816.png)
+
+和加法分解相比，两者trend完全相同，而seasonal和random的数据scale不同。
+
+#### 经典分解法的评价
+
+尽管经典分解法仍然被广泛的使用，但是不推荐使用它，这是因为现在有很多更好的方法。经典分解法存在如下问题：
+
+1. 由于移动平均的计算犯法， trend-cycle的开始和结束的几个数据点没有值。例如，若 m=12，则没有前六个或后六个观测的趋势-周期项估计。
+2. 估计倾向于过度平滑数据中的快速上升或快速下降。
+3. 不同周期中季节项是重复的。对于很多序列来说这是合理的，但是对于更长的时间序列来说这还有待考量。例如，因为空调的普及，用电需求模式会随着时间的变化而变化。具体来说，在很多地方几十年前的时候，各个季节中冬季是用电高峰（用于供暖加热），但是现在夏季的用电需求最大（由于开空调）。经典时间序列分解法无法捕捉这类的季节项随时间变化而变化。
+
+4. 不能够处理序列中的一些异常值。例如，每月的航空客运量可能会受到工业纠纷的影响，使得纠纷时期的客运量与往常十分不同。处理这类异常值，经典时间序列分解法不够robust。
+
+### 3.5 X11分解
+
+另外一个受人欢迎的季度性数据和月度数据的分解算法是 X11分解法，它发明于美国人口普查局和加拿大统计局。
+
+这个方法基于经典分解法，但是增加了许多额外的步骤和特性来克服经典分解法的一些不足。
+
+1. 所有的数据点都可以做trend-cycle估计
+2. Seasonal成分可以允许根据时间而缓慢改变
+3. 提供一些复杂方法来处理交易日、假期、以及一些已知的影响因素的影响。
+
+以上过程是完全自动的，而且对于时间序列中的异常值和Level Shift很robust。
+
+> Level Shift指时间序列中的某个特殊时期，观测值从一个level快速移动到另一个level，而中间没有过度。比如：股票交易中，前一天收盘价和第二天开盘价之间往往就是Level Shift。
+
+> **question**：X11分解究竟是如何解决经典分解的种种问题的？X11是如何实现的呢？查了一些资料，没有看到比较通俗好理解的方案。
+>
+> 目前看到[Handbook on Seasonal Adjustment](https://ec.europa.eu/eurostat/documents/3859598/8939616/KS-GQ-18-001-EN-N.pdf)的一些解释，发现Seasonal成分计算中，也采用了移动平均方式来计算，这是Seasonal能够缓慢变化的原因。
+
+下面是示例。
+
+下面介绍X11是如何使用的。
+
+~~~R
+library(fpp3)
+# install.packages("seasonal") 必须安装
+us_retail_employment <- us_employment %>%
+  filter(year(Month) >= 1990, Title == "Retail Trade") %>%
+  select(-Series_ID)
+
+x11_dcmp <- us_retail_employment %>%
+  model(x11 = feasts:::X11(Employed, type = "additive")) %>%
+  components()
+autoplot(x11_dcmp) + xlab("Year") +
+  ggtitle("Additive X11 decomposition of US retail employment in the US")
+~~~
+
+![image-20200411100024980](images/image-20200411100024980.png)
+
+和下面的STL分解和经典分解相比，
+
+- X11的trend-cycle更好的捕捉到了由于2007-2008金融危机造成的骤降。
+- 1996年的异常观测值在余项（remainder ）中也更容易看到。
+
+> 为何我还是看不出来。
+
+![image-20200410215952193](images/image-20200410215952193.png)
+
+![image-20200410102209865](images/image-20200410102209865.png)
+
+再看trend-cycle和the seasonally adjusted。
+
+~~~R
+x11_dcmp %>%
+  ggplot(aes(x = Month)) +
+  geom_line(aes(y = Employed, colour = "Data")) +
+  geom_line(aes(y = season_adjust, colour = "Seasonally Adjusted")) +
+  geom_line(aes(y = trend, colour = "Trend")) +
+  xlab("Year") + ylab("Persons (thousands)") +
+  ggtitle("Total employment in US retail") +
+  scale_colour_manual(values=c("gray","blue","red"),
+             breaks=c("Data","Seasonally Adjusted","Trend"))
+~~~
+
+> 上面也是画多条曲线的很好例子。
+
+![image-20200411101544028](images/image-20200411101544028.png)
+
+最后来看seasonal成分。
+
+~~~R
+x11_dcmp %>%
+  gg_subseries(seasonal)
+~~~
+
+![image-20200411101922808](images/image-20200411101922808.png)
+
+上图中可以看到seasonal成分随之时间的变化，而下面的经典分解，其seamsl
+
+~~~
+clc_dcmp <- us_retail_employment %>%
+  model(classical_decomposition(Employed, type = "additive")) %>%
+  components()
+clc_dcmp %>%  gg_subseries(seasonal)
+~~~
+
+![image-20200411102159104](images/image-20200411102159104.png)
+
+### 3.6 SEATS分解
+
+“SEATS”表示“ ARIMA时间序列的季节提取 （Seasonal Extraction in ARIMA Time Series）” ，其中ARIMA模型第九章中将详细探讨。这个方法是西班牙银行发明的，现在被世界各地的政府机构广泛使用。这个方法仅能分析季度数据和月度数据。因此，其他类型的季节性，如每日数据，或每小时数据，或每周数据，需要其他方法。
+
+~~~R
+library(fpp3)
+seats_dcmp <- us_retail_employment %>%
+  model(seats = feasts:::SEATS(Employed)) %>%
+  components()
+autoplot(seats_dcmp) + xlab("Year") +
+  ggtitle("SEATS decomposition of total US retail employment")
+~~~
+
+![image-20200411202901087](images/image-20200411202901087.png)结果和X11非常相似。`seasonal` 包有很多选项来处理X11与SEATS。详见[Introduction to Seasonal](http://www.seasonal.website/seasonal.html)。
+
+> 看起来都非常相似啊。
+
+### 3.7 STL分解
+
+STL（Seasonal and Trend decomposition using Loess）是一个非常通用和稳健强硬的分解时间序列的方法，其中Loess是一种估算非线性关系的方法。STL分解法由 Cleveland et al. ([1990](https://otexts.com/fppcn/stl.html#ref-Cleveland1990)) 提出。
+
+相比于经典、SEATS和X-11分解法STL分解法有几点优势：
+
+- 与SEATS和X-11不同的是，STL可以处理任何类型的季节性，不仅仅是月度数据和季度数据。
+
+- Seasonal成分可以随时间变化而变换，并且变化的速率可以由用户掌控。
+- trend-cycle成分的平滑程度也可以由用户掌控。
+- 可以不受离群点干扰（例如，用户可以指定一个robust 分解）
+
+另一方面，STL也有一些不足之处。具体来讲，它不能自动地处理交易日或是其他有变动的日子，并且只提供了处理加法分解的方式。
+
+~~~R
+us_retail_employment %>%
+  model(STL(Employed ~ trend(window=7) + season(window='periodic'),
+    robust = TRUE)) %>%
+  components() %>%
+  autoplot()
+~~~
+
+![image-20200411204533297](images/image-20200411204533297.png)
+
+为了得到乘法分解，可以首先对数据取对数，然后对各成分进行反向变换。Box-Cox变换可以实现这种加法和乘法变换的统一，公式如下：
+$$
+y(\lambda)=
+\left\{
+\begin{aligned}
+ & \frac { y^{\lambda}-1} \lambda ,  & \lambda \neq 0 \\
+& ln(y) ,    &  \lambda = 0 \\
+\end{aligned}
+\right.
+$$
+
+- $0<\lambda<1$：介于加法分解和乘法分解之间
+- $\lambda=0$：对应于乘法分解
+- $\lambda=1$：等价于加法分解
+
+下面来看一个例子。
+
+~~~R
+library(fpp3)
+# install.packages("seasonal") 必须安装
+us_retail_employment <- us_employment %>%
+  filter(year(Month) >= 1990, Title == "Retail Trade") %>% select(-Series_ID)
+
+dcmp <- us_retail_employment %>%
+  model(STL(Employed))
+
+dcmp1<- us_retail_employment %>%
+  model(STL(Employed ~ trend(window=7) + season(window='periodic'),
+    robust = TRUE)) 
+~~~
+
+下面来看参数的不同，对STL分解的影响。
+
+~~~R
+dcmp1 %>%
+  components() %>%
+  autoplot()
+  
+dcmp2 <- us_retail_employment %>%
+  model(STL(Employed ~ trend(window=7) ,
+    robust = TRUE)) 
+    
+dcmp2 %>%
+  components() %>%
+  autoplot()
+~~~
+
+![image-20200411224717346](images/image-20200411224717346.png)
+
+![image-20200411224644043](images/image-20200411224644043.png)
+
+可以发现上面两个图中，第一幅图中seasonal成分是完全重复的，这是由于`season(window='periodic')`决定的。
+
+使用STL时要选择的两个主要参数是trend-cycle window(`trend(window = ?)`) 和seasonal window(`season(window = ?)`)。这些参数控制了trend-cycle项和seasonal项的变化速度，它们的值越小允许变化的速度越快。在估计trend-cycle和seasonal得到window的时候都需要是奇数，并且所用的数据年份应是连续的。设定seasonal window是无限的等价于设定`season(window='periodic')`
+
+默认情况下，`STL()` 函数提供了一方便的自动STL分解，其中`season(window=13)`，而treand window也是根据seasonal  period自动选择的，对于月底数据的默认设定是`trend(window=21)`。它一般情况下平衡了seasonality过拟合与允许其随时间缓慢变化。但是与其他自动化过程一样，对于某些时间序列默认设置还是需要调整的。
+
+下图中，比较了默认的STL（红线）和设置了更短窗口的（`trend(window=7)`）的STL（蓝线）的trend-cycle成分。可以发现红线过于严格（rigid）。对于默认STL，2008年全球金融危机造成了reminder中的波谷，而更短窗口的的STL改善了这一点。
+
+> 也就是更短的周期，使得trend-cycle更能反映短期的波动。这样可以改善reminder项。
+
+~~~R
+us_retail_employment %>%
+  autoplot(Employed, color='gray') +
+  autolayer(components(dcmp), trend, color='red') +
+  autolayer(components(dcmp1), trend, color='blue') +
+  xlab("Year") + ylab("Persons (thousands)") +
+  ggtitle("Total employment in US retail")
+~~~
+
+![image-20200411223627266](images/image-20200411223627266.png)
+
+~~~R
+dcmp %>%
+  components() %>%
+  autoplot()
+
+dcmp1 %>%
+  components() %>%
+  autoplot()
+~~~
+
+![image-20200411230155541](images/image-20200411230155541.png)
+
+![image-20200411224717346](images/image-20200411224717346.png)
+
+#### STL原理
 
