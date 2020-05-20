@@ -391,7 +391,7 @@ $$
 
           $$
 
-            \mathbf {P^{T}}  \mathbf P =
+          \mathbf {P^{T}}  \mathbf P =
             \begin{bmatrix} 
             T & 0 & \cdots & 0 \\
             0 & \frac T 2  & \cdots  &0 \\
@@ -439,7 +439,7 @@ $$
 
       $$
 
-  向量之间两两正交，但并不是正交矩阵（向量的模不为1）
+  向量之间两两正交，但并不是正交矩阵（向量的模不为1）。
 
       $$
 
@@ -464,6 +464,7 @@ $$
 
       $$
 
+      
     
   - 匀速圆周运动组合
   
@@ -486,7 +487,7 @@ $$
 
       $$
 
-      设
+      假设
 
       $$
 
@@ -500,6 +501,7 @@ $$
 
       $$
 
+      
       
       
       $\mathbf J $斜对角线为$1$，其它为$0$，称之为[反对角单位矩阵](https://en.wikipedia.org/wiki/Anti-diagonal_matrix) （Anti-diagonal Identity matrix）它的变换是对向量进行上下翻转，它非常像单位矩阵。
