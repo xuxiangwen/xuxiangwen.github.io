@@ -364,7 +364,6 @@ $$
           $$
 
           
-        
         - 线性方程组
 
           $$
@@ -373,31 +372,32 @@ $$
 
           $$
 
+        
     - 正弦函数的组合
 
         - 基
 
           $$
 
-          P = \begin{bmatrix}
-            1 & 
-            \sin(\frac {2\pi x} {T}+\phi_1)  & 
-            \sin(\frac {4\pi x} {T}+\phi_2) & \cdots & \sin(\frac {2n\pi x} {T}+\phi_n)  & \cdots
-          \end{bmatrix}
+            P = \begin{bmatrix}
+                  1 & 
+                  \sin(\frac {2\pi x} {T}+\phi_1)  & 
+                  \sin(\frac {4\pi x} {T}+\phi_2) & \cdots & \sin(\frac {2n\pi x} {T}+\phi_n)  & \cdots
+                \end{bmatrix}
 
           $$
 
-    向量之间两两正交，但并不是正交矩阵（向量的模不为1）
+            向量之间两两正交，但并不是正交矩阵（向量的模不为1）
 
           $$
 
-          \mathbf {P^{T}}  \mathbf P =
-          \begin{bmatrix} 
-          T & 0 & \cdots & 0 \\
-          0 & \frac T 2  & \cdots  &0 \\
-          0 & 0 & \ddots   &  \vdots \\
-          0    &0 & \cdots & \frac T 2 \\
-          \end{bmatrix}
+            \mathbf {P^{T}}  \mathbf P =
+            \begin{bmatrix} 
+            T & 0 & \cdots & 0 \\
+            0 & \frac T 2  & \cdots  &0 \\
+            0 & 0 & \ddots   &  \vdots \\
+            0    &0 & \cdots & \frac T 2 \\
+            \end{bmatrix}
 
           $$
 
@@ -406,20 +406,20 @@ $$
 
           $$
 
-          \begin{bmatrix}
-          d =A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
-          \end{bmatrix}
+            \begin{bmatrix}
+            d =A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
+            \end{bmatrix}
 
           $$
 
           
         - 线性方程组
 
-          $$
+            $$
 
-          \mathbf Pd = f(x)
+            \mathbf Pd = f(x)
 
-          $$
+            $$
 
 - 复数三维空间
 
@@ -456,13 +456,13 @@ $$
       
     - 向量
 
-        $$
+      $$
 
-        d =  \begin{bmatrix}
-        A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
-        \end{bmatrix}
+      d =  \begin{bmatrix}
+      A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
+      \end{bmatrix}
 
-        $$
+      $$
 
     
   - 匀速圆周运动组合
@@ -500,7 +500,9 @@ $$
 
       $$
 
-      $\mathbf J $斜对角线为$1$，其它为$0$，称之为[反对角单位矩阵](https://en.wikipedia.org/wiki/Anti-diagonal_matrix)（Anti-diagonal Identity matrix）它的变换是对向量进行上下翻转，它非常像单位矩阵。
+      
+      
+      $\mathbf J $斜对角线为$1$，其它为$0$，称之为[反对角单位矩阵](https://en.wikipedia.org/wiki/Anti-diagonal_matrix) （Anti-diagonal Identity matrix）它的变换是对向量进行上下翻转，它非常像单位矩阵。
       
 
       $$
@@ -524,14 +526,15 @@ $$
       
     - 向量
 
-    $$
+      $$
 
-    d = \begin{bmatrix}
-       \cdots & c_{-n} & \cdots & c_{-2} &  c_{-1}  &  c_0 & c_1 & c_2  & \cdots &  c_n & \cdots
-        \end{bmatrix}
+      d = \begin{bmatrix}
+         \cdots & c_{-n} & \cdots & c_{-2} &  c_{-1}  &  c_0 & c_1 & c_2  & \cdots &  c_n & \cdots
+          \end{bmatrix}
 
-    $$
+      $$
 
+      
     
     - 线性方程组
     
