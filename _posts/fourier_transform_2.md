@@ -185,6 +185,7 @@ $$
     $$
     f(x) = \frac {a_0} 2 + \sum_{n=1}^{N} \left( a_n\cos(\frac {2\pi nx} {T}) +  b_n\sin(\frac {2\pi nx} {T})\right )
     $$
+    
     其中:
     $$
   a_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\cos(\frac {2\pi nx} {T})  dx \\
@@ -323,19 +324,18 @@ $$
       0    &0 & \cdots & \frac T 2 \\
       \end{bmatrix}
       $$
-      
-
-    - 向量
+  
+- 向量
       $$
       d =  \begin{bmatrix}
       A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
       \end{bmatrix}
       $$
       
-
-  - 匀速圆周运动组合
-
-    - 基
+  
+- 匀速圆周运动组合
+  
+  - 基
       $$
       P = \begin{bmatrix}
       \cdots &
@@ -369,30 +369,29 @@ $$
       $$
       \mathbf {P^T} \mathbf P =  \frac 1 T J
       $$
-
-      > 关于反对角矩阵的特征值，可以参见[反对角矩阵的特征值](https://ccjou.wordpress.com/2016/05/16/%E5%8F%8D%E5%B0%8D%E8%A7%92%E7%9F%A9%E9%99%A3%E7%9A%84%E7%89%B9%E5%BE%B5%E5%80%BC/)
-
-    - 向量
+  
+    > 关于反对角矩阵的特征值，可以参见[反对角矩阵的特征值](https://ccjou.wordpress.com/2016/05/16/%E5%8F%8D%E5%B0%8D%E8%A7%92%E7%9F%A9%E9%99%A3%E7%9A%84%E7%89%B9%E5%BE%B5%E5%80%BC/)
+  
+  - 向量
       $$
       d = \begin{bmatrix}
          \cdots & c_{-n} & \cdots & c_{-2} &  c_{-1}  &  c_0 & c_1 & c_2  & \cdots &  c_n & \cdots
           \end{bmatrix}
       $$
       
-
-    - 线性方程组
-      $$
+  - 线性方程组
+    $$
       \mathbf Pd = f(x)
-      $$
-
-      $$
-      \begin{align}
+    $$
+    
+    $$
+    \begin{align}
         d &= \mathbf {(P^{T}P)^{-1}P^{T}}f(x)  \\
         d &= \frac 1 T \mathbf J  \mathbf {P^{T}}f(x)
         \end{align}
-      $$
-
-      > 从形式上来说，最后方式的数学公式，最为简单优美。
+    $$
+    
+    > 从形式上来说，最后方式的数学公式，最为简单优美。
 
 ## 参考
 

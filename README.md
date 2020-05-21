@@ -1,4 +1,6 @@
-## Github Pages+Jekyll
+# Github Pages+Jekyll
+
+## 1. 日常工作
 
 ### 发布
 
@@ -20,13 +22,16 @@ _bin/generate.sh _posts
 _bin/start.sh
 ~~~
 
+
 ### Google Analytics
 
 https://analytics.google.com/
 
-### 部署
+## 2. 部署
 
-#### 配置_config.yml
+### 2.1 配置参数
+
+#### 2.11 _config.yml
 
 ~~~
 cat << EOF > _config.yml
@@ -58,7 +63,7 @@ EOF
 
 ~~~
 
-#### 配置Gemfile
+#### 2.12 Gemfile
 
 ~~~
 cat << EOF >> Gemfile
@@ -78,21 +83,7 @@ EOF
 cat Gemfile
 ~~~
 
-#### 安装依赖包
-
-##### 第一次
-
-~~~
-bundle install
-~~~
-
-##### 更新
-
-~~~
-bundle update
-~~~
-
-#### 配置theme
+#### 2.13 theme
 
 ##### Stylesheet
 
@@ -200,7 +191,37 @@ cat << EOF >> _includes/head.html
 EOF
 ~~~
 
-#### 生成blog
+#### 
+
+### 2.2 安装
+
+#### 2.1 安装Jekyll
+
+如果在一个新环境，需要先部署Jekyll。参考https://www.jekyll.com.cn/docs/
+
+1. 安装一个完整的 [Ruby 开发环境](ruby.md) 
+
+2. 安装 Jekyll 和[bundler](https://www.jekyll.com.cn/docs/ruby-101/#bundler) [gems](https://www.jekyll.com.cn/docs/ruby-101/#gems)
+
+   ```
+   gem install jekyll bundler  --http-proxy $http_proxy
+   ```
+
+#### 2.2 安装依赖包
+
+第一次
+
+~~~
+bundle install
+~~~
+
+更新
+
+~~~
+bundle update
+~~~
+
+#### 2.3 生成blog
 
 每一篇markdown文件，然后通过下面命令进行生成。
 
@@ -221,5 +242,5 @@ _bin/generate.sh _posts/vector-and-matrix.md
 6. 在`{{`中间插入一个换行符，避免被Jekyll识别为Liquid。
 7. 把图片从markdown文件所在目录的`images`中拷贝到`/assets/images`目录中去。
 
-### Obsolete
+### 
 
