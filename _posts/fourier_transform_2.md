@@ -193,7 +193,6 @@ $$
     b_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\sin(\frac {2\pi nx} {T})  dx
     $$
 
-    
   - 正弦函数的组合
     $$
     \begin{align}
@@ -205,7 +204,7 @@ $$
     
     $$
     A_0=\frac {a_0} 2, \phi_0=\frac \pi 2 \\  A_n = \sqrt {a_n^2 + b_n^2}, \\ {A_n}\sin(\phi_n) =  {a_n} , \ {A_n}\cos(\phi_n) = {b_n}
-  $$
+    $$
   
 - 复数三维空间（复平面+时间轴）
 
