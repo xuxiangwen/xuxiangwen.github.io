@@ -1,4 +1,6 @@
 ---
+# generated from _notes/05-ai/05-math/fourier_transform_1.md
+
 title: 理解傅里叶变换之一：傅里叶级数
 categories: mathematics
 date: 2020-04-19
