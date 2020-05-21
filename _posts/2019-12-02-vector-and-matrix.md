@@ -1,4 +1,6 @@
 ---
+# generated from _notes/05-ai/05-math/vector-and-matrix.md
+
 title: 向量和矩阵
 categories: linear-algebra
 date: 2019-12-02
