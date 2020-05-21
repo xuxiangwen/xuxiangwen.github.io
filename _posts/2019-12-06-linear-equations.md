@@ -1,4 +1,6 @@
 ---
+# generated from _notes/05-ai/05-math/linear-equations.md
+
 title: 线性方程组
 categories: linear-algebra
 date: 2019-12-06
