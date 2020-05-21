@@ -1,5 +1,5 @@
 ---
-title: 理解傅里叶变换之二：欧拉公式
+基title: 理解傅里叶变换之二：欧拉公式
 categories: mathematics
 date: 2020-04-19
 ---
@@ -180,16 +180,17 @@ $$
 下面总结上面谈到的各种傅里叶级数的公式。一个周期函数可以表示成：
 
 - 实数二维平面（实数轴+时间轴）
+  
   - 正弦+余弦函数的组合
     $$
     f(x) = \frac {a_0} 2 + \sum_{n=1}^{N} \left( a_n\cos(\frac {2\pi nx} {T}) +  b_n\sin(\frac {2\pi nx} {T})\right )
     $$
     其中:
     $$
-    a_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\cos(\frac {2\pi nx} {T})  dx \\
+  a_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\cos(\frac {2\pi nx} {T})  dx \\
     b_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\sin(\frac {2\pi nx} {T})  dx
     $$
-
+  
   - 正弦函数的组合
     $$
     \begin{align}
@@ -197,10 +198,10 @@ $$
     \end{align}
     $$
     其中：
-    $$
+  $$
     A_0=\frac {a_0} 2, \phi_0=\frac \pi 2 \\  A_n = \sqrt {a_n^2 + b_n^2}, \\ {A_n}\sin(\phi_n) =  {a_n} , \ {A_n}\cos(\phi_n) = {b_n}
-    $$
-
+  $$
+  
 - 复数三维空间（复平面+时间轴）
 
   - 匀速圆周运动组合的投影：三维等轴螺旋线的叠加（下面公式）在虚数轴和时间轴的投影
@@ -252,7 +253,7 @@ $$
           0    &0 & \cdots & \frac T 2 \\
           \end{bmatrix}
           $$
-        
+
         - 向量
           $$
           d = \begin{bmatrix}
@@ -264,7 +265,7 @@ $$
           $$
           \mathbf Pd = f(x)
           $$
-        
+
     - 正弦函数的组合
 
         - 基
@@ -312,7 +313,7 @@ $$
         e^{\mathbf i( {\omega nx}  + \phi_n)}) & \cdots
       \end{bmatrix}
       $$
-  向量之间两两正交，但并不是正交矩阵（向量的模不为1）。
+      向量之间两两正交，但并不是正交矩阵（向量的模不为1）
       $$
       \mathbf {P^{T}}  \mathbf P =
       \begin{bmatrix} 
@@ -323,6 +324,7 @@ $$
       \end{bmatrix}
       $$
       
+
     - 向量
       $$
       d =  \begin{bmatrix}
@@ -330,9 +332,9 @@ $$
       \end{bmatrix}
       $$
       
-    
+
   - 匀速圆周运动组合
-  
+
     - 基
       $$
       P = \begin{bmatrix}
@@ -348,9 +350,9 @@ $$
         e^{\mathbf i {\omega nx}  }& \cdots
       \end{bmatrix}
       $$
-      假设
+      设
       $$
-    \mathbf {J} = \begin{bmatrix} 
+      \mathbf {J} = \begin{bmatrix} 
         0 & 0  & \dots & 0 & 1  \\
         0 & \ddots  & 0 & 1  & 0  \\
         \vdots & 0  & 1  & 0 &  \vdots  \\
@@ -358,23 +360,18 @@ $$
       1  & 0  & \cdots & 0 & 0  \\
         \end{bmatrix}
       $$
-      
-      
-      
       $\mathbf J $斜对角线为$1$，其它为$0$，称之为[反对角单位矩阵](https://en.wikipedia.org/wiki/Anti-diagonal_matrix) （Anti-diagonal Identity matrix）它的变换是对向量进行上下翻转，它非常像单位矩阵。
-      
       $$
       \mathbf {J}  = \mathbf {J^T}  = \mathbf {J^{-1}}  \\
         \mathbf {J}  \cdot \mathbf {J} = \mathbf {I}
       $$
-      
       则：
       $$
       \mathbf {P^T} \mathbf P =  \frac 1 T J
       $$
-      
+
       > 关于反对角矩阵的特征值，可以参见[反对角矩阵的特征值](https://ccjou.wordpress.com/2016/05/16/%E5%8F%8D%E5%B0%8D%E8%A7%92%E7%9F%A9%E9%99%A3%E7%9A%84%E7%89%B9%E5%BE%B5%E5%80%BC/)
-      
+
     - 向量
       $$
       d = \begin{bmatrix}
@@ -382,20 +379,20 @@ $$
           \end{bmatrix}
       $$
       
-    
+
     - 线性方程组
-    
-    $$
-    \mathbf Pd = f(x)
-    $$
-    $$
-    \begin{align}
-      d &= \mathbf {(P^{T}P)^{-1}P^{T}}f(x)  \\
-      d &= \frac 1 T \mathbf J  \mathbf {P^{T}}f(x)
-      \end{align}
-    $$
-    
-    > 从形式上来说，最后方式的数学公式，最为简单优美。
+      $$
+      \mathbf Pd = f(x)
+      $$
+
+      $$
+      \begin{align}
+        d &= \mathbf {(P^{T}P)^{-1}P^{T}}f(x)  \\
+        d &= \frac 1 T \mathbf J  \mathbf {P^{T}}f(x)
+        \end{align}
+      $$
+
+      > 从形式上来说，最后方式的数学公式，最为简单优美。
 
 ## 参考
 
