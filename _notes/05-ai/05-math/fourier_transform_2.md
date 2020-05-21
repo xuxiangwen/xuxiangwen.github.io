@@ -1,5 +1,5 @@
 ---
-基title: 理解傅里叶变换之二：欧拉公式
+title: 理解傅里叶变换之二：欧拉公式
 categories: mathematics
 date: 2020-04-19
 ---
