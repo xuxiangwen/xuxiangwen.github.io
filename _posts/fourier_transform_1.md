@@ -1,5 +1,5 @@
 ---
-title: 理解傅里叶变换之一————傅里叶级数
+title: 理解傅里叶变换之一：傅里叶级数
 categories: mathematics
 date: 2020-04-19
 ---
@@ -129,7 +129,7 @@ x = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \end{bmatrix},
   \sin(\frac {2\pi nx} {T}) = \begin{bmatrix} \sin(\frac {2\pi nx_1} {T})  \\ \sin(\frac {2\pi nx_2} {T}) \\ \vdots   \end{bmatrix},
 $$
 
-  	根据上面的向量，可以构建一个的$ \infin \times (2N+1)$阶矩阵。
+  	根据上面的向量，可以构建一个的$ \infty \times (2N+1)$阶矩阵。
 $$
 \mathbf D=\begin{bmatrix}
   \frac 1 2 & 

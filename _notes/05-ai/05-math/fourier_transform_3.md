@@ -1,5 +1,5 @@
 ---
-title: 理解傅里叶变换之三————从有限到无限
+title: 理解傅里叶变换之三：从有限到无限
 categories: mathematics
 date: 2020-04-19
 ---

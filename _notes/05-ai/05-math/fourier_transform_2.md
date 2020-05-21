@@ -1,5 +1,5 @@
 ---
-title: 理解傅里叶变换之二————欧拉公式
+title: 理解傅里叶变换之二：欧拉公式
 categories: mathematics
 date: 2020-04-19
 ---
@@ -11,7 +11,7 @@ date: 2020-04-19
 $$
 e^{\mathbf i \theta} = \cos \theta+ \mathbf i \sin \theta
 $$
-在[理解欧拉公式](./euler_formula.md)一文中谈到，欧拉公式体现的是一种复平面的圆周运动。
+在[理解欧拉公式](https://eipi10.cn/mathematics/2020/04/14/euler_formula/)一文中谈到，欧拉公式体现的是一种复平面的圆周运动。
 
 ![img](images/81ca9447d6c45c162c2d76df75a6690a_720w.jpg)
 
@@ -279,11 +279,11 @@ $$
           $$
           \mathbf {P^{T}}  \mathbf P =
           \begin{bmatrix} 
-                    T & 0 & \cdots & 0 \\
-                    0 & \frac T 2  & \cdots  &0 \\
-                    0 & 0 & \ddots   &  \vdots \\
-                    0    &0 & \cdots & \frac T 2 \\
-                    \end{bmatrix}
+          T & 0 & \cdots & 0 \\
+          0 & \frac T 2  & \cdots  &0 \\
+          0 & 0 & \ddots   &  \vdots \\
+          0    &0 & \cdots & \frac T 2 \\
+          \end{bmatrix}
           $$
           
         - 向量
@@ -324,11 +324,11 @@ $$
       $$
       
     - 向量
-    $$
-      d =  \begin{bmatrix}
-    A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
-      \end{bmatrix}
-    $$
+        $$
+        d =  \begin{bmatrix}
+        A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
+        \end{bmatrix}
+        $$
     
   - 匀速圆周运动组合
   
