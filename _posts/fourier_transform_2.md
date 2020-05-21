@@ -229,7 +229,7 @@ $$
 下面列举一下傅里叶级数中的基和周期函数代表的向量。
 
 - 实数二维平面
-  
+
     - 正弦+余弦函数的组合
 
         - 基
@@ -241,32 +241,33 @@ $$
             \sin(\frac {4\pi x} {T}) & \cdots ) 
           \end{bmatrix}
           $$
-    向量之间两两正交，但并不是正交矩阵（向量的模不为1）
+          
+          向量之间两两正交，但并不是正交矩阵（向量的模不为1）
           $$
           \mathbf {P^{T}}  \mathbf P =
           \begin{bmatrix} 
-                    \frac T 4 & 0 & \cdots & 0 \\
-                    0 & \frac T 2  & \cdots  &0 \\
-                    0 & 0 & \ddots   &  \vdots \\
-                0    &0 & \cdots & \frac T 2 \\
-                    \end{bmatrix}
+          \frac T 4 & 0 & \cdots & 0 \\
+          0 & \frac T 2  & \cdots  &0 \\
+          0 & 0 & \ddots   &  \vdots \\
+          0    &0 & \cdots & \frac T 2 \\
+          \end{bmatrix}
+          $$
+        
+        - 向量
+          $$
+          d = \begin{bmatrix}
+                a_0 & a_1 & a_2  & \cdots &  a_n & \cdots & b_1 & b_2 & \cdots &  b_n & \cdots
+              \end{bmatrix}
           $$
           
         
-    - 向量
-          $$
-      d = \begin{bmatrix}
-            a_0 & a_1 & a_2  & \cdots &  a_n & \cdots & b_1 & b_2 & \cdots &  b_n & \cdots
-          \end{bmatrix}
-          $$
-    
         - 线性方程组
           $$
           \mathbf Pd = f(x)
           $$
 
     - 正弦函数的组合
-    
+
         - 基
           $$
           P = \begin{bmatrix}
@@ -297,7 +298,7 @@ $$
           $$
           \mathbf Pd = f(x)
           $$
-    
+
 - 复数三维空间
 
   - 匀速圆周运动组合的投影
