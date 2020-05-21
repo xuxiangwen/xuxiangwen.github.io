@@ -3,6 +3,7 @@ title: CentOS 7下安装CUDA 10.2
 categories: deep-learning
 date: 2019-11-28
 ---
+
 本文将详述centos7环境下如何安装nvidia GPU driver, CUDA和cuDNN。这应该是第n次更新安装它们啦，总体上步骤没有太大变化，只是软件的版本有一些改变。和网上类似文章相比，本文中所有的shell命令都可以直接执行，不需要手工去修改文件，所以更加方便。下面看看要安装的内容：
 
 - **nvidia GPU driver**：英伟达公司显卡驱动。要安装CUDA， cuDNN，这是必要的。
@@ -23,7 +24,7 @@ lspci | grep -i nvidia
 
 首先要保证操作系统符合下表的要求。
 
-![image-20191128130850307](/assets/images/image-20191128130850307.png)
+![image-20191128130850307](/assets/images/image-20191128130850307-1576293467804.png)
 
 在centos7下安装，内核和centos的版本分别需要是3.10和7.7。使用下面命令检查。
 
@@ -55,18 +56,19 @@ sudo yum update
 
    ~~~shell
    uname -r
-   sudo yum install kernel-devel-$(uname -r) kernel-headers-$(uname -r)
+   sudo yum install -y gcc gcc-c++ kernel-devel-$(uname -r) kernel-headers-$(uname -r)
    ~~~
 
 ## 3. 安装nvida显卡驱动
 
-1. 下载[nvidia驱动](https://www.nvidia.com/Download/index.aspx?lang=en-us)。比如：2019-11-28，1070ti对应的最新版本 440.36 
+1. 下载[nvidia驱动](https://www.nvidia.com/Download/index.aspx?lang=en-us)。比如：2019-11-28，1070ti对应的最新版本 440.82
 
    ![image-20191214111408934](/assets/images/image-20191214111408934.png)
 
 2. 检查当前驱动情况
 
    ~~~shell
+   sudo yum install https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm
    sudo yum install nvidia-detect      # 安装nvida-detect
    nvidia-detect -v                    # 检测能够升级到的驱动器版本
    cat /proc/driver/nvidia/version     # 查看当前驱动版本
@@ -81,16 +83,19 @@ sudo yum update
 4. 屏蔽nouveau显卡驱动，把nvidiafb从屏蔽列表中移除。
 
    ~~~shell
-   sudo cp /lib/modprobe.d/dist-blacklist.conf .
-   sed -i 's/blacklist nvidiafb/# blacklist nvidiafb/g' dist-blacklist.conf 
+   sudo rm -rf  disable-nouveau.conf
+   cat << EOF > disable-nouveau.conf
+   blacklist nouveau
+   options nouveau modeset=0
    
-   echo                             >> dist-blacklist.conf
-   echo blacklist nouveau           >> dist-blacklist.conf
-   echo options nouveau modeset=0   >> dist-blacklist.conf
+   EOF
    
-   sudo chown root:root dist-blacklist.conf
-   sudo mv dist-blacklist.conf /lib/modprobe.d/dist-blacklist.conf
-   sudo cat /lib/modprobe.d/dist-blacklist.conf | grep -E 'nouveau|nvidiafb'
+   sudo chown root:root disable-nouveau.conf
+   sudo chmod 644 disable-nouveau.conf
+   sudo mv disable-nouveau.conf /etc/modprobe.d/
+   
+   cat /etc/modprobe.d/disable-nouveau.conf
+   ll /etc/modprobe.d/disable-nouveau.conf
    ~~~
 
 5. 重建 initramfs 镜像。
@@ -110,9 +115,9 @@ sudo yum update
 7. 安装驱动。
 
    ~~~shell
-   lsmod | grep nouveau                            #查看nouveau是否已经禁用
-   chmod 755 NVIDIA-Linux-x86_64-440.36.run
-   sudo  ./NVIDIA-Linux-x86_64-440.36.run
+   lsmod | grep nouveau                            #查看nouveau是否已经禁用, 应该没有返回内容
+   chmod 755 NVIDIA-Linux-x86_64-440.82.run
+   sudo  ./NVIDIA-Linux-x86_64-440.82.run
    sudo systemctl set-default graphical.target     #设置运行级别回图形模式
    sudo systemctl get-default
    sudo shutdown -r now
@@ -131,7 +136,7 @@ sudo yum update
    nvidia-smi
    ~~~
 
-   ![image-20191214104828475](/assets/images/image-20191214104828475.png)
+   ![image-20191214104828475](/assets/images/image-20191214104828475-1576293467804.png)
 
 ## 4. 安装CUDA
 
@@ -148,7 +153,7 @@ sudo yum update
 
    在 [CUDA Download](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=CentOS&target_version=7&target_type=rpmlocal) 选择合适的CUDA版本，选择了rpm（local），将会出现如下安装代码。
 
-   ![image-20191128155025778](/assets/images/image-20191128155025778.png)
+   ![image-20191128155025778](/assets/images/image-20191128155025778-1576293467804.png)
 
    ~~~shell
    wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-rhel7-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
@@ -180,7 +185,7 @@ sudo yum update
    nvcc -V
    ~~~
 
-   ![image-20191214104948843](/assets/images/image-20191214104948843.png)
+   ![image-20191214104948843](/assets/images/image-20191214104948843-1576293467804.png)
 
 5. 再次检查nvidia。如果出现报错，请返回`3. 安装nvida显卡驱动`中第5步，再次安装显卡驱动。
 
@@ -193,7 +198,7 @@ sudo yum update
 
 1. 下载cuDNN。打开[cuDNN](https://developer.nvidia.com/cudnn) ，登录以后，选择最新版本后，点击`cuDNN Library for Linux`链接进行下载。
 
-   ![image-20191129081140250](/assets/images/image-20191129081140250.png)
+   ![image-20191129081140250](/assets/images/image-20191129081140250-1576293467804.png)
 
 2. 安装
 
@@ -210,16 +215,18 @@ sudo yum update
    cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2  
    ~~~
 
-   ![image-20191214105215224](/assets/images/image-20191214105215224.png)
+   ![image-20191214105215224](/assets/images/image-20191214105215224-1576293467804.png)
 
 ## 6. 其它
 
 ### 修复vncserver
 
-如果你使用vncserver进行远程桌面连接centos，安装完nvidia驱动后，可能vncserver不能工作。其大概原因是默认的gnome和显卡驱动中opengl不兼容。所以只要在vncserver中使用另外一个桌面Xfce。
+如果发生vncserver不能工作，可以尝试下面的方法。
+
+如果使用vncserver进行远程桌面连接centos，当安装完nvidia驱动后，可能vncserver不能工作。其大概原因是默认的gnome和显卡驱动中opengl不兼容。所以只要在vncserver中使用另外一个桌面Xfce。
 
    ~~~
-sudo yum groupinstall “Xfce” -y
+sudo yum groupinstall "Xfce" -y
 
 cat << EOF > ~/.vnc/xstartup   
 xrdb $HOME/.Xresources
@@ -236,3 +243,11 @@ vncserver :1
 - [cuDNN安装向导](https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html )
 - [How to Install and Configure VNC Server on CentOS 7](https://vitux.com/centos-vnc-server/)
 
+## 更新历史
+
+- 2020-05-19: 安装nvida显卡驱动修改了脚本
+  - CUDA:  [v10.2.89](https://docs.nvidia.com/cuda/index.html) 
+  - cuDNN:  10.2
+- 2019-11-28
+  - CUDA:  [v10.2.89](https://docs.nvidia.com/cuda/index.html) 
+  - cuDNN:  10.2
