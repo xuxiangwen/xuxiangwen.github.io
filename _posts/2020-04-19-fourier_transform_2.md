@@ -1,4 +1,6 @@
 ---
+# generated from _notes/05-ai/05-math/fourier_transform_2.md
+
 title: 理解傅里叶变换之二：欧拉公式
 categories: mathematics
 date: 2020-04-19
