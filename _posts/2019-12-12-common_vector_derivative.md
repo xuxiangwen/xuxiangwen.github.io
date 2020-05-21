@@ -1,4 +1,6 @@
 ---
+# generated from _notes/05-ai/05-math/common_vector_derivative.md
+
 title: 常用向量导数公式
 categories: linear-algebra
 date: 2019-12-12
