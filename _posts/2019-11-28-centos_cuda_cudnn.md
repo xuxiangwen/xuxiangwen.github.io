@@ -1,10 +1,10 @@
 ---
-sourcefile:_notes/00-env/centos_cuda_cudnn.md
+sourcefile: _notes/00-env/centos_cuda_cudnn.md
 title: CentOS 7下安装CUDA 10.2
 categories: deep-learning
 date: 2019-11-28
 ---
-sourcefile:_notes/00-env/centos_cuda_cudnn.md
+sourcefile: _notes/00-env/centos_cuda_cudnn.md
 
 本文将详述centos7环境下如何安装nvidia GPU driver, CUDA和cuDNN。这应该是第n次更新安装它们啦，总体上步骤没有太大变化，只是软件的版本有一些改变。和网上类似文章相比，本文中所有的shell命令都可以直接执行，不需要手工去修改文件，所以更加方便。下面看看要安装的内容：
 
