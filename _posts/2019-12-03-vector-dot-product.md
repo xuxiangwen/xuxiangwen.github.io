@@ -1,4 +1,6 @@
 ---
+# generated from _notes/05-ai/05-math/vector-dot-product.md
+
 title: 向量内积
 categories: linear-algebra
 date: 2019-12-03
