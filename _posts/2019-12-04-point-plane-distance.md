@@ -1,4 +1,6 @@
 ---
+# generated from _notes/05-ai/05-math/point-plane-distance.md
+
 title: 点到平面的距离
 categories: linear-algebra
 date: 2019-12-04
