@@ -1,4 +1,6 @@
 ---
+# generated from _notes/05-ai/05-math/eigenvalue_and_eigenvector.md
+
 title: 特征值和特征向量
 categories: linear-algebra
 date: 2019-12-07
