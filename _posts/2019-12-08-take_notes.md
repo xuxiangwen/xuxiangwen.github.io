@@ -1,8 +1,11 @@
 ---
+# generated from _notes/99-others/take_notes.md
+
 title: 程序员如何记笔记
 categories: others
 date: 2019-12-08
 ---
+
 作为一个技术宅，很喜欢学习一些自己感兴趣的技术，在学习的过程中，深感记笔记非常的重要。对于成年人，记忆力比起年轻时候都会有不同程度衰减，由此记笔记尤甚重要。下面介绍一下这方面的心得。
 
 # 笔记
@@ -46,11 +49,14 @@ date: 2019-12-08
 既然要分享，笔记的安全性非常重要。不同的笔记也有不同的发布范围。
 
 - Internet：
+
   - 公开。没有安全性限制，可以发布到internet上，让所有人访问。一般包括一些wiki，blog，开源代码等。
   - 私有。信息是私有的，但可以授权任意的人员来访问。个人的一些文章，代码，但并不想公开的，而且不含有公司的敏感信息。
-- 公司/部门：仅在公司/部门内部网络才可以访问。有些信息在公司或部门内部是公开的。比如：公司流程，部门policy等。
+- 公司：仅在公司内部网络才可以访问。
+
+  - 公司/部门：信息在公司或部门内部是公开的。比如：公司流程，部门policy等。
 - 项目：信息在项目组内部是公开的，可以授权项目外的同事来访问。比如：项目开发设计文档，源代码等。
-- 私有：信息是私有的，但可以授权公司的同事或者互联网上的朋友来访问。比如：个人的一些资料，文档，代码等。
+- 私有：信息是私有的，但可以授权公司的同事来访问。比如：个人的一些资料，文档，代码等。
 
 # 工具
 
@@ -65,9 +71,7 @@ date: 2019-12-08
 - 信息时代：zeppelin，jupyter notebook + 思维导图
 - 互联时代：  github(pages, wiki) + typora(markdown) + pandoc ...
 
-> 以上的这些时代的划分，纯粹是个人杜撰。
-
-以上这些工具，我们都会混合使用，没有一种工具可以解决所有的问题。
+> 以上这些工具，我们都会混合使用，没有一种工具可以解决所有的问题。
 
 ### 原始社会：文本文件，word，excel文件
 
@@ -95,7 +99,7 @@ date: 2019-12-08
 
 ![1557381669838](/assets/images/1557381669838.png)
 
-### 互联时代：  github pages+ typora(markdown) + jupyter notebook + pandoc ...
+### 互联时代：  github(pages, wiki) + typora(markdown) + jupyter notebook + pandoc ...
 
 面临的问题：
 
@@ -115,33 +119,40 @@ date: 2019-12-08
 ~~~mermaid
 graph LR; 
     CE --> Git((Git));  
-    Information--> MDE[Markdown Editor: Typora];   
-    Document--> MDE;
-    Article--> MDE;    
+    Information-->|md|MDE[Markdown Editor: Typora];   
+    Document-->|md|MDE;
+    Article-->|md|MDE;    
     ID[Interactive Doc]-->NE[Notebook Editor: Jupyter];
     code --> CE(Code Editor);  
     MDE-->Others[ppt, pdf, word, html];
     NE-->Others;    
     MDE--> Git; 
     NE--> Git;
-    Git-->GitHub["Github Pages"];  
+    Git-->GE["Github Enterprise(pages, wiki)"];
+    Git-->GitHub["Github(pages, wiki)"];  
 ~~~
 
-下面自右向左来详细分析上图中的内容。首先是GitHub Pages。
+下面自右向左来详细分析上图中的内容。首先是GitHub Pages和GitHub Wiki。
 
 > 上面的图其实也是用一种代码（[mermaid](https://github.com/knsv/mermaid)）也写成的。
 
 #### [GitHub Pages](https://pages.github.com)
 
-GitHub Pages是一个用来展现GitHub中个人，组织或者项目的静态的网站，使用它可以把知识分享到整个互联网。如果GitHub Pages部署到Github Enterprise，则是在公司范围内分享的。
+GitHub Pages是一个用来展现GitHub中个人，组织或者项目的静态的网站。它是我们流程中分享的主要平台。
 
-[![What is GitHub Pages?](/assets/images/0.jpg)](http://www.youtube.com/watch?v=2MsN8gpT6jY "What is GitHub Pages?")
+[![What is GitHub Pages?](http://img.youtube.com/vi/2MsN8gpT6jY/0.jpg)](http://www.youtube.com/watch?v=2MsN8gpT6jY "What is GitHub Pages?")
 
 使用GitHub Pages的网站很多，效果很不错，不乏一些大公司，下面是一些例子。
 
 > [Projects using GitHub Pages](https://github.com/showcases/github-pages-examples)
 >
 > [Open source organizations using GitHub Pages](https://github.com/showcases/open-source-organizations)
+
+#### [GitHub Wiki](https://help.github.com/en/articles/about-wikis)
+
+就wiki本身来说，功能似乎有些弱，但如果定位成分享项目的一些知识，则非常合适。
+
+>  总结起来，GitHub Pages, Wiki的最大优势：流量优势。因为在日常开发中，Github和GitHub Enterprise使用的比例非常的高。
 
 #### [Markdown Editer: Typora](<https://typora.io/>)
 
@@ -170,12 +181,16 @@ Markdown是一种轻量级标记语言，让写作者专注于写作而不用关
 下面把Markdown来比较一下，我们最常用的word。
 
 - 内容与形式分离 vs 所见即所得（内容与形式融合）
+
   - 专注内容书写：Markdown 胜
   - 调整排版：Markdown 胜
   - 文档发布和阅读：Markdown 胜
+
 - 源码输入 vs 所见即所得
+
   - 严谨性：Markdown 胜
 - 功能：Word 胜
+  
   - 图片支持： Word 略胜
   - 表格支持： Word 胜
   - 显示和上手难度： Word 胜
@@ -202,19 +217,35 @@ pandoc -t F -s take_notes_ppt.md \
 - 多种格式： 信息，文档，表格，代码，图表都能支持。
 - 编辑方便。不方便的例子有jupyter notebook添加图片麻烦。由于jupyter notebook是web站点，添加图片时不得不手工上传到网站上，然后再在notebook代码中定义，这样就使得记笔记的过程总是被中断。
 - 快速检索。不好的例子有有道云笔记的搜索功能。有道云笔记每次搜索时的目录是当前目录，而不是最根层的目录。我的一般工作的场景是，有道云笔记打开，定位到某个笔记本，随时在上面做一些记录，当工作中，发现了某个问题，而且记得笔记本中记录过，这时回到有道云笔记，去搜索一下，这时想搜索的范围一般是所有文档，而不是当前目录或当前文档。
-- 易于分享。支持分享到项目，部门，公司或互联网。根据知识的安全要求，可以把知识可以在不同层次，但分享的方式都相同。
+- 易于分享。支持分享到项目，部门，公司或互联网。
 
-达到以上几点，就是一个很好的工具集组合了，显然基于github pages的方案可以完美的满足上面的所有要求。除此以外，如果能够对笔记拥有完全的控制权，那就更好了。完全控制权表现在：
+## Microsoft Teams + OneNote ...
 
-- 版本控制。能够看到笔记的修改历史，可以多人协同编辑。
-- 能够选择发布的平台。比如，目前采用Github Pages进行发布，在未来，可以很容易发布到其它更好的平台。
-- 能够方便的迁移所有的笔记。而用onenote，有道云笔记，evernote等平台，导入导出总有或多或少的限制或者不便。
+Microsoft Teams是非常强大的协作工具。里面可以容纳各种软件，当然也包括OneNote。采用这两个产品，能实现很好的记录和分享。
 
-毫无疑问，基于github pages的方案也先天支持对笔记的完全控制，它带来的是自由，或许唯一的问题是，它有一点儿复杂了。
+![1557710385911](/assets/images/1557710385911.png)
+
+## github + typora vs. teams + onenote ...
+
+下面比较一下个team和github。
+
+|          | teams | github | description                                                  |
+| -------- | :---- | ------ | ------------------------------------------------------------ |
+| 简单易用 | 5     | 3      | 后者复杂的多。                                               |
+| 多种格式 | 4     | 4      | 前者对代码的支持不够好。后面的扩展性非常好。                 |
+| 编辑方便 | 5     | 4      | 前者功能强大方便，但后者善于精细化的控制。                   |
+| 快速检索 | 4     | 5      | 因为是纯文本和开放性，理论上可以实现超强的搜索功能           |
+| 易于分享 | 4     | 5      | 前者适合公司内部分享，后者都适合，而且同一个文档可以发到多个平台 |
+
+总体上两套工具集合都很强大，但不同在于：
+- teams + onenote 简单易用，更加成熟。总体得分更高一点。
+- github + typora 开放自由，扩展性更好。由于基于git，在版本控制上更好。
+
+>  对于程序员来说，github + typora 更有诱惑性
 
 ## 总结
 
-无论使用任何工具，无论如何记笔记，只要让更多知识得到更好的分享，就能实现知识的更大价值。
+无论使用任何工具，无论如何记笔记，只要让更多知识得到更好的分享，就能获得更大价值。
 
 ## 参考
 
@@ -227,5 +258,5 @@ pandoc -t F -s take_notes_ppt.md \
 - [Producing slide shows with pandoc](https://pandoc.org/MANUAL.html#producing-slide-shows-with-pandoc)
 - [mermaid live editor](https://mermaidjs.github.io/mermaid-live-editor)
 - [GitHub Pages](https://pages.github.com)
-- [Creating and Hosting a Personal Site on GitHub](http://jmcglone.com/guides/github-pages)
+- [Creating and Hosting a Personal Site on GitHub](http://jmcglone.com/guides/github-pages): 非常好的入门guide
 
