@@ -1,3 +1,9 @@
+---
+title: 理解欧拉公式
+categories: mathematics
+date: 2020-04-14
+---
+
 ![img](images/250px-Euler-10_Swiss_Franc_banknote_front.jpg)
 $$
 第六版10元瑞士法郎正面的欧拉肖像
@@ -104,7 +110,9 @@ $$
 
 如果 $\theta $是随时间线性变化的参数，则可以得到以下三维等径螺旋线，该螺旋线在复平面上的投影是一个圆，投影点在圆上的运动为匀速圆周运动。
 
-![img](images/v2-dd519fdba5ae7b4ba2b9a26ac158f7c5_720w.jpg)
+![image-20200417095304321](images/image-20200417095304321.png)
+
+>$f(\theta)=a+b\mathbf  i$是什么运动：在复平面毫无疑问就是一个点（是静止的），而在时间维上的投影就是一条直线。
 
 ## 泰勒公式
 
@@ -124,4 +132,5 @@ $$
 - [从矩阵的角度来看待复数](https://zhuanlan.zhihu.com/p/30251453)
 - [欧拉公式，复数域的成人礼](https://www.matongxue.com/madocs/2066.html)
 - ["上帝公式"(欧拉公式)真的神到无法触碰？](https://zhuanlan.zhihu.com/p/48392958)
+- [被众人膜拜的欧拉恒等式是个什么东东？](https://zhuanlan.zhihu.com/p/40302967)
 

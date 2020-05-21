@@ -1,3 +1,47 @@
+### Shell 日期格式化
+
+~~~shell
+date '+%Y%m%d_%H%M%S'
+~~~
+
+ll命令
+
+~~~shell
+alias ll='ls -l --color=auto'
+~~~
+
+### Tree用法示例
+
+- 常规用法
+
+    ~~~shell
+    tree -fDpugsh
+    ~~~
+
+    - f: 显示文件全路径
+    - D: 显示最后的修改时间
+    - p：显示文件的模式（chmod）
+    - u：显示用户
+    - g：显示group
+    - s：显示文件大小
+    - h：以可读方式显示size
+    
+- 显示目录
+
+    ~~~shell
+    tree -fDpugshd  
+    ~~~
+
+    - d： 仅仅显示目录
+
+- 仅仅显示文件
+
+    ~~~shell
+    tree -fDpugshF  | grep -v /$
+    ~~~
+
+    - F: Appends '/', '=', '*', '@', '|' or '>' as per ls -F. 对于目录会添加一个/
+
 ### 时间同步
 
 ~~~shell

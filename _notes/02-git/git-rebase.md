@@ -74,6 +74,21 @@ git lg --all
     D---E---F---G master
 ```
 
+更新master
+
+~~~shell
+git checkout master
+git merge --ff-only topic
+~~~
+
+提交树变成：
+
+~~~shell
+                  A'--B'--C' master，topic
+                 /
+    D---E---F---G 
+~~~
+
 ### 有趣的例子
 
 假设创建了一个特性分支 `server`，为服务端添加了一些功能，提交了 `C3` 和 `C4`。 然后从 `C3` 上创建了特性分支 `client`，为客户端添加了一些功能，提交了 `C8` 和 `C9`。 最后，你回到 `server` 分支，又提交了 `C10`。
@@ -170,6 +185,9 @@ git merge server
 
 git branch -d client
 git branch -d server
+git tag -d v_c3
+git lg --all
+git checkout master
 ~~~
 
 ![最终的提交历史。](images/interesting-rebase-5.png)

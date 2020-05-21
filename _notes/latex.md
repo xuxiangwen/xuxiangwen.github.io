@@ -16,13 +16,19 @@ LaTeX大括号公式和一般括号总结 https://blog.csdn.net/miao0967020148/a
 
 ## 符号
 
-$\approx$ : \approx 约等于
+$\leq$ 小于等于
 
-$\lvert \rvert$ : \lvert  \rvert 竖线
+$\geq$ 大于等于
+
+$\neq$不等于
+
+$\approx$ 约等于
+
+$\lvert \rvert$ 竖线
 
 $\hat{A}$  : \hat {A}
 
-$X \in R^{n \times m}$ : \inX R^{n \times m}  属于
+$X \in R^{n \times m}$ ：属于
 
 $  u^\mathrm{T} $  :  u^\mathrm{T}
 
@@ -79,6 +85,8 @@ BP = \begin{equation}
 
 $\left( \frac{a}{b} \right)$：   \left( \frac{a}{b} \right)
 
+$\left[ \frac{a}{b} \right]$：中括号 
+
 ### 集合操作 
 
 $\cap$  :  \cap 交集  
@@ -98,9 +106,7 @@ $L_C = L_A \cap (L_B \cup L_C)$ : L_C = L_A \cap (L_B \cup L_C) 并集和交集
 ### 公式编号
 
 $$
-
 E=mc^2\tag{1}
-
 $$
 
 ### Excel转化成markdown Table

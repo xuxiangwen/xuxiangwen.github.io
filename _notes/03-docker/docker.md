@@ -22,16 +22,29 @@ sudo yum remove docker \
                   docker-selinux \
                   docker-engine-selinux \
                   docker-engine
+                            
+
+# # 如果需要清理以前的docker-ce
+# sudo yum remove -y docker-ce
+# sudo rm -rf /var/lib/docker /var/lib/docker-engine 
+# sudo rm -rf /etc/systemd/system/docker.service.d/docker.conf
+# ll /var/lib/ | grep docker
+# ll /etc/systemd/system/docker.service.d
+# ll /\"   # 老的版本，可能会把docker安装到这个地方
+
 # 安装依赖包
 sudo yum install -y yum-utils \
            device-mapper-persistent-data \
            lvm2
 
 # 更新 yum 软件源缓存，并安装 docker-ce
+sudo yum-config-manager \
+     --add-repo \
+     https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum makecache fast
-sudo yum install docker-ce
+sudo yum install -y docker-ce
 
-# 建立 docker 用户组
+# 建立 docker 用户组，需要重新登陆才能生效
 sudo groupadd docker
 sudo usermod -aG docker $USER
 
@@ -39,11 +52,38 @@ sudo usermod -aG docker $USER
 docker run hello-world
 ~~~
 
+
+
 ### 启动docker
 
 ~~~shell
 sudo systemctl enable docker
 sudo systemctl start docker
+~~~
+
+### 
+
+### 安装docker-compose
+
+~~~shell
+curl -L https://github.com/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` > docker-compose
+chmod +x docker-compose
+sudo mv docker-compose /usr/local/bin/docker-compose
+sudo chown root:root /usr/local/bin/docker-compose
+ll /usr/local/bin/docker-compose
+docker-compose --version
+~~~
+
+### 安装nvidia-docker
+
+参见https://github.com/NVIDIA/nvidia-docker。
+
+~~~shell
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | sudo tee /etc/yum.repos.d/nvidia-docker.repo
+
+sudo yum install -y nvidia-container-toolkit
+sudo systemctl restart docker
 ~~~
 
 ### 创建 Swarm 集群
@@ -64,12 +104,36 @@ docker swarm join --token SWMTKN-1-1ngrjkqk2356wfhuibeforvbfsn7rlfbol5foglcnegvs
 
 #### 切换docker所占目录
 
-~~~
+~~~shell
+sudo systemctl stop docker
+
 sudo -s
+mkdir /home/docker
 mv  /var/lib/docker /var/lib/docker-temp
 ln -s /home/docker /var/lib/docker
 mv /var/lib/docker-temp/* /var/lib/docker
+exit
+
+sudo systemctl start docker
 ~~~
+
+### 清理docker
+
+~~~shell
+# 删除现有容器未使用的所有镜像
+docker image prune -a
+
+# 删除已停止的容器
+docker container prune 
+
+# 删除所有未使用的卷
+docker volume prune 
+
+# 修剪镜像，容器，和网络
+docker system prune --volumes
+~~~
+
+
 
 ### Window下Docker Container的时间同步
 

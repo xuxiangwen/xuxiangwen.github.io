@@ -19,7 +19,9 @@ jupyter notebook list
 **cpu**
 
 ~~~shell
-docker run -it  -u $(id -u):$(id -g) --name tf-py3 -v /home/grid/eipi10:/notebooks/eipi10 -p 28888:8888 -p 27007:7007  tensorflow/tensorflow:latest-py3  /run_jupyter.sh --allow-root --NotebookApp.token='xxw'
+docker stop tf-py3 
+docker rm tf-py3
+docker run -it  -d --name tf-py3 -v /home/grid/eipi10:/tf/eipi10 -p 28888:8888 -p 27007:7007  tensorflow/tensorflow:latest-py3-jupyter   jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
 docker start tf-py3
 docker exec -it ts-py3 bash
 ~~~
@@ -30,7 +32,7 @@ docker exec -it ts-py3 bash
 # 第一次
 docker stop tf-gpu-py3
 docker rm tf-gpu-py3
-docker run -it -d --runtime=nvidia --name tf-gpu-py3 -v /home/grid/eipi10:/tf/eipi10 -p 18888:8888 -p 17007:7007  tensorflow/tensorflow:latest-gpu-py3-jupyter  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
+docker run -it -d --gpus all --name tf-gpu-py3 -v /home/grid/eipi10:/tf/eipi10 -p 18888:8888 -p 17007:7007  tensorflow/tensorflow:latest-gpu-py3-jupyter  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
 docker logs tf-gpu-py3
 
 # 再次启动
@@ -40,10 +42,10 @@ docker exec -it tf-gpu-py3 bash
 
 安装一些软件和python package
 
-~~~
+~~~shell
 http_proxy='http://web-proxy.rose.hp.com:8080' apt-get update sh
 http_proxy='http://web-proxy.rose.hp.com:8080' apt install -y openssh-server
-scp grid@15.15.165.218:/home/grid/.ssh/id_rs*  /root/.ssh
+scp grid@15.38.197.93:/home/grid/.ssh/id_rs*  /root/.ssh
 
 pip install --upgrade pip --proxy http://web-proxy.rose.hp.com:8080
 pip install --upgrade numpy scipy pandas --proxy http://web-proxy.rose.hp.com:8080 

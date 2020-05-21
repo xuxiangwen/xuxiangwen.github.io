@@ -55,3 +55,12 @@ flask repository包括以下内容.
 - tutorial
 - restfu
 
+### 安装pip
+
+有的时候需要重新安装pip。
+
+~~~shell
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo python get-pip.py --no-wheel
+~~~
+

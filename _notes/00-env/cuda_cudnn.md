@@ -1,5 +1,6 @@
 ## 更新历史
 
+- 2020-05-19
 - 2019-11-28
   - CUDA:  [v10.2.89](https://docs.nvidia.com/cuda/index.html) 
   - cuDNN:  10.2
@@ -58,18 +59,19 @@ sudo yum update
 
    ~~~shell
    uname -r
-   sudo yum install kernel-devel-$(uname -r) kernel-headers-$(uname -r)
+   sudo yum install -y gcc gcc-c++ kernel-devel-$(uname -r) kernel-headers-$(uname -r)
    ~~~
 
 ## 3. 安装nvida显卡驱动
 
-1. 下载[nvidia驱动](https://www.nvidia.com/Download/index.aspx?lang=en-us)。比如：2019-11-28，1070ti对应的最新版本 440.36 
+1. 下载[nvidia驱动](https://www.nvidia.com/Download/index.aspx?lang=en-us)。比如：2019-11-28，1070ti对应的最新版本 440.82
 
    ![image-20191214111408934](images/image-20191214111408934.png)
 
 2. 检查当前驱动情况
 
    ~~~shell
+   sudo yum install https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm
    sudo yum install nvidia-detect      # 安装nvida-detect
    nvidia-detect -v                    # 检测能够升级到的驱动器版本
    cat /proc/driver/nvidia/version     # 查看当前驱动版本
@@ -84,16 +86,19 @@ sudo yum update
 4. 屏蔽nouveau显卡驱动，把nvidiafb从屏蔽列表中移除。
 
    ~~~shell
-   sudo cp /lib/modprobe.d/dist-blacklist.conf .
-   sed -i 's/blacklist nvidiafb/# blacklist nvidiafb/g' dist-blacklist.conf 
+   sudo rm -rf  disable-nouveau.conf
+   cat << EOF > disable-nouveau.conf
+   blacklist nouveau
+   options nouveau modeset=0
    
-   echo                             >> dist-blacklist.conf
-   echo blacklist nouveau           >> dist-blacklist.conf
-   echo options nouveau modeset=0   >> dist-blacklist.conf
+   EOF
    
-   sudo chown root:root dist-blacklist.conf
-   sudo mv dist-blacklist.conf /lib/modprobe.d/dist-blacklist.conf
-   sudo cat /lib/modprobe.d/dist-blacklist.conf | grep -E 'nouveau|nvidiafb'
+   sudo chown root:root disable-nouveau.conf
+   sudo chmod 644 disable-nouveau.conf
+   sudo mv disable-nouveau.conf /etc/modprobe.d/
+   
+   cat /etc/modprobe.d/disable-nouveau.conf
+   ll /etc/modprobe.d/disable-nouveau.conf
    ~~~
 
 5. 重建 initramfs 镜像。
@@ -113,9 +118,9 @@ sudo yum update
 7. 安装驱动。
 
    ~~~shell
-   lsmod | grep nouveau                            #查看nouveau是否已经禁用
-   chmod 755 NVIDIA-Linux-x86_64-440.36.run
-   sudo  ./NVIDIA-Linux-x86_64-440.36.run
+   lsmod | grep nouveau                            #查看nouveau是否已经禁用, 应该没有返回内容
+   chmod 755 NVIDIA-Linux-x86_64-440.82.run
+   sudo  ./NVIDIA-Linux-x86_64-440.82.run
    sudo systemctl set-default graphical.target     #设置运行级别回图形模式
    sudo systemctl get-default
    sudo shutdown -r now
@@ -218,6 +223,8 @@ sudo yum update
 ## 6. 其它
 
 ### 修复vncserver
+
+不一定会产生。
 
 如果你使用vncserver进行远程桌面连接centos，安装完nvidia驱动后，可能vncserver不能工作。其大概原因是默认的gnome和显卡驱动中opengl不兼容。所以只要在vncserver中使用另外一个桌面Xfce。
 

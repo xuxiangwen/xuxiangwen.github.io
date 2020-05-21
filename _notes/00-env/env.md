@@ -195,8 +195,6 @@ sudo yum update -y
 
 
 
-
-
     - **1** (1-bit pixels, black and white, stored with one pixel per byte)
     - **L** (8-bit pixels, black and white)
     - **P** (8-bit pixels, mapped to any other mode using a colour palette)
@@ -206,3 +204,96 @@ sudo yum update -y
     - **YCbCr** (3x8-bit pixels, colour video format)
     - **I** (32-bit signed integer pixels)
     - **F** (32-bit floating point pixels)
+
+### update_file.sh
+
+更新一些系统配置文件。当前目录的bin目录下，创建下面的文件
+
+~~~shell
+vi bin/update_file.sh
+
+# !/bin/bash
+script=$(readlink -f "$0")
+script_path=$(dirname "$script")
+
+filepath=$1
+filename=`basename $filepath`
+content=$2
+append=${3:-append}
+
+if [ ! -f "$filepath" ]; then
+  echo $filepath can\'t be found
+  exit
+fi
+
+owner_group=`stat --format '%U:%G' $filepath`
+mode==`stat --format '%a' $filepath`
+
+echo -----------------------------------------
+echo tail -20  $filepath 
+tail -20  $filepath 
+
+echo -----------------------------------------
+echo ls -l $filepath
+ls -l $filepath
+
+echo -----------------------------------------
+while true; do
+    read -p "Do you want to change $filepath[y/n]?" yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer y or n.";;
+    esac
+done
+
+echo -----------------------------------------
+if [ "$append" = "new" ];then
+  echo create a new file: $filename
+  touch $filename
+else
+  echo copy $filepath to $filename
+  cp  $filepath $filename
+fi 
+
+echo change content in $filename
+cat << EOF >> $filename
+$2
+EOF
+
+echo -----------------------------------------
+backup_file=$filepath.`date +%Y-%m-%d_%H-%M-%S`
+echo backup $filepath to $backup_file
+sudo cp $filepath $backup_file
+
+echo move $filename to $filepath
+sudo mv $filename $filepath
+sudo chown $owner_group $filepath
+sudo chmod $mode $filepath
+
+echo -----------------------------------------
+echo tail -20  $filepath 
+tail -20  $filepath 
+
+echo -----------------------------------------
+echo ls -l $filepath $backup_file
+ls -l $filepath $backup_file
+
+~~~
+
+设置文件链接
+
+~~~shell
+ln -s ~/eipi10/xuxiangwen.github.io/_notes/00-env/bin/update_file.sh ~/eipi10/bin/update_file.sh
+~~~
+
+测试
+
+~~~shell
+~/eipi10/bin/update_file.sh /etc/hosts \
+"
+15.38.197.155 aa02
+15.38.197.239 aa03
+"
+~~~
+

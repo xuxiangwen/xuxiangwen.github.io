@@ -35,7 +35,7 @@ date: 2020-04-09
     if git branch -vv -a | grep "origin/$feature"
     then
       echo git checkout -b $feature origin/$feature  
-      git checkout -b $feature origin/$feature  #checkout远程feature/bug-fix
+      git checkout -b $feature origin/$feature  #checkout remote feature/bug-fix
     else
       echo git checkout -b $feature
       git checkout -b $feature
@@ -121,7 +121,6 @@ date: 2020-04-09
     ~~~
     git push origin master            
     git lg -10
-     
     ~~~
     
      当需要发布release时, 可以打上版本号. 
@@ -162,7 +161,7 @@ date: 2020-04-09
 ## 参考
 
 - [Understanding the GitHub flow](<https://guides.github.com/introduction/flow/index.html>)
-- [Simple Git workflow is simple](<https://www.atlassian.com/blog/archives/simple-git-workflow-simple>)
+- [Simple Git workflow is simple](https://www.atlassian.com/git/articles/simple-git-workflow-is-simple)
 -  [Git-rebase 黑魔法之打磨 commit 颗粒度](https://drprincess.github.io/2018/02/27/Git-rebase打造喜欢的commit颗粒感/#more)
 -  [Git 使用规范流程](<http://www.ruanyifeng.com/blog/2015/08/git-use-process.html>)
 -  [Git 工作流程](<http://www.ruanyifeng.com/blog/2015/12/git-workflow.html>) : 阮一峰出品, 比较了Git Flow, Github Flow和GitLab Flow. 

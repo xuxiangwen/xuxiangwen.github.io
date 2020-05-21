@@ -1,4 +1,52 @@
+##  git
+
 ##  1. 常见命令
+
+#### git fetch vs. git pull
+
+git pull看起来像git fetch+get merge，但是根据commit ID来看的话，他们实际的实现原理是不一样的。详见[详解git pull和git fetch的区别](https://blog.csdn.net/weixin_41975655/article/details/82887273)，。
+
+![![在这里插入图片描述](https://img-blog.csdn.net/201809281653222?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTk3NTY1NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)](images/20180928164725364.png)
+
+![在这里插入图片描述](images/201809281653222.png)
+
+#### 退出rebase
+
+~~~shell
+git rebase --abort
+~~~
+
+#### 更新远程分支
+
+以下两个命令都可以的。
+
+~~~shell
+git remote update origin --prune
+git fetch origin --prune
+~~~
+
+#### 修改远程地址
+
+~~~shell
+git remote set-url origin git@github.com:xuxiangwen/git-lab.git
+git remote -vv
+~~~
+
+### centos7安装最新的git
+
+centos7上默认的git版本是1.8. 解决方法是从 IUS repository安装。
+
+IUS is a community project that provides RPM packages for newer versions of select software for Enterprise Linux distributions.
+
+~~~
+git --version
+sudo yum -y remove git*
+sudo yum -y install  https://centos7.iuscommunity.org/ius-release.rpm
+sudo yum -y install  git2u-all
+git --version
+~~~
+
+
 
 #### github-git-cheat-sheet
 
@@ -134,6 +182,9 @@ git push   # Push our rewritten, smaller commit
 #global configuration
 git config --global user.name "eipi10"
 git config --global user.email "eipi10@qq.com"
+
+git config --global user.email aa00@hp.com
+git config --global user.name aa00
 ~~~
 
 #### 查看设定
@@ -255,6 +306,15 @@ git log --oneline --decorate --graph --all -p 5    # 上面的命令，内容和
 git checkout 【merge操作时所在的分支】
 git reset --hard 【merge前的版本号】
 ```
+
+#### git merge vs. git merge -no-ff
+
+![img](images/20160808140332699)
+
+git merge –no-ff 可以保存你之前的分支历史。能够更好的查看 merge历史，以及branch 状态。–no-ff指的是强行关闭fast-forward方式。
+git merge 则不会显示 feature，只保留单条分支记录。
+
+> fast-forward方式就是当条件允许的时候，git直接把HEAD指针指向合并分支的头，完成合并。属于“快进方式”，不过这种情况如果删除分支，则会丢失分支信息。因为在这个过程中没有创建commit
 
 ## 2. Git 原理
 
