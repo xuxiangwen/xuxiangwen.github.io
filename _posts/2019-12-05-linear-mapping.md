@@ -1,4 +1,6 @@
 ---
+# generated from _notes/05-ai/05-math/linear-mapping.md
+
 title: 线性映射和线性变换
 categories: linear-algebra
 date: 2019-12-05
