@@ -1,6 +1,14 @@
+---
+title: CentOS 7下安装CUDA 10.2
+categories: deep-learning
+date: 2019-11-28
+---
+
 ## 更新历史
 
 - 2020-05-19
+  - CUDA:  [v10.2.89](https://docs.nvidia.com/cuda/index.html) 
+  - cuDNN:  10.2
 - 2019-11-28
   - CUDA:  [v10.2.89](https://docs.nvidia.com/cuda/index.html) 
   - cuDNN:  10.2
@@ -224,9 +232,9 @@ sudo yum update
 
 ### 修复vncserver
 
-不一定会产生。
+如果发生vncserver不能工作，可以尝试下面的方法。
 
-如果你使用vncserver进行远程桌面连接centos，安装完nvidia驱动后，可能vncserver不能工作。其大概原因是默认的gnome和显卡驱动中opengl不兼容。所以只要在vncserver中使用另外一个桌面Xfce。
+如果使用vncserver进行远程桌面连接centos，当安装完nvidia驱动后，可能vncserver不能工作。其大概原因是默认的gnome和显卡驱动中opengl不兼容。所以只要在vncserver中使用另外一个桌面Xfce。
 
    ~~~
 sudo yum groupinstall "Xfce" -y

@@ -2,23 +2,24 @@
 
 ## 1. 日常工作
 
-### 发布
+### 发布blog
 
-1. 编写blog，把blog提交到github下_posts目录。
+~~~shell
+cd ~/eipi10/xuxiangwen.github.io
+_bin/publish.sh _notes/00-env/cuda_cudnn.md
+~~~
 
-2. 发布blog。
-
-   ~~~
-   cd ~/eipi10/xuxiangwen.github.io
-   _bin/publish.sh
-   ~~~
+> publish.sh 可以指定两个参数。
+>
+> - 发布的文件或目录：一般指定具体文件。
+> - 发布的消息：如果为空，默认是publish blogs
 
 ### 本地开发和测试
 
 ~~~shell
 cd ~/eipi10/xuxiangwen.github.io
 git pull
-_bin/generate.sh _posts
+_bin/generate.sh _notes/00-env/cuda_cudnn.md
 _bin/start.sh
 ~~~
 
@@ -191,7 +192,7 @@ cat << EOF >> _includes/head.html
 EOF
 ~~~
 
-#### 
+
 
 ### 2.2 安装
 
@@ -242,5 +243,5 @@ _bin/generate.sh _posts/vector-and-matrix.md
 6. 在`{{`中间插入一个换行符，避免被Jekyll识别为Liquid。
 7. 把图片从markdown文件所在目录的`images`中拷贝到`/assets/images`目录中去。
 
-### 
+
 

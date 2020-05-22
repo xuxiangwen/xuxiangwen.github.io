@@ -95,7 +95,7 @@ $$
 > \sin(\omega nx)  = - \frac {\mathbf i} 2 ({e^{\mathbf i 2\pi f_0 nx} - e^{-\mathbf i 2\pi f_0 nx}} )     \\
 > \cos(\omega nx) =    \frac 1 2 ({e^{\mathbf i 2\pi f_0 nx} + e^{-\mathbf i 2\pi f_0 nx}} )
 > $$
-> ​		$f_0$在公式中代表的是基频，其它频率都是它真的整数倍。
+> ​		$f_0$在公式中代表的是基频，其它频率都是它的整数倍。
 
 同时更新$f(x), a_n, b_n$如下：
 $$
