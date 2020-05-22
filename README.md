@@ -23,10 +23,9 @@ _bin/generate.sh _notes/00-env/centos_cuda_cudnn.md
 _bin/start.sh
 ~~~
 
-
 ### Google Analytics
 
-https://analytics.google.com/
+https://analytics.google.com/。可以查询获取网站的访问历史。
 
 ## 2. 部署
 
@@ -63,6 +62,9 @@ gitalk_owner: xuxiangwen
 EOF
 
 ~~~
+
+- Google Analysis的配置，参见[ekyll 网站添加访问量统计分析](https://shen.bioinit.com/topic/life/2019-06-03-jekyll-add-page-view/)
+- gitalk的配置，参见[Add Gitalk to Your Jekyll Blog](https://aerolith.ink/2018/08/25/Gitalk/)
 
 #### 2.12 Gemfile
 
@@ -227,7 +229,7 @@ bundle update
 每一篇markdown文件，然后通过下面命令进行生成。
 
 ~~~
-# 重新生成所有的发布文件
+# 指定目录生成所有发布文件
 _bin/generate.sh _posts     
 # 指定文件生成发布文件
 _bin/generate.sh _posts/vector-and-matrix.md
@@ -242,6 +244,13 @@ _bin/generate.sh _posts/vector-and-matrix.md
 5. 把单个`$`换成`$$`。一个`$`在github pages中，对于其中换行符号`\\`会变成`\`，`$$`可以正常显示。
 6. 在`{{`中间插入一个换行符，避免被Jekyll识别为Liquid。
 7. 把图片从markdown文件所在目录的`images`中拷贝到`/assets/images`目录中去。
+8. 把原始文件路径添加到description中，便于查找。‘’‘’
+
+
+
+
+
+
 
 
 
