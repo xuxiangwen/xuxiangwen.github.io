@@ -21,9 +21,9 @@ _bin/generate.sh _notes/00-env/centos_cuda_cudnn.md
 _bin/start.sh
 ~~~
 
-### Google Analytics
+### [Google Analytics](https://analytics.google.com/)
 
-https://analytics.google.com/。可以查询获取网站的访问历史。
+可以查询获取网站的访问历史。
 
 ## 2. 部署
 
@@ -236,13 +236,22 @@ _bin/generate.sh _posts/vector-and-matrix.md
 上面命令主要做了：
 
 1. 从要发布的markdown文件的front matter中获取日期，然后复制文件，新的文件名是`<日期>-<原文件名>`
+
 2. 删除之前发布的文件
+
 3. 把文件中图片的相对路径由`images`改成`/assets/images`
+
 4. 把`$$`前后各添加一个换行符。在typora中，如果`$$`是一行的开始，是默认居中，而在github pages中默认显示的是和文本混合在一起（inline mode），在前后添加换行符后，解决这个问题。
+
 5. 把单个`$`换成`$$`。一个`$`在github pages中，对于其中换行符号`\\`会变成`\`，`$$`可以正常显示。
+
 6. 在`{{`中间插入一个换行符，避免被Jekyll识别为Liquid。
+
 7. 把图片从markdown文件所在目录的`images`中拷贝到`/assets/images`目录中去。
-8. 把原始文件路径添加到description中，便于查找。‘’‘’
+
+8. 把原始文件路径添加到生成中的blog中，便于查找其来源。
+
+   ![image-20200522142557255](images/image-20200522142557255.png)
 
 
 
