@@ -1,5 +1,3 @@
-05	
-
 ## 1. 日常工作
 
 ### 发布blog
@@ -33,7 +31,7 @@ https://analytics.google.com/。可以查询获取网站的访问历史。
 
 #### 2.11 _config.yml
 
-~~~
+~~~shell
 cat << EOF > _config.yml
 title: Weclome to eipi10
 description: stay hungry, stay foolish
@@ -68,7 +66,7 @@ EOF
 
 #### 2.12 Gemfile
 
-~~~
+~~~shell
 cat << EOF >> Gemfile
 # frozen_string_literal: true
 
@@ -92,7 +90,7 @@ cat Gemfile
 
 在 `@import` 后面添加自定义的 CSS (or Sass, including imports)
 
-~~~
+~~~shell
 mkdir -p assets/css
 cat << EOF > assets/css/style.scss
 ---
@@ -157,7 +155,7 @@ EOF
 
 > *Note: If you'd like to change the theme's Sass variables, you must set new values before the `@import` line in your stylesheet.*
 
-~~~
+~~~shell
 body {
   background: white; }
 aside#sidebar {
@@ -169,7 +167,7 @@ aside#sidebar {
 
 为了更好的展现效果，需要自定义layout，下面代码从原来的theme中下载layout。
 
-~~~
+~~~shell
 mkdir -p _layouts
 wget https://raw.githubusercontent.com/pages-themes/architect/master/_layouts/default.html -P _layouts
 ~~~
@@ -178,7 +176,7 @@ wget https://raw.githubusercontent.com/pages-themes/architect/master/_layouts/de
 
 默认情况下，不支持Latex（也就是解释\$\$或\$）。
 
-~~~
+~~~shell
 mkdir -p _includes
 cat << EOF >> _includes/head.html
 <script type="text/x-mathjax-config">
@@ -214,13 +212,13 @@ EOF
 
 第一次
 
-~~~
+~~~shell
 bundle install
 ~~~
 
 更新
 
-~~~
+~~~shell
 bundle update
 ~~~
 
@@ -228,7 +226,7 @@ bundle update
 
 每一篇markdown文件，然后通过下面命令进行生成。
 
-~~~
+~~~shell
 # 指定目录生成所有发布文件
 _bin/generate.sh _posts     
 # 指定文件生成发布文件
