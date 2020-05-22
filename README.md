@@ -6,7 +6,7 @@
 
 ~~~shell
 cd ~/eipi10/xuxiangwen.github.io
-_bin/publish.sh _notes/00-env/cuda_cudnn.md
+_bin/publish.sh _notes/00-env/centos_cuda_cudnn.md
 ~~~
 
 > publish.sh 可以指定两个参数。
@@ -19,7 +19,7 @@ _bin/publish.sh _notes/00-env/cuda_cudnn.md
 ~~~shell
 cd ~/eipi10/xuxiangwen.github.io
 git pull
-_bin/generate.sh _notes/00-env/cuda_cudnn.md
+_bin/generate.sh _notes/00-env/centos_cuda_cudnn.md
 _bin/start.sh
 ~~~
 
