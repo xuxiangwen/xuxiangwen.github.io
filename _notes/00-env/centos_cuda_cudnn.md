@@ -4,17 +4,6 @@ categories: deep-learning
 date: 2019-11-28
 ---
 
-## 更新历史
-
-- 2020-05-19
-  - CUDA:  [v10.2.89](https://docs.nvidia.com/cuda/index.html) 
-  - cuDNN:  10.2
-- 2019-11-28
-  - CUDA:  [v10.2.89](https://docs.nvidia.com/cuda/index.html) 
-  - cuDNN:  10.2
-
-## 前言
-
 本文将详述centos7环境下如何安装nvidia GPU driver, CUDA和cuDNN。这应该是第n次更新安装它们啦，总体上步骤没有太大变化，只是软件的版本有一些改变。和网上类似文章相比，本文中所有的shell命令都可以直接执行，不需要手工去修改文件，所以更加方便。下面看看要安装的内容：
 
 - **nvidia GPU driver**：英伟达公司显卡驱动。要安装CUDA， cuDNN，这是必要的。
@@ -254,3 +243,11 @@ vncserver :1
 - [cuDNN安装向导](https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html )
 - [How to Install and Configure VNC Server on CentOS 7](https://vitux.com/centos-vnc-server/)
 
+## 更新历史
+
+- 2020-05-19: 安装nvida显卡驱动修改了脚本
+  - CUDA:  [v10.2.89](https://docs.nvidia.com/cuda/index.html) 
+  - cuDNN:  10.2
+- 2019-11-28
+  - CUDA:  [v10.2.89](https://docs.nvidia.com/cuda/index.html) 
+  - cuDNN:  10.2
