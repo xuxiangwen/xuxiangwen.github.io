@@ -522,25 +522,18 @@ $$
     
     - 线性方程组
 
-    $$
+        $$
 
-  \mathbf Q\mathcal F(n) = f(x)
-
-    $$
-
-    
-
-    $$
-
-    \begin{align}
-          \mathcal F(n) &= \mathbf {(Q^{*}Q)^{-1}Q^{*}}f(x)  \\
-          \mathcal F(n) &= \frac 1 T   \mathbf {Q^{*}}f(x)
+        \begin{align}
+        \mathbf Q\mathcal F(n) &= f(x) \\
+        \mathcal F(n) &= \mathbf {(Q^{*}Q)^{-1}Q^{*}}f(x)  \\
+        \mathcal F(n) &= \frac 1 T   \mathbf {Q^{*}}f(x)
         \end{align}
 
-    $$
+        $$
 
     
-      > 从形式上来说，上面的数学公式，甚为简单优美。
+        > 从形式上来说，上面的数学公式，甚为简单优美。
 
 ## 参考
 
