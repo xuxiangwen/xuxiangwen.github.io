@@ -15,9 +15,9 @@ $script_path/generate.sh $publish_path
 echo ===========================================================
 echo push to github
 echo git add $publish_path
-if [ -d "$file_or_folder" ]; then
+if [ -d "$publish_path" ]; then
   git add $publish_path/*
-elif [ -f "$file_or_folder" ]; then
+elif [ -f "$publish_path" ]; then
   git add $publish_path
 fi
 
