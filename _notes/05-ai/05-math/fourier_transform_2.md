@@ -243,7 +243,7 @@ $$
             \frac 1 2 & 
             \cos(\frac {2\pi x} {T}) & \cos(\frac {4\pi x} {T}) & \cdots  & 
             \sin(\frac {2\pi x} {T})  & 
-            \sin(\frac {4\pi x} {T}) & \cdots ) 
+            \sin(\frac {4\pi x} {T}) & \cdots  
           \end{bmatrix}
           $$
           
@@ -345,7 +345,7 @@ $$
         $$
         由于$\mathbf Q$是一个复数矩阵，不难得到
         $$
-        \mathbf Q^* \mathbf Q =  T \mathbf \cdot {I}
+        \mathbf Q^* \mathbf Q =  T   \mathbf {I}
         $$
         $\mathbf {I}$是单位矩阵，$\mathbf Q^* $表示[共轭转置](https://zh.wikipedia.org/wiki/%E5%85%B1%E8%BD%AD%E8%BD%AC%E7%BD%AE)，即
         $$
@@ -360,28 +360,30 @@ $$
           e^{-\mathbf i {\omega 2x} } & 
           \cdots & 
           e^{-\mathbf i {\omega nx}  }& \cdots
-        \end{bmatrix}^T
+        \end{bmatrix}^{\mathbf T}
         $$
   
+        > 上面$\mathbf T $表示转置。
+        
     - 向量
       $$
         \mathcal F(n) = \begin{bmatrix}
            \cdots & c_{-n} & \cdots & c_{-2} &  c_{-1}  &  c_0 & c_1 & c_2  & \cdots &  c_n & \cdots
             \end{bmatrix}
-        $$
+      $$
     
     - 线性方程组
     $$
-    \mathbf Q\mathcal F(n) = f(x)
-      $$
-  
-      $$
+  \mathbf Q\mathcal F(n) = f(x)
+    $$
+    
+    $$
     \begin{align}
-          \mathcal F(n) &= \mathbf {(Q^{T}Q)^{-1}Q^{*}}f(x)  \\
+          \mathcal F(n) &= \mathbf {(Q^{*}Q)^{-1}Q^{*}}f(x)  \\
           \mathcal F(n) &= \frac 1 T   \mathbf {Q^{*}}f(x)
-          \end{align}
-      $$
-  
+        \end{align}
+    $$
+    
       > 从形式上来说，上面的数学公式，甚为简单优美。
 
 ## 参考
