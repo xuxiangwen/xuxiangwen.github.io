@@ -57,7 +57,7 @@ $$
 $$
 \sum_{n=0}^{N} A_n e^{\mathbf i(\frac 1 {T} {2\pi nx}  + \phi_n)}
 $$
-其中$\phi_0=\frac \pi 2$。这样公式更加简明了，$f(x)$的本质是复平面多个匀速圆周运动（除了$n=0$，它代表静止一个点）的叠加，的确具有更加直观的几何意义了，傅里叶爵士的猜想得到了验证。
+其中$\phi_0=\frac \pi 2$。这样公式更加简明了，$f(x)$的本质是复平面多个匀速圆周运动（当$n=0$，它代表静止一个点）的叠加，的确具有更加直观的几何意义了，傅里叶爵士的猜想得到了验证。
 
 > 上面的验证只是直观上的，还缺乏数学上更加严格的验证，但对于我们理解傅里叶级数，是够用的啦。
 
@@ -165,9 +165,9 @@ $$
 
 > 可以很容易发现，上面$f(x)$公式中$c_n \cdot e^{\mathbf i\omega nx} $和$c_{-n} \cdot e^{-\mathbf i\omega nx} $是关于实数轴对称的，这是因为：
 >
-> - $e^{\mathbf i\omega nx}$和$e^{-\mathbf i\omega nx} $是关于实数轴对称的
+> - $e^{\mathbf i\omega nx}$和$e^{-\mathbf i\omega nx} $是关于实数轴对称的，即[共轭](https://zh.wikipedia.org/zh-hans/%E5%85%B1%E8%BD%AD)。
 >
-> - $c_n$ 和 $c_{-n}$ 是关于实数轴对称的（也就是共轭复数），即
+> - $c_n$ 和 $c_{-n}$ 是关于实数轴对称的（也就是共轭），即
 >
 >   $c_n= \frac 1 T \int_{x_0}^{x_0+T} f(x) e^{-\mathbf i\omega nx} dx$和$c_{-n}= \frac 1 T \int_{x_0}^{x_0+T} f(x) e^{\mathbf i\omega nx} dx$是关于实数轴对称的
 >
@@ -239,7 +239,7 @@ $$
 
         - 基
           $$
-          \mathbf P =\begin{bmatrix}
+          \mathbf Q =\begin{bmatrix}
             \frac 1 2 & 
             \cos(\frac {2\pi x} {T}) & \cos(\frac {4\pi x} {T}) & \cdots  & 
             \sin(\frac {2\pi x} {T})  & 
@@ -249,7 +249,7 @@ $$
           
           向量之间两两正交，但并不是正交矩阵（向量的模不为1）
           $$
-          \mathbf {P^{T}}  \mathbf P =
+          \mathbf {Q^{T}}  \mathbf Q =
           \begin{bmatrix} 
           \frac T 4 & 0 & \cdots & 0 \\
           0 & \frac T 2  & \cdots  &0 \\
@@ -260,21 +260,21 @@ $$
 
         - 向量
           $$
-          d = \begin{bmatrix}
+          \mathcal F(n) = \begin{bmatrix}
                 a_0 & a_1 & a_2  & \cdots &  a_n & \cdots & b_1 & b_2 & \cdots &  b_n & \cdots
               \end{bmatrix}
           $$
           
         - 线性方程组
           $$
-          \mathbf Pd = f(x)
+          \mathbf Q\mathcal F(n) = f(x)
           $$
 
     - 正弦函数的组合
 
         - 基
           $$
-            P = \begin{bmatrix}
+          \mathbf Q = \begin{bmatrix}
                   1 & 
                   \sin(\frac {2\pi x} {T}+\phi_1)  & 
                   \sin(\frac {4\pi x} {T}+\phi_2) & \cdots & \sin(\frac {2n\pi x} {T}+\phi_n)  & \cdots
@@ -282,7 +282,7 @@ $$
           $$
             向量之间两两正交，但并不是正交矩阵（向量的模不为1）
           $$
-          \mathbf {P^{T}}  \mathbf P =
+          \mathbf {Q^{T}}  \mathbf Q =
             \begin{bmatrix} 
             T & 0 & \cdots & 0 \\
             0 & \frac T 2  & \cdots  &0 \\
@@ -293,14 +293,15 @@ $$
           
         - 向量
           $$
-            \begin{bmatrix}
-            d =A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
+          \mathcal F(n) =
+          \begin{bmatrix}
+            A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
             \end{bmatrix}
           $$
           
         - 线性方程组
             $$
-            \mathbf Pd = f(x)
+            \mathbf Q\mathcal F(n) = f(x)
             $$
 
 - 复数三维空间
@@ -309,7 +310,7 @@ $$
 
     - 基
       $$
-      \mathbf P = \begin{bmatrix}
+      \mathbf Q = \begin{bmatrix}
       1 & 
         e^{\mathbf i( {\omega x}  + \phi_1)}  & 
         e^{\mathbf i( {\omega 2x}  + \phi_2)} & 
@@ -317,83 +318,71 @@ $$
         e^{\mathbf i( {\omega nx}  + \phi_n)}) & \cdots
       \end{bmatrix}
       $$
-      向量之间两两正交，但并不是正交矩阵（向量的模不为1）
-      $$
-      \mathbf {P^{T}}  \mathbf P =
-      \begin{bmatrix} 
-      T & 0 & \cdots & 0 \\
-      0 & \frac T 2  & \cdots  &0 \\
-      0 & 0 & \ddots   &  \vdots \\
-      0    &0 & \cdots & \frac T 2 \\
-      \end{bmatrix}
-      $$
-    
+      
     - 向量
       $$
-      d =  \begin{bmatrix}
+      \mathcal F(n)=  \begin{bmatrix}
           A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
           \end{bmatrix}
       $$
   
   - 匀速圆周运动组合
-
+  
     - 基
         $$
-        P = \begin{bmatrix}
+        \mathbf Q = \begin{bmatrix}
         \cdots &
           e^{-\mathbf i {\omega nx}  }
           \cdots & 
           e^{-\mathbf i {\omega 2x} } & 
            e^{-\mathbf i {\omega x}  }  & 
           1 & 
-          e^{\mathbf i {\omega x}  }  & 
+        e^{\mathbf i {\omega x}  }  & 
           e^{\mathbf i {\omega 2x} } & 
           \cdots & 
           e^{\mathbf i {\omega nx}  }& \cdots
         \end{bmatrix}
         $$
-        设
+        由于$\mathbf Q$是一个复数矩阵，不难得到
         $$
-        \mathbf {J} = \begin{bmatrix} 
-          0 & 0  & \dots & 0 & 1  \\
-          0 & \ddots  & 0 & 1  & 0  \\
-          \vdots & 0  & 1  & 0 &  \vdots  \\
-          0 & 1   & 0 & \ddots & 0  \\
-        1  & 0  & \cdots & 0 & 0  \\
-          \end{bmatrix}
+        \mathbf Q^* \mathbf Q =  T \mathbf \cdot {I}
         $$
-        $\mathbf J $斜对角线为$1$，其它为$0$，称之为[反对角单位矩阵](https://en.wikipedia.org/wiki/Anti-diagonal_matrix) （Anti-diagonal Identity matrix）它的变换是对向量进行上下翻转，它非常像单位矩阵。
+        $\mathbf {I}$是单位矩阵，$\mathbf Q^* $表示[共轭转置](https://zh.wikipedia.org/wiki/%E5%85%B1%E8%BD%AD%E8%BD%AC%E7%BD%AE)，即
         $$
-        \mathbf {J}  = \mathbf {J^T}  = \mathbf {J^{-1}}  \\
-          \mathbf {J}  \cdot \mathbf {J} = \mathbf {I}
+        \mathbf Q^* = \begin{bmatrix}
+        \cdots &
+          e^{\mathbf i {\omega nx}  }
+          \cdots & 
+          e^{\mathbf i {\omega 2x} } & 
+           e^{\mathbf i {\omega x}  }  & 
+          1 & 
+          e^{-\mathbf i {\omega x}  }  & 
+          e^{-\mathbf i {\omega 2x} } & 
+          \cdots & 
+          e^{-\mathbf i {\omega nx}  }& \cdots
+        \end{bmatrix}^T
         $$
-        则：
-        $$
-        \mathbf {P^T} \mathbf P =  \frac 1 T J
-        $$
-
-      > 关于反对角矩阵的特征值，可以参见[反对角矩阵的特征值](https://ccjou.wordpress.com/2016/05/16/%E5%8F%8D%E5%B0%8D%E8%A7%92%E7%9F%A9%E9%99%A3%E7%9A%84%E7%89%B9%E5%BE%B5%E5%80%BC/)
-
+  
     - 向量
-        $$
-        d = \begin{bmatrix}
+      $$
+        \mathcal F(n) = \begin{bmatrix}
            \cdots & c_{-n} & \cdots & c_{-2} &  c_{-1}  &  c_0 & c_1 & c_2  & \cdots &  c_n & \cdots
             \end{bmatrix}
         $$
-
+    
     - 线性方程组
+    $$
+    \mathbf Q\mathcal F(n) = f(x)
       $$
-        \mathbf Pd = f(x)
+  
       $$
-
-      $$
-      \begin{align}
-          d &= \mathbf {(P^{T}P)^{-1}P^{T}}f(x)  \\
-          d &= \frac 1 T \mathbf J  \mathbf {P^{T}}f(x)
+    \begin{align}
+          \mathcal F(n) &= \mathbf {(Q^{T}Q)^{-1}Q^{*}}f(x)  \\
+          \mathcal F(n) &= \frac 1 T   \mathbf {Q^{*}}f(x)
           \end{align}
       $$
-
-      > 从形式上来说，最后方式的数学公式，最为简单优美。
+  
+      > 从形式上来说，上面的数学公式，甚为简单优美。
 
 ## 参考
 

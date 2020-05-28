@@ -11,9 +11,7 @@ date: 2020-04-19
 ## 欧拉公式
 
 $$
-
 e^{\mathbf i \theta} = \cos \theta+ \mathbf i \sin \theta
-
 $$
 
 在[理解欧拉公式](https://eipi10.cn/mathematics/2020/04/14/euler_formula/)一文中谈到，欧拉公式体现的是一种复平面的圆周运动。
@@ -27,25 +25,21 @@ $$
 上面的四行图，对应的函数分别是：
 
 $$
-
 \begin{align}
 y &= \frac {4\sin \theta } \pi  \\
 y &= \frac {4\sin \theta } \pi + \frac {4\sin {3\theta} } {3\pi} \\
 y &= \frac {4\sin \theta } \pi + \frac {4\sin {3\theta} } {3\pi} + \frac {4\sin {5\theta} } {5\pi} \\
 y &= \frac {4\sin \theta } \pi + \frac {4\sin {3\theta} } {3\pi} + \frac {4\sin {5\theta} } {5\pi} + \frac {4\sin {7\theta} } {7\pi}
 \end{align}
-
 $$
 
 而上面四行对应的复平面上的函数是：
 
 $$
-
 \frac 4 \pi e^{\mathbf i \theta} \\
 \frac 4 \pi e^{\mathbf i \theta} + \frac 4 {3\pi} e^{\mathbf i 3\theta} \\
 \frac 4 \pi e^{\mathbf i \theta} + \frac 4 {3\pi} e^{\mathbf i 3\theta} + \frac 4 {5\pi} e^{\mathbf i 5\theta} \\
 \frac 4 \pi e^{\mathbf i \theta} + \frac 4 {3\pi} e^{\mathbf i 3\theta} + \frac 4 {5\pi} e^{\mathbf i 5\theta} + \frac 4 {7\pi} e^{\mathbf i 7\theta}
-
 $$
 
 可以看到，在复平面组合不同的（周期和振幅不同）圆周运动在时间轴(也称为时域)上投影可以呈现非常丰富的图形。下面是更加牛逼的例子。比如模拟心电图。
@@ -59,27 +53,21 @@ $$
 通过上面的例子我们可以得出：**复杂的周期函数其本质是复平面上多个匀速圆周运动的组合**。再回顾一下上节得到的公式。
 
 $$
-
 \begin{align}
 f(x) =  {A_0}  + \sum_{n=1}^{N} A_n\sin(\frac {2\pi nx} {T} + \phi_n)  \\
 \end{align}
-
 $$
 
 如果把$f(x)$看出是复平面在虚数轴的投影，可以轻易的推出$f(x)$在复平面对应的函数。
 
 $$
-
 \mathbf i  {A_0} + \sum_{n=1}^{N} A_n e^{\mathbf i(\frac 1 {T} {2\pi nx}  + \phi_n)}
-
 $$
 
 进一步
 
 $$
-
 \sum_{n=0}^{N} A_n e^{\mathbf i(\frac 1 {T} {2\pi nx}  + \phi_n)}
-
 $$
 
 其中$\phi_0=\frac \pi 2$。这样公式更加简明了，$f(x)$的本质是复平面多个匀速圆周运动（除了$n=0$，它代表静止一个点）的叠加，的确具有更加直观的几何意义了，傅里叶爵士的猜想得到了验证。
@@ -91,32 +79,24 @@ $$
 上一节，我们把 $ f(x) $看成是复平面（多个匀速圆周）组合运动在虚数轴的投影。其实还可以根据欧拉公式，把复平面的运动直接对应到$f(x)$。下面是欧拉公式。
 
 $$
-
 e^{\mathbf i \theta} = \cos \theta+ \mathbf i \sin \theta
-
 $$
 
 可以推出
 
 $$
-
 \sin \theta = \frac {e^{\mathbf i \theta} - e^{-\mathbf i \theta}} {2\mathbf i}  = -\mathbf i\frac {e^{\mathbf i \theta} - e^{-\mathbf i \theta}} {2} \\
 \cos \theta = \frac {e^{\mathbf i \theta} + e^{-\mathbf i \theta}} {2 }
-
 $$
 
 进一步，设$\omega= \frac {2\pi} T $，$\omega$指角速度，匀速圆周运动$2\pi$ 角度，刚好是一个$T$。
 
 $$
-
 \sin(\omega nx)  = - \frac {\mathbf i} 2 ({e^{\mathbf i \omega nx} - e^{-\mathbf i \omega nx}} )    \tag 1
-
 $$
 
 $$
-
 \cos(\omega nx) =    \frac 1 2 ({e^{\mathbf i \omega nx} + e^{-\mathbf i \omega nx}} )    \tag 2
-
 $$
 
 > 引入角速度的原因之一是，使得公式看上去清晰一些，否则，公式里符号太小了，几乎看不清楚。还可以有其它的转换。比如：
@@ -138,27 +118,20 @@ $$
 同时更新$f(x), a_n, b_n$如下：
 
 $$
-
 f(x) = \frac {a_0} 2 + \sum_{n=1}^{N} \left( a_n\cos(\omega nx) +  b_n\sin(\omega nx)\right )  \tag 3 
-
 $$
 
 $$
-
 a_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\cos(\omega nx)  dx \tag 4
-
 $$
 
 $$
-
 b_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\sin(\omega nx)  dx \tag 5
-
 $$
 
 把公式$(1),(2)$带入等式$(3)$。
 
 $$
-
 \begin{align}
 f(x) &=  \frac {a_0} 2 + \sum_{n=1}^{N} \left(
 \frac {a_n} {2 } ({e^{\mathbf i \omega nx} + e^{-\mathbf i \omega nx}} )
@@ -169,36 +142,30 @@ f(x) &=  \frac {a_0} 2 + \sum_{n=1}^{N} \left(
 \frac {a_n+\mathbf i b_n} 2 e^{-\mathbf i \omega nx}
 \right )   \tag 6
 \end{align}
-
 $$
 
 下面计算$\frac {a_n-\mathbf i b_n} 2$和$ \frac {a_n+\mathbf i b_n} 2$
 
 $$
-
 \begin{align}
 \frac {a_n-\mathbf i b_n} 2 &= \frac 1 T \left ( \int_{x_0}^{x_0+T} f(x)\cos(\omega nx)  dx  - \mathbf i \int_{x_0}^{x_0+T} f(x)\sin(\omega nx)  dx \right  ) \\
 &= \frac 1 T \int_{x_0}^{x_0+T} f(x) \left ( \cos(-\omega nx) + \mathbf i \sin(-\omega nx)  \right ) dx \\
 &= \frac 1 T \int_{x_0}^{x_0+T} f(x) e^{-\mathbf i\omega nx} dx  \tag 7
 \end{align}
-
 $$
 
 同理可以计算。
 
 $$
-
 \begin{align}
 \frac {a_n+\mathbf i b_n} 2 &= 
 &= \frac 1 T \int_{x_0}^{x_0+T} f(x) e^{\mathbf i\omega nx} dx  \tag 8
 \end{align}
-
 $$
 
 把公式$(4),(5),(7),(8)$都带入等式$(6)$。
 
 $$
-
 \begin{align}
 f(x) =
 & \frac 1 T \int_{x_0}^{x_0+T} f(x) dx + \\
@@ -210,15 +177,12 @@ f(x)= &\frac 1 T  \sum_{n=0}^{0}  \int_{x_0}^{x_0+T} f(x)e^{-\mathbf i\omega nx}
 \\
 f(x) =& \frac 1 T  \sum_{n=-N}^{N} \int_{x_0}^{x_0+T} f(x) e^{-\mathbf i\omega nx} dx \cdot e^{\mathbf i\omega nx}
 \end{align}
-
 $$
 
 再进行一步简化
 
 $$
-
 f(x) =  \sum_{n=-N}^{N} c_n \cdot e^{\mathbf i\omega nx}
-
 $$
 
 其中$c_n= \frac 1 T \int_{x_0}^{x_0+T} f(x) e^{-\mathbf i\omega nx} dx$，称之为复振幅。可以按照下面的顺序来理解这一概念。
@@ -249,80 +213,63 @@ $$
   - 正弦+余弦函数的组合
 
     $$
-
-    f(x) = \frac {a_0} 2 + \sum_{n=1}^{N} \left( a_n\cos(\frac {2\pi nx} {T}) +  b_n\sin(\frac {2\pi nx} {T})\right )
-
+f(x) = \frac {a_0} 2 + \sum_{n=1}^{N} \left( a_n\cos(\frac {2\pi nx} {T}) +  b_n\sin(\frac {2\pi nx} {T})\right )
     $$
 
     
-    其中：
+其中：
     
-
+    
     $$
-
-    a_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\cos(\frac {2\pi nx} {T})  dx \\
+a_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\cos(\frac {2\pi nx} {T})  dx \\
     b_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\sin(\frac {2\pi nx} {T})  dx
-
-    $$
-
+$$
+    
   - 正弦函数的组合
 
     $$
-
-    \begin{align}
+\begin{align}
     f(x) =   \sum_{n=0}^{N} A_n\sin(\frac {2\pi nx} {T} + \phi_n)  \\
-    \end{align}
-
+  \end{align}
     $$
 
     
-    其中：
+  其中：
     
-
+  
     $$
-
-    A_0=\frac {a_0} 2, \phi_0=\frac \pi 2 \\  A_n = \sqrt {a_n^2 + b_n^2}, \\ {A_n}\sin(\phi_n) =  {a_n} , \ {A_n}\cos(\phi_n) = {b_n}
-
+A_0=\frac {a_0} 2, \phi_0=\frac \pi 2 \\  A_n = \sqrt {a_n^2 + b_n^2}, \\ {A_n}\sin(\phi_n) =  {a_n} , \ {A_n}\cos(\phi_n) = {b_n}
     $$
-
   
 - 复数三维空间（复平面+时间轴）
 
   - 匀速圆周运动组合的投影：三维等轴螺旋线的叠加（下面公式）在虚数轴和时间轴的投影
 
     $$
-
-    \sum_{n=0}^{N} A_n e^{\mathbf i( {\omega nx}  + \phi_n)}
-
+\sum_{n=0}^{N} A_n e^{\mathbf i( {\omega nx}  + \phi_n)}
     $$
 
     其中：
 
     $$
-
-    A_0=\frac {a_0} 2, \phi_0=\frac \pi 2 \\  A_n = \sqrt {a_n^2 + b_n^2}, \\ {A_n}\sin(\phi_n) =  {a_n} , \ {A_n}\cos(\phi_n) = {b_n} \\
+A_0=\frac {a_0} 2, \phi_0=\frac \pi 2 \\  A_n = \sqrt {a_n^2 + b_n^2}, \\ {A_n}\sin(\phi_n) =  {a_n} , \ {A_n}\cos(\phi_n) = {b_n} \\
     \omega= \frac {2\pi} T
-
-    $$
-
+$$
+    
   - 匀速圆周运动组合：三维等轴螺旋线的叠加
 
     $$
-
-    f(x) =  \sum_{n=-N}^{N} c_n \cdot e^{\mathbf i\omega nx}
-
+f(x) =  \sum_{n=-N}^{N} c_n \cdot e^{\mathbf i\omega nx}
     $$
 
     其中：
 
     $$
-
-    c_n= \frac 1 T \int_{x_0}^{x_0+T} f(x) e^{-\mathbf i\omega nx} dx \\
+c_n= \frac 1 T \int_{x_0}^{x_0+T} f(x) e^{-\mathbf i\omega nx} dx \\
     \omega= \frac {2\pi} T
-
-    $$
-
+$$
     
+  
 
 > 上面的公式虽然形式不相同，但其共同点是，设定一组基（向量之间两两正交），然后把周期函数，看成是基上的一个向量，这些基，是由各种函数构成的。在欧几里得空间里，向量是实数，在酉空间里，向量扩展到复数，而在希尔伯特空间里，向量被扩展到了函数。在傅里叶级数中，周期函数变成了一个向量，非常简单，而它的核心变化主要体现在基的变化上，不得不再次佩服数学化繁为简的奇妙。
 
@@ -335,98 +282,79 @@ $$
         - 基
 
           $$
-
-          \mathbf P =\begin{bmatrix}
+\mathbf P =\begin{bmatrix}
             \frac 1 2 & 
             \cos(\frac {2\pi x} {T}) & \cos(\frac {4\pi x} {T}) & \cdots  & 
             \sin(\frac {2\pi x} {T})  & 
             \sin(\frac {4\pi x} {T}) & \cdots ) 
           \end{bmatrix}
-
           $$
 
           
-          向量之间两两正交，但并不是正交矩阵（向量的模不为1）
-
+向量之间两两正交，但并不是正交矩阵（向量的模不为1）
+          
           $$
-
-          \mathbf {P^{T}}  \mathbf P =
+\mathbf {P^{T}}  \mathbf P =
           \begin{bmatrix} 
-          \frac T 4 & 0 & \cdots & 0 \\
+\frac T 4 & 0 & \cdots & 0 \\
           0 & \frac T 2  & \cdots  &0 \\
           0 & 0 & \ddots   &  \vdots \\
           0    &0 & \cdots & \frac T 2 \\
           \end{bmatrix}
-
           $$
-
+          
         - 向量
 
           $$
-
-          d = \begin{bmatrix}
+d = \begin{bmatrix}
                 a_0 & a_1 & a_2  & \cdots &  a_n & \cdots & b_1 & b_2 & \cdots &  b_n & \cdots
-              \end{bmatrix}
-
+      \end{bmatrix}
           $$
 
-          
         - 线性方程组
-
+        
           $$
-
-          \mathbf Pd = f(x)
-
+\mathbf Pd = f(x)
           $$
 
     - 正弦函数的组合
-
-        - 基
-
-          $$
-
-            P = \begin{bmatrix}
-                  1 & 
+    
+    - 基
+    
+      $$
+      P = \begin{bmatrix}
+              1 & 
                   \sin(\frac {2\pi x} {T}+\phi_1)  & 
-                  \sin(\frac {4\pi x} {T}+\phi_2) & \cdots & \sin(\frac {2n\pi x} {T}+\phi_n)  & \cdots
+              \sin(\frac {4\pi x} {T}+\phi_2) & \cdots & \sin(\frac {2n\pi x} {T}+\phi_n)  & \cdots
                 \end{bmatrix}
-
-          $$
-
-            向量之间两两正交，但并不是正交矩阵（向量的模不为1）
-
-          $$
-
-          \mathbf {P^{T}}  \mathbf P =
+      $$
+    
+        向量之间两两正交，但并不是正交矩阵（向量的模不为1）
+    
+      $$
+    \mathbf {P^{T}}  \mathbf P =
             \begin{bmatrix} 
-            T & 0 & \cdots & 0 \\
+      T & 0 & \cdots & 0 \\
             0 & \frac T 2  & \cdots  &0 \\
             0 & 0 & \ddots   &  \vdots \\
-            0    &0 & \cdots & \frac T 2 \\
+        0    &0 & \cdots & \frac T 2 \\
             \end{bmatrix}
-
-          $$
-
+      $$
           
-        - 向量
-
-          $$
-
-            \begin{bmatrix}
+    - 向量
+    
+      $$
+      \begin{bmatrix}
             d =A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
             \end{bmatrix}
-
-          $$
-
-          
-        - 线性方程组
-
-            $$
-
-            \mathbf Pd = f(x)
-
-            $$
-
+      $$
+        
+    - 线性方程组
+        
+        $$
+        \mathbf Pd = f(x)
+    $$
+    
 - 复数三维空间
 
   - 匀速圆周运动组合的投影
@@ -434,125 +362,105 @@ $$
     - 基
 
       $$
-
-      \mathbf P = \begin{bmatrix}
+\mathbf P = \begin{bmatrix}
       1 & 
         e^{\mathbf i( {\omega x}  + \phi_1)}  & 
         e^{\mathbf i( {\omega 2x}  + \phi_2)} & 
         \cdots & 
         e^{\mathbf i( {\omega nx}  + \phi_n)}) & \cdots
       \end{bmatrix}
-
       $$
 
       向量之间两两正交，但并不是正交矩阵（向量的模不为1）
 
       $$
-
-      \mathbf {P^{T}}  \mathbf P =
+\mathbf {P^{T}}  \mathbf P =
       \begin{bmatrix} 
-      T & 0 & \cdots & 0 \\
+T & 0 & \cdots & 0 \\
       0 & \frac T 2  & \cdots  &0 \\
       0 & 0 & \ddots   &  \vdots \\
       0    &0 & \cdots & \frac T 2 \\
       \end{bmatrix}
-
       $$
-
     
-    - 向量
-
-      $$
-
-      d =  \begin{bmatrix}
+    
+- 向量
+    
+  $$
+    d =  \begin{bmatrix}
           A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
-          \end{bmatrix}
-
+      \end{bmatrix}
       $$
 
   
   - 匀速圆周运动组合
-
-    - 基
-
-        $$
-
-        P = \begin{bmatrix}
+  
+  - 基
+  
+      $$
+  P = \begin{bmatrix}
         \cdots &
-          e^{-\mathbf i {\omega nx}  }
+        e^{-\mathbf i {\omega nx}  }
           \cdots & 
-          e^{-\mathbf i {\omega 2x} } & 
+        e^{-\mathbf i {\omega 2x} } & 
            e^{-\mathbf i {\omega x}  }  & 
-          1 & 
+        1 & 
           e^{\mathbf i {\omega x}  }  & 
           e^{\mathbf i {\omega 2x} } & 
           \cdots & 
           e^{\mathbf i {\omega nx}  }& \cdots
         \end{bmatrix}
-
         $$
-
+  
         设
-
+  
         $$
-
-        \mathbf {J} = \begin{bmatrix} 
+  \mathbf {J} = \begin{bmatrix} 
           0 & 0  & \dots & 0 & 1  \\
-          0 & \ddots  & 0 & 1  & 0  \\
+  0 & \ddots  & 0 & 1  & 0  \\
           \vdots & 0  & 1  & 0 &  \vdots  \\
-          0 & 1   & 0 & \ddots & 0  \\
+        0 & 1   & 0 & \ddots & 0  \\
         1  & 0  & \cdots & 0 & 0  \\
-          \end{bmatrix}
-
+        \end{bmatrix}
         $$
-
+      
         $\mathbf J $斜对角线为$1$，其它为$0$，称之为[反对角单位矩阵](https://en.wikipedia.org/wiki/Anti-diagonal_matrix) （Anti-diagonal Identity matrix）它的变换是对向量进行上下翻转，它非常像单位矩阵。
-
+  
         $$
-
-        \mathbf {J}  = \mathbf {J^T}  = \mathbf {J^{-1}}  \\
+  \mathbf {J}  = \mathbf {J^T}  = \mathbf {J^{-1}}  \\
           \mathbf {J}  \cdot \mathbf {J} = \mathbf {I}
-
-        $$
-
-        则：
-
-        $$
-
-        \mathbf {P^T} \mathbf P =  \frac 1 T J
-
-        $$
-
+  $$
+        
+则：
+        
+      $$
+  \mathbf {P^T} \mathbf P =  \frac 1 T J
+      $$
+  
       > 关于反对角矩阵的特征值，可以参见[反对角矩阵的特征值](https://ccjou.wordpress.com/2016/05/16/%E5%8F%8D%E5%B0%8D%E8%A7%92%E7%9F%A9%E9%99%A3%E7%9A%84%E7%89%B9%E5%BE%B5%E5%80%BC/)
-
+  
     - 向量
 
         $$
-
-        d = \begin{bmatrix}
+d = \begin{bmatrix}
            \cdots & c_{-n} & \cdots & c_{-2} &  c_{-1}  &  c_0 & c_1 & c_2  & \cdots &  c_n & \cdots
-            \end{bmatrix}
-
+        \end{bmatrix}
         $$
 
     - 线性方程组
 
       $$
-
-        \mathbf Pd = f(x)
-
+  \mathbf Pd = f(x)
       $$
-
+  
       $$
-
-      \begin{align}
+\begin{align}
           d &= \mathbf {(P^{T}P)^{-1}P^{T}}f(x)  \\
-          d &= \frac 1 T \mathbf J  \mathbf {P^{T}}f(x)
+    d &= \frac 1 T \mathbf J  \mathbf {P^{T}}f(x)
           \end{align}
-
-      $$
-
-      > 从形式上来说，最后方式的数学公式，最为简单优美。
+    $$
+      
+  > 从形式上来说，最后方式的数学公式，最为简单优美。
 
 ## 参考
 
