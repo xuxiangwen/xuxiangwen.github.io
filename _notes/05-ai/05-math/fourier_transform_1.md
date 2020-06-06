@@ -256,7 +256,7 @@ $$
 
 ![image-20200518092319108](images/image-20200518092319108.png)
 
-如上图所示，方波周期为$T$，而且是一个奇函数。当$=\frac T 2  \leq x \leq \frac T 2$
+如上图所示，方波周期为$T$，而且是一个奇函数。当$\frac T 2  \leq x \leq \frac T 2$
 $$
 f\left(x\right)=\left\{
 \begin{split}

@@ -153,17 +153,14 @@ sudo yum update
 
    在 [CUDA Download](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=CentOS&target_version=7&target_type=rpmlocal) 选择合适的CUDA版本，选择了rpm（local），将会出现如下安装代码。
 
-   ![image-20191128155025778](images/image-20191128155025778-1576293467804.png)
+   ![image-20200605222838475](images/image-20200605222838475.png)
 
    ~~~shell
-   wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-rhel7-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
-   sudo rpm -i cuda-repo-rhel7-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
-   sudo yum clean all
-   sudo yum -y install nvidia-driver-latest-dkms cuda
-   sudo yum -y install cuda-drivers
+   wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_440.33.01_linux.run
+   sudo sh cuda_10.2.89_440.33.01_linux.run
    ~~~
 
-   > 似乎选择runfile（local) 安装的步骤更少，下次有机会尝试一下。
+   ![image-20200605222752478](images/image-20200605222752478.png)
 
 3. 在.bashrc中添加参数。
 
