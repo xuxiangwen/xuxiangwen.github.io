@@ -21,8 +21,16 @@ pip install virtualenv
 ### 创建一个独立的Python运行环境
 
 ~~~
- virtualenv --no-site-packages venv
+ virtualenv --no-site-packages venv 
 ~~~
+
+或者
+
+~~~shell
+ virtualenv -p /home/grid/eipi10/aa/Python-3.6.10 venv
+~~~
+
+> 指定python版本的位置
 
 命令`virtualenv`就可以创建一个独立的Python运行环境。参数`--no-site-packages`，表示已经安装到系统Python环境中的所有第三方包都不会复制过来，这样，就得到了一个不带任何第三方包的“干净”的Python运行环境。
 

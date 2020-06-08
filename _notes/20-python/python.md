@@ -64,3 +64,16 @@ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 sudo python get-pip.py --no-wheel
 ~~~
 
+### 从源代码安装Python
+
+首先从https://www.python.org/downloads/选择一个版本下载
+
+~~~shell
+tar zvxf Python-3.6.10.tgz
+cd Python-3.6.10
+./configure
+make
+sudo make install
+~~~
+
+> 默认情况下，centos仅仅安装了python2，可以使用上面的方式安装python3，这样对于环境的影响更小。
