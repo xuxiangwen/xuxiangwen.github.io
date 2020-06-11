@@ -1,8 +1,8 @@
 
 
-## Corpora 和 Vector Spaces
+## 核心概念（Core Concepts）
 
-参考[Core Concepts](https://radimrehurek.com/gensim/auto_examples/core/run_core_concepts.html)，[Corpora and Vector Spaces](https://tedboy.github.io/nlps/gensim_tutorial/tut1.html)。
+参考[Core Concepts](https://radimrehurek.com/gensim/auto_examples/core/run_core_concepts.html)，[Corpora and Vector Spaces](https://tedboy.github.io/nlps/gensim_tutorial/tut1.html)，[Topics and Transformations](https://radimrehurek.com/gensim/auto_examples/core/run_topics_and_transformations.html)。
 
 ### 文档（Document）
 
@@ -200,7 +200,9 @@ pprint(bow_corpus)
 
 ### 模型（Model）
 
-模型可以看成是一种转换（transformation），即把语料库的向量空间（vector space）转化为模型所在的向量空间。比如：  [tf-idf](https://en.wikipedia.org/wiki/Tf–idf)。它根据word在语料库中的稀缺性对BOW进行加权。
+在Gensim，把Model看成是一种转换（Transformation），即把语料库的向量空间（vector space）转化为模型所在的向量空间。比如：  [tf-idf](https://en.wikipedia.org/wiki/Tf–idf)。它根据word在语料库中的稀缺性对BOW进行加权。
+
+#### tf-idf
 
 ~~~python
 from gensim import models
@@ -231,7 +233,17 @@ pprint([[(id, round(tfidf, 4))for id, tfidf in doc] for doc in tfidf_corpus])
 
 ![image-20200609095802255](images/image-20200609095802255.png)
 
-除了tf-idf模型，gensim还支持很多其它模型，比如：LSI（[Latent Semantic Indexing](https://en.wikipedia.org/wiki/Latent_semantic_indexing)），RP（[Random Projections](http://www.cis.hut.fi/ella/publications/randproj_kdd.pdf)）, LDA（[Latent Dirichlet Allocation](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation)），HDP（[Hierarchical Dirichlet Process](http://jmlr.csail.mit.edu/proceedings/papers/v15/wang11a/wang11a.pdf)）。
+除了tf-idf模型，gensim还支持很多其它模型，比如：LSI（[Latent Semantic Indexing](https://en.wikipedia.org/wiki/Latent_semantic_indexing)），RP（[Random Projections](http://www.cis.hut.fi/ella/publications/randproj_kdd.pdf)）, LDA（[Latent Dirichlet Allocation](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation)），HDP（[Hierarchical Dirichlet Process](http://jmlr.csail.mit.edu/proceedings/papers/v15/wang11a/wang11a.pdf)）。比如：
+
+~~~shell
+
+~~~
+
+
+
+
+
+#### 相似性（Similarity）
 
 接下来，我们就可以进行相似性比较了。比如，下面使用[SparseMatrixSimilarity](https://tedboy.github.io/nlps/generated/generated/gensim.similarities.SparseMatrixSimilarity.html)，它采用cosine similarity来计算向量之间的相似性。
 
@@ -257,7 +269,10 @@ for document_number, score in sorted(enumerate(sims), key=lambda x: x[1], revers
 
 上面的例子中，语料库被完整的加载到内存中，然后，实际工作中，语料库往往包含几百万甚至更多的文档，没有办法能够一次加载到内存中来，所以必须要采用Streaming的方式来读取数据。下面是一个例子。
 
+首先创建语料库文件。每一行是一篇文档。
+
 ~~~shell
+mkdir -p data
 cat << EOF > data/mycorpus.txt
 Human machine interface for lab abc computer applications
 A survey of user opinion of computer system response time
@@ -269,30 +284,145 @@ The intersection graph of paths in trees
 Graph minors IV Widths of trees and well quasi ordering
 Graph minors A survey
 EOF
-
 ~~~
 
+读取语料库，构建Dictionary。采用Streaming的方式来读取原始语料库文件。
 
+~~~python
+from gensim import corpora
+from six import iteritems
+from smart_open import open # for transparently opening remote files
 
+dictionary = corpora.Dictionary(line.lower().split() for line in open('data/mycorpus.txt'))
 
+stoplist = set('for a of the and to in'.split(' '))
+stop_ids = [dictionary.token2id[stopword] for stopword in stoplist
+            if stopword in dictionary.token2id]
+once_ids = [tokenid for tokenid, docfreq in dictionary.dfs.items() if docfreq == 1]
 
+# 移除stop words,和只出现一次的words
+print("stop_ids =", stop_ids)
+print("once_ids =", once_ids)
+dictionary.filter_tokens(stop_ids + once_ids) 
 
+# remove gaps in id sequence after words that were removed
+dictionary.compactify()  
+print(dictionary)
+~~~
 
+![image-20200609125110444](images/image-20200609125110444.png)
 
+把语料库向量化。每次仅读取一行。
 
+~~~python
+class MyCorpus(object):
+    def __init__(self, file_path='data/mycorpus.txt'):
+        self.file_path = file_path
+    
+    def __len__(self):
+        with open(self.file_path) as f:
+            for i, _ in enumerate(f):
+                pass
+        return i + 1
+    
+    def __iter__(self):
+        for line in open(self.file_path):
+            yield dictionary.doc2bow(line.lower().split())
 
+corpus_memory_friendly = MyCorpus()  # doesn't load the corpus into memory!
+print(corpus_memory_friendly)
+for vector in corpus_memory_friendly:  # load one vector into memory at a time
+    print(vector)  
+~~~
 
+得到和之前相同的corpus。
 
+![image-20200609125418965](images/image-20200609125418965.png)
 
+### Corpus格式
 
+gensim可以serialize语料库，支持多种文件格式，比如：[Market Matrix format](http://math.nist.gov/MatrixMarket/formats.html)，[Joachim’s SVMlight format](http://svmlight.joachims.org/), [Blei’s LDA-C format](https://www.cs.princeton.edu/~blei/lda-c/) ，[GibbsLDA++ format](http://gibbslda.sourceforge.net/)。这些格式都是采用Streaming方式加载数据的。
 
+- 保存
 
+    ~~~python
+    corpora.MmCorpus.serialize('/tmp/corpus.mm', corpus_memory_friendly)
+    corpora.SvmLightCorpus.serialize('/tmp/corpus.svmlight', corpus_memory_friendly)
+    corpora.BleiCorpus.serialize('/tmp/corpus.lda-c', corpus_memory_friendly)
+    corpora.LowCorpus.serialize('/tmp/corpus.low', corpus_memory_friendly)
+    ~~~
 
+- 加载
 
+  ~~~python
+  print('-'*50)
+  corpus = corpora.MmCorpus('/tmp/corpus.mm')
+  print(corpus)
+  print('-'*50)
+  corpus = corpora.SvmLightCorpus('/tmp/corpus.mm')
+  print(corpus)
+  print('-'*50)
+  corpus = corpora.BleiCorpus('/tmp/corpus.mm')
+  print(corpus)
+  print('-'*50)
+  corpus = corpora.LowCorpus('/tmp/corpus.mm')
+  print(corpus)
+  
+  print('-'*50)
+  for doc in corpus:
+      print(doc)
+  ~~~
 
+  ![image-20200609141658160](images/image-20200609141658160.png)
 
+### 兼容NumPy和SciPy
 
+gensim的corpus的格式和Numpy和SciPy中的矩阵并不相同，但可以采用[matutils](https://radimrehurek.com/gensim/matutils.html)进行相互转化。首先看一般的矩阵。
 
+~~~python
+import gensim
+import numpy as np
+
+np.random.seed(20200609)
+numpy_matrix = np.random.randint(10, size=[5, 2])  # random matrix as an example
+print("numpy_matrix =\n", numpy_matrix)
+
+# 把dense matrix转为为 corpus
+corpus = gensim.matutils.Dense2Corpus(numpy_matrix)
+print("corpus =",corpus)
+for doc in corpus:
+    print(doc)
+
+# 把corpus转化为 dense matrix
+new_matrix = gensim.matutils.corpus2dense(corpus, num_terms=5)
+print("new_matrix =\n", numpy_matrix)
+~~~
+
+![image-20200609150517053](images/image-20200609150517053.png)
+
+再看稀疏矩阵。
+
+~~~python
+import gensim
+import numpy as np
+import scipy.sparse
+
+np.random.seed(20200609)
+scipy_sparse_matrix = scipy.sparse.random(5, 2, density=0.6) 
+print("scipy_sparse_matrix =\n", scipy_sparse_matrix)
+
+# 把sparse matrix 转化为 corpus
+corpus = gensim.matutils.Sparse2Corpus(scipy_sparse_matrix)
+print("corpus =", corpus)
+for doc in corpus:
+    print(doc)
+
+# 把corpus转化为 sparse matrix
+new_matrix = gensim.matutils.corpus2csc(corpus)
+print("new_matrix =\n", new_matrix)
+~~~
+
+![image-20200609151431396](images/image-20200609151431396.png)
 
 ## 参考
 

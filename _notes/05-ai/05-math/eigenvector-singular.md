@@ -81,7 +81,9 @@ $U \cdot (S V^\mathrm {T}x)$ 指再旋转，也可理解为把$U$为基的空间
 
 ## $X$的意义
 
-![singular](https://raw.githubusercontent.com/xuxiangwen/python-book/master/resources/image/linear_algebra/singular.png)上图来自$\href {https://www.zhihu.com/question/22237507} {奇异值的物理意义是什么} $， 里面有很有意思的分析。
+![image-20200611104626401](images/image-20200611104626401.png)
+
+上图来自$\href {https://www.zhihu.com/question/22237507} {奇异值的物理意义是什么} $， 里面有很有意思的分析。
 
 $X$的意义的分析可以和特征值分解分析相似。
 
