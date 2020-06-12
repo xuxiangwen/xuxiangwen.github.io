@@ -1,7 +1,5 @@
 ## 核心概念（Core Concepts）
 
-参考[Core Concepts](https://radimrehurek.com/gensim/auto_examples/core/run_core_concepts.html)，[Corpora and Vector Spaces](https://tedboy.github.io/nlps/gensim_tutorial/tut1.html)，[Topics and Transformations](https://radimrehurek.com/gensim/auto_examples/core/run_topics_and_transformations.html)。
-
 ### 文档（Document）
 
 一段字符串。
@@ -106,7 +104,7 @@ print(dictionary)
 
 ![image-20200609085338894](images/image-20200609085338894.png)
 
-Dictionary非常有用，它的详细描述如下。
+Dictionary非常好用，它的详细描述如下。
 
 - Attributes
   - id2token：Reverse mapping for token2id, initialized in a lazy manner to save memory (not created until needed).
@@ -157,27 +155,7 @@ print('-'*50)
 
 结果如下：
 
-~~~shell
-black
-dict.id2token = {0: 'black', 1: 'cat', 2: 'white', 3: 'outer', 4: 'space', 5: 'dog', 6: 'wag'}
---------------------------------------------------
-dict.token2id = {'black': 0, 'cat': 1, 'white': 2, 'outer': 3, 'space': 4, 'dog': 5, 'wag': 6}
---------------------------------------------------
-dict.cfs = {0: 1, 1: 4, 2: 1, 3: 1, 4: 1, 6: 1, 5: 1}
---------------------------------------------------
-dict.dfs = {0: 1, 1: 2, 2: 1, 3: 1, 4: 1, 6: 1, 5: 1}
---------------------------------------------------
-dict.num_nnz = 8
---------------------------------------------------
-dict.num_docs = 3
---------------------------------------------------
-dict.num_pos = 10
---------------------------------------------------
-dict.doc2bow(docs[0]) = [(0, 1), (1, 2), (2, 1)]
---------------------------------------------------
-dict.doc2idx(docs[0]) = [0, 1, 2, 1]
---------------------------------------------------
-~~~
+![image-20200612231218544](images/image-20200612231218544.png)
 
 #### BOW（Bag of Word）
 
@@ -233,7 +211,7 @@ pprint([[(id, round(tfidf, 4))for id, tfidf in doc] for doc in tfidf_corpus])
 
 #### LSI
 
-全称[Latent Semantic Indexing(或 Latent Semantic Analysis )](https://en.wikipedia.org/wiki/Latent_semantic_analysis#Latent_semantic_indexing). 它采用奇异值分解（Singular Value Decomposition）对文档矩阵进行分解。下面代码中选取5个最大的特征值（主题）。
+全称[Latent Semantic Indexing(或 Latent Semantic Analysis )](https://en.wikipedia.org/wiki/Latent_semantic_analysis#Latent_semantic_indexing). 它采用奇异值分解（Singular Value Decomposition）对文档矩阵进行分解。下面代码中选取6个最大的特征值（主题）。
 ~~~python
 lsi = models.LsiModel(tfidf_corpus, id2word=dictionary, num_topics=6)  
 lsi_corpus = lsi[tfidf_corpus]  
@@ -242,41 +220,6 @@ for doc in lsi_corpus:
 ~~~
 
 ![image-20200612154112322](images/image-20200612154112322.png)
-
-#### 相似性（Similarity）
-
-接下来，我们就可以进行相似性比较了。比如，下面使用[SparseMatrixSimilarity](https://tedboy.github.io/nlps/generated/generated/gensim.similarities.SparseMatrixSimilarity.html)，它采用cosine similarity来计算向量之间的相似性。
-
-~~~python
-from gensim import similarities
-
-tfidf_index = similarities.SparseMatrixSimilarity(tfidf_corpus, num_features=12)
-lsi_index = similarities.SparseMatrixSimilarity(lsi_corpus, num_features=3)
-
-query_document = 'system engineering'.split()
-query_bow = dictionary.doc2bow(query_document)
-
-tfidf_query = tfidf[query_bow]
-tfidf_sims = tfidf_index[tfidf_query]
-
-lsi_query = lsi[tfidf_query]
-lsi_sims = lsi_index[lsi_query]
-
-# 排序
-print('-'*25, "tfidf" , '-'*25, sep="")
-for document_number, score in sorted(enumerate(tfidf_sims), key=lambda x: x[1], reverse=True):
-    print((document_number, text_corpus[document_number], score))
-    
-print('-'*25, "lsi" , '-'*25, sep="")    
-for document_number, score in sorted(enumerate(lsi_sims), key=lambda x: x[1], reverse=True):
-    print((document_number, text_corpus[document_number], score))
-~~~
-
-![image-20200612154143517](images/image-20200612154143517.png)
-
-上面的结果可以看出，LSI能够计算一定程度的潜在语义，所以可以看到所有的文档都有评分值，总体上结果更好了。
-
-除了[SparseMatrixSimilarity](https://tedboy.github.io/nlps/generated/generated/gensim.similarities.SparseMatrixSimilarity.html)，gensim还包含其它相似性计算的类，比如：[MatrixSimilarity](https://radimrehurek.com/gensim/similarities/docsim.html#gensim.similarities.docsim.MatrixSimilarity)，[WmdSimilarity](https://radimrehurek.com/gensim/similarities/docsim.html#gensim.similarities.docsim.WmdSimilarity)。
 
 #### 保存和加载
 
@@ -291,6 +234,47 @@ with tempfile.NamedTemporaryFile(prefix='model-', suffix='.lsi', delete=False) a
 loaded_lsi_model = models.LsiModel.load(tmp.name)
 os.unlink(tmp.name)	# 删除文件
 ~~~
+
+### 相似性（Similarity）
+
+接下来，我们就可以进行相似性比较了。比如，下面使用[SparseMatrixSimilarity](https://tedboy.github.io/nlps/generated/generated/gensim.similarities.SparseMatrixSimilarity.html)，它采用cosine similarity来计算向量之间的相似性。
+
+~~~python
+from gensim import similarities
+
+tfidf_index = similarities.SparseMatrixSimilarity(tfidf_corpus, num_features=12)
+lsi_index = similarities.SparseMatrixSimilarity(lsi_corpus, num_features=12)
+
+query_doc = 'system engineering'.split()
+query_bow = dictionary.doc2bow(query_doc)
+
+tfidf_query = tfidf[query_bow]
+tfidf_sims = tfidf_index[tfidf_query]
+
+lsi_query = lsi[tfidf_query]
+lsi_sims = lsi_index[lsi_query]
+
+# 排序
+print('-'*25, "tfidf" , '-'*25, sep="")
+sims = sorted(enumerate(tfidf_sims), key=lambda item: -item[1])
+for i, s in enumerate(sims):
+    print(s, text_corpus[i])    
+    
+print('-'*25, "lsi" , '-'*25, sep="")    
+sims = sorted(enumerate(lsi_sims), key=lambda item: -item[1])
+for i, s in enumerate(sims):
+    print(s, text_corpus[i])
+~~~
+
+![image-20200612232446589](images/image-20200612232446589.png)
+
+上面的结果可以看出，通过选取部分特征值，LSI能够去除数据部分噪音，而且每个文档都有评分，结果更加平滑。LSI能够计算一定程度的潜在语义，
+
+#### 其它Similarity类
+
+- [MatrixSimilarity](https://radimrehurek.com/gensim/similarities/docsim.html#gensim.similarities.docsim.MatrixSimilarity)
+
+除了[SparseMatrixSimilarity](https://tedboy.github.io/nlps/generated/generated/gensim.similarities.SparseMatrixSimilarity.html)，gensim还包含其它相似性计算的类，比如：[MatrixSimilarity](https://radimrehurek.com/gensim/similarities/docsim.html#gensim.similarities.docsim.MatrixSimilarity)，[WmdSimilarity](https://radimrehurek.com/gensim/similarities/docsim.html#gensim.similarities.docsim.WmdSimilarity)。
 
 ### Corpus Streaming
 
@@ -451,11 +435,13 @@ print("new_matrix =\n", new_matrix)
 
 ![image-20200609151431396](images/image-20200609151431396.png)
 
-> 需要注意的是corpus转化的矩阵为term-document矩阵，即行代表term，列代表document.
+需要注意的是corpus转化的矩阵为term-document矩阵，即行代表term，列代表document.
 
 
 
 ## 参考
 
-
+- [Core Concepts](https://radimrehurek.com/gensim/auto_examples/core/run_core_concepts.html)
+- [Corpora and Vector Spaces](https://tedboy.github.io/nlps/gensim_tutorial/tut1.html)
+- [Topics and Transformations](https://radimrehurek.com/gensim/auto_examples/core/run_topics_and_transformations.html)。
 
