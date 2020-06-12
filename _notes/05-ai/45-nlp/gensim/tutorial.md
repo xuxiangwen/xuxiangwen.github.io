@@ -209,7 +209,7 @@ tfidf = models.TfidfModel(bow_corpus)
 # transform the "system minors" string
 words = "system minors".lower().split()
 doc = dictionary.doc2bow(words)
-print(dod)
+print(doc)
 print(tfidf[doc])
 ~~~
 
@@ -233,76 +233,15 @@ pprint([[(id, round(tfidf, 4))for id, tfidf in doc] for doc in tfidf_corpus])
 
 #### LSI
 
-全称[Latent Semantic Indexing(或 Latent Semantic Analysis )](https://en.wikipedia.org/wiki/Latent_semantic_analysis#Latent_semantic_indexing). 它采用奇异值分解对文档矩阵进行分解。奇异值分解的公式如下：
-$$
-A=USV^\mathrm {T} 
-$$
-在LSI中，A是Term-Document文档矩阵（行是Term，列是Document），
-
-~~~shell
-lsi_model = models.LsiModel(corpus_tfidf, id2word=dictionary, num_topics=2)  
-corpus_lsi = lsi_model[corpus_tfidf]  
-for doc in corpus_tfidf:
-    print(doc)
-~~~
-
-下面的代码比较了奇异值分解和LSI，可以便于我们理解LSI。
-
+全称[Latent Semantic Indexing(或 Latent Semantic Analysis )](https://en.wikipedia.org/wiki/Latent_semantic_analysis#Latent_semantic_indexing). 它采用奇异值分解（Singular Value Decomposition）对文档矩阵进行分解。下面代码中选取5个最大的特征值（主题）。
 ~~~python
-import gensim
-import numpy as np
-from gensim import corpora
-from gensim import models
-
-A = np.array([[1,2,3], [2,0,2]])
-print("A =\n", A)
-
-print('-'*25,  "奇异值分解", '-'*25, sep='')
-U, S, VT = np.linalg.svd(A, full_matrices=False) 
-print("U =\n", U)
-print("S =\n", S)
-print("VT = \n", VT)
-
-# A在U为基所对应的矩阵。即A中每个列向量在以U为基中对应的向量（坐标）
-UTA = U.T @ A
-print("U.T @ A =\n", UTA)
-
-print('-'*25,  "LSI", '-'*25, sep='')
-corpus = gensim.matutils.Dense2Corpus(A)
-lsi = models.LsiModel(corpus)
-
-print("U =\n", lsi.projection.u)
-print("S =\n", lsi.projection.s)
-
-vt =  (lsi.projection.u.T @ A) / lsi.projection.s.reshape(len(lsi.projection.s),1)
-print("VT =\n", vt)
-
-# lsi[corpus] 等价U.T @ A
-new_a = gensim.matutils.corpus2dense(lsi[corpus], num_terms=len(lsi.projection.s))
-print("lsi[corpus] =\n", new_a)
-
+lsi = models.LsiModel(tfidf_corpus, id2word=dictionary, num_topics=6)  
+lsi_corpus = lsi[tfidf_corpus]  
+for doc in lsi_corpus:
+    print([(i, round(w,4)) for i, w in doc])
 ~~~
 
-![image-20200612105123078](images/image-20200612105123078.png)
-
-需要注意：
-
-- LSI分解出的向量，和奇异值分解出的向量有时方向相反。
-- *lsi[corpus]* 等价$U^TA$，可以看成$A$变换到以$U$为基的对应矩阵，即$A$中每个列向量在以$U$为基中对应的向量（坐标）。
-
-### 保存和加载
-
-~~~python
-import os
-import tempfile
-
-with tempfile.NamedTemporaryFile(prefix='model-', suffix='.lsi', delete=False) as tmp:
-    lsi_model.save(tmp.name)  # same for tfidf, lda, ...
-
-loaded_lsi_model = models.LsiModel.load(tmp.name)
-
-os.unlink(tmp.name)
-~~~
+![image-20200612154112322](images/image-20200612154112322.png)
 
 #### 相似性（Similarity）
 
@@ -311,20 +250,47 @@ os.unlink(tmp.name)
 ~~~python
 from gensim import similarities
 
-index = similarities.SparseMatrixSimilarity(tfidf_corpus, num_features=12)
+tfidf_index = similarities.SparseMatrixSimilarity(tfidf_corpus, num_features=12)
+lsi_index = similarities.SparseMatrixSimilarity(lsi_corpus, num_features=3)
 
 query_document = 'system engineering'.split()
 query_bow = dictionary.doc2bow(query_document)
-sims = index[tfidf[query_bow]]
+
+tfidf_query = tfidf[query_bow]
+tfidf_sims = tfidf_index[tfidf_query]
+
+lsi_query = lsi[tfidf_query]
+lsi_sims = lsi_index[lsi_query]
 
 # 排序
-for document_number, score in sorted(enumerate(sims), key=lambda x: x[1], reverse=True):
+print('-'*25, "tfidf" , '-'*25, sep="")
+for document_number, score in sorted(enumerate(tfidf_sims), key=lambda x: x[1], reverse=True):
+    print((document_number, text_corpus[document_number], score))
+    
+print('-'*25, "lsi" , '-'*25, sep="")    
+for document_number, score in sorted(enumerate(lsi_sims), key=lambda x: x[1], reverse=True):
     print((document_number, text_corpus[document_number], score))
 ~~~
 
-![image-20200609105339068](images/image-20200609105339068.png)
+![image-20200612154143517](images/image-20200612154143517.png)
+
+上面的结果可以看出，LSI能够计算一定程度的潜在语义，所以可以看到所有的文档都有评分值，总体上结果更好了。
 
 除了[SparseMatrixSimilarity](https://tedboy.github.io/nlps/generated/generated/gensim.similarities.SparseMatrixSimilarity.html)，gensim还包含其它相似性计算的类，比如：[MatrixSimilarity](https://radimrehurek.com/gensim/similarities/docsim.html#gensim.similarities.docsim.MatrixSimilarity)，[WmdSimilarity](https://radimrehurek.com/gensim/similarities/docsim.html#gensim.similarities.docsim.WmdSimilarity)。
+
+#### 保存和加载
+
+~~~python
+import os
+import tempfile
+
+with tempfile.NamedTemporaryFile(prefix='model-', suffix='.lsi', delete=False) as tmp:
+    print(tmp.name)
+    tsi.save(tmp.name)  # same for tfidf, lda, ...
+
+loaded_lsi_model = models.LsiModel.load(tmp.name)
+os.unlink(tmp.name)	# 删除文件
+~~~
 
 ### Corpus Streaming
 

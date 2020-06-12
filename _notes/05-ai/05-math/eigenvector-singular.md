@@ -55,8 +55,24 @@ $P^{\mathrm T}A $是对$A$进行了旋转，并没有改变它的形状。 $P^{-
 
 # 2. 奇异值分解（SVD）
 
-$  A=USV^\mathrm {T} $
+$$
+A_{m \times n}=U_{m \times m}S_{m \times n}V^\mathrm {T}_{n \times n}
+$$
 
+- 当$m \ge n$，则
+  $$
+  A_{m \times n}=U_{m \times n}S_{n \times n}V^\mathrm {T}_{n \times n}
+  $$
+
+- 当$m < n$，则
+  $$
+  A_{m \times n}=U_{m \times m}S_{m \times m}V^\mathrm {T}_{m \times n}
+  $$
+
+在机器学习中，$m$指样本的个数，$n$指feature的个数，一般要求样本比feature多，所以大多数情况下$m \ge n$.。即
+$$
+A_{m \times n}=U_{m \times n}S_{n \times n}V^\mathrm {T}_{n \times n}
+$$
 $S$是奇异值矩阵，是一个对角矩阵。 $V$是一个正交矩阵, $U$是也是一个正交矩阵。而且： 
 
 $ V = [v_1, v_2, \ldots, v_n ] $
