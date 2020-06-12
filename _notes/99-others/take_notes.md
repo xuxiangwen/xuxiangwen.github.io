@@ -174,7 +174,7 @@ Markdown是一种轻量级标记语言，让写作者专注于写作而不用关
 
 ![markdown](images/markdown.png)
 
-#### Markdown vs. Word
+##### Markdown vs. Word
 
 下面把Markdown来比较一下，我们最常用的word。
 
@@ -206,6 +206,26 @@ pandoc -t F -s take_notes_ppt.md \
        -V revealjs-url=https://revealjs.com \
        -V theme=moon
 ~~~
+
+#### notedown：转化markdown到Jupyter Notebook 
+
+在Typora中编写markdown时，经常会编写python代码，这些代码需要交互执行。而把markdown转化为Jupyter Notebook，使得我们可以融合了这两个工具的好处：
+
+- Typora强大的编辑能力。
+- Jupyter Notebook的强大的代码运行和交互能力。
+
+虽然Pandoc可以把markdown转换为notebook，但是全部内容是整个一块，代码和文档没有分开，也就是无法运行代码。因此推荐的工具是[notedown](https://github.com/aaren/notedown)。下面是安装和使用代码。
+
+~~~shell
+ # 安装
+ sudo  pip3 install notedown
+ # 转化
+ notedown tutorial.md > tutorial.ipynb
+~~~
+
+下面是转换后呈现效果的比较，左边Typora，右边是Jupyter Notebook，呈现的样子基本一致，应该来说是比较理想的。
+
+![image-20200612141802632](images/image-20200612141802632.png)
 
 ## 工具的要求
 
