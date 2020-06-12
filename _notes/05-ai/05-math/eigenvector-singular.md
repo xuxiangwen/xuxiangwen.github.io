@@ -95,6 +95,68 @@ $U^{\mathrm T}A$ 是对$A$进行了旋转，$U^{-1}A$可以理解为$U$为基的
 
 目前这种转换是线性转换，如果是非线性的，应该会产生更多奇妙的东西。
 
+### 代码
+
+~~~python
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
+
+def restore(sigma, u, v, k):  # 奇异值、左特征向量、右特征向量的转置
+    m = len(u)
+    n = len(v[0])
+    a = u[:, 0:k] @ np.diag(sigma[0:k]) @ v[0:k, :]
+    a = a.clip(0, 255)
+    return np.rint(a).astype('uint8')
+
+image = Image.open("images/svd/my-heart1.jpg", 'r')
+output_path = r'images/svd'
+a = np.array(image)
+print("原始矩阵大小：{}".format(a.shape))
+
+plt.rcParams['figure.figsize'] = (4, 4) 
+plt.imshow(image)
+plt.title("origin")
+plt.axis('off') # 关掉坐标轴为 off
+plt.show()
+
+# 图片有RGB三原色组成，分别进行奇异值分解
+u_r, sigma_r, v_r = np.linalg.svd(a[:, :, 0], full_matrices=False)    
+u_g, sigma_g, v_g = np.linalg.svd(a[:, :, 1], full_matrices=False)
+u_b, sigma_b, v_b = np.linalg.svd(a[:, :, 2], full_matrices=False)
+
+# 仅使用前1. 2，4，8..，个奇异值的结果 
+K = [2**i for i in range(8)]
+for k in K:
+    R = restore(sigma_r, u_r, v_r, k)
+    G = restore(sigma_g, u_g, v_g, k)
+    B = restore(sigma_b, u_b, v_b, k)
+    I = np.stack((R, G, B), axis=2)   # 将矩阵叠合在一起，生成图像
+    Image.fromarray(I).save('{}/svd_{}.jpg'.format(output_path, k))
+
+plt.rcParams['figure.figsize'] = (16.0, 9.0) 
+plt.subplots_adjust(hspace=0.2, wspace=0.2)
+
+columns = 4
+rows = int((len(K)-1)/columns)+1
+
+for i, k  in enumerate(K):
+    plt.subplot(rows, columns, i+1)
+    image_path = '{}/svd_{}.jpg'.format(output_path, k)
+    img = Image.open(image_path, 'r')
+    plt.title("k = {}".format(k))
+    plt.axis('off')
+    plt.imshow(img)
+
+plt.show() 
+~~~
+
+![image-20200611153905913](images/image-20200611153905913.png)
+
+可以看到，当$k=32$，孩子的样子基本清晰可见，当$k=128$，和原图基本相当了。
+
+> 注意*numpy.linalg.svd*返回的是$U, S, V^\mathrm {T}$，详见[numpy.linalg.svd](https://numpy.org/doc/stable/reference/generated/numpy.linalg.svd.html)。
+
 # 3. 主成分分析（PCA）
 
 很多描述来自$\href {https://www.zhihu.com/question/30094611} {主成分分析PCA算法...} $。

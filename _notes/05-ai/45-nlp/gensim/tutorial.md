@@ -233,15 +233,80 @@ pprint([[(id, round(tfidf, 4))for id, tfidf in doc] for doc in tfidf_corpus])
 
 ![image-20200609095802255](images/image-20200609095802255.png)
 
-除了tf-idf模型，gensim还支持很多其它模型，比如：LSI（[Latent Semantic Indexing](https://en.wikipedia.org/wiki/Latent_semantic_indexing)），RP（[Random Projections](http://www.cis.hut.fi/ella/publications/randproj_kdd.pdf)）, LDA（[Latent Dirichlet Allocation](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation)），HDP（[Hierarchical Dirichlet Process](http://jmlr.csail.mit.edu/proceedings/papers/v15/wang11a/wang11a.pdf)）。比如：
+除了tf-idf模型，gensim还支持很多其它模型，比如：LSI（[Latent Semantic Indexing](https://en.wikipedia.org/wiki/Latent_semantic_indexing)），RP（[Random Projections](http://www.cis.hut.fi/ella/publications/randproj_kdd.pdf)）, LDA（[Latent Dirichlet Allocation](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation)），HDP（[Hierarchical Dirichlet Process](http://jmlr.csail.mit.edu/proceedings/papers/v15/wang11a/wang11a.pdf)）。下面介绍一下LSI。
+
+#### LSI
+
+全称[Latent Semantic Indexing(或 Latent Semantic Analysis )](https://en.wikipedia.org/wiki/Latent_semantic_analysis#Latent_semantic_indexing). 它采用奇异值分解对文档矩阵进行分解。奇异值分解的公式如下：
+$$
+A=USV^\mathrm {T} 
+$$
+在LSI中，A是Term-Document文档矩阵（行是Term，列是Document），
 
 ~~~shell
-
+lsi_model = models.LsiModel(corpus_tfidf, id2word=dictionary, num_topics=2)  
+corpus_lsi = lsi_model[corpus_tfidf]  
+for doc in corpus_tfidf:
+    print(doc)
 ~~~
 
+> 下面的代码比较了奇异值分解和LSI。
+>
+> ~~~python
+> import gensim
+> import numpy as np
+> from gensim import corpora
+> from gensim import models
+> 
+> A = np.array([[1,2,3], [2,0,2]])
+> print("A =\n", A)
+> 
+> print('-'*25,  "奇异值分解", '-'*25, sep='')
+> U, S, VT = np.linalg.svd(A, full_matrices=False) 
+> print("U =\n", U)
+> print("S =\n", S)
+> print("VT = \n", VT)
+> 
+> # A在U为基所对应的矩阵。即A中每个列向量在以U为基中对应的向量（坐标）
+> UTA = U.T @ A
+> print("U.T @ A =\n", UTA)
+> 
+> print('-'*25,  "LSI", '-'*25, sep='')
+> corpus = gensim.matutils.Dense2Corpus(A)
+> lsi = models.LsiModel(corpus)
+> 
+> print("U =\n", lsi.projection.u)
+> print("S =\n", lsi.projection.s)
+> 
+> vt =  (lsi.projection.u.T @ A) / lsi.projection.s.reshape(len(lsi.projection.s),1)
+> print("VT =\n", vt)
+> 
+> # lsi[corpus] 等价U.T @ A
+> new_a = gensim.matutils.corpus2dense(lsi[corpus], num_terms=len(lsi.projection.s))
+> print("lsi[corpus] =\n", new_a)
+> 
+> ~~~
+>
+> ![image-20200612105123078](images/image-20200612105123078.png)
+>
+> 需要注意：
+>
+> - LSI分解出的向量，和奇异值分解出的向量有时方向相反。
+> - *lsi[corpus]* 等价$U^TA$，可以看成$A$变换到以$U$为基的对应矩阵，即$A$中每个列向量在以$U$为基中对应的向量（坐标）。
 
+### 保存和加载
 
+~~~python
+import os
+import tempfile
 
+with tempfile.NamedTemporaryFile(prefix='model-', suffix='.lsi', delete=False) as tmp:
+    lsi_model.save(tmp.name)  # same for tfidf, lda, ...
+
+loaded_lsi_model = models.LsiModel.load(tmp.name)
+
+os.unlink(tmp.name)
+~~~
 
 #### 相似性（Similarity）
 
@@ -423,6 +488,8 @@ print("new_matrix =\n", new_matrix)
 ~~~
 
 ![image-20200609151431396](images/image-20200609151431396.png)
+
+> 需要注意的是corpus转化的矩阵为term-document矩阵，即行代表term，列代表document.
 
 ## 参考
 
