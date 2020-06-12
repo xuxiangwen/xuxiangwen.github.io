@@ -16,82 +16,80 @@ document = "Human machine interface for lab abc computer applications"
 
 Corpus指一组Document。
 
-- 原始
+#### 原始
 
-    ~~~python
-    text_corpus = [
-        "Human machine interface for lab abc computer applications",
-        "A survey of user opinion of computer system response time",
-        "The EPS user interface management system",
-        "System and human system engineering testing of EPS",
-        "Relation of user perceived response time to error measurement",
-        "The generation of random binary unordered trees",
-        "The intersection graph of paths in trees",
-        "Graph minors IV Widths of trees and well quasi ordering",
-        "Graph minors A survey",
-    ]
-    ~~~
+~~~python
+text_corpus = [
+    "Human machine interface for lab abc computer applications",
+    "A survey of user opinion of computer system response time",
+    "The EPS user interface management system",
+    "System and human system engineering testing of EPS",
+    "Relation of user perceived response time to error measurement",
+    "The generation of random binary unordered trees",
+    "The intersection graph of paths in trees",
+    "Graph minors IV Widths of trees and well quasi ordering",
+    "Graph minors A survey",
+]
+~~~
 
-- 基本处理
+#### 基本处理
 
-  一般的行为有：
+一般的行为有：
 
-  - 分词：对于英文来说，相对比较简单，而对于中文则复杂的多。
-  - 去除stopwords
-  - 删除低频词
+- 分词：对于英文来说，相对比较简单，而对于中文则复杂的多。
+- 去除stopwords
+- 删除低频词
 
-  ~~~python
-  from pprint import pprint
-  
-  # Create a set of frequent words
-  stoplist = set('for a of the and to in'.split(' '))
-  # Lowercase each document, split it by white space and filter out stopwords
-  texts = [[word for word in document.lower().split() if word not in stoplist]
-           for document in text_corpus]
-  
-  # Count word frequencies
-  from collections import defaultdict
-  frequency = defaultdict(int)
-  for text in texts:
-      for token in text:
-          frequency[token] += 1
-  
-  # Only keep words that appear more than once
-  processed_corpus = [[token for token in text if frequency[token] > 1] for text in texts]
-  pprint(processed_corpus)
-  ~~~
+~~~python
+from pprint import pprint
 
-  ![image-20200609082203231](images/image-20200609082203231.png)-
+# Create a set of frequent words
+stoplist = set('for a of the and to in'.split(' '))
+# Lowercase each document, split it by white space and filter out stopwords
+texts = [[word for word in document.lower().split() if word not in stoplist]
+         for document in text_corpus]
 
-  对于中文，可以类似这样处理。其中分词采用了[jieba](https://github.com/fxsjy/jieba)。
+# Count word frequencies
+from collections import defaultdict
+frequency = defaultdict(int)
+for text in texts:
+    for token in text:
+        frequency[token] += 1
 
-  ~~~shell
-  import jieba
-  import urllib
-  from pprint import pprint
-  
-  # 下载停用词
-  response = urllib.request.urlopen('https://raw.githubusercontent.com/goto456/stopwords/master/cn_stopwords.txt')
-  stop_words = [str(word[:-1],'utf-8') for word in response.readlines()]
-  
-  docs =  ['自然语言处理是计算机科学领域与人工智能领域中的一个重要方向。',
-       '它研究能实现人与计算机之间用自然语言进行有效通信的各种理论和方法。',
-       '自然语言处理是一门融语言学、计算机科学、数学于一体的科学。',
-       '因此，这一领域的研究将涉及自然语言，即人们日常使用的语言，',
-       '所以它与语言学的研究有着密切的联系，但又有重要的区别。',
-       '自然语言处理并不是一般地研究自然语言，',
-       '而在于研制能有效地实现自然语言通信的计算机系统，',
-       '特别是其中的软件系统。因而它是计算机科学的一部分。']
-  
-  corpus = [[word for word in jieba.cut(doc) if word not in stop_words] for doc in docs ]
-  pprint(corpus)
-  ~~~
+# Only keep words that appear more than once
+processed_corpus = [[token for token in text if frequency[token] > 1] for text in texts]
+pprint(processed_corpus)
+~~~
 
-  ![image-20200609084113301](images/image-20200609084113301.png)
+![image-20200609082203231](images/image-20200609082203231.png)-
 
-- 向量化
+对于中文，可以类似这样处理。其中分词采用了[jieba](https://github.com/fxsjy/jieba)。
 
-  基本处理后，再把语料库用向量的形式来表达，详见下一节。
+~~~shell
+import jieba
+import urllib
+from pprint import pprint
+
+# 下载停用词
+response = urllib.request.urlopen('https://raw.githubusercontent.com/goto456/stopwords/master/cn_stopwords.txt')
+stop_words = [str(word[:-1],'utf-8') for word in response.readlines()]
+
+docs =  ['自然语言处理是计算机科学领域与人工智能领域中的一个重要方向。',
+     '它研究能实现人与计算机之间用自然语言进行有效通信的各种理论和方法。',
+     '自然语言处理是一门融语言学、计算机科学、数学于一体的科学。',
+     '因此，这一领域的研究将涉及自然语言，即人们日常使用的语言，',
+     '所以它与语言学的研究有着密切的联系，但又有重要的区别。',
+     '自然语言处理并不是一般地研究自然语言，',
+     '而在于研制能有效地实现自然语言通信的计算机系统，',
+     '特别是其中的软件系统。因而它是计算机科学的一部分。']
+
+corpus = [[word for word in jieba.cut(doc) if word not in stop_words] for doc in docs ]
+pprint(corpus)
+~~~
+
+![image-20200609084113301](images/image-20200609084113301.png)
+
+基本处理后，再把语料库用向量的形式来表达，详见下一节。
 
 ### 向量（Vector）
 
