@@ -248,49 +248,49 @@ for doc in corpus_tfidf:
     print(doc)
 ~~~
 
-> 下面的代码比较了奇异值分解和LSI。
->
-> ~~~python
-> import gensim
-> import numpy as np
-> from gensim import corpora
-> from gensim import models
-> 
-> A = np.array([[1,2,3], [2,0,2]])
-> print("A =\n", A)
-> 
-> print('-'*25,  "奇异值分解", '-'*25, sep='')
-> U, S, VT = np.linalg.svd(A, full_matrices=False) 
-> print("U =\n", U)
-> print("S =\n", S)
-> print("VT = \n", VT)
-> 
-> # A在U为基所对应的矩阵。即A中每个列向量在以U为基中对应的向量（坐标）
-> UTA = U.T @ A
-> print("U.T @ A =\n", UTA)
-> 
-> print('-'*25,  "LSI", '-'*25, sep='')
-> corpus = gensim.matutils.Dense2Corpus(A)
-> lsi = models.LsiModel(corpus)
-> 
-> print("U =\n", lsi.projection.u)
-> print("S =\n", lsi.projection.s)
-> 
-> vt =  (lsi.projection.u.T @ A) / lsi.projection.s.reshape(len(lsi.projection.s),1)
-> print("VT =\n", vt)
-> 
-> # lsi[corpus] 等价U.T @ A
-> new_a = gensim.matutils.corpus2dense(lsi[corpus], num_terms=len(lsi.projection.s))
-> print("lsi[corpus] =\n", new_a)
-> 
-> ~~~
->
-> ![image-20200612105123078](images/image-20200612105123078.png)
->
-> 需要注意：
->
-> - LSI分解出的向量，和奇异值分解出的向量有时方向相反。
-> - *lsi[corpus]* 等价$U^TA$，可以看成$A$变换到以$U$为基的对应矩阵，即$A$中每个列向量在以$U$为基中对应的向量（坐标）。
+下面的代码比较了奇异值分解和LSI，可以便于我们理解LSI。
+
+~~~python
+import gensim
+import numpy as np
+from gensim import corpora
+from gensim import models
+
+A = np.array([[1,2,3], [2,0,2]])
+print("A =\n", A)
+
+print('-'*25,  "奇异值分解", '-'*25, sep='')
+U, S, VT = np.linalg.svd(A, full_matrices=False) 
+print("U =\n", U)
+print("S =\n", S)
+print("VT = \n", VT)
+
+# A在U为基所对应的矩阵。即A中每个列向量在以U为基中对应的向量（坐标）
+UTA = U.T @ A
+print("U.T @ A =\n", UTA)
+
+print('-'*25,  "LSI", '-'*25, sep='')
+corpus = gensim.matutils.Dense2Corpus(A)
+lsi = models.LsiModel(corpus)
+
+print("U =\n", lsi.projection.u)
+print("S =\n", lsi.projection.s)
+
+vt =  (lsi.projection.u.T @ A) / lsi.projection.s.reshape(len(lsi.projection.s),1)
+print("VT =\n", vt)
+
+# lsi[corpus] 等价U.T @ A
+new_a = gensim.matutils.corpus2dense(lsi[corpus], num_terms=len(lsi.projection.s))
+print("lsi[corpus] =\n", new_a)
+
+~~~
+
+![image-20200612105123078](images/image-20200612105123078.png)
+
+需要注意：
+
+- LSI分解出的向量，和奇异值分解出的向量有时方向相反。
+- *lsi[corpus]* 等价$U^TA$，可以看成$A$变换到以$U$为基的对应矩阵，即$A$中每个列向量在以$U$为基中对应的向量（坐标）。
 
 ### 保存和加载
 
@@ -489,5 +489,9 @@ print("new_matrix =\n", new_matrix)
 
 > 需要注意的是corpus转化的矩阵为term-document矩阵，即行代表term，列代表document.
 
+
+
 ## 参考
+
+
 
