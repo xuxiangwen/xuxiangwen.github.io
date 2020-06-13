@@ -245,7 +245,7 @@ from gensim import similarities
 tfidf_index = similarities.SparseMatrixSimilarity(tfidf_corpus, num_features=len(dictionary))
 lsi_index = similarities.SparseMatrixSimilarity(lsi_corpus, num_features=len(dictionary))
 
-query_doc = 'system engineering'.split()
+query_doc = 'Human computer interaction'.split()
 query_bow = dictionary.doc2bow(query_doc)
 
 tfidf_query = tfidf[query_bow]
@@ -266,15 +266,17 @@ for i, s in enumerate(sims):
     print(s, text_corpus[i])
 ~~~
 
-![image-20200613132402805](images/image-20200613132402805.png)
+![image-20200613133919137](images/image-20200613133919137.png)
 
-上面的结果可以看出，LSI可以使得相似性更加平滑的显示。
+上面结果可以发现，文档"Relation of user perceived response time to error measurement"中并不包含查询语句"Human computer interaction"的任何word，采用tfidf，相似度为0，但采用lsi后，相似度很高，这说明LSI能够发现一定的潜在语义关系。
 
-#### 其它Similarity类
+和SparseMatrixSimilarity非常相似，还有几个类也采用cosine similarity来计算相似度，下面是差异比较。
 
-- [MatrixSimilarity](https://radimrehurek.com/gensim/similarities/docsim.html#gensim.similarities.docsim.MatrixSimilarity)
+- [SparseMatrixSimilarity](https://tedboy.github.io/nlps/generated/generated/gensim.similarities.SparseMatrixSimilarity.html)：加载sparse index matrix到内存中。
+- [MatrixSimilarity](https://radimrehurek.com/gensim/similarities/docsim.html#gensim.similarities.docsim.MatrixSimilarity)：加载index matrix到内存中。
+- [Similarity](https://tedboy.github.io/nlps/generated/generated/gensim.similarities.Similarity.html#gensim.similarities.Similarity)：更好的伸缩性，把index matrix分成多个文件保存在磁盘，解决内存不够的情况。
 
-除了[SparseMatrixSimilarity](https://tedboy.github.io/nlps/generated/generated/gensim.similarities.SparseMatrixSimilarity.html)，gensim还包含其它相似性计算的类，比如：[MatrixSimilarity](https://radimrehurek.com/gensim/similarities/docsim.html#gensim.similarities.docsim.MatrixSimilarity)，[WmdSimilarity](https://radimrehurek.com/gensim/similarities/docsim.html#gensim.similarities.docsim.WmdSimilarity)。
+除此以外，还有[WmdSimilarity](https://tedboy.github.io/nlps/generated/generated/gensim.similarities.WmdSimilarity.html#gensim.similarities.WmdSimilarity)，它采用negative of WMD计算相似度，详细的内容参见[WMD_tutorial](https://github.com/RaRe-Technologies/gensim/blob/develop/docs/notebooks/WMD_tutorial.ipynb)。
 
 ### Corpus Streaming
 
