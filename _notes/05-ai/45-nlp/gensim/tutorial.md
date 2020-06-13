@@ -213,13 +213,13 @@ pprint([[(id, round(tfidf, 4))for id, tfidf in doc] for doc in tfidf_corpus])
 
 全称[Latent Semantic Indexing(或 Latent Semantic Analysis )](https://en.wikipedia.org/wiki/Latent_semantic_analysis#Latent_semantic_indexing). 它采用奇异值分解（Singular Value Decomposition）对文档矩阵进行分解。下面代码中选取6个最大的特征值（主题）。
 ~~~python
-lsi = models.LsiModel(tfidf_corpus, id2word=dictionary, num_topics=6)  
+lsi = models.LsiModel(tfidf_corpus, id2word=dictionary, num_topics=2)  
 lsi_corpus = lsi[tfidf_corpus]  
 for doc in lsi_corpus:
     print([(i, round(w,4)) for i, w in doc])
 ~~~
 
-![image-20200612154112322](images/image-20200612154112322.png)
+![image-20200613132419899](images/image-20200613132419899.png)
 
 #### 保存和加载
 
@@ -229,7 +229,7 @@ import tempfile
 
 with tempfile.NamedTemporaryFile(prefix='model-', suffix='.lsi', delete=False) as tmp:
     print(tmp.name)
-    tsi.save(tmp.name)  # same for tfidf, lda, ...
+    lsi.save(tmp.name)  # same for tfidf, lda, ...
 
 loaded_lsi_model = models.LsiModel.load(tmp.name)
 os.unlink(tmp.name)	# 删除文件
@@ -242,8 +242,8 @@ os.unlink(tmp.name)	# 删除文件
 ~~~python
 from gensim import similarities
 
-tfidf_index = similarities.SparseMatrixSimilarity(tfidf_corpus, num_features=12)
-lsi_index = similarities.SparseMatrixSimilarity(lsi_corpus, num_features=12)
+tfidf_index = similarities.SparseMatrixSimilarity(tfidf_corpus, num_features=len(dictionary))
+lsi_index = similarities.SparseMatrixSimilarity(lsi_corpus, num_features=len(dictionary))
 
 query_doc = 'system engineering'.split()
 query_bow = dictionary.doc2bow(query_doc)
@@ -266,9 +266,9 @@ for i, s in enumerate(sims):
     print(s, text_corpus[i])
 ~~~
 
-![image-20200612232446589](images/image-20200612232446589.png)
+![image-20200613132402805](images/image-20200613132402805.png)
 
-上面的结果可以看出，通过选取部分特征值，LSI能够去除数据部分噪音，而且每个文档都有评分，结果更加平滑。LSI能够计算一定程度的潜在语义，
+上面的结果可以看出，LSI可以使得相似性更加平滑的显示。
 
 #### 其它Similarity类
 
@@ -443,5 +443,6 @@ print("new_matrix =\n", new_matrix)
 
 - [Core Concepts](https://radimrehurek.com/gensim/auto_examples/core/run_core_concepts.html)
 - [Corpora and Vector Spaces](https://tedboy.github.io/nlps/gensim_tutorial/tut1.html)
-- [Topics and Transformations](https://radimrehurek.com/gensim/auto_examples/core/run_topics_and_transformations.html)。
+- [Topics and Transformations](https://radimrehurek.com/gensim/auto_examples/core/run_topics_and_transformations.html)
+- [Similarity Queries](https://radimrehurek.com/gensim/auto_examples/core/run_similarity_queries.html#sphx-glr-auto-examples-core-run-similarity-queries-py)
 
