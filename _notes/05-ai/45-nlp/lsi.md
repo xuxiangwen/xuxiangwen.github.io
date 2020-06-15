@@ -1,4 +1,10 @@
-全称[Latent Semantic Indexing(或 Latent Semantic Analysis )](https://en.wikipedia.org/wiki/Latent_semantic_analysis#Latent_semantic_indexing)。 它采用奇异值分解（Singular Value Decomposition）对文档矩阵进行分解，然后保留一部分（最大的）奇异值和其对应的奇异向量。和奇异值分解的目的相同，LSI一般用于去除文本中的噪音。奇异值分解的公式如下：
+---
+title: Latent Semantic Indexing
+categories: machine-learning
+date: 2020-06-10
+---
+
+在文本挖掘中，主题模型是非常普遍的，LSI算法是被广泛运用的算法之一，它的全称是[Latent Semantic Indexing(或 Latent Semantic Analysis )](https://en.wikipedia.org/wiki/Latent_semantic_analysis#Latent_semantic_indexing)。 它采用[奇异值分解](https://zh.wikipedia.org/zh-hans/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3)（Singular Value Decomposition）对文档矩阵进行分解，然后保留一部分（Top n）奇异值和其对应的奇异向量。和奇异值分解的目的相同，LSI往往也用于去除文本中的噪音。公式如下：
 $$
 A_{m \times n}=U_{m \times m}S_{m \times n}V^\mathrm {T}_{n \times n}
 $$
@@ -9,17 +15,18 @@ $$
 A_{m \times k}^*=U_{m \times k}S_{k \times k}V^\mathrm {T}_{k \times k}
 $$
 
-- $U_{m \times k}$ 每个列向量可以看成是一个主题（topic），每个主题有不同的term分布，而且这些主题相互独立（因为垂直）
-- 假设对于一个新的文档$a$，则$U_{m \times k}^\mathrm {T}a$可以理解为，$a$在各个主题上的投影，根据投影的大小，可以看出$a$属于哪个主题。
+- $U_{m \times k}$ 每个列向量可以看成是一个主题（topic），每个主题有不同的Term分布，而且这些主题相互独立（垂直）
+- 对于一个新的文档$a$，$U_{m \times k}^\mathrm {T}a$可以理解为$a$在$U_{m \times k}$列向量（主题）上的投影，根据投影的大小，可以看出$a$更有可能属于哪个主题。
 
-### gensim.models.LsiModel
+### LsiModel
 
-Gensim中相关代码如下：
+[Gensim](https://radimrehurek.com/gensim/)里面实现了LSI算法，下面是使用gensim.models.LsiModel示例代码。
 
 ~~~python
 from gensim.test.utils import common_corpus, common_dictionary
 from gensim.models import LsiModel
 
+# 使用Gensim包里的语料和字典
 print('-'*25, "corpus", '-'*25, sep="") 
 print(common_dictionary)
 corpus = common_corpus[0:9]
@@ -27,6 +34,7 @@ print("corpus number =", len(corpus))
 for doc in corpus:
     print([(i, round(w,4)) for i, w in doc])
 
+# 构建LSI模型    
 print('-'*25, "lsi", '-'*25, sep="")  
 model = LsiModel(corpus, id2word=common_dictionary, num_topics=3)  # train model
 
@@ -47,11 +55,11 @@ print("", model.show_topics(3, num_words=12))
 
 ![image-20200612164118539](images/image-20200612164118539.png)
 
-可以看到topics的每一行就是$U$的每个列向量。
+上面topics的结果中，每一行就是$U$的每个列向量。
 
 ### 和奇异值分解比较
 
-下面的代码比较了奇异值分解和LSI，可以便于我们理解LSI。
+如前文所述，LSI采用了奇异值分解。下面的代码比较了奇异值分解和LSI，便于我们理解LSI中具体Feature的意义。
 
 ~~~python
 import gensim
