@@ -1,6 +1,6 @@
 ---
 title: Latent Semantic Indexing
-categories: machine-learning
+categories: nlp
 date: 2020-06-10
 ---
 
