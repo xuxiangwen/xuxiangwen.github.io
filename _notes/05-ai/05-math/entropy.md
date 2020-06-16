@@ -1,5 +1,5 @@
 ---
-title: 信息熵
+title: 信息熵是什么
 categories: mathematics
 date: 2020-06-16
 ---
@@ -40,15 +40,16 @@ $$
 
 ### 信息量和熵
 
-信息量是描述某一个事件发生的不确定性，而熵是描述整个系统的不确定性。比如，对于一个六面的骰子，每一个面相当于一个事件，而骰子的所有面构成了一个系统。从公式上，也可以看出熵是对系统中所有事件发生的信息量的加权平均(数学期望)。下面看看实际的例子, 假设我们从某婚介网站拿到以下数据. 
+信息量是描述某一个事件发生的不确定性，而熵是描述整个系统的不确定性。比如，对于一个六面的骰子，每一个面相当于一个事件，而骰子的所有面构成了一个系统。从公式上，也可以看出**熵是对系统中所有事件发生的信息量的加权平均(数学期望)**。下面看看实际的例子, 假设我们从某婚介网站拿到以下数据. 
 
 ![img](images/v2-ccf99fcbded18b80b8d9d8553be1eec6_hd.png)
 
 设随机变量$X=\{帅, 不帅\}$,  $Y=\{嫁, 不嫁\}$ 
 
-$H(X) = -\frac 1 3\log\frac 1 3-\frac 2 3\log \frac 2 3 = 0.918 $
+- $H(X) = -\frac 1 3\log\frac 1 3-\frac 2 3\log \frac 2 3 = 0.918 $
+- $H(Y) = -\frac 1 2\log\frac 1 2-\frac 1 2\log \frac 1 2 = 1$
 
-$H(Y) = -\frac 1 2\log\frac 1 2-\frac 1 2\log \frac 1 2 = 1$
+相关代码如下。
 
 ~~~python
 import numpy as np
@@ -79,6 +80,11 @@ print("H(X) =",  entropy(X, base=2))
 
 ![image-20200616160507533](images/image-20200616160507533.png)
 
+上面的结果，可以看到，不确定体现在：
+
+- 概率是否均匀分布
+- 不确定项的数据量
+
 ## 联合熵（joint entropy）
 
 对于服从联合分布为$p(x,y)$的一对离散随机变量$(X,Y)$ ,其**联合熵**定义为：
@@ -99,7 +105,7 @@ $$
 H(X,Y) < H(X) + H(Y）
 $$
 
-基本的含义是，既然$X, Y$既然相互有关系，系统的不确定性降低了。比方：足球比赛如果有假球发生，结果内定了,  悬念没了，大家都不愿看了。
+基本的含义是，既然$X, Y$既然相互有关系，系统的不确定性降低了。比方：足球比赛如果有假球发生，结果内定了,  悬念没了，大家都不愿看了。相关代码如下：
 
 ~~~python
 def joint_entropy(XY, base=None):
@@ -188,7 +194,7 @@ H(Y|X) &= \sum_{x \in X} {p(x)H(Y|X = x)} \\
  \end{array}
 $$
 
-0.907小于1, 也就是当知道了一些信息后, 整个系统不确定性降低了, 也就是熵降低了. 
+0.907小于1, 也就是当知道了一些信息后, 整个系统不确定性降低了, 也就是熵降低了。相关代码如下：
 
 ~~~python
 def conditional_entropy(Y_X, base=None):
@@ -261,7 +267,7 @@ $$
 D_{KL}\left( {p||q} \right) = \sum_x {p\left( x \right)\log \frac{{p\left( x \right)}}{{q\left( x \right)}}}  = {E_{p\left( x \right)}}\log \frac{{p\left( x \right)}}{{q\left( x \right)}}
 $$
 
-相对熵又称互熵，鉴别信息，KL 散度（Kullback–Leibler divergence， KLD），Kullback 熵。它是两个随机分布之间距离的度量.  当两个分布相同的时候，KL散度为0，越是不同，KL散度越大。
+相对熵又称互熵，鉴别信息，KL 散度（Kullback–Leibler divergence， KLD），Kullback 熵。它是两个随机分布之间距离的度量.  当两个分布相同的时候，KL散度为0，越是不同，KL散度越大。相关代码如下：
 
 ~~~python
 def KL(P,Q):
