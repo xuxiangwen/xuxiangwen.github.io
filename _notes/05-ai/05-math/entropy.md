@@ -1,4 +1,8 @@
-
+---
+title: 如何理解熵
+categories: mathematics
+date: 2020-06-16
+---
 
 ## 信息量
 
@@ -52,25 +56,25 @@ def entropy(X, base=None):
     return h
 
 print('-'*50)
-x = [1/3, 2/3]
-print("p(x) =", x)
-print("entropy =", entropy(x, base=2))    
+X = [1/3, 2/3]
+print("P(X) =", X)
+print("H(X) =", entropy(X, base=2))    
 
 print('-'*50)
-x = [1/2, 1/2]
-print("p(x) =", x)
-print("entropy =", entropy(x, base=2))    
+X = [1/2, 1/2]
+print("P(X) =", X)
+print("H(X) =", entropy(X, base=2))    
 
 print('-'*50)
-x = [12.7, 9.1, 8.2, 7.5, 6.7, 7.0, 6.3, 6.1, 6.0, 4.3, 4.0, 
+X = [12.7, 9.1, 8.2, 7.5, 6.7, 7.0, 6.3, 6.1, 6.0, 4.3, 4.0, 
              2.8, 2.8, 2.4, 2.4, 2.2, 2.0, 2.0, 1.9, 1.5, 1.0, 0.2,
              0.8, 0.1, 0.2, 0.1]
-x = [freq/sum(x) for freq in x ]   
-print("p(x) =\n", np.around(frequency, 6))
-print("entropy =",  entropy(frequency, base=4))
+X = [x/sum(X) for x in X ]   
+print("P(X) =\n", np.around(X, 6))
+print("H(X) =",  entropy(X, base=2))
 ~~~
 
-![image-20200616135105299](images/image-20200616135105299.png)
+![image-20200616160507533](images/image-20200616160507533.png)
 
 ## 联合熵（joint entropy）
 
@@ -80,24 +84,11 @@ $$
 H(X,Y) =  - \sum_{x \in X,y \in Y} {p(x,y)} \ln (p(x,y))
 $$
 
-当$X, Y$是相互独立的系统， 可以得出：
+当$X, Y$是相互独立的系统，即$p(x, y) = p(x)p(y)$， 可以得出：
 
 $$
 H(X,Y) =  H(X) + H(Y)
 $$
-
-> 上面公式可以通过$p(x, y) = p(x)p(y)$推出
-
-~~~python
-# 联合熵
-def joint_entropy(XY):
-    xy = [p for xY in XY for p in xY ]
-    return entropy(xy)
-  
-print('-'*50)    
-XY = [[5/12,3/12], [1/12,3/12]]
-print(joint_entropy(XY)) 
-~~~
 
  当$X, Y$非相互独立， 可以得出：
 
@@ -105,7 +96,38 @@ $$
 H(X,Y) < H(X) + H(Y）
 $$
 
-基本的含义是，既然$X, Y$既然相互有关系，系统的不确定性降低了。比方：有两场比赛，如果有假球发生，既然结果内定了,  没悬念了，大家都不愿看了。
+基本的含义是，既然$X, Y$既然相互有关系，系统的不确定性降低了。比方：足球比赛如果有假球发生，结果内定了,  悬念没了，大家都不愿看了。
+
+~~~python
+def joint_entropy(XY, base=None):
+    xy = [p for xY in XY for p in xY ]
+    return entropy(xy, base)
+
+print('-'*50)    
+XY = np.array([[5/12,3/12], [1/12,3/12]])
+print("P(XY) =\n", XY)
+print("H(X, Y) =", joint_entropy(XY, base=2)) 
+
+print('-'*50)  
+X = np.sum(np.array(XY), axis=1)
+Y = np.sum(np.array(XY), axis=0)
+
+print("P(X) =", X)
+print("P(Y) =", Y)
+print("H(X) =",  entropy(X, base=2))
+print("H(Y) =",  entropy(Y, base=2))
+
+# 当X，Y并不独立的时候，联合熵（即整体X，Y的熵）小于X，Y的熵之和。
+print("H(X) + H(Y) =",  entropy(Y, base=2) + entropy(X, base=2))
+
+print('-'*50)  
+# 当X，Y独立的时候，联合熵等于X，Y的熵之和
+XY = X.reshape((2, 1)) @ Y.reshape((1, 2))
+print("P(XY) =\n", XY) 
+print("H(X, Y) =", joint_entropy(XY, base=2)) 
+~~~
+
+![image-20200616160651988](images/image-20200616160651988.png)
 
 ## 条件熵 (conditional entropy)
 
@@ -144,7 +166,7 @@ $H(Y) = -\frac 1 2\log\frac 1 2-\frac 1 2\log \frac 1 2 = 1$
 
 - $X = 不帅$  
 
-  $H(Y|X = 不帅) = - \frac 1 4 \log \frac 1 4- \frac 3 4 \log \frac 3 4 = 0.811\\ 
+  $H(Y|X = 不帅) = - \frac 3 4 \log \frac 3 4- \frac 1 4 \log \frac 1 4 = 0.811\\ 
   p(X = 不帅) = 4/12 = 1/3$
 
 - $X = 帅$
@@ -166,16 +188,20 @@ $$
 0.907小于1, 也就是当知道了一些信息后, 整个系统不确定性降低了, 也就是熵降低了. 
 
 ~~~python
-# 条件熵
-def conditional_entropy(Y_X):
-    h = sum([ Y_x['x'] * entropy(Y_x['Y']) for Y_x in Y_X])
+def conditional_entropy(Y_X, base=None):
+    h = sum([ Y_x['x'] * entropy(Y_x['Y'], base) for Y_x in Y_X])
     return h
             
-print('-'*50)
-Y_X = [{'x':1/3, 'Y':[1/4, 3/4]},
+Y_X = [{'x':1/3, 'Y':[3/4, 1/4]},
        {'x':2/3, 'Y':[3/8, 5/8]}]
-print(conditional_entropy(Y_X))
+print("P(Y|X) =", Y_X)
+
+Y = np.sum(np.array([ Y_x['x'] * np.array(Y_x['Y']) for Y_x in Y_X]), axis=0)
+print("P(Y) =", Y)
+print("H(Y|X) =", conditional_entropy(Y_X, 2))print("H(Y) =", entropy(Y, 2))
 ~~~
+
+![image-20200616160806442](images/image-20200616160806442.png)
 
 ### 联合熵和条件熵的关系
 
@@ -229,20 +255,52 @@ $$
 假设$p(x),q(x)$ 是随机变量$X$中取不同值时的两个概率分布，那么 $p$的$q$的相对熵是： 
 
 $$
-D\left( {p||q} \right) = \sum_x {p\left( x \right)\log \frac{{p\left( x \right)}}{{q\left( x \right)}}}  = {E_{p\left( x \right)}}\log \frac{{p\left( x \right)}}{{q\left( x \right)}}
+D_{KL}\left( {p||q} \right) = \sum_x {p\left( x \right)\log \frac{{p\left( x \right)}}{{q\left( x \right)}}}  = {E_{p\left( x \right)}}\log \frac{{p\left( x \right)}}{{q\left( x \right)}}
 $$
 
 相对熵又称互熵，鉴别信息，KL 散度（Kullback–Leibler divergence， KLD），Kullback 熵。它是两个随机分布之间距离的度量.  当两个分布相同的时候，KL散度为0，越是不同，KL散度越大。
 
-**信息增益和KL散度**
+~~~python
+def KL(P,Q):
+    sum = P*(np.log2(P/Q))#计算KL散度
+    all_value= [x for x in sum if str(x) != 'nan' and str(x)!= 'inf']#除去inf值
+    return np.sum(all_value)
+
+
+#P和Q是两个概率分布，np.array格式
+print('-'*50)
+P = np.array([0.65, 0.35])
+Q = np.array([0.667,0.333])
+print("P =", P)
+print("Q =", Q)
+print("D(P||Q)", KL(P,Q))
+
+print('-'*50)
+P = np.array([0.65, 0.35])
+Q = np.array([0.9,0.1])
+print("P =", P)
+print("Q =", Q)
+print("D(P||Q)", KL(P,Q))
+
+print('-'*50)
+P = np.array([0.65, 0.35])
+Q = np.array([0.17,0.83])
+print("P =", P)
+print("Q =", Q)
+print("D(P||Q)", KL(P,Q))
+~~~
+
+![image-20200616160943279](images/image-20200616160943279.png)
+
+### 信息增益和KL散度
 
 $$
 \begin{array}{l}
-IG(X,Y) =H(X)-H(X|Y)\\
-=-\sum_xp(x)logp(x)+\sum_y\sum_xp(x,y)log\frac{p(x,y)}{p(y)}\\
-=-\sum_x\sum_yp(x,y)logp(x)+\sum_y\sum_xp(x,y)log\frac{p(x,y)}{p(y)}\\
-=\sum_y\sum_xp(x,y)log\frac{p(x,y)}{p(y)p(x)} 
-=KL(p(x,y)||p(x)p(y))
+IG(X,Y) &=H(X)-H(X|Y)\\
+&=-\sum_xp(x)logp(x)+\sum_y\sum_xp(x,y)log\frac{p(x,y)}{p(y)}\\
+&=-\sum_x\sum_yp(x,y)logp(x)+\sum_y\sum_xp(x,y)log\frac{p(x,y)}{p(y)}\\
+&=\sum_y\sum_xp(x,y)log\frac{p(x,y)}{p(y)p(x)} \\
+&=D_{KL}(p(x,y)||p(x)p(y))
 \end{array}
 $$
 
@@ -262,11 +320,11 @@ $$
 H(p, q) = - \sum_x p(x)\log\left({q(x)}\right)
 $$
 
-**交叉熵和散度的关系**
-下面推导中，由于$H(p)$是常量, 所以可以看到交叉熵和散度的是等价。
+### 交叉熵和散度的关系
 
+下面推导中，由于$H(p)$是常量, 所以可以看到交叉熵和散度的是等价。
 $$
- \begin{align*}
+\begin{align*}
 D\left( {p||q} \right) &= \sum_x {p\left( x \right)\log \frac{{p\left( x \right)}}{{q\left( x \right)}}} \\
 &=  \sum_x p\left( x \right) \log \left(p\left( x \right)\right) - \sum_x p\left( x \right) \log \left(q\left( x \right)\right)  \\
 &=  H(p, q) - H(p)
@@ -283,11 +341,7 @@ $$
 
 - 交叉熵指的是当你用q作为密码本来表示p时所需要的“平均的编码长度”。
 
-## 熵的手工计算
 
-~~~python
-
-~~~
 
 
 
