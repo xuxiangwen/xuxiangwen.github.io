@@ -1,4 +1,10 @@
-去年学习了翟成祥老师在Couseras的课程[Text Mining and Analytics](https://www.coursera.org/learn/text-mining/)，现在将其中的学习笔记整理成系列文章，并添加了游戏额自己的理解和代码，分享出来。
+---
+title: Text Mining and Analytics: Week 1
+categories: nlp
+date: 2020-06-15
+---
+
+去年学习了翟成祥老师在Couseras的课程[Text Mining and Analytics](https://www.coursera.org/learn/text-mining/)，现在将其中的学习笔记整理成系列文章，并添加了一些自己的理解和代码，分享出来。
 
 该课程的内容和目标是：
 
@@ -115,7 +121,7 @@ Text is the most expressive form of information in the sense that it can be used
 > 对于省略的常识和含糊的表达，进一步可以看到：
 >
 > - 人类情感的复杂。比如，李白的诗给人气势磅礴的画面感，但又渗透着孤独和骄傲。还有，一个成年人去做小学生的语文阅读理解，往往会发现不少题目也会错。虽然每个字都认识，但放在一起往往就抓不住重点。对于人类来说，也需要大量训练才能掌握对复杂情感的理解能力。
-> - 语言的多层结构。比如，数学也可以看成是一门语言， 一个小学生，如果去看大学高等数学的公式，完全就是天书。这是因为高等数学的很多概念是建立在初等数学之上的，如果没有掌握初等数学，理解高等数学是不可能的。也就是说，常识是分层次的。
+> - 语言的多层结构。比如，数学也可以看成是一门语言， 一个小学生，如果去看大学高等数学的公式，完全就是天书。这是因为高等数学的很多概念是建立在初等数学之上的，如果没有掌握初等数学，理解高等数学是很难的。也就是说，语言是分层次的，知识是分层次的。
 
 ### 2.3 当前的水平（state of art ）
 
@@ -147,7 +153,7 @@ Text is the most expressive form of information in the sense that it can be used
 
 ![text_mining_text_presentation](images/text_mining_text_presentation.png)
 
-从上晚下，NLP由浅入深。
+从上往下，NLP由浅入深。
 
 ### 3.2 本课程的重点
 
@@ -244,7 +250,7 @@ High $Sim(word1, word2) $  说明words1 and word2是Paradigmatic 关系.
 
 - 向量 =  每个词语在文档中出现的概率
 
-- $Sim(d1, d2)$  =  d1, d2的内积. 
+- $Sim(d1, d2)$  =  $d1, d2$的内积. 
 
 > 上面公式中$x_i$指的就是TF（Term Frequency）。它是指一个文档中出现某个单词（Term）的频率（Frequency）。所用的是频率而不是次数的原因是为了防止文档内容过长从而导致某些单词出现过多。
 
@@ -285,7 +291,7 @@ $$ y= \frac {(k+1)x} {x+k}$$
 
 以上两种变换的目的是, 降低高频词的值， 尤其BM25，当词语的频次增加后,  TF的值逐渐达到饱和。 BM25的极限值是$k+1$. 这样无疑降低了高频词在向量中的权重.  通俗来说, 频次越高, TF会越大, 但就大那么一点点。
 
-BM25的相关详细描述和代码，参见[Okapi BM25 ](bm25.md)。
+BM25的相关详细描述和代码，参见[Okapi BM25 ](https://eipi10.cn/nlp/2020/06/08/bm25/)。
 
 #### IDF权重: 惩罚高频词
 
