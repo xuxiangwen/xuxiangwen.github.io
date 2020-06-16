@@ -437,9 +437,7 @@ print("new_matrix =\n", new_matrix)
 
 ![image-20200609151431396](images/image-20200609151431396.png)
 
-需要注意的是corpus转化的矩阵为term-document矩阵，即行代表term，列代表document.
-
-
+需要注意的是corpus转化的矩阵为term-document矩阵，即行代表term，列代表document。
 
 ## 参考
 
