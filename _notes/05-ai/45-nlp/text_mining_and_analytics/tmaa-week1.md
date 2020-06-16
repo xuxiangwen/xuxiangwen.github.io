@@ -1,5 +1,5 @@
 ---
-title: Text Mining and Analytics: Week 1
+title: Text Mining and Analytics - Week 1
 categories: nlp
 date: 2020-06-15
 ---

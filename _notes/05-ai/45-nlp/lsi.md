@@ -12,7 +12,7 @@ A是Term-Document文档矩阵（行是Term，列是Document）。
 
 实际计算中，我们会选取$k$个奇异值（$k < m, k < n$），这时公式变成：
 $$
-A_{m \times k}^*=U_{m \times k}S_{k \times k}V^\mathrm {T}_{k \times k}
+A_{m \times n}^*=U_{m \times k}S_{k \times k}V^\mathrm {T}_{k \times n}
 $$
 
 - $U_{m \times k}$ 每个列向量可以看成是一个主题（topic），每个主题有不同的Term分布，而且这些主题相互独立（垂直）
