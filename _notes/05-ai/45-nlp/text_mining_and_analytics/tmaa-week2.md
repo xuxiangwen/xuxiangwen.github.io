@@ -1,47 +1,51 @@
-# 2. Week 2
+---
+title: Text Mining and Analytics - Week 2
+categories: nlp
+date: 2020-06-19
+---
 
-- 介绍了如何来发现syntagmatic关系。主要使用熵来进行处理。 关于熵的概念，参见：[熵](https://github.com/xuxiangwen/xuxiangwen.github.io/blob/master/05-ai/05-math/entropy.md)
+第二周的主要内容如下：
+
+- 介绍了如何来发现Syntagmatic关系。主要使用熵来进行处理。 关于熵的概念，参见：[熵](https://github.com/xuxiangwen/xuxiangwen.github.io/blob/master/05-ai/05-math/entropy.md)
 - 介绍了文本主题挖掘的计算过程，特别是输入和输出
 - 解释了使用一个term来表示主题
 - 解释了只使用一个term来表示主题的一些限制，并提出了一个主题可以用一组word的概率分布来表示。
 - 介绍了统计语言模型中的一些基本概念：“language model”, “unigram language model”, “likelihood”, Maximum Likelihood estimate.
 - 解释了如何使用模型（ unigram language model）从一个文本中来挖掘一个主题。
 
-## 2.1  组合关系的发现：熵(Syntagmatic Relation Discovery: Entropy)
+## 2.1 组合关系的发现：熵(Syntagmatic Relation Discovery: Entropy)
 
-### 定义
+### 2.21 定义
 
 熵 (entropy) 这一词最初来源于热力学。1948年，香农将热力学中的熵引入信息论，所以也被称为香农熵 (Shannon entropy)，信息熵 (information entropy)。
 $$
 H(X) =  - \sum_{i=1}^n {p({x_i})} \log (p({x_i}))~~~~(i = 1,2, \ldots ,n)
 $$
-其中$X$ 表示的是随机变量，随机变量的取值为 $({x_1},{x_2}, \ldots ,{x_n})$，$p({x_i}) $表示事件发生的概率，且有$\sum {p({x_i})}  = 1$ 。熵可以理解为信息的不确定程度，是随机变量不确定性的度量.  熵越大，随机变量不确定性越大，系统越混乱（无序）。
+其中$X$ 表示的是随机变量，随机变量的取值为 ${x_1},{x_2}, \ldots ,{x_n}$，$p({x_i}) $表示事件发生的概率，且有$\sum {p({x_i})}  = 1$ 。熵可以理解为信息的不确定程度，是随机变量不确定性的度量.  熵越大，随机变量不确定性越大，系统越混乱（无序）。
 
+### 2.22 使用
 
+![1562889223532](images/1562889223532.png)
 
-### 使用
-
-![1562889223532](image/1562889223532.png)
-
-下面给出了三个词。
+要计算eats的Syntagmatic 相关词，假设有三选项。
 
 - meat
 - the:  频繁出现
 - unicorn: 非常稀少
 
-很明显，meat的熵最大，或许是最好的答案。
+根据熵的公式，很明显，meat的熵最大，或许是最好的答案。
 
-![1563027913372](image/1563027913372.png)
+![1563027913372](images/1563027913372.png)
 
 ## 2.2 Syntagmatic Relation Discovery: Conditional Entropy
 
 在2.1中，进行了没有任何先决条件的预测。如果知道一些内容，这个预测又将如何进行呢？
 
-![1563198021453](image/1563198021453.png)
+![1563198021453](images/1563198021453.png)
 
 下图中，已知句子中`eat`个词汇，如何判断`meat`是否也会出现在句子中呢？条件熵可以帮助我们来做这个判断。
 
-### 定义
+### 2.21定义
 
 若$(X,Y)\sim p(x,y)$，条件熵定义为：
 $$
@@ -50,17 +54,14 @@ H(Y|X) &= \sum_{x \in X} {p(x)H(Y|X = x)} \\
        &=  - \sum_{x \in X} {p(x)} \sum_{y \in Y} {p(y|x)\log p(y|x)} \\ 
        &=  - \sum_{x \in X} {\sum_{y \in Y} {p(x,y)\log p(y|x)} }  \end{array}
 $$
-其物理意义：$X$给定条件下, $Y$ 的条件概率分布的熵对 X 的数学期望。
+其物理意义：$X$给定条件下, $Y$ 的条件概率分布的熵对 X 的数学期望。而且
 
-而且
 $$
 H(Y|X) <= H(Y)
 $$
 其含义是， 当在一个系统中，知道了$X$的信息，则整个系统的熵是变小的。
 
-
-
-### 使用
+### 2.22 使用
 
 条件熵可以用来发现Syntagmatic Relation。 具体算法如下。 
 
@@ -71,9 +72,8 @@ For each word W1
   - $H(X_{W1}|X_{W2})$越小，说明W1和W2更加可能有 syntagmatic relations
 - Need to use a threshold for each W1
 
-
-
 **问题**
+
 - $H(X_{W1}|X_{W2}) ,  H(X_{W1}|X_{W3}) $可以用来比较W2, W3哪一个词更有可能和W2有syntagmatic关系. 为何说使用$ H(X_{W2}|X_{W2}) , H(X_{W3}|X_{W1}) $不可以呢？
 
   - 简而言之，这是因为$H(X_{W1}|X_{W2}) ,  H(X_{W1}|X_{W3}) $都小于等于$H(X_{W1})$,  它们的上界相同。而$ H(X_{W2}|X_{W2}) , H(X_{W3}|X_{W1}) $上界完全不同。 
@@ -83,27 +83,25 @@ For each word W1
 
 ## 2.3 Syntagmatic Relation Discovery: Mutual Information
 
-### 定义
+### 2.31 定义
 
 互信息: $I(X; Y)= H(X) – H(X|Y) = H(Y)-H(Y|X)$
 
 实际上，采用互信息来判断，和采用条件熵来判断，原理相同。只是互信息前面加了一个固定的常量$ H(X)$
 
+### 2.32 使用
 
-
-### 使用
-
-![1563204033964](image/1563204033964.png)
+![1563204033964](images/1563204033964.png)
 
 本质和条件上相同。
 
 
 
-**平滑处理**
+**平滑处理s**
 
-![1563204455194](image/1563204455194.png)
+![1563204455194](images/1563204455194.png)
 
-### Summary of Syntagmatic Relation Discovery
+### 2.33 Summary of Syntagmatic Relation Discovery
 
 - Syntagmatic 关系可以通过词的同时出现的相关性来衡量
 - 信息熵可以用来衡量Syntagmatic 关系
@@ -113,9 +111,7 @@ For each word W1
 
 - Mutual information 提供了一种有效的方式来发现Syntagmatic 关系
 
-
-
-### Summary of Word Association Mining
+### 2.34 Summary of Word Association Mining
 
 - 两种基本的关联：
   - paradigmatic ： 聚合关系
@@ -128,13 +124,12 @@ For each word W1
 
 - 发现的关联关系可以用于很多应用
 
-  
 
 ## 2.4 Topic Mining and Analysis: Motivation and Task Definition
 
-![1563240696590](image/1563240696590.png)
+![1563240696590](images/1563240696590.png)
 
-### 主题Topic
+### 2.41 主题Topic
 
 Topic  $\approx $ 文本中谈论的主要论点。它可以有不同的粒度：句子的topic， 文章的topic等等。 它的应用非常广泛。
 
@@ -145,17 +140,17 @@ Topic  $\approx $ 文本中谈论的主要论点。它可以有不同的粒度�
 
 
 
-### Topic发现流程
+### 2.42 Topic发现流程
 
 topic发现过程中，往往会加入一些非文本的信息。
 
-![1563241291337](image/1563241291337.png)
+![1563241291337](images/1563241291337.png)
 
 
 
 每一篇文档可以属于多个topic。
 
-![1563241487221](image/1563241487221.png)
+![1563241487221](images/1563241487221.png)
 
 数学表达如下：
 
@@ -179,7 +174,7 @@ topic发现过程中，往往会加入一些非文本的信息。
 
 主题分析，首要的问题是获得主题，而最简单或许方式是把Term当成主题。
 
-![1563242697128](image/1563242697128.png)
+![1563242697128](images/1563242697128.png)
 
 主要处理过程如下：
 
@@ -194,17 +189,16 @@ topic发现过程中，往往会加入一些非文本的信息。
 
   - 如果多个term是相似含义，选择其中一个，而忽略其他。 
 
-  
 
 看一个例子:
 
-![1563243359877](image/1563243359877.png)
+![1563243359877](images/1563243359877.png)
 
 上面例子中，列出了三个问题。这些也是基于term为topic比较难处理的地方。
 
 
 
-### Term as Topic的问题
+### 2.51 Term as Topic的问题
 
 - 缺乏足够的表达能力
   - 仅能够表达简单主题
@@ -230,9 +224,9 @@ topic发现过程中，往往会加入一些非文本的信息。
 
 probabilistic topic model 可以解决上诉问题。
 
-### Improved Idea: Topic = Word Distribution
+### 2.61 Improved Idea: Topic = Word Distribution
 
-![1563282750878](image/1563282750878.png)
+![1563282750878](images/1563282750878.png)
 
 一个topic表现为一些词汇的概率分布。数学表达如下：
 
@@ -259,15 +253,15 @@ probabilistic topic model 可以解决上诉问题。
 
 计算过程如下：
 
-![1563283668964](image/1563283668964.png)
+![1563283668964](images/1563283668964.png)
 
 
 
-### Generative Model for Text Mining
+### 2.62 Generative Model for Text Mining
 
 根据上面的模型，可以建立一个生成模型（问题是如何建，课程没有交代，可能要看后续的课程）
 
-![1563283768152](image/1563283768152.png)
+![1563283768152](images/1563283768152.png)
 
 上面的参数个数是$k*M + k*N$
 
@@ -275,7 +269,7 @@ probabilistic topic model 可以解决上诉问题。
 
 ## 2.7 Overview of Statistical Language Models
 
-### 什么是统计语言模型 - Statistical Language Model (SLM)?
+### 2.71 什么是统计语言模型 - Statistical Language Model (SLM)?
 
 - 统计语言模型是一个word序列的概率分布
   - p(“Today is Wednesday”) $\approx$ 0.001
@@ -289,23 +283,23 @@ probabilistic topic model 可以解决上诉问题。
 
   感觉文本挖掘中，语料差异非常大。比如： 聊天和书面文章的差异就非常大。
 
-### 最简单的语言模型: Unigram LM
+### 2.72 最简单的语言模型: Unigram LM
 
 为了简化模型，假设所有word都是独立的, 即：$p(w_1 w_2 ... w_n)=p(w_1)p(w_2)…p(w_n)$。然后根据word的分布来生成Text。
 
-![1563328312161](image/1563328312161.png)
+![1563328312161](images/1563328312161.png)
 
-### Text Generation with Unigram LM
+### 2.73 Text Generation with Unigram LM
 
 - Sampling: 根据每个topic的word分布来产生sample文本。
 
-![1563328399619](image/1563328399619.png)
+![1563328399619](images/1563328399619.png)
 
 - Estimation: 
 
-  ![1563541436655](image/1563541436655.png)
+  ![1563541436655](images/1563541436655.png)
 
-### Maximum Likelihood vs. Bayesian
+### 2.74 Maximum Likelihood vs. Bayesian
 
 常用来估计$\theta $ 的方法有：
 
@@ -332,13 +326,13 @@ probabilistic topic model 可以解决上诉问题。
 
   贝叶斯估计比最大似然估计更加好，当认为$P( \theta) $是一个常量时，贝叶斯分布退化到最大似然分布。
 
-### **图解**Bayesian Estimation
+### 2.75 **图解**Bayesian Estimation
 
 最大后验概率估计是先验概率和最大似然估计综合起来的估计。
 
 下面这个图的解释，留待看完书后再丰富。
 
-![1563552266795](image/1563552266795.png)
+![1563552266795](images/1563552266795.png)
 
 
 
@@ -346,7 +340,7 @@ probabilistic topic model 可以解决上诉问题。
 
 本小节描述一篇文档针对一个topic如何挖掘。假设某一篇文档完全属于一个topic。
 
-![1563591596075](image/1563591596075.png)
+![1563591596075](images/1563591596075.png)
 
 数学表达如下：
 
@@ -359,23 +353,23 @@ probabilistic topic model 可以解决上诉问题。
 
 - 似然函数：
 
-  ![1563592138745](image/1563592138745.png)
+  ![1563592138745](images/1563592138745.png)
 
 - 最大似然估计：
 
-  ![1563592200786](image/1563592200786.png)
+  ![1563592200786](images/1563592200786.png)
 
 - log最大似然估计：
 
-  ![1563592309774](image/1563592309774.png)
+  ![1563592309774](images/1563592309774.png)
 
   采用拉格朗日函数求极值后，可以发现，对于${\theta}_i $的估计值就是对于词频的统计概率。 这符合我们一般的使用和假设。
 
 
 
-### 一个问题
+### 2.81 一个问题
 
 由于公共words在所有文档中出现的频次都很高，所以在最大似然估计中，将会取得很高的概率值，这使得所有的文档看上去都差不多而趋同。如何去掉这些词呢。
 
-![1563760698320](image/1563760698320.png)
+![1563760698320](images/1563760698320.png)
 

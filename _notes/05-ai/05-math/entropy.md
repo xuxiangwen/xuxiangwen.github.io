@@ -1,8 +1,6 @@
-# 熵（Entropy）
 
-## 概念
 
-### 信息量
+## 信息量
 
 信息量用于度量信息的不确定性，信息量和事件发生的概率有关，事件发生的概率越小，其信息量越大。某个事件$x$发生的信信息量为：
 
@@ -21,7 +19,7 @@ $$
 I(x, y)  = I(x) + I(y)
 $$
 
-### 信息熵 (information entropy)
+## 信息熵 (information entropy)
 
 ![img](images/200px-Binary_entropy_plot.svg.png)
 
@@ -46,19 +44,35 @@ $H(X) = -\frac 1 3\log\frac 1 3-\frac 2 3\log \frac 2 3 = 0.918 $
 $H(Y) = -\frac 1 2\log\frac 1 2-\frac 1 2\log \frac 1 2 = 1$
 
 ~~~python
+import numpy as np
 from math import log
 
-# 熵
-def entropy(X):
-    h = sum([-x*log(x, 2) for x in X])
+def entropy(X, base=None):    
+    h = sum([-x*log(x) for x in X]) if base is None else sum([-x*log(x, base) for x in X])
     return h
 
 print('-'*50)
-print(entropy([1/3, 2/3]))    
-print(entropy([1/2, 1/2]))
+x = [1/3, 2/3]
+print("p(x) =", x)
+print("entropy =", entropy(x, base=2))    
+
+print('-'*50)
+x = [1/2, 1/2]
+print("p(x) =", x)
+print("entropy =", entropy(x, base=2))    
+
+print('-'*50)
+x = [12.7, 9.1, 8.2, 7.5, 6.7, 7.0, 6.3, 6.1, 6.0, 4.3, 4.0, 
+             2.8, 2.8, 2.4, 2.4, 2.2, 2.0, 2.0, 1.9, 1.5, 1.0, 0.2,
+             0.8, 0.1, 0.2, 0.1]
+x = [freq/sum(x) for freq in x ]   
+print("p(x) =\n", np.around(frequency, 6))
+print("entropy =",  entropy(frequency, base=4))
 ~~~
 
-### 联合熵（joint entropy）
+![image-20200616135105299](images/image-20200616135105299.png)
+
+## 联合熵（joint entropy）
 
 对于服从联合分布为$p(x,y)$的一对离散随机变量$(X,Y)$ ,其**联合熵**定义为：
 
@@ -93,7 +107,7 @@ $$
 
 基本的含义是，既然$X, Y$既然相互有关系，系统的不确定性降低了。比方：有两场比赛，如果有假球发生，既然结果内定了,  没悬念了，大家都不愿看了。
 
-### 条件熵 (conditional entropy)
+## 条件熵 (conditional entropy)
 
 若$(X,Y)\sim p(x,y)$，条件熵定义为：
 
@@ -157,14 +171,13 @@ def conditional_entropy(Y_X):
     h = sum([ Y_x['x'] * entropy(Y_x['Y']) for Y_x in Y_X])
     return h
             
-
 print('-'*50)
 Y_X = [{'x':1/3, 'Y':[1/4, 3/4]},
        {'x':2/3, 'Y':[3/8, 5/8]}]
 print(conditional_entropy(Y_X))
 ~~~
 
-#### 联合熵和条件熵的关系
+### 联合熵和条件熵的关系
 
 $$
 H(X,Y) = H(X) + H(Y|X) =  H(Y) + H(X|Y)
@@ -190,7 +203,7 @@ $$
 
 条件熵可以表示为$ (X, Y)$ 发生所包含的熵，减去 $X$ 单独发生包含的熵，即在 $X $发生的前提下， $Y $发生 “新” 带来的熵 。
 
-### 信息增益(Information gain)
+## 信息增益(Information gain)
 
 $$
 IG(Y,X) = H(Y) - H(Y|X) = H(X) - H(X|Y) = IG(X,Y) \\
@@ -211,7 +224,7 @@ $$
 - 在决策树算法中, 经常采用信息增益来进行特征选择. 
 - 在文本挖掘中，经常采用信息增益来发现Syntagmatic关系的词汇。
 
-### KL散度，相对熵 (relative entropy)
+## KL散度，相对熵 (relative entropy)
 
 假设$p(x),q(x)$ 是随机变量$X$中取不同值时的两个概率分布，那么 $p$的$q$的相对熵是： 
 
@@ -233,9 +246,7 @@ IG(X,Y) =H(X)-H(X|Y)\\
 \end{array}
 $$
 
-从上面推导可以看到，信息增益也是一种KL散度，如果$p(x), p(y)$相互独立，分布$p(x,y)$和分布$p(x)p(y)$相同，则信息增益为0。从这个意义上说，信息增益时描述分布是否相互独立的度量。
-
-**应用**
+从上面推导可以看到，信息增益也是一种KL散度，如果$p(x), p(y)$相互独立，分布$p(x,y)$和分布$p(x)p(y)$相同，则信息增益为0。从这个意义上说，信息增益时描述分布是否相互独立的度量。下面是两个应用。
 
 - [浅谈KL散度（相对熵）在用户画像中的应用](https://www.cnblogs.com/charlotte77/p/5392052.html?from=timeline&isappinstalled=0): 主要使用散度来计算消费群体对不同商品的喜好
 
@@ -243,7 +254,7 @@ $$
 
   
 
-### 交叉熵（cross entropy）
+## 交叉熵（cross entropy）
 
 交叉熵本质上可以看成,用一个猜测的分布的编码方式去编码其真实的分布,得到的平均编码长度或者信息量。其中$p(x)$是真实的分布，而$q(x)$是猜测的分布. 在机器学习中，经常采用交叉熵来作为损失函数。而且交叉熵的公式和最大似然估计（MLE）推导出来的公式相同，不得不说，信息论这里和概率论在这里融合了。
 
@@ -262,7 +273,7 @@ D\left( {p||q} \right) &= \sum_x {p\left( x \right)\log \frac{{p\left( x \right)
  \end{align*}
 $$
 
-### 进阶
+## 进阶
 
 仔细体会一下几句话。
 
@@ -272,7 +283,11 @@ $$
 
 - 交叉熵指的是当你用q作为密码本来表示p时所需要的“平均的编码长度”。
 
-## 代码
+## 熵的手工计算
 
-[熵的手工计算](http://aa00:18888/notebooks/eipi10/xuxiangwen.github.io/03.ipynb#1.47-%E7%86%B5%E7%9A%84%E6%89%8B%E5%B7%A5%E8%AE%A1%E7%AE%97)
+~~~python
+
+~~~
+
+
 

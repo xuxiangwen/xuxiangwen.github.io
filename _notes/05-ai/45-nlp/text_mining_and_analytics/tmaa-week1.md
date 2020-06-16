@@ -20,9 +20,9 @@ date: 2020-06-15
 - 介绍了表示文本的不同方法
 - 介绍了两种word associations，并解释了如何从文本中挖掘paradigmatic 关系。
 
-## 1. Overview Text Mining and Analytics
+## 1.1 Overview Text Mining and Analytics
 
-### 1.1 Text Mining和Text Analytics
+### 1.11 Text Mining和Text Analytics
 
 **文本挖掘（Text Mining）**
 
@@ -40,7 +40,7 @@ Text Retrieval是Text Mining系统的必要组件。
 
 ![1557204461828](images/1557204461828.png)
 
-### 1.2 Text 
+### 1.12 Text 
 
 文本数据是人类产生的，人类通过文本来传递信息和理解世界，这也是人类文明的传承的最重要方式。
 
@@ -55,14 +55,14 @@ Text is the most expressive form of information in the sense that it can be used
 
 由于文本语义的丰富性和不确定性，目前只有人类才可以很好的识别其中的含义。这如同，使用温度计来得到温度，使用GPS来获取位置信息。
 
-### 1.3 Text Mining的问题
+### 1.13 Text Mining的问题
 ![text_mining_landscape](images/text_mining_problem.png)
 
 1. 人们通过互联网和书籍发布文本。这些文本代表了人们对世界的看法和认识。
 2. 这些文本信息（包括，一些非文本信息）被传播到更到的人们。
 3. **如何来从这些信息中获取知识——这就是Text Mining的主要问题和挑战。**
 
-### 1.4 Text Mining的现状
+### 1.14 Text Mining的现状
 
 ![text_mining_landscape](images/text_mining_landscape.png)
 
@@ -73,15 +73,15 @@ Text is the most expressive form of information in the sense that it can be used
 3. 分析观察者（人）
 4. 推断/预测真实世界
 
-### 1.5 Roadmap
+### 1.15 Roadmap
 
 在本课程中，是按照下图的路线进行展开的。
 
 ![text_mining_landscape](images/text_mining_roadmap.png)
 
-## 2.  自然语言处理（Natural Language Processing）
+## 1.2  自然语言处理（Natural Language Processing）
 
-### 2.2 基本概念
+### 1.21 基本概念
 
 ![text_mining_landscape](images/text_mining_basic_concept.png)
 
@@ -96,7 +96,7 @@ Text is the most expressive form of information in the sense that it can be used
 - 情感分析（sentiment analysis）
 - 语用分析（pragmatic analysis）： pragmatic analysis的目的是推断在文本上下文中含义，比如，文本之后带来的行为。和semantic analysis相比，pragmatic analysis能够进一步理解沟通的目的，是对自然语言更深的理解。
 
-### 2.1 难度和挑战
+### 1.22 难度和挑战
 
 为了有效的沟通，人们在表达时，往往：
 - 假定受众已经知道，所以省略了许多常识（common sense）。
@@ -123,7 +123,7 @@ Text is the most expressive form of information in the sense that it can be used
 > - 人类情感的复杂。比如，李白的诗给人气势磅礴的画面感，但又渗透着孤独和骄傲。还有，一个成年人去做小学生的语文阅读理解，往往会发现不少题目也会错。虽然每个字都认识，但放在一起往往就抓不住重点。对于人类来说，也需要大量训练才能掌握对复杂情感的理解能力。
 > - 语言的多层结构。比如，数学也可以看成是一门语言， 一个小学生，如果去看大学高等数学的公式，完全就是天书。这是因为高等数学的很多概念是建立在初等数学之上的，如果没有掌握初等数学，理解高等数学是很难的。也就是说，语言是分层次的，知识是分层次的。
 
-### 2.3 当前的水平（state of art ）
+### 1.23 当前的水平（state of art ）
 
 - 词汇分析（lexical analysis）: POS Tagging：97%， 无法做到100%
 
@@ -147,15 +147,15 @@ Text is the most expressive form of information in the sense that it can be used
 
 *“Easy” vs. “difficult” NLP applications.*
 
-## 3.  文本表示（Text Representation）
+## 1.3. 文本表示（Text Representation）
 
-### 3.1 文本表示的层次
+### 1.31 文本表示的层次
 
 ![text_mining_text_presentation](images/text_mining_text_presentation.png)
 
 从上往下，NLP由浅入深。
 
-### 3.2 本课程的重点
+### 1.32 本课程的重点
 
 ![text_mining_text_presentation_enabled.png](images/text_mining_text_presentation_enabled.png)
 
@@ -171,14 +171,14 @@ Text is the most expressive form of information in the sense that it can be used
   - 其实已经很强大了，“Surprisingly” powerful for many applications (not all!)
   - 可以和其他更复杂的文本表示来合并使用（ Can be combined with more sophisticated representations ）
 
-## 4. 词汇联想(Word Association) Mining & Analysis
+## 1.4 词汇联想(Word Association) Mining & Analysis
 
-### 4.1 基本词汇关系（basic word relation）
+### 1.41 基本词汇关系（basic word relation）
 
 - Paradigmatic （聚合关系）：A和B可以互相被替换B，意味A和B属于相同类别。比如：cat和dog，Monday和Wednesday，晴天和阴天，张三和李四。
 - Syntagmatic （组合关系）：A和B合并在一起使用，意味着A和B有语义关联。比如：cat和bite， car和drive。
 
-### 4.2 How to mine word associations 
+### 1.42 How to mine word associations 
 
 - Paradigmatic: 相似的上下文（similar context ）
 
@@ -200,7 +200,7 @@ Text is the most expressive form of information in the sense that it can be used
 
 这两种关系的联系是：Paradigmatic词汇的syntagmatic词汇往往相同（Paradigmatically related words tend to have syntagmatic relation with the same word ）
 
-### 4.3 Paradigmatic Relation Discovery
+### 1.43 Paradigmatic Relation Discovery
 
 Paradigmatic 关系的词语context非常相似， 如何把context表示出来呢？
 
