@@ -4,6 +4,8 @@ categories: mathematics
 date: 2020-06-16
 ---
 
+熵 (entropy) 这一词最初来源于热力学。1948年，香农将热力学中的熵引入信息论，所以也被称为香农熵 (Shannon entropy)，信息熵 (information entropy)。既然是信息熵，首先来看信息。
+
 ## 信息量
 
 信息量用于度量信息的不确定性，信息量和事件发生的概率有关，事件发生的概率越小，其信息量越大。某个事件$x$发生的信信息量为：
@@ -27,7 +29,7 @@ $$
 
 ![img](images/200px-Binary_entropy_plot.svg.png)
 
-熵 (entropy) 这一词最初来源于热力学。1948年，香农将热力学中的熵引入信息论，所以也被称为香农熵 (Shannon entropy)，信息熵 (information entropy)。
+再来看熵的公式：
 
 $$
 H(X) =  - \sum_{i=1}^n {p({x_i})} \log (p({x_i}))~~~~(i = 1,2, \ldots ,n)
