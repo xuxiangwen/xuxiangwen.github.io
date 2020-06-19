@@ -20,7 +20,7 @@ $$
 二项分布(*Binomial distribution*)是**n重伯努利试验**成功次数的离散概率分布。
 
 $$
-p(k)=\binom{n}{k}*p^k*(1-p)^{n-k}
+f(k|n, p)=\binom{n}{k}*p^k*(1-p)^{n-k}
 $$
 
 ![Probability mass function for the binomial distribution](images/300px-Binomial_distribution_pmf.svg.png)  ![Cumulative distribution function for the binomial distribution](images/300px-Binomial_distribution_cdf.svg.png)
@@ -73,7 +73,6 @@ $$
 
 $$
 \begin{equation}
-\label{eq:1}
 P\{X = k\} = \frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}},\quad i = 0,1,\ldots ,n
 \end{equation}
 $$
@@ -261,22 +260,26 @@ $$
 
 ## 9. [Beta分布](https://en.wikipedia.org/wiki/Beta_distribution)
 
-### $\beta$函数
+### $ \beta $函数
 
 $$
-B(\alpha,\beta) = \int_0^1t^{\alpha-1}(1-t)^{\beta-1} \mathbf dt \tag{1} \\
+B(\alpha,\beta) = \int_0^1x^{\alpha-1}(1-x)^{\beta-1} \mathbf dx  \\
 B(\alpha,\beta)  = \frac   {\Gamma(\alpha)  \Gamma(\beta)} {\Gamma(\alpha + \beta)}
 $$
 
 ### 概率密度函数
 
 $$
-f(x;\alpha,\beta)={x^{\alpha-1}(1-x)^{\beta-1} \over \int_0^1x^{\alpha-1}(1-x)^{\beta-1} \mathbf dx}={x^{\alpha-1}(1-x)^{\beta-1} \over \int_0^1u^{\alpha-1}(1-u)^{\beta-1} \mathbf du}={x^{\alpha-1}(1-x)^{\beta-1} \over B(\alpha,\beta)}\tag{2}
+\begin{align}
+f(x;\alpha,\beta) &={x^{\alpha-1}(1-x)^{\beta-1} \over \int_0^1x^{\alpha-1}(1-x)^{\beta-1} \mathbf dx}
+\\&={x^{\alpha-1}(1-x)^{\beta-1} \over \int_0^1u^{\alpha-1}(1-u)^{\beta-1} \mathbf du} 
+\\&={x^{\alpha-1}(1-x)^{\beta-1} \over B(\alpha,\beta)}
+\end{align}
 $$
 
-![Probability density function for the Beta distribution](images/325px-Beta_distribution_pdf.svg.png)   ![Probability density function for the Beta distribution](images/325px-Beta_distribution_pdf.svg.png)
+![Probability density function for the Beta distribution](images/325px-Beta_distribution_pdf.svg.png)   ![Beta distribution cdf.svg](images/325px-Beta_distribution_cdf.svg.png)
 
-概率密度函数（Probability density function）                                   累计分布函数（Cumulative distribution function）
+概率密度函数（Probability density function）                累计分布函数（Cumulative distribution function）
 
 ### 数学期望和方差
 
@@ -291,7 +294,7 @@ $$
 
 - Beta和Gammar函数的关系推导。参见[认识Beta函数](https://blog.csdn.net/lucien_zong/article/details/50041341)  
 
-- 棒球击球率和beta分布。
+- 棒球击球率和beta分布。参见[贝塔分布和共轭先验](https://zhuanlan.zhihu.com/p/33348118)
 
 - [贝塔分布（Beta Distribution）简介及其应用](https://www.datalearner.com/blog/1051505532393058): 假设亚马逊上有三家旧货商，其评价结果分别如下：
 
@@ -300,6 +303,52 @@ $$
   商家三：840个评论，99%的正向
 
   那么这三个商家中，哪一家的服务质量最好呢？假设这三家的服务质量分别是$\theta_X$、$\theta_Y$和$\theta_Z$。假设我们对三家旧货商的信息一无所知，那么这些参数的先验可以认为是一个均匀分布，也可以等同于$beta(1,1)$。根据之前的知识，我们知道，最终这三家旧货商的服务质量应当服从三个不同参数的Beta分布，即$beta(80082,5113)$、$beta(20370,417)$和$beta(833,9)$（把正向的和负向的评论书算出来，分别加1就是参数了，参考上面公式）。注意，当Beta分布的参数很大的时候，我们可以使用相同均值和方差的正态分布代替这个beta分布。因此，最终这三家供货商，商家3的服务质量的标准差是0.003，是最大的。其他两家的标准差比这个还小。因此，我们可以认为这三家供货商的服务质量都高度聚焦于他们的均值。因此，从第一个或第二个分布中抽取的样本不太可能比第三个样本的值高。也就是说前两个服务商不太可能质量比第三个高。
+
+### 共轭分布
+
+$\beta$分布和二项分布是共轭分布，其中$\beta$分布作为先验分布，二项分布作为似然函数。证明如下：
+
+假设先验分布符合Beta分布，即：
+$$
+Beta(p|\alpha,\beta) = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}p^{\alpha-1}(1-p)^{{\beta-1}}
+$$
+再设，根据样本的观测，得出的似然函数(likelihood)符合二项分布，即：
+$$
+Binom(k|n,p)=\binom{n}{k}p^k(1-p)^{n-k}
+$$
+根据贝叶斯公式，可以计算后验概率：
+$$
+\begin{align}
+P(p|n,k,\alpha,\beta)  &=  \frac {P(k|n,p)P(p|\alpha,\beta)}   {\int_{0}^{1} P(k|n,p)P(p|\alpha,\beta) dp } 
+\\ &= \frac {Binom(k|n,p)Beta(p|\alpha,\beta)}   {\int_{0}^{1} Binom(k|n,p)Beta(p|\alpha,\beta) dp } 
+\tag 1
+\end{align}
+$$
+首先来看分子：
+$$
+\begin{align}
+Binom(k|n,p)Beta(p|\alpha,\beta) 
+&= \binom{n}{k}p^k(1-p)^{n-k} \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}p^{\alpha-1}(1-p)^{{\beta-1}}
+\\ &=\binom{n}{k}\frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}p^{\alpha+k-1}(1-p)^{\beta+n-k-1}
+\end{align}
+$$
+把上式带入公式$(1)$，其中$\binom{n}{k}\frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}$，分子分母都有，可以约掉，则：
+$$
+\begin{align}
+P(p|n,k,\alpha,\beta)  &=  \frac {p^{\alpha+k-1}(1-p)^{\beta+n-k-1}}   {\int_{0}^{1} p^{\alpha+k-1}(1-p)^{\beta+n-k-1} dp } 
+\tag 2
+\end{align}
+$$
+根据$\beta$分布定义，$B(\alpha+k,\beta+n-k) = \int_0^1x^{\alpha+k-1}(1-x)^{\beta+n-k-1} \mathbf dx $，带入公式$(2)$，则
+$$
+\begin{align}
+P(p|n,k,\alpha,\beta)  &=  \frac {p^{\alpha+k-1}(1-p)^{\beta+n-k-1}}   {B(\alpha+k,\beta+n-k)  } 
+\tag 3
+\end{align}
+$$
+显然，最后得到的后验概率的公式也是$\beta$分布。由此得证。
+
+参考[文本主题模型之LDA(一) LDA基础](https://www.cnblogs.com/pinard/p/6831308.html)
 
 ## 10. 正态分布
 
