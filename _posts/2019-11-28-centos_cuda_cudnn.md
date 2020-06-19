@@ -8,7 +8,7 @@ date: 2019-11-28
 
 本文将详述centos7环境下如何安装nvidia GPU driver, CUDA和cuDNN。这应该是第n次更新安装它们啦，总体上步骤没有太大变化，只是软件的版本有一些改变。和网上类似文章相比，本文中所有的shell命令都可以直接执行，不需要手工去修改文件，所以更加方便。下面看看要安装的内容：
 
-- **nvidia GPU driver**：英伟达公司显卡驱动。要安装CUDA， cuDNN，这是必要的。
+- **nvidia GPU driver**：英伟达公司显卡驱动。要安装CUDA， cuDNN，这是必要的。  
 
 - **CUDA（Compute Unified Device Architecture）**：是英伟达公司推出的一种基于新的并行编程模型和指令集架构的通用计算架构，它能利用英伟达GPU的并行计算引擎，比CPU更高效的解决许多复杂计算任务。
 
@@ -155,17 +155,14 @@ sudo yum update
 
    在 [CUDA Download](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=CentOS&target_version=7&target_type=rpmlocal) 选择合适的CUDA版本，选择了rpm（local），将会出现如下安装代码。
 
-   ![image-20191128155025778](/assets/images/image-20191128155025778-1576293467804.png)
+   ![image-20200605222838475](/assets/images/image-20200605222838475.png)
 
    ~~~shell
-   wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-rhel7-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
-   sudo rpm -i cuda-repo-rhel7-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
-   sudo yum clean all
-   sudo yum -y install nvidia-driver-latest-dkms cuda
-   sudo yum -y install cuda-drivers
+   wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_440.33.01_linux.run
+   sudo sh cuda_10.2.89_440.33.01_linux.run
    ~~~
 
-   > 似乎选择runfile（local) 安装的步骤更少，下次有机会尝试一下。
+   ![image-20200605222752478](/assets/images/image-20200605222752478.png)
 
 3. 在.bashrc中添加参数。
 
