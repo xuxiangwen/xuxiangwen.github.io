@@ -1,5 +1,5 @@
 ---
-title: Latent Semantic Indexing
+title: 潜在语义分析（LSI）
 categories: nlp
 date: 2020-06-10
 ---

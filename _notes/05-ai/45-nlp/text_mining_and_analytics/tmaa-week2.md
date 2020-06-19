@@ -1,12 +1,12 @@
 ---
 title: Text Mining and Analytics - Week 2
 categories: nlp
-date: 2020-06-19
+date: 2020-06-18
 ---
 
 第二周的主要内容如下：
 
-- 介绍了如何来发现Syntagmatic关系。主要使用熵来进行处理。 关于熵的概念，参见：[熵](https://github.com/xuxiangwen/xuxiangwen.github.io/blob/master/05-ai/05-math/entropy.md)
+- 介绍了如何来发现Syntagmatic关系。主要使用信息熵来进行处理。 
 - 介绍了文本主题挖掘的计算过程，特别是输入和输出
 - 解释了使用一个term来表示主题
 - 解释了只使用一个term来表示主题的一些限制，并提出了一个主题可以用一组word的概率分布来表示。
@@ -21,7 +21,7 @@ date: 2020-06-19
 $$
 H(X) =  - \sum_{i=1}^n {p({x_i})} \log (p({x_i}))~~~~(i = 1,2, \ldots ,n)
 $$
-其中$X$ 表示的是随机变量，随机变量的取值为 ${x_1},{x_2}, \ldots ,{x_n}$，$p({x_i}) $表示事件发生的概率，且有$\sum {p({x_i})}  = 1$ 。熵可以理解为信息的不确定程度，是随机变量不确定性的度量.  熵越大，随机变量不确定性越大，系统越混乱（无序）。
+其中$X$ 表示的是随机变量，随机变量的取值为 ${x_1},{x_2}, \ldots ,{x_n}$，$p({x_i}) $表示事件发生的概率，且有$\sum {p({x_i})}  = 1$ 。熵可以理解为信息的不确定程度，是随机变量不确定性的度量.  熵越大，随机变量不确定性越大，系统越混乱（无序）。详细的内容参见：[信息熵](https://eipi10.cn/mathematics/2020/06/16/entropy/)。
 
 ### 2.22 使用
 
@@ -29,11 +29,11 @@ $$
 
 要计算eats的Syntagmatic 相关词，假设有三选项。
 
-- meat
-- the:  频繁出现
-- unicorn: 非常稀少
+- meat：适度出现
+- the：频繁出现
+- unicorn：非常稀少
 
-根据熵的公式，很明显，meat的熵最大，或许是最好的答案。
+根据信息熵的公式，很明显，meat的熵最大，或许它或许是最好的答案。
 
 ![1563027913372](images/1563027913372.png)
 
@@ -43,7 +43,7 @@ $$
 
 ![1563198021453](images/1563198021453.png)
 
-下图中，已知句子中`eat`个词汇，如何判断`meat`是否也会出现在句子中呢？条件熵可以帮助我们来做这个判断。
+下图中，已知句子中`eats`个词汇，如何判断`meat`是否也会出现在句子中呢？条件熵可以帮助我们来做这个判断。
 
 ### 2.21定义
 
@@ -63,22 +63,26 @@ $$
 
 ### 2.22 使用
 
-条件熵可以用来发现Syntagmatic Relation。 具体算法如下。 
+条件熵可以用来发现Syntagmatic关系。 具体算法如下。 
 
-For each word W1
-- For every other word W2, compute conditional entropy $H(X_{W1}|X_{W2})$
-- Sort all the candidate words in ascending order of $H(X_{W1}|X_{W2})$
-- Take the top-ranked candidate words as words that have potential syntagmatic relations with W1
-  - $H(X_{W1}|X_{W2})$越小，说明W1和W2更加可能有 syntagmatic relations
+For each word $W_1$
+- 对除$W_1$以外的每一个word，计算conditional entropy $H(X_{W_1}|X_{W})$
+
+- 对 $H(X_{W_1}|X_{W})$从小到大排序
+
+- 取Top n个Word，它们更有可能和$W_1$有 Syntagmatic关系。
+
+  $H(X_{W_1}|X_{W})$越小，说明$W$已经提供了很多关于$W_1$的相关信息，则$W_1$和$W$更加可能有 Syntagmatic关系。
+
 - Need to use a threshold for each W1
 
-**问题**
+  可能对于每个$W_1$，需要选取不同top n或者条件熵值。
 
-- $H(X_{W1}|X_{W2}) ,  H(X_{W1}|X_{W3}) $可以用来比较W2, W3哪一个词更有可能和W2有syntagmatic关系. 为何说使用$ H(X_{W2}|X_{W2}) , H(X_{W3}|X_{W1}) $不可以呢？
+下面有个问题，可以思考一下：
 
-  - 简而言之，这是因为$H(X_{W1}|X_{W2}) ,  H(X_{W1}|X_{W3}) $都小于等于$H(X_{W1})$,  它们的上界相同。而$ H(X_{W2}|X_{W2}) , H(X_{W3}|X_{W1}) $上界完全不同。 
+- $H(X_{W_1}|X_{W_2}) ,  H(X_{W_1}|X_{W_3}) $可以用来比较$W_2$, $W_3$哪一个词更有可能和$W_1$有syntagmatic关系，但为何说使用$ H(X_{W_2}|X_{W_1}) , H(X_{W_3}|X_{W_1}) $不可以呢？
 
-  
+  简而言之，这是因为$H(X_{W_1}|X_{W_2}) ,  H(X_{W_1}|X_{W_3}) $都小于等于$H(X_{W_1})$,  它们的上界相同。而$ H(X_{W_2}|X_{W_1}) , H(X_{W_3}|X_{W_1}) $上界完全不同。 
 
 
 ## 2.3 Syntagmatic Relation Discovery: Mutual Information
@@ -87,17 +91,17 @@ For each word W1
 
 互信息: $I(X; Y)= H(X) – H(X|Y) = H(Y)-H(Y|X)$
 
-实际上，采用互信息来判断，和采用条件熵来判断，原理相同。只是互信息前面加了一个固定的常量$ H(X)$
+实际上，采用互信息来判断，和采用条件熵来判断，原理相同，只是互信息前面加了一个固定的常量$ H(X)$。
 
 ### 2.32 使用
 
 ![1563204033964](images/1563204033964.png)
 
-本质和条件上相同。
+从上面分析可以看出，互信息越大，表示单词之间越有可能是Syntagmatic关系。
 
+#### 平滑处理
 
-
-**平滑处理s**
+对于没有出现的Word，设置其概率为一个很小的值，这样能够使得数据更加的平滑。
 
 ![1563204455194](images/1563204455194.png)
 
@@ -137,8 +141,6 @@ Topic  $\approx $ 文本中谈论的主要论点。它可以有不同的粒度�
 - 机器学习现在热门的研究主题是什么？和三年前有何不同？
 - 人们喜欢华为P30哪些特性？
 - 过去一年，中美贸易战中双方争论的主要焦点是什么？
-
-
 
 ### 2.42 Topic发现流程
 
@@ -196,7 +198,9 @@ topic发现过程中，往往会加入一些非文本的信息。
 
 上面例子中，列出了三个问题。这些也是基于term为topic比较难处理的地方。
 
-
+1. 需要统计相关的word。例子中，里面有NBA球队：骑士队（Cavaliers），金州勇士队（Golden State Warriors），NBA季后赛决赛，篮球等词语，很明显这是运动相关的。但如何把这些词找出来呢？
+2. Star有双重含义，即可以指恒星，而也可以指球星，歌星等。
+3. 挖掘复杂主题。很多文章有多重主题，比如：一个科普文章里面介绍哪些运动有助于健康，一个旅游文章中谈到极光的这种科学原理。
 
 ### 2.51 Term as Topic的问题
 
@@ -208,21 +212,9 @@ topic发现过程中，往往会加入一些非文本的信息。
 - 词汇的多义： 不同领域，不同上下文中，同一词汇的意义不同。
   - basketball star vs. star in the sky
 
-
-
 ## 2.6 Topic Mining and Analysis: Probabilistic Topic Models
 
-上一节讨论了使用term as topic的一些问题，如何解决这些呢？
-
-- 缺乏足够的表达能力： **=>  Topic = {多个words}**
-  - 仅能够表达简单主题
-  - 不能表达复杂主题
-- 词汇覆盖不完整      **+  weights on words  (这个有点没有搞明白)**
-  - 不能覆盖一些词汇的变形或者关联词汇： 英文中，很多词汇有变形，中文中有很多近义词，同义词
-- 词汇的多义： 不同领域，不同上下文中，同一词汇的意义不同。 ** => 拆分含糊的词汇**
-  - basketball star vs. star in the sky
-
-probabilistic topic model 可以解决上诉问题。
+对于使用term as topic的一些问题，采用Probabilistic Topic Model 可以解决。
 
 ### 2.61 Improved Idea: Topic = Word Distribution
 
@@ -235,6 +227,11 @@ probabilistic topic model 可以解决上诉问题。
   - Vocabulary set: $V=\{w_1, …, w_M \}$
   - Number of topics: $k$
 
+  > 两个输入：
+  >
+  > 1. Term-Document矩阵
+  > 2. 主题数量
+  
 - Output
 
   - k topics: $  \{  \theta_1, …,  \theta_k \}  $      
@@ -248,8 +245,11 @@ probabilistic topic model 可以解决上诉问题。
   - $\pi_{ij} = prob.\ of\ d_i$ covering topic $\theta_{j}$
 
     $\sum_{j=1}^k \pi_{ij}= 1$
-
-
+  
+  > 两个输出：
+  >
+  > 1. Document-Topic矩阵。对于文档$i$，对应的概率分布是：$ \{ \pi_{i1}, …, \pi_{ik} \}$
+  > 2. Term-Topic矩阵：这是一个隐含输出，每一个Topic中Term的概率分布。
 
 计算过程如下：
 
@@ -263,9 +263,12 @@ probabilistic topic model 可以解决上诉问题。
 
 ![1563283768152](images/1563283768152.png)
 
-上面的参数个数是$k*M + k*N$
+上面的参数个数是
 
-
+$$
+k*M  + k*N
+$$
+其中加号前面是Document-Topic矩阵的参数，加号后面是Term-Topic矩阵的参数。
 
 ## 2.7 Overview of Statistical Language Models
 
@@ -330,11 +333,11 @@ probabilistic topic model 可以解决上诉问题。
 
 最大后验概率估计是先验概率和最大似然估计综合起来的估计。
 
-下面这个图的解释，留待看完书后再丰富。
-
 ![1563552266795](images/1563552266795.png)
 
 
+
+> 下面这个图的解释，留待以后再丰富。
 
 ## 2.8 Probabilistic Topic Models: Mining One Topic
 
@@ -364,8 +367,6 @@ probabilistic topic model 可以解决上诉问题。
   ![1563592309774](images/1563592309774.png)
 
   采用拉格朗日函数求极值后，可以发现，对于${\theta}_i $的估计值就是对于词频的统计概率。 这符合我们一般的使用和假设。
-
-
 
 ### 2.81 一个问题
 

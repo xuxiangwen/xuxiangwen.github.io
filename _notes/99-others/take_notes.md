@@ -117,11 +117,11 @@ date: 2019-12-08
 ~~~mermaid
 graph LR; 
     CE --> Git((Git));  
-    Information-->|md|MDE[Markdown Editor: Typora];   
+    Information-->|md|MDE[Markdown Editor: Typora + VS Code];   
     Document-->|md|MDE;
     Article-->|md|MDE;    
-    ID[Interactive Doc]-->NE[Notebook Editor: Jupyter];
-    code --> CE(Code Editor);  
+    ID[Interactive Doc]-->NE[Notebook Editor: Jupyter Notebook];
+    code --> CE(Code Editor: PyCharm, VS Code);  
     MDE-->Others[ppt, pdf, word, html];
     NE-->Others;    
     MDE--> Git; 

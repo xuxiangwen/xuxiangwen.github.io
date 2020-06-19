@@ -3,7 +3,7 @@ marp: true
 theme: default
 style: |
   section {
-    background-color: #ccc;
+    background-color: #ddd;
   } 
   section.lead h1 {
     text-align: center;
