@@ -153,7 +153,7 @@ sudo yum update
 
 2. 安装
 
-   在 [CUDA Download](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=CentOS&target_version=7&target_type=rpmlocal) 选择合适的CUDA版本，选择了rpm（local），将会出现如下安装代码。
+   在 [CUDA Download](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=CentOS&target_version=7&target_type=rpmlocal) 选择合适的CUDA版本，选择了runfile（local），将会出现如下安装代码。
 
    ![image-20200605222838475](/assets/images/image-20200605222838475.png)
 
