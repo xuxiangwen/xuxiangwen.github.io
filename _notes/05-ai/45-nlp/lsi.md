@@ -17,6 +17,7 @@ $$
 
 - $U_{m \times k}$ 每个列向量可以看成是一个主题（topic），每个主题有不同的Term分布，而且这些主题相互独立（垂直）
 - 对于一个新的文档$a$，$U_{m \times k}^\mathrm {T}a$可以理解为$a$在$U_{m \times k}$列向量（主题）上的投影，根据投影的大小，可以看出$a$更有可能属于哪个主题。
+- $A_{m \times n}^* = U_{m \times k}U_{m \times k}^{\mathrm T}A_{m\times n} $：可以这样理解，$U_{m \times k}^{\mathrm T}A_{m\times n}$是$A_{m\times n}$在$U_{m\times k}$上的投影，而$A_{m \times n}^*$是把这个投影再变换到当前坐标系（也就是维度$m \times n$的向量空间）。
 
 ### LsiModel
 
