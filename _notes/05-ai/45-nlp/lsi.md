@@ -10,7 +10,11 @@ A_{m \times n}=U_{m \times m}S_{m \times n}V^\mathrm {T}_{n \times n}
 $$
 A是Term-Document文档矩阵（行是Term，列是Document）。
 
-实际计算中，我们会选取$k$个奇异值（$k < m, k < n$），这时公式变成：
+实际计算中，我们会选取$k$个奇异值（$k < m, k < n$），即：
+
+![image-20200620083158624](images/image-20200620083158624.png)
+
+这时公式变成：
 $$
 A_{m \times n}^*=U_{m \times k}S_{k \times k}V^\mathrm {T}_{k \times n}
 $$
