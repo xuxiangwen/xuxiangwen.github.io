@@ -322,7 +322,7 @@ $$
   $$
   \hat{\theta} = \arg \max_{\theta} P(\theta|X) =  \arg \max_{\theta} P(X|\theta)P(\theta)
   $$
-  在统计$P(X|\theta)$的时候考虑了$P(\theta)$的发生的概率（先验概率），这样结合起来就相当于计算$P(\theta|X) $。
+  在统计$P(X|\theta)$的时候考虑了$P(\theta)$的发生的概率（先验概率），这样结合起来就相当于计算$P(\theta \vert X) $。
   $$
   P(\theta|X) = \frac {P(X|\theta)P(\theta)} {P(X)} \\
   
@@ -351,10 +351,10 @@ $$
 数学表达如下：
 
 - V表示所有的word构成的集合。$ V=\{w_1 ,…, w_M\}$
-- 文档d可以表示为： $d= [x_1, x_2, … ,x_{|d|}] , \ x_i \in V$
+- 文档d可以表示为： $d= [x_1, x_2, … ,x_{\vert d \vert}] , \ x_i \in V$
 - Unigram LM： 下面$\theta$表示一个topic
   - $\theta  = \{\theta_1, ..., \theta_M \} $  
-  - $\theta_i = p(w_i|\theta)$
+  - $\theta_i = p(w_i\vert \theta)$
   - $\theta_1+…+\theta_M=1$
 
 - 似然函数：
