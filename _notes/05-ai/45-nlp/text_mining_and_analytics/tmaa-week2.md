@@ -15,7 +15,7 @@ date: 2020-06-18
 
 ## 2.1 组合关系的发现：熵(Syntagmatic Relation Discovery: Entropy)
 
-### 2.21 定义
+### 2.11 定义
 
 熵 (entropy) 这一词最初来源于热力学。1948年，香农将热力学中的熵引入信息论，所以也被称为香农熵 (Shannon entropy)，信息熵 (information entropy)。
 $$
@@ -23,7 +23,7 @@ H(X) =  - \sum_{i=1}^n {p({x_i})} \log (p({x_i}))~~~~(i = 1,2, \ldots ,n)
 $$
 其中$X$ 表示的是随机变量，随机变量的取值为 ${x_1},{x_2}, \ldots ,{x_n}$，$p({x_i}) $表示事件发生的概率，且有$\sum {p({x_i})}  = 1$ 。熵可以理解为信息的不确定程度，是随机变量不确定性的度量.  熵越大，随机变量不确定性越大，系统越混乱（无序）。详细的内容参见：[信息熵](https://eipi10.cn/mathematics/2020/06/16/entropy/)。
 
-### 2.22 使用
+### 2.12 使用
 
 ![1562889223532](images/1562889223532.png)
 
@@ -66,13 +66,14 @@ $$
 条件熵可以用来发现Syntagmatic关系。 具体算法如下。 
 
 For each word $W_1$
-- 对除$W_1$以外的每一个word，计算conditional entropy $H(X_{W_1}|X_{W})$
 
-- 对 $H(X_{W_1}|X_{W})$从小到大排序
+- 对除$W_1$以外的每一个word，计算conditional entropy $H(X_{W_1}\vert X_{W})$
+
+- 对 $H(X_{W_1} \vert X_{W})$从小到大排序
 
 - 取Top n个Word，它们更有可能和$W_1$有 Syntagmatic关系。
 
-  $H(X_{W_1}|X_{W})$越小，说明$W$已经提供了很多关于$W_1$的相关信息，则$W_1$和$W$更加可能有 Syntagmatic关系。
+  $H(X_{W_1}\vert X_{W})$越小，说明$W$已经提供了很多关于$W_1$的相关信息，则$W_1$和$W$更加可能有 Syntagmatic关系。
 
 - Need to use a threshold for each W1
 
@@ -80,17 +81,19 @@ For each word $W_1$
 
 下面有个问题，可以思考一下：
 
-- $H(X_{W_1}|X_{W_2}) ,  H(X_{W_1}|X_{W_3}) $可以用来比较$W_2$, $W_3$哪一个词更有可能和$W_1$有syntagmatic关系，但为何说使用$ H(X_{W_2}|X_{W_1}) , H(X_{W_3}|X_{W_1}) $不可以呢？
+- $H(X_{W_1}\vert X_{W_2}) ,  H(X_{W_1}\vert X_{W_3}) $可以用来比较$W_2$, $W_3$哪一个词更有可能和$W_1$有syntagmatic关系，但为何说使用$ H(X_{W_2}\vert X_{W_1}) , H(X_{W_3}\vert X_{W_1}) $不可以呢？
 
-  简而言之，这是因为$H(X_{W_1}|X_{W_2}) ,  H(X_{W_1}|X_{W_3}) $都小于等于$H(X_{W_1})$,  它们的上界相同。而$ H(X_{W_2}|X_{W_1}) , H(X_{W_3}|X_{W_1}) $上界完全不同。 
+  简而言之，这是因为$H(X_{W_1}\vert X_{W_2}) ,  H(X_{W_1}\vert X_{W_3}) $都小于等于$H(X_{W_1})$,  它们的上界相同。而$ H(X_{W_2}\vert X_{W_1}) , H(X_{W_3}\vert X_{W_1}) $上界完全不同。 
 
 
 ## 2.3 Syntagmatic Relation Discovery: Mutual Information
 
 ### 2.31 定义
 
-互信息: $I(X; Y)= H(X) – H(X|Y) = H(Y)-H(Y|X)$
-
+互信息（Mutual Information）定义如下:
+$$
+I(X; Y)= H(X) – H(X|Y) = H(Y)-H(Y|X)
+$$
 实际上，采用互信息来判断，和采用条件熵来判断，原理相同，只是互信息前面加了一个固定的常量$ H(X)$。
 
 ### 2.32 使用
@@ -109,9 +112,9 @@ For each word $W_1$
 
 - Syntagmatic 关系可以通过词的同时出现的相关性来衡量
 - 信息熵可以用来衡量Syntagmatic 关系
-  - Entropy H(X): measures the uncertainty of a random variable X
-  - Conditional entropy H(X|Y): entropy of X given we know Y
-  - Mutual information I(X;Y): entropy reduction of X (or Y) due to knowing Y (or X)
+  - Entropy $H(X)$: measures the uncertainty of a random variable $X$
+  - Conditional entropy $H(X \vert Y)$: entropy of X given we know $Y$
+  - Mutual information $I(X;Y)$: entropy reduction of $X$ (or $Y$) due to knowing $Y$ (or $X$)
 
 - Mutual information 提供了一种有效的方式来发现Syntagmatic 关系
 
@@ -240,7 +243,7 @@ topic发现过程中，往往会加入一些非文本的信息。
 
   - Coverage of topics in each $d_i: \{ \pi_{i1}, …, \pi_{ik} \}$
 
-    $\sum_{w \in V} p(w|\theta_i)=1$
+    $\sum_{w \in V} p(w\vert \theta_i)=1$
 
   - $\pi_{ij} = prob.\ of\ d_i$ covering topic $\theta_{j}$
 
