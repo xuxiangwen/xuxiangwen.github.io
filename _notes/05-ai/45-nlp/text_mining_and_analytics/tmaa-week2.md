@@ -75,7 +75,7 @@ For each word $W_1$
 
   $H(X_{W_1}\vert X_{W})$越小，说明$W$已经提供了很多关于$W_1$的相关信息，则$W_1$和$W$更加可能有 Syntagmatic关系。
 
-- Need to use a threshold for each W1
+- Need to use a threshold for each $W_1$
 
   可能对于每个$W_1$，需要选取不同top n或者条件熵值。
 
