@@ -322,7 +322,7 @@ $$
   $$
   \hat{\theta} = \arg \max_{\theta} P(\theta|X) =  \arg \max_{\theta} P(X|\theta)P(\theta)
   $$
-  在统计$P(X|\theta)$的时候考虑了$P(\theta)$的发生的概率（先验概率），这样结合起来就相当于计算$P(\theta \vert X) $。
+  在统计$P(X \vert \theta)$的时候考虑了$P(\theta)$的发生的概率（先验概率），这样结合起来就相当于计算$P(\theta \vert X) $。
   $$
   P(\theta|X) = \frac {P(X|\theta)P(\theta)} {P(X)} \\
   
