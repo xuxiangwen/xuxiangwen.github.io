@@ -5,7 +5,7 @@
 伯努利分布就是我们常见的0-1分布，即它的随机变量只取0或者1，各自的频率分别取$1−p$和$p$，当$x=0$或者$x=1$时，数学定义为： 
 
 $$
-p(x)=p^x*(1-p)^{1-x}
+p(x)=p^x(1-p)^{1-x}
 $$
 
 ### 数学期望和方差
@@ -33,6 +33,10 @@ $$
 E(X) = np \\
 D(X) = np(1-p)
 $$
+
+## 3. 多项分布
+
+
 
 ## 3. 几何分布和负二项分布
 
@@ -209,7 +213,7 @@ $$
 
 Gamma分布解决的问题是：要等到n个随机事件都发生，需要经历多长的时间。
 
-### $\Gamma$ 函数
+### Gamma函数
 
 $$
 \Gamma(\alpha) = \int_0^{+\infty} e^{-x} x^{\alpha-1} \mathbf dx \\
@@ -242,6 +246,8 @@ Gamma(\lambda|\alpha=k+1)
 = \frac{\lambda^ke^{-\lambda}}{\Gamma(k+1)}= \frac{\lambda^k e^{-\lambda}}{k!}
 $$
 
+> 上面的公式就是泊松分布啊。
+
 ### 数学期望和方差
 
 $$
@@ -260,18 +266,58 @@ $$
 
 ## 9. [Beta分布](https://en.wikipedia.org/wiki/Beta_distribution)
 
-### $ \beta $函数
+### Beta函数
 
 $$
 B(\alpha,\beta) = \int_0^1x^{\alpha-1}(1-x)^{\beta-1} \mathbf dx  \\
 B(\alpha,\beta)  = \frac   {\Gamma(\alpha)  \Gamma(\beta)} {\Gamma(\alpha + \beta)}
 $$
 
+我们可以这样理解：
+
+![Figure 3](images/20151226165839756)
+
+
+
+假设你有$n+1$个球，其中一个是红球，其它是白球，把这些球（首先扔红球，然后扔白球）扔到长度为$1$的桌子上，很明显，红球左边可能有$0,1,2,3, \cdots, n$个球，总共有$n+1$种可能，每种可能的概率是一样的，也就是：
+$$
+P(K=k) = \frac 1 {n+1} \tag {1}
+$$
+下面换一种计算思路，假设红球扔的位置是$x$，扔一个白球在红球左边的概率是$x$（右边是$1-x$），则$k$个白球在红球左边的概率服从二项分布，即：
+$$
+P(K=k|x)=\begin{pmatrix}n\\k\\ \end{pmatrix}x^k(1-x)^{n-k}
+$$
+由于$x$是未知的，假设其服从$[0,1]$ 上的均匀分布，则：
+$$
+P(K=k)=\int_0^1 \begin{pmatrix}n\\k\\ \end{pmatrix}x^k(1-x)^{n-k}\mathbf dx
+=\begin{pmatrix}n\\k\\ \end{pmatrix}\int_0^1 x^k(1-x)^{n-k}\mathbf dx\tag{2}
+$$
+根据公式$(1),(2)$可以推得：
+$$
+\begin{align}
+\begin{pmatrix}n\\k\\ \end{pmatrix}\int_0^1 x^k(1-x)^{n-k}\mathbf dx &={1\over n+1} 
+\\ \int_0^1 x^k(1-x)^{n-k}\mathbf dx&={{k!(n-k)!}\over (n+1)!}  
+\end{align}
+$$
+设$k=\alpha-1, n-k=\beta-1$，可得：
+$$
+\begin{align}
+ \int_0^1 x^{\alpha-1}(1-x)^{\beta-1}\mathbf dx&={{(\alpha-1)!(\beta-1)!}\over (\alpha+\beta-1)!} 
+\end{align}
+$$
+
+
+然后再根据$\Gamma$函数公式$\Gamma(\alpha+1) = (\alpha-1)! \\$，最后可以得到：
+$$
+B(\alpha,\beta) = {\Gamma(\alpha)\Gamma(\beta)\over\Gamma(\alpha+\beta)}
+$$
+参考[认识Beta函数](https://blog.csdn.net/lucien_zong/article/details/50041341)
+
 ### 概率密度函数
 
 $$
 \begin{align}
-f(x;\alpha,\beta) &={x^{\alpha-1}(1-x)^{\beta-1} \over \int_0^1x^{\alpha-1}(1-x)^{\beta-1} \mathbf dx}
+Beta(x\vert \alpha,\beta) &={x^{\alpha-1}(1-x)^{\beta-1} \over \int_0^1x^{\alpha-1}(1-x)^{\beta-1} \mathbf dx}
 \\&={x^{\alpha-1}(1-x)^{\beta-1} \over \int_0^1u^{\alpha-1}(1-u)^{\beta-1} \mathbf du} 
 \\&={x^{\alpha-1}(1-x)^{\beta-1} \over B(\alpha,\beta)}
 \end{align}
@@ -306,9 +352,9 @@ $$
 
 ### 共轭分布
 
-$\beta$分布和二项分布是共轭分布，其中$\beta$分布作为先验分布，二项分布作为似然函数。证明如下：
+Beta分布和二项分布是共轭分布，其中$\beta$分布作为先验分布，二项分布作为似然函数。证明如下：
 
-假设先验分布符合Beta分布，即：
+假设先验分布符合Beta分B布，即：
 $$
 Beta(p|\alpha,\beta) = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}p^{\alpha-1}(1-p)^{{\beta-1}}
 $$
@@ -348,13 +394,56 @@ P(p|n,k,\alpha,\beta)  &=  \frac {p^{\alpha+k-1}(1-p)^{\beta+n-k-1}}   {B(\alpha
 $$
 显然，最后得到的后验概率的公式也是$\beta$分布。由此得证。
 
-参考[文本主题模型之LDA(一) LDA基础](https://www.cnblogs.com/pinard/p/6831308.html)
+> 基于共轭还可以这么来看Beta分布。假设有一块不均匀的硬币，其抛出正面的概率为$p$，抛了$m$次，其中正面，反面的次数分别是$m_1, m_2$，按照传统频率学派的观点，$p$的概率应该是$\hat p = \frac {m_1} m$。
+>
+> 然而，从贝叶斯学派的观点来看，由于对硬币的不均匀性一无所知，应该假定$p \sim Uniform(0, 1)$，然后再进行二项分布的计算，则
+> $$
+> \begin{align}
+> P(p\vert m_1, m_2) & = \frac {P(p) \cdot P(m_1, m_2 \vert p)} {P(m_1, m_2)}
+> \\ &= \frac {1 \cdot P(m_1, m_2 \vert p)} {\int_0^1 P(m_1, m_2 \vert t)dt}
+> \\ &= \frac {\binom{m}{m_1} p^{m_1}(1-p)^{m_2}} {\int_0^1 \binom{m}{m_1} t^{m_1}(1-t)^{m_2}dt} 
+> \\ &=  \frac {\binom{m}{m_1} p^{m_1}(1-p)^{m_2}} {B(m_1+1,m_2+1)}
+> \\ &=  Beta(p \vert m_1+1,m_2+1)
+> \end{align}
+> $$
 
-## 10. 正态分布
+### 参考
+
+- [文本主题模型之LDA(一) LDA基础](https://www.cnblogs.com/pinard/p/6831308.html)
+- [LDA数学八卦](https://bloglxm.oss-cn-beijing.aliyuncs.com/lda-LDA%E6%95%B0%E5%AD%A6%E5%85%AB%E5%8D%A6.pdf)
+
+## 10. Dirichlet分布
+
+### Dirichlet函数
+
+Beta分布在每次选择有两种可能，如果有第三种，这就变成了Dirichlet分布（）。
+$$
+Dirichlet(p_1,p_2,p_3|\alpha_1,\alpha_2, \alpha_3) = \frac{\Gamma(\alpha_1+ \alpha_2 + \alpha_3)}{\Gamma(\alpha_1)\Gamma(\alpha_2)\Gamma(\alpha_3)}p_1^{\alpha_1-1}(p_2)^{\alpha_2-1}(p_3)^{\alpha_3-1}
+$$
+更加通用的表达形式如下：
+$$
+Dirichlet(\vec p| \vec \alpha) = \frac{\Gamma(\sum\limits_{k=1}^K\alpha_k)}{\prod_{k=1}^K\Gamma(\alpha_k)}\prod_{k=1}^Kp_k^{\alpha_k-1}
+$$
+
+### 数学期望
+
+$$
+E(Dirichlet(\vec p|\vec \alpha)) = (\frac{\alpha_1}{\sum\limits_{k=1}^K\alpha_k}, \frac{\alpha_2}{\sum\limits_{k=1}^K\alpha_k},...,\frac{\alpha_K}{\sum\limits_{k=1}^K\alpha_k})
+$$
+
+### 共轭分布
+
+Dirichlet分布和多项分布是共轭分布
+$$
+Dirichlet(\vec p|\vec \alpha) + MultiCount(\vec m) = Dirichlet(\vec p|\vec \alpha + \vec m)
+$$
+
+
+## 11. 正态分布
 
 
 
-## 11. 卡方分布
+## 12. 卡方分布
 
 假设有$n$个服从$\mathbf N(0,1)$的随机变量$Y_i$，$X = \sum Y_i^2$，则$X$服从卡方分布。
 
@@ -362,7 +451,7 @@ $$
 
 
 
-## 12. t分布
+## 14. t分布
 
 ![img](images/5209155-b36f4695250f9cec.webp)
 
@@ -370,7 +459,7 @@ t分布：实际工作中，往往总体方差未知，常用样本方差s作为
 
 
 
-## 13. F分布
+## 14. F分布
 
 ![img](images/5209155-f9533f16e7e52018.webp)
 
@@ -378,11 +467,7 @@ t分布：实际工作中，往往总体方差未知，常用样本方差s作为
 
 对两个相互独立的样本分开大量抽样，看它们的卡方分布的比值。
 
-## 使用正态分布,卡方分布, t分布, F分布
-
-
-
-## 共轭分布
+## 16. 共轭分布
 
 简单来说，如果先验分布 $p(\theta) $和后验分布$ p(\theta|X)$ 有相同的形式，那么就称先验分布与似然函数是共轭分布。
 
@@ -393,6 +478,38 @@ $$
 **共轭的意义**在于是共轭特性可以使得先验分布和后验分布的形式相同，这样一方面合符人的直观（它们应该是相同形式的）另外一方面是可以形成一个先验链，即现在的后验分布可以作为下一次计算的先验分布，如果形式相同，就可以形成一个链条，后验又可以作为下一次的先验分布。
 
 ![1_thumb2](images/743682-20160906152616223-880609362.png)
+
+## 其它
+
+### Box-Muller变换
+
+Box-Muller变换是通过服从均匀分布的随机变量，来构建服从高斯分布的随机变量的一种方法。
+
+两个随机变量$U_1, U_2$服从$[0,1]$上均匀分布的，随机变量$X, Y$满足下面公式：
+$$
+X = \cos (2\pi U_1) \sqrt{-2\ln U_2} \\
+Y = \cos (2\pi U_2) \sqrt{-2\ln U_1}
+$$
+则$X$与$Y$服从均值为0，方差为1的高斯分布。
+
+证明如下：
+
+假定$X、Y$服从均值为0，方差为1的高斯分布，且相互独立。令$p(x)$和$p(y)$分别为其密度函数，则
+$$
+p(x) = \frac 1 {\sqrt {2 \pi}} e^{-\frac {x^2} 2} \\
+p(y) = \frac 1 {\sqrt {2 \pi}} e^{-\frac {y^2} 2}
+$$
+由于$X、Y$相互独立，则它们的联合概率密度满足
+$$
+p(x, y) = \frac 1 {2 \pi} e^{-\frac {x^2+y^2} 2}
+$$
+然后进行极坐标变换，$x= r\cos(\theta), y = r\sin(\theta)$，则
+$$
+\int_{-\infty }^{\infty} \int_{-\infty }^{\infty} \frac 1 {2\pi}e^{-\frac {x^2+y^2} 2} dxdy = \int_{0 }^{2\pi} \int_{0 }^{\infty} \frac 1 {2\pi} e^{-\frac {r^2} 2}rdrd\theta = 1
+$$
+
+
+
 
 ## 参考
 
