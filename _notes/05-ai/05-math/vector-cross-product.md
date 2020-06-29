@@ -79,19 +79,21 @@ $$
 > W = F\cdot d
 > $$
 > 其中$d$表示距离，$F$表示力。
->
+> 
 > 内积加上叉积可以完整的描述很多运动，比如，我们施加一个垂直于半径的力使得陀螺旋转，它相当于：
+>
 > $$
 > rF + dF = (r \cdot F + r \times F) + (d \cdot F +  d \times F)
 > $$
+> 
 > 其中$d$是线速度。由于
->
+> 
 > - $r$和$F$垂直，所以它们之间做功（内积）为0
-> - $d$和$F$同向，所以它们之间力矩（叉积）为0
->
+>- $d$和$F$同向，所以它们之间力矩（叉积）为0
+> 
 > 则：
-> $$
-> rF + dF = r \times F + d \cdot F
+>$$
+>rF + dF = r \times F + d \cdot F
 > $$
 
 ## 叉积的行列式表达
@@ -133,11 +135,11 @@ $$
 > $$
 > a \times b  =
 > \left|\begin{array}{} 
->    \mathbf  i & \mathbf  j & \mathbf  k & \mathbf  l \\
+> \mathbf  i & \mathbf  j & \mathbf  k & \mathbf  l \\
 >     a_x &  a_y & a_z & a_w \\ 
 >     b_x &   b_y & b_z  & a_w \\ 
 >     c_x &   c_y & c_z  & c_w \\ 
-> \end{array}\right|
+>    \end{array}\right|
 > $$
 > 如果可以，可以这么来看叉积，在$n \times n$ 线性空间中，把$n-1$个向量，分别投影到$n-1$维空间，产生了$n$个超立方体，这$n$个超立方体的体积，构成了新向量的坐标。
 
