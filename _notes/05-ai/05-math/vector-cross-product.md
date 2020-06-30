@@ -62,7 +62,7 @@ $$
   a b  \stackrel{内积}{=}  a \cdot b  = a_xb_x+a_yb_y + a_zb_z
   $$
 
-- 当$\mathbf i$，$\mathbf j$，$\mathbf k$为叉积计算方式，即$\mathbf i \mathbf i =\mathbf j \mathbf j =\mathbf k \mathbf k =0,\mathbf i \mathbf j =-\mathbf j \mathbf i =\mathbf  k， \mathbf k \mathbf i = -\mathbf i \mathbf k =\mathbf j， \mathbf j \mathbf  k = -\mathbf k \mathbf j=\mathbf i$，则
+- 当$\mathbf i$，$\mathbf j$，$\mathbf k$为叉积计算方式，即$\mathbf i \mathbf i =\mathbf j \mathbf j =\mathbf k \mathbf k =0$，然后根据右手法则可得，$\mathbf i \mathbf j =-\mathbf j \mathbf i =\mathbf  k， \mathbf k \mathbf i = -\mathbf i \mathbf k =\mathbf j， \mathbf j \mathbf  k = -\mathbf k \mathbf j=\mathbf i$，则
   $$
   a b  \stackrel{叉积}{=} a \times b = (a_xb_y -  a_yb_x)\mathbf k  + 
        (a_zb_x - a_xb_z)\mathbf j + 
