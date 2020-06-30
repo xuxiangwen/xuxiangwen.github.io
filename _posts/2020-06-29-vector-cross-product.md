@@ -88,12 +88,12 @@ $$
 
   $$
 
-- 当$\mathbf i$，$\mathbf j$，$\mathbf k$为叉积计算方式，即$\mathbf i \mathbf i =\mathbf j \mathbf j =\mathbf k \mathbf k =0,\mathbf i \mathbf j =-\mathbf j \mathbf i =\mathbf  k，\mathbf i \mathbf k = -\mathbf k \mathbf i  =\mathbf j， \mathbf j \mathbf  k = -\mathbf k \mathbf j=\mathbf i$，则
+- 当$\mathbf i$，$\mathbf j$，$\mathbf k$为叉积计算方式，即$\mathbf i \mathbf i =\mathbf j \mathbf j =\mathbf k \mathbf k =0,\mathbf i \mathbf j =-\mathbf j \mathbf i =\mathbf  k， \mathbf k \mathbf i = -\mathbf i \mathbf k =\mathbf j， \mathbf j \mathbf  k = -\mathbf k \mathbf j=\mathbf i$，则
 
   $$
 
   a b  \stackrel{叉积}{=} a \times b = (a_xb_y -  a_yb_x)\mathbf k  + 
-       (a_xb_z  -  a_zb_x )\mathbf j + 
+       (a_zb_x - a_xb_z)\mathbf j + 
        (a_yb_z -  a_zb_y)\mathbf i
 
   $$
@@ -146,7 +146,7 @@ $$
 $$
 
 a \times b = (a_xb_y -  a_yb_x)\mathbf k  + 
-     (a_xb_z  -  a_zb_x )\mathbf j + 
+     ( a_zb_x - a_xb_z )\mathbf j + 
      (a_yb_z -  a_zb_y)\mathbf i
 
 $$
