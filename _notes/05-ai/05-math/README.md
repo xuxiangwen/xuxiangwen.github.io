@@ -2,6 +2,10 @@
 
 - [点到平面的距离](point-plane-distance.md) 
 
+-  [向量内积](vector-dot-product.md) 
+
+-  [向量外积](vector-cross-product.md) 
+
 -  [线性方程组](linear-equations.md) 
 
 -  [线性映射和线性变换](linear-mapping.md) 

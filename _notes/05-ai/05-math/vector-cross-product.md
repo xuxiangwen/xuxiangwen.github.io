@@ -62,10 +62,10 @@ $$
   a b  \stackrel{内积}{=}  a \cdot b  = a_xb_x+a_yb_y + a_zb_z
   $$
 
-- 当$\mathbf i$，$\mathbf j$，$\mathbf k$为叉积计算方式，即$\mathbf i \mathbf i =\mathbf j \mathbf j =\mathbf k \mathbf k =0,\mathbf i \mathbf j =-\mathbf j \mathbf i =\mathbf  k，\mathbf i \mathbf k = -\mathbf k \mathbf i  =\mathbf j， \mathbf j \mathbf  k = -\mathbf k \mathbf j=\mathbf i$，则
+- 当$\mathbf i$，$\mathbf j$，$\mathbf k$为叉积计算方式，即$\mathbf i \mathbf i =\mathbf j \mathbf j =\mathbf k \mathbf k =0,\mathbf i \mathbf j =-\mathbf j \mathbf i =\mathbf  k， \mathbf k \mathbf i = -\mathbf i \mathbf k =\mathbf j， \mathbf j \mathbf  k = -\mathbf k \mathbf j=\mathbf i$，则
   $$
   a b  \stackrel{叉积}{=} a \times b = (a_xb_y -  a_yb_x)\mathbf k  + 
-       (a_xb_z  -  a_zb_x )\mathbf j + 
+       (a_zb_x - a_xb_z)\mathbf j + 
        (a_yb_z -  a_zb_y)\mathbf i
   $$
 
@@ -103,7 +103,7 @@ $$
 上节中，叉积可以表示成：
 $$
 a \times b = (a_xb_y -  a_yb_x)\mathbf k  + 
-     (a_xb_z  -  a_zb_x )\mathbf j + 
+     ( a_zb_x - a_xb_z )\mathbf j + 
      (a_yb_z -  a_zb_y)\mathbf i
 $$
 仔细观察，$i,j,k$的系数，可以发现其符合[行列式](https://zh.wikipedia.org/zh-hans/%E8%A1%8C%E5%88%97%E5%BC%8F)的表达，所以叉积也可以表示成：
