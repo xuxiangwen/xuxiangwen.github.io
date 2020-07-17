@@ -1,7 +1,7 @@
 ---
 title: Box-Muller变换
 categories: statistics
-date: 2020-07-01
+date: 2020-07-17
 ---
 
 Box-Muller变换是一种采样方法，它是通过服从均匀分布的随机变量，来构建服从高斯分布的样本。
