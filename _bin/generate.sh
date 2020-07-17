@@ -59,10 +59,12 @@ else
   sed -i 's/{ {/{ \n {/g' $publish_path
 
   # copy image
-  if [ -d $file_folder/images ]; then
-    echo cp $file_folder/images/ to $jekyll_image_path
-    cp $file_folder/images/* $jekyll_image_path
-  fi
+  #if [ -d $file_folder/images ]; then
+  #  echo cp $file_folder/images/ to $jekyll_image_path
+  #  cp $file_folder/images/* $jekyll_image_path
+  #fi
+  echo
+  $script_path/copy_image.sh $filepath $jekyll_image_path
 
   #add sourcepath
   sed -i "1,3 s|---|---\n# generated from $filepath\n|"  $publish_path
