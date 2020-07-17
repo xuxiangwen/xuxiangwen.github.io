@@ -32,6 +32,13 @@ git remote set-url origin git@github.com:xuxiangwen/git-lab.git
 git remote -vv
 ~~~
 
+### 添加远程地址
+
+~~~shell
+git remote add splunk git@github.azc.ext.hp.com:splunk-it-ops/michael-splunk-study.git
+git remote -vv
+~~~
+
 ### centos7安装最新的git
 
 centos7上默认的git版本是1.8. 解决方法是从 IUS repository安装。

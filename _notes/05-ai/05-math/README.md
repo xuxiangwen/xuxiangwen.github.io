@@ -19,6 +19,7 @@
 ## 统计
 
 -  [常见分布](distribution.md) 
+-   [Box-Muller变换](box-muller.md) 
 
 ## 数学
 

@@ -112,7 +112,7 @@ a \times b  =
 \left|\begin{array}{cccc} 
     a_x &   a_y  \\ 
     b_x &    b_y \\ 
-\end{array}\right| \mathbf k + 
+\end{array}\right| \mathbf k - 
 \left|\begin{array}{cccc} 
     a_x &   a_z  \\ 
     b_x &    b_z \\ 

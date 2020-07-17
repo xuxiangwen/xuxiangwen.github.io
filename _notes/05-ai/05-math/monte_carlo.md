@@ -1,3 +1,9 @@
+---
+title: 蒙特卡罗方法
+categories: statistics
+date: 2020-07-09
+---
+
 [蒙特卡罗方法（Monte Carlo Methods）](https://zh.wikipedia.org/wiki/%E8%92%99%E5%9C%B0%E5%8D%A1%E7%BE%85%E6%96%B9%E6%B3%95)是一种模拟计算方法。原理是通过大量随机样本，去了解一个系统，进而估算所要计算的值。它诞生于上个世纪40年代美国的"曼哈顿计划"，科学家[斯塔尼斯拉夫·乌拉姆](https://zh.wikipedia.org/wiki/斯塔尼斯拉夫·乌拉姆)、[约翰·冯·诺伊曼](https://zh.wikipedia.org/wiki/冯·诺伊曼)和[尼古拉斯·梅特罗波利斯](https://zh.wikipedia.org/wiki/尼古拉斯·梅特罗波利斯)发明了它。它的名字来源于乌拉姆的叔叔经常在[摩纳哥](https://zh.wikipedia.org/wiki/摩納哥)的[蒙特卡洛](https://zh.wikipedia.org/wiki/蒙特卡洛)赌场输钱。蒙特卡罗方法以概率为基础的方法，而赌场赢钱，同样需要计算概率，故此这个名字被大家广泛接受。
 
 ![img](images/roulette.png)
@@ -111,14 +117,16 @@ print("Error Rate =", { key:round(abs(value - math.e)/math.e,5) for key, value i
 
 如何求解$f(x)$曲线在$[a, b]$区间的面积呢？显然，这个面积可以用定积分表达：
 $$
-F = \int _{a}^{b}f(x)dx
+F = \int_D  f(x)dx
 $$
 当$f(x)$非常复杂，我们无法求解出其原函数，那如何来计算上诉的积分呢？答案是可以用*蒙特卡罗积分*来模拟求解出近似值。
 $$
-F^{N} = \frac {1}{N}\sum _{i=1}^{N}\frac {f(X_{i})}{ pdf(X_{i}) }
+F^{N} = \frac {1}{N}\sum _{i=1}^{N}\frac {f(X_{i})}{ p(X_{i}) }
 $$
-其中，
-
+当$N \to +\infin$，可以认为：
+$$
+\begin{equation} \int_D {f(x){\rm{d}}x}  = \mathop {\lim }\limits_{N \to \infty } \frac{1}{N}\sum\limits_{i = 1}^N {\frac{{f(X_i )}}{{p(X_i )}}}  \end{equation}
+$$
 借用http://www.scratchapixel.com/的一个很好的例子来说明：
 
 

@@ -196,6 +196,8 @@ $$
 
 概率密度函数（Probability density function）                                   累计分布函数（Cumulative distribution function）
 
+$\lambda$表示事件发生的频次，假设事件发生一次的平均时间是50000小时，$\lambda$=1/50000。
+
 ### 累计分布函数
 
 $$
@@ -354,7 +356,7 @@ $$
 
 Beta分布和二项分布是共轭分布，其中$\beta$分布作为先验分布，二项分布作为似然函数。证明如下：
 
-假设先验分布符合Beta分B布，即：
+假设先验分布符合Beta分布，即：
 $$
 Beta(p|\alpha,\beta) = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}p^{\alpha-1}(1-p)^{{\beta-1}}
 $$
@@ -479,7 +481,7 @@ $$
 
 ![1_thumb2](images/743682-20160906152616223-880609362.png)
 
-## 其它
+## 99. 其它
 
 ### 中心极限定理
 
@@ -493,73 +495,7 @@ P\left \{\frac{X_1+X_2+\cdots+X_n-n\mu}{\sigma \sqrt n} \leq x \right \} \righta
 $$
 换句话说，$n$个相互独立同分布的随机变量之和的分布近似于正态分布，$n$越大，近似程度越好。
 
-### Box-Muller变换
 
-Box-Muller变换是通过服从均匀分布的随机变量，来构建服从高斯分布的随机变量的一种方法。定义如下：
-
-假设两个随机变量$U_1, U_2$服从$[0,1]$上均匀分布的，随机变量$X, Y$满足下面公式：
-$$
-X = \cos (2\pi U_1) \sqrt{-2\ln U_2} \\
-Y = \cos (2\pi U_2) \sqrt{-2\ln U_1}
-$$
-则$X$与$Y$服从均值为0，方差为1的高斯分布。
-
-#### 证明
-
-假定$X、Y$服从均值为0，方差为1的高斯分布，且相互独立。令$p(x)$和$p(y)$分别为其密度函数，则
-$$
-p(x) = \frac 1 {\sqrt {2 \pi}} e^{-\frac {x^2} 2} \\
-p(y) = \frac 1 {\sqrt {2 \pi}} e^{-\frac {y^2} 2}
-$$
-由于$X、Y$相互独立，则它们的联合概率密度满足
-$$
-p(x, y) = \frac 1 {2 \pi} e^{-\frac {x^2+y^2} 2}
-$$
-然后进行极坐标变换，$x= r\cos(\theta), y = r\sin(\theta)$，则
-$$
-\int_{-\infty }^{\infty} \int_{-\infty }^{\infty} \frac 1 {2\pi}e^{-\frac {x^2+y^2} 2} dxdy = \int_{0 }^{2\pi} \int_{0 }^{\infty} \frac 1 {2\pi} e^{-\frac {r^2} 2}rdrd\theta = 1
-$$
-
-
-
-代码如下：
-
-~~~python
-import matplotlib.pyplot as plt
-import numpy as np
-from scipy import stats
-
-
-def box_muller(SampleSize=1000000):
-    U1 = np.random.uniform(0,1,SampleSize)
-    U2 = np.random.uniform(0,1,SampleSize)
-    X = np.cos(2*np.pi*U1)*np.sqrt(-2*np.log(U2))
-    Y = np.cos(2*np.pi*U2)*np.sqrt(-2*np.log(U1))
-    return X, Y
-
-X, Y = box_muller()
-
-plt.rcParams['figure.figsize'] = (8, 3) 
-plt.subplots_adjust(hspace=0.3, wspace=0.3)
-plt.subplot(1, 2, 1)
-plt.hist(X, bins=np.linspace(-4,4,81),facecolor="blue")
-plt.title('X')
-plt.subplot(1, 2, 2)
-plt.hist(Y, bins=np.linspace(-4,4,81),facecolor="green")
-plt.title('Y')
-plt.show()    
-
-# 检验分布是否符合正态分布
-x_test = stats.kstest(X, 'norm')
-y_test = stats.kstest(Y, 'norm')
-
-# p值>>0.05，证明不能拒绝X，Y是正态分布。
-print(x_test.pvalue, y_test.pvalue)
-~~~
-
-![image-20200629163706147](images/image-20200629163706147.png)
-
-> 
 
 ## 参考
 
@@ -567,4 +503,5 @@ print(x_test.pvalue, y_test.pvalue)
 - [如何理解贝叶斯推断和beta分布？](https://www.matongxue.com/madocs/910.html)
 - [LDA总结 (一) 共轭分布](https://www.cnblogs.com/ooon/p/5845917.html): 描述了共轭分布的特性。
 - [文本主题模型之LDA(一) LDA基础](https://www.cnblogs.com/pinard/p/6831308.html)
-- [漫谈正态分布的生成](https://cosx.org/2015/06/generating-normal-distr-variates/)：Box-Muller的证明
+
+  
