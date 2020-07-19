@@ -7,10 +7,10 @@ cd ~/eipi10/xuxiangwen.github.io
 _bin/publish.sh _notes/00-env/centos_cuda_cudnn.md
 ~~~
 
-> publish.sh 可以指定两个参数。
->
-> - 发布的文件或目录：一般指定具体文件。
-> - 发布的消息：如果为空，默认是publish blogs
+publish.sh 可以指定两个参数。
+
+- 发布的文件或目录：一般指定具体文件。
+- 发布的消息：如果为空，默认是publish blogs
 
 ### 本地开发和测试
 
@@ -20,6 +20,19 @@ git pull
 _bin/generate.sh _notes/00-env/centos_cuda_cudnn.md
 _bin/start.sh
 ~~~
+
+### 改变markdown文件所在目录
+
+~~~
+_bin/move.sh _notes/05-ai/05-math/entropy.md  _temp
+~~~
+
+move.sh有两个参数
+
+- 要移动的文件
+- 目标目录
+
+move.sh会首先copy文件中所引用的图片（原地址图片不会删除），然后再移动文件到新的目录。
 
 ### [Google Analytics](https://analytics.google.com/)
 
@@ -61,7 +74,7 @@ EOF
 
 ~~~
 
-- Google Analysis的配置，参见[ekyll 网站添加访问量统计分析](https://shen.bioinit.com/topic/life/2019-06-03-jekyll-add-page-view/)
+- Google Analysis的配置，参见[Jekyll 网站添加访问量统计分析](https://shen.bioinit.com/topic/life/2019-06-03-jekyll-add-page-view/)
 - gitalk的配置，参见[Add Gitalk to Your Jekyll Blog](https://aerolith.ink/2018/08/25/Gitalk/)
 
 #### 2.12 Gemfile
