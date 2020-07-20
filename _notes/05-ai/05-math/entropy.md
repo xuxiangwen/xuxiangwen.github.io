@@ -301,6 +301,45 @@ print("D(P||Q)", KL(P,Q))
 
 ![image-20200616160943279](images/image-20200616160943279.png)
 
+### 散度总是大于0
+
+首先构造一个函数$g(x)=x-1-\log x$，其二阶导数$g^{''}(x) = \frac 1 {x^2}$大于0，所以它是一个凸函数，所以其必定有极小值，于是求其一阶导数。
+$$
+g^{'}(x) = 1 - \frac 1 x =0 \\
+x =1
+$$
+当$x =1$时，函数取最小值，即$g(x)\geq g(1) = 0$。也就是说：
+$$
+\begin{align}
+x-1-\log x & \geq 0
+\\ 
+- \log x & \geq x-1
+\end{align}
+$$
+设$f(x) = -\log \frac {q(x)} {p(x)}$，根据上面的不等式，可以得到：
+$$
+-\log \frac {q(x)} {p(x)} \geq \frac {q(x)} {p(x)} -1
+$$
+然后，把上面的不等式带入散度公式中，
+$$
+\begin{align}
+D_{KL}\left( {p||q} \right) 
+& 
+= \sum_x {p\left( x \right)\log \frac{{p\left( x \right)}}{{q\left( x \right)}}}
+\\ & 
+= \sum_x {p\left( x \right) \left( -\log \frac {q( x )} {p( x )}   \right)}
+\\ & 
+\geq  \sum_x p\left( x \right) \left( \frac {q(x)} {p(x)} -1 \right)
+\\ & 
+= \sum_x q\left( x \right)  - \sum_x p\left( x \right) 
+\\ & 
+= 1-1
+\\ & 
+= 0
+\end{align}
+$$
+
+
 ### 信息增益和KL散度
 
 $$
