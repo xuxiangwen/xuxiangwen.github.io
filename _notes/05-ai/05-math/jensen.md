@@ -35,7 +35,7 @@ $$
 $$
 f\left(\sum_{i=1}^{M+1} \lambda_{i} x_{i}\right) \leq \sum_{i=1}^{M+1} \lambda_{i} f\left(x_{i}\right)   \tag 1
 $$
-首先把$M+1$数分成两部分，即
+首先把$M+1$个数分成两部分，即
 $$
 \begin{align}
 \sum_{i=1}^{M+1} \lambda_{i} x_{i} 
@@ -48,7 +48,7 @@ $$
 设$x^*=\sum_{i=2}^{M+1} \frac {\lambda_{i}} {1-\lambda_1}  x_{i}$，则：
 $$
 \begin{align}
-f\left(\sum_{i=1}^{M+1} \lambda_{i} x_{i}\right) = f(\lambda_1x_1+(1-\lambda_2)x^*)
+f\left(\sum_{i=1}^{M+1} \lambda_{i} x_{i}\right) = f(\lambda_1x_1+(1-\lambda_1)x^*)
 \end{align}
 $$
 然后根据公式$f\left(tx_1+(1-t)x_2\right) \leq tf(x_1)+(1-t)f(x_2) $，则：
