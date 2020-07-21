@@ -10,11 +10,17 @@ Jensen不等式（Jensen's inequality），以丹麦数学家Johan Jensen命名�
 
 对于任意点集${x_i}$，若$\lambda_i \geq 0 $，且$\sum_{i=1}^{M} \lambda_{i}=1$，则凸函数$f(x)$满足下面的公式。
 $$
-f\left(\sum_{i=1}^{M} \lambda_{i} x_{i}\right) \leq \sum_{i=1}^{M} \lambda_{i} f\left(x_{i}\right)   \tag 2
+f\left(\sum_{i=1}^{M} \lambda_{i} x_{i}\right) \leq \sum_{i=1}^{M} \lambda_{i} f\left(x_{i}\right)
 $$
 在概率论中，如果把 $\lambda_i$ 看成概率分布，那么公式就可以写成：
 $$
 f(E[x]) \leq E[f(x)]
+$$
+
+反之，如果$f(x)$是凹函数，则：
+$$
+f\left(\sum_{i=1}^{M} \lambda_{i} x_{i}\right) \geq \sum_{i=1}^{M} \lambda_{i} f\left(x_{i}\right) \\
+f(E[x]) \geq E[f(x)]
 $$
 
 ## 证明
@@ -71,7 +77,7 @@ $$
 \begin{align}
 f\left(\sum_{i=1}^{M+1} \lambda_{i} x_{i}\right) 
 & \leq
-\lambda_1f(x_1) + (1-\lambda_1)f\left(\sum_{i=2}^{M+1} \frac {\lambda_{i} } {1-\lambda_1} x_{i} \right)  \tag 2
+\lambda_1f(x_1) + (1-\lambda_1)f\left(\sum_{i=2}^{M+1} \frac {\lambda_{i} } {1-\lambda_1} x_{i} \right)  
 \\ & \leq 
 \lambda_1f(x_1) + (1-\lambda_1)\sum_{i=2}^{M+1} \frac {\lambda_{i} } {1-\lambda_1} f\left(x_{i}\right)
 \\ & =

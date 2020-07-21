@@ -26,11 +26,11 @@ $$
 
 ## 算法推导
 
-EM算法的基本思路是，找到最大似然估计的一个下界，然后不停的迭代，每一次迭代保证的值会逐步提高，这样就会慢慢接近最大似然估计的（局部）最大值，然后获得其对应的模型参数$\theta$。
+EM算法的基本思路是，找到最大似然估计的一个下界，然后不停的迭代，保证每一次迭代（最大似然估计）的值会逐步提高，这样就会慢慢接近一个（局部）最大值，然后获得其对应的模型参数$\theta$。
 
 ### 函数的下界
 
-首先我们来看看，最大似然估计的下界。由于log函数是一个凹函数，根据Jensen 不等式，可以得到。
+首先我们来看看，最大似然估计的下界。由于log函数是一个凹函数，根据[Jensen 不等式](https://eipi10.cn/mathematics/2020/07/14/jensen/)，可以得到。
 $$
 \begin{align}
 L(\theta) &= \sum\limits_{i=1}^m log \sum\limits_{z_i}P(x_i, z_i;\theta)
@@ -40,7 +40,7 @@ L(\theta) &= \sum\limits_{i=1}^m log \sum\limits_{z_i}P(x_i, z_i;\theta)
 \geq \sum\limits_{i=1}^m  \sum\limits_{z_i} Q_i(z_i)log\frac{P(x_i， z_i;\theta)}{Q_i(z_i)} 
 \end{align}
 $$
-其中$Q_i(z_i)$是对于$z_i$的概率分布。
+其中$Q_i(z_i)$是对于$z_i$的概率分布，由$m$个样本，则由$m$个$Q$分布。
 
 ### 迭代的收敛性
 
