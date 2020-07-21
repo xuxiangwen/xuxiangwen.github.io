@@ -35,11 +35,11 @@ $$
 
 下面我们来看当$M>2$的情况。
 $$
-f\left(\sum_{i=1}^{M} \lambda_{i} x_{i}\right) \leq \sum_{i=1}^{M} \lambda_{i} f\left(x_{i}\right)
+f\left(\sum_{i=1}^{M} \lambda_{i} x_{i}\right) \leq \sum_{i=1}^{M} \lambda_{i} f\left(x_{i}\right)   \tag 1
 $$
 假设上面的公式成立，下面我们来证明$M+1$的情况下，公式依然成立，即
 $$
-f\left(\sum_{i=1}^{M+1} \lambda_{i} x_{i}\right) \leq \sum_{i=1}^{M+1} \lambda_{i} f\left(x_{i}\right)   \tag 1
+f\left(\sum_{i=1}^{M+1} \lambda_{i} x_{i}\right) \leq \sum_{i=1}^{M+1} \lambda_{i} f\left(x_{i}\right) 
 $$
 首先把$M+1$个数分成两部分，即
 $$
