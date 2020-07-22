@@ -12,17 +12,23 @@ EM算法是一种迭代优化策略，由于它的计算方法中每一次迭代
 
 在构建模型时，我们需要从样本观察数据中，找出样本的模型参数。 而最常用的方法就是极大对数似然估计。 定义如下：
 
-对于$m$个样本观察数据$x=(x_1,x_2,...x_m)$中，找出样本的模型参数$\theta$，采用最大对数似然估计如下：
+对于$m$个样本观察数据$x=(x^{(1)},x^{(2)},...x^{(m)})$中，找出样本的模型参数$\theta$，采用最大似然估计如下：
 $$
-L(\theta) = \sum\limits_{i=1}^m logP(x_i;\theta)
+L(\theta) = \sum\limits_{i=1}^m logP(x^{(i)};\theta)
 $$
-通过极大化$L(\theta)$，来获得对应的模型参数$\theta$。
-
+通过极大化$L(\theta)$，来获得对应的模型参数$\theta$，即：
+$$
+\theta = arg \max \limits_{\theta}\sum\limits_{i=1}^m logP(x^{(i)};\theta)
+$$
 然而，在很多情况下，有隐藏变量决定观测数据，则函数变成：
 $$
-L(\theta) = \sum\limits_{i=1}^m log\sum\limits_{z_i}P(x_i, z_i;\theta) \tag 1
+L(\theta) = \sum\limits_{i=1}^m log\sum\limits_{z^{(i)}}P(x^{(i)}, z^{(i)};\theta) \tag 1
 $$
-其中隐藏变量$z=(z_1. z_2,...,z_m)$。下面我们来逐步分析，EM算法如何来根据隐藏变量$z$求解$\theta$。
+其中隐藏变量$z=(z^{(1)}. z^{(2)},...,z^{(m)})$。同样通过极大化$L(\theta)$，来获得对应的模型参数$\theta$，即：
+$$
+\theta = arg \max \limits_{\theta}\sum\limits_{i=1}^m log\sum\limits_{z^{(i)}}P(x^{(i)}, z^{(i)};\theta)
+$$
+下面我们来逐步分析，EM算法如何来根据隐藏变量$z$求解$\theta$。
 
 ## 算法推导
 
@@ -30,17 +36,26 @@ EM算法的基本思路是，找到最大似然估计的一个下界，然后不
 
 ### 函数的下界
 
-首先我们来看看，最大似然估计的下界。由于log函数是一个凹函数，根据[Jensen 不等式](https://eipi10.cn/mathematics/2020/07/14/jensen/)，可以得到。
+首先，我们引入对于隐变量$z^{(i)}$的概率分布 $Q_i(z^{(i)})$，有$m$个样本，则有对应的$m$个$Q$分布。
 $$
 \begin{align}
-L(\theta) &= \sum\limits_{i=1}^m log \sum\limits_{z_i}P(x_i, z_i;\theta)
+L(\theta) &= \sum\limits_{i=1}^m log \sum\limits_{z^{(i)}}P(x^{(i)}, z^{(i)};\theta)
 \\ &
-=  \sum\limits_{i=1}^m log\sum\limits_{z_i}Q_i(z_i)\frac{P(x_i， z_i;\theta)}{Q_i(z_i)} 
-\\ & 
-\geq \sum\limits_{i=1}^m  \sum\limits_{z_i} Q_i(z_i)log\frac{P(x_i， z_i;\theta)}{Q_i(z_i)} 
+=  \sum\limits_{i=1}^m log\sum\limits_{z^{(i)}}Q_i(z^{(i)})\frac{P(x^{(i)}, z^{(i)};\theta)}{Q_i(z^{(i)})} 
 \end{align}
 $$
-其中$Q_i(z_i)$是对于$z_i$的概率分布，由$m$个样本，则由$m$个$Q$分布。
+接下来，由于log函数是一个凹函数，根据[Jensen 不等式](https://eipi10.cn/mathematics/2020/07/14/jensen/)，可以得到。
+$$
+\begin{align}
+L(\theta)  &
+=  \sum\limits_{i=1}^m log\sum\limits_{z^{(i)}}Q_i(z^{(i)})\frac{P(x^{(i)}, z^{(i)};\theta)}{Q_i(z^{(i)})} 
+\\ & 
+\geq \sum\limits_{i=1}^m  \sum\limits_{z^{(i)}} Q_i(z^{(i)})log\frac{P(x^{(i)}, z^{(i)};\theta)}{Q_i(z^{(i)})} 
+\end{align}
+$$
+这样我们就获得了最大似然和函数$L(\theta)$的一个下界。
+
+对于一个具体的$\theta$来说，上面的式子要
 
 ### 迭代的收敛性
 
