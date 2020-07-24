@@ -124,7 +124,7 @@ $$
 L(\theta^{j+1}) \geq L(\theta^{j})
 $$
 
-由于，根据上面的公式$(3), (4)$，当满足$Q_i(z^{(i)}) = P( z^{(i)}|x^{(i)}，\theta^{j}))$，可得
+根据上面的公式$(3),(4)$，当满足$Q_i(z^{(i)}) = P( z^{(i)}|x^{(i)}，\theta^{j}))$，可得
 
 $$
 \begin{align}
@@ -132,7 +132,9 @@ L(\theta^{j})
 =  \sum\limits_{i=1}^m  \sum\limits_{z^{(i)}} {Q_i(z^{(i)})}log\frac{P(x^{(i)}, z^{(i)};\theta^{j})}{Q_i(z^{(i)})}  = L(\theta^{j}, \theta^{j})
 \end{align}
 $$
+
 而根据公式$(2)$，可得
+
 $$
 \begin{align}
 L(\theta^{j+1}) & =  \sum\limits_{i=1}^m log\sum\limits_{z^{(i)}}Q_i(z^{(i)})\frac{P(x^{(i)}, z^{(i)};\theta^{j+1})}{Q_i(z^{(i)})} 
@@ -140,7 +142,9 @@ L(\theta^{j+1}) & =  \sum\limits_{i=1}^m log\sum\limits_{z^{(i)}}Q_i(z^{(i)})\fr
 \\  & = L(\theta^{j+1}, \theta^{j})
 \end{align}
 $$
+
 由于$\theta^{j+1} = arg \max \limits_{\theta}L(\theta, \theta^{j})$，所以$L(\theta^{j+1}, \theta^{j})$必然大于等于$L(\theta^{j}, \theta^{j})$，可得：
+
 $$
 \begin{align}
 L(\theta^{j+1})  & \geq L(\theta^{j+1}, \theta^{j})
@@ -148,6 +152,7 @@ L(\theta^{j+1})  & \geq L(\theta^{j+1}, \theta^{j})
 \\ & = L(\theta^{j})
 \end{align}
 $$
+
 证毕。
 
 还可以用下面 的图形来形象理解。
