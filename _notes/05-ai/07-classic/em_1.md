@@ -107,9 +107,9 @@ $$
     \end{align}
          $$
          
-       - M步：极大化$L(\theta)$,得到$\theta^{j+1}$:
+       - M步：极大化$L(\theta)$, 得到$\theta^{j+1}$：
          $$
-      \theta^{j+1} = arg \max \limits_{\theta}L(\theta)
+         \theta^{j+1} = arg \max \limits_{\theta}L(\theta)
          $$
        
        - 如果$\theta^{j+1}$已收敛，则算法结束。否则继续回到E步进行迭代。
@@ -123,7 +123,9 @@ $$
 $$
 L(\theta^{j+1}) \geq L(\theta^{j})
 $$
+
 由于，根据上面的公式$(3), (4)$，当满足$Q_i(z^{(i)}) = P( z^{(i)}|x^{(i)}，\theta^{j}))$，可得
+
 $$
 \begin{align}
 L(\theta^{j})  
