@@ -1,12 +1,15 @@
 ---
-title: EM算法实践
+title: EM算法实践：抛硬币
 categories: algorithm
 date: 2020-07-24
 ---
 
-[EM](https://zh.wikipedia.org/wiki/%E6%9C%80%E5%A4%A7%E6%9C%9F%E6%9C%9B%E7%AE%97%E6%B3%95)（Expectation-Maximum）算法在机器学习中有极为广泛的用途。为了能够加深理解，本文将运用EM算法原理来分析多个模型，比如：三硬币模型，两硬币模型，k-means，GMM等等。每一个模型都是完整的分析，所以大家在看的的时候，不用依次来看，选择想看的模型来看便可。
+[EM](https://zh.wikipedia.org/wiki/%E6%9C%80%E5%A4%A7%E6%9C%9F%E6%9C%9B%E7%AE%97%E6%B3%95)（Expectation-Maximum）算法在机器学习中有极为广泛的用途。为了能够加深理解，本文将运用EM算法原理来分析两个硬币模型：
 
-下面再次复习KM算法的流程，在进行模型分析时，将会多次用到。
+- 三硬币模型
+- 两硬币模型。
+
+开始之前，再次复习KM算法的流程。
 
 - 输入：观察数据$x=(x_1,x_2,...x_m)$，联合分布$P(x,z;θ)$, 条件分布$P(z\vert x;θ)$, 最大迭代次数$J$。
 
@@ -304,17 +307,13 @@ simple_em(coin_toss, p, 20)
 
 ![image-20200724201838171](images/image-20200724201838171.png)
 
-## k-means
-
-
-
-## GMM
-
-
-
 ## 参考
 
 - [EM算法推导与三硬币模型](https://galaxychen.github.io/2019/07/22/em-and-three-coins/)
+
 - [EM算法原理及其应用](https://vividfree.github.io/docs/2016-08-19-introduction-about-EM-algorithm-doc1.pdf)
+
 - [EM算法实例分析](https://chenrudan.github.io/blog/2015/12/02/emexample.html)
+
+  
 
