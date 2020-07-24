@@ -75,7 +75,7 @@ $$
 $$
 \begin{align}
 Q_i(z^{(i)})   &=  \frac{P(x^{(i)}， z^{(i)};\theta)}{P(x^{(i)};\theta)} 
-\\ Q_i(z^{(i)})  &= P( z^{(i)}|x^{(i)};\theta) 
+\\ Q_i(z^{(i)})  &= P( z^{(i)}\vert x^{(i)};\theta) 
 \end{align}
 $$
 由此，在给定的$\theta$下，当满足了上面的公式，不等式$(2)$等号成立，即：
@@ -124,7 +124,7 @@ $$
 L(\theta^{j+1}) \geq L(\theta^{j})
 $$
 
-根据上面的公式$(3)$和$(4)$，当满足$Q_i(z^{(i)})=P( z^{(i)}|x^{(i)}\theta^{j}))$，可得：
+根据上面的公式$(3)$和$(4)$，当满足$Q_i(z^{(i)})=P( z^{(i)}\vert x^{(i)};\theta)$，可得：
 
 $$
 \begin{align}
