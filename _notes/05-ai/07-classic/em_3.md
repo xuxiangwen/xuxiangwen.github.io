@@ -1,10 +1,10 @@
 ---
 title: EM算法实践：抛硬币
 categories: algorithm
-date: 2020-07-24
+date: 2020-07-25
 ---
 
-[EM](https://zh.wikipedia.org/wiki/%E6%9C%80%E5%A4%A7%E6%9C%9F%E6%9C%9B%E7%AE%97%E6%B3%95)（Expectation-Maximum）算法在机器学习中有极为广泛的用途。为了能够加深理解，本文将运用EM算法原理来分析两个抛硬币模型：三硬币模型和两硬币模型。
+[EM](https://zh.wikipedia.org/wiki/%E6%9C%80%E5%A4%A7%E6%9C%9F%E6%9C%9B%E7%AE%97%E6%B3%95)（Expectation-Maximum）算法在机器学习中有极为广泛的用途。为了能够加深理解，本文将运用EM算法原理来分析两个抛硬币模型：三硬币模型和两硬币模型
 
 开始之前，再次复习KM算法的流程。
 
@@ -82,14 +82,11 @@ EM算法过程如下：
      $$
      
      记$\mu_i = Q_i(z_{i}=1) $， 由于硬币只有两面，所以$Q_i(z_{i}=0) = 1 - \mu_i  $。下面再来看$L(\theta, \theta^{j})$。
+     
      $$
      \begin{align}
-L(\theta, \theta^{j}) &= 
-     \sum\limits_{i=1}^m\sum\limits_{z_{i}}Q_i(z_{i})\log \frac {P(x_{i},z_{i};\theta)} {Q_i(z_{i})}
-     \\ &=  
-     \sum\limits_{i=1}^m 
-     \mu_i \log \frac {\pi p^{x_{i}}(1-p)^{1-x_{i}}} {\mu_i} + 
-     (1-\mu_i) \log \frac {(1-\pi) q^{x_{i}}(1-q)^{1-x_{i}}} {1-\mu_i} 
+L(\theta, \theta^{j}) &= \sum\limits_{i=1}^m\sum\limits_{z_{i}}Q_i(z_{i})\log \frac {P(x_{i},z_{i};\theta)} {Q_i(z_{i})}
+     \\ &=  \sum\limits_{i=1}^m \mu_i \log \frac {\pi p^{x_{i}}(1-p)^{1-x_{i}}} {\mu_i} +  (1-\mu_i) \log \frac {(1-\pi) q^{x_{i}}(1-q)^{1-x_{i}}} {1-\mu_i} 
      \end{align}
      $$
      
@@ -161,7 +158,7 @@ L(\theta, \theta^{j}) &=
 
 ### 形象理解
 
-下面的图非常形象的描述了整个计算过程。其中，H代表证明正面朝上，T表示反面朝上。
+下图中，H代表证明正面朝上，T表示反面朝上。下面的图非常形象的描述了整个计算过程。
 
 ![image-20200724171709033](images/image-20200724171709033.png)
 
