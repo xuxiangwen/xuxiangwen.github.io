@@ -71,7 +71,7 @@ $$
 
 ### 最简单的变换
 
-接上文，当$$\mathbf B$$是对角矩阵， 记为$$\mathbf \Lambda$$。$$\mathbf {P} $$ 的各个列向量都是单位向量，记为$$\mathbf V$$。公式变为：
+接上文，当$$\mathbf B$$是对角矩阵， 记为$$\mathbf \Lambda$$。$$\mathbf {P} $$ 的各个列向量都是单位向量（模等于1的向量），记为$$\mathbf V$$。公式变为：
 
 $$
 
@@ -240,8 +240,273 @@ $$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#对称矩阵的特征向量)。
 
+### 方阵的迹和行列式
+
+特征值有两个重要性质：
+
+- 方阵的迹等于特征值的之和
+- 方阵的行列式等于特征值之积
+
+其中方阵的迹（trace），是它的主对角线元素的总和，也等于它的特征值的总和。这两个性质的数学表示如下。
+
+设可逆方阵
+
+$$
+
+A = \begin{bmatrix} 
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n}  \\
+\vdots & \vdots  & \ddots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}  
+\end{bmatrix}
+
+$$
+
+，且$\lambda=(\lambda_1, \lambda_2,  \cdots, \lambda_n)$是其对应的$n$个特征矩阵，则：
+
+$$
+
+\left\{  
+\begin{array}{lll}  
+ \sum_{i=1}^n\ \lambda_i = \sum_{i=1}^n\ a_{ii}=tr(A)    \\
+\prod_{i=1}^{n} \lambda_i = |A|
+\end{array}  
+\right.
+
+$$
+
+其中$tr(A)$称为矩阵$A$的迹。
+
+#### 探究
+
+下面我们来探究一下，上面的公式是怎么来的。根据特征值的定义可得：
+
+$$
+
+\begin{align}
+A v &=\lambda v \\
+( \lambda - A)v &= 0 \\
+\begin{bmatrix} 
+\lambda - a_{11} & -a_{12} & \cdots & -a_{1n} \\
+-a_{21} & \lambda-a_{22} & \cdots & -a_{2n}  \\
+\vdots & \vdots  & \ddots & \vdots \\
+-a_{n1} & -a_{n2} & \cdots & \lambda - a_{nn}  
+\end{bmatrix} v &= 0
+\end{align}
+
+$$
+
+由于$v$不为0，要满足上面的公式，要求左边的方阵，其秩必须小于$n$，也就说必须满足：
+
+$$
+
+\left | 
+\begin{array}{cccc}
+\lambda - a_{11} & -a_{12} & \cdots & -a_{1n} \\
+-a_{21} & \lambda-a_{22} & \cdots & -a_{2n}  \\
+\vdots & \vdots  & \ddots & \vdots \\
+-a_{n1} & -a_{n2} & \cdots & \lambda - a_{nn}  
+\end{array} 
+\right | = 0 \tag 1
+
+$$
+
+> 还可以这样来推理：秩小于$n$，意味着方阵中的$n$个向量必须线性相关，也就说其中任意一个向量，必然可以用剩下的$n-1$个向量来表达，也就说，这个向量存在于$n-1$个向量构成的线性空间中。而行列式可以看成是方阵的行或列向量构成的n维立方体的有向体积，当一个向量存在于$n-1$个向量构成的线性空间中，则它们（这$n$个向量）无法构成一个n维立方体了，体积当然为0。想象一下，在三维空间中，三个向量在一条直线上，它们的体积肯定是0。
+
+很明显，对于方程$(1)$，特征值$\lambda_1, \lambda_2, \cdots , \lambda_n$是它的解，即满足：
+
+$$
+
+\begin{align}
+\left | 
+\begin{array}{cccc}
+\lambda - a_{11} & -a_{12} & \cdots & -a_{1n} \\
+-a_{21} & \lambda-a_{22} & \cdots & -a_{2n}  \\
+\vdots & \vdots  & \ddots & \vdots \\
+-a_{n1} & -a_{n2} & \cdots & \lambda - a_{nn}  
+\end{array} 
+\right | & =  (\lambda-\lambda_1)(\lambda-\lambda_2)\cdots(\lambda-\lambda_n)
+\\ & = \lambda^n - (\lambda_1+\lambda_2+\cdots+\lambda_n)\lambda^{n-1} + \sum_{i=1}^{n-2}b_{n-i}\lambda^{n-i}  + (-1)^n  \lambda_1\lambda_2 \cdots\lambda_n 
+\\ & = \lambda^n -  \sum_{i=1}^n\ \lambda_i \lambda^{n-1}  + \sum_{i=1}^{n-2}c_{i}\lambda^{i}  +  (-1)^n \prod_{i=1}^{n} \lambda_i   \tag 2
+\end{align}
+
+$$
+
+上面公式中，$c_{n-i}$表示$\lambda$的幂次数是$1, 2, \cdots, n-2$时的系数。由此，我们的问题变成，在满足公式$(1)$的情况下，证明：
+
+$$
+
+\left\{  
+\begin{array}{lll}  
+ \sum_{i=1}^n\ \lambda_i =tr(A)    \\
+\prod_{i=1}^{n} \lambda_i = |A|
+\end{array}  
+\right.
+
+$$
+
+#### 二阶方阵
+
+为了能够形象的理解，首先看最简单的情况，当矩阵为$2$阶方阵：
+
+$$
+
+\begin{align}
+\left | 
+\begin{array}{cccc}
+\lambda - a_{11} & -a_{12}  \\
+-a_{21} & \lambda - a_{22} \\
+\end{array} 
+\right | & = \lambda^2-(\lambda_1 +\lambda_2)\lambda + \lambda_1 \lambda_2 \\
+\lambda^2-(a_{11}+a_{22})\lambda + a_{11}a_{22} - a_{12}a_{21} &= \lambda^2-(\lambda_1 +\lambda_2)\lambda + \lambda_1 \lambda_2
+\end{align}
+
+$$
+
+可以得到：
+
+$$
+
+\left\{  
+\begin{array}{lll}  
+ \lambda_1 + \lambda_2 = a_{11}+{a_22} = tr(A)    \\
+ \lambda_1  \lambda_2 = a_{11}a_{22} - a_{12}a_{21}= |A|
+\end{array}  
+\right.
+
+$$
+
+由此，二阶方阵满足迹（主对角线元素的总和）等于它的特征值的总和，行列式等于它的特征值的积。
+
+#### n阶方阵
+
+下面来看$n$阶方阵。设
+
+$$
+
+\begin{align}
+|B|=  \left | 
+\begin{array}{cccc}
+\lambda - a_{11} & -a_{12} & \cdots & -a_{1n} \\
+-a_{21} & \lambda-a_{22} & \cdots & -a_{2n}  \\
+\vdots & \vdots  & \ddots & \vdots \\
+-a_{n1} & -a_{n2} & \cdots & \lambda - a_{nn}  
+\end{array} 
+\right | =  \left | 
+\begin{array}{cccc}
+b_{11} & b_{12} & \cdots & b_{1n} \\
+b_{21} & b_{22} & \cdots & b_{2n}  \\
+\vdots & \vdots  & \ddots & \vdots \\
+b_{n1} & b_{n2} & \cdots & b_{nn}  
+\end{array} 
+\right |
+\end{align}
+
+$$
+
+根据[行列式计算的定义](http://cynhard.com/2018/10/15/LA-Determinants-Basic/#n-%E9%98%B6%E8%A1%8C%E5%88%97%E5%BC%8F)，每一行取一个数，每次取的列必须不同，我们可以得到：
+
+$$
+
+|B| =\sum\limits (-1)^t b_{1p_1}b_{2p_2}\cdots b_{np_n}
+
+$$
+
+其中$p_1, p_2, \cdots, p_n$为自然数$1$到$n$的排列组合之一，$t$为这个排列的[逆序数](https://baike.baidu.com/item/%E9%80%86%E5%BA%8F%E6%95%B0)。这样的排列共有$n!$。。通过观察不难发现，要获得$\lambda$的$n-1$次幂，$b_{1p_1}, b_{2p_2}, \cdots,  b_{np_n}$当且仅当满足下面的公式才满足：
+
+$$
+
+b_{1p_1} = b_{11}=  \lambda - a_{11} \\
+b_{1p_1} = b_{22}=  \lambda - a_{22} \\
+\vdots \\
+b_{1p_n} = b_{nn}=  \lambda - a_{nn} \\
+
+$$
+
+由于$p_1, p_2, \cdots, p_n$是顺序的，所以逆序数为0，可以得到
+
+$$
+
+\begin{align}
+b_{11}b_{22}\cdots b_{nn} &= (\lambda-a_{11})(\lambda-a_{22})\cdots(\lambda-a_{nn}) \\
+&= \lambda^n - (a_{11}+a_{22}+\cdots+a_{nn})\lambda^{n-1} ++ \sum_{i=0}^{n-2}c_{i}\lambda^{i}   \\
+&= \lambda^n -   \sum_{i=1}^n a_{ii}\lambda^{n-1} + \sum_{i=0}^{n-2}c_{i}\lambda^{i} 
+\end{align}
+
+$$
+
+其中$c_{n-i}$表示$\lambda$的幂次数是$0, 1, 2, \cdots, n-2$时的系数。
+
+然后再结合公式$(2)$，可得：
+
+$$
+
+\begin{align}
+ \sum_{i=1}^n\ \lambda_i \lambda^{n-1} &= \sum_{i=1}^n a_{ii}\lambda^{n-1} \\
+ \sum_{i=1}^n\ \lambda_i &=\sum_{i=1}^n a_{ii}  \\
+  \sum_{i=1}^n\ \lambda_i &=tr(A) 
+ \end{align}
+
+$$
+
+由此，$n$阶方阵的迹等于特征值的之和。
+
+下面再来看行列式，由公式$(2)$我们可以得到：
+
+$$
+
+\begin{align}
+\left | 
+\begin{array}{cccc}
+\lambda - a_{11} & -a_{12} & \cdots & -a_{1n} \\
+-a_{21} & \lambda-a_{22} & \cdots & -a_{2n}  \\
+\vdots & \vdots  & \ddots & \vdots \\
+-a_{n1} & -a_{n2} & \cdots & \lambda - a_{nn}  
+\end{array} 
+\right | & =  \lambda^n -  \sum_{i=1}^n\ \lambda_i \lambda^{n-1}  + \sum_{i=1}^{n-2}c_{i}\lambda^{i}  +  (-1)^n \prod_{i=1}^{n} \lambda_i   
+\end{align}
+
+$$
+
+当$\lambda$等于0，可得：
+
+$$
+
+\begin{align}
+\left | 
+\begin{array}{cccc}
+- a_{11} & -a_{12} & \cdots & -a_{1n} \\
+-a_{21} & -a_{22} & \cdots & -a_{2n}  \\
+\vdots & \vdots  & \ddots & \vdots \\
+-a_{n1} & -a_{n2} & \cdots &  - a_{nn}  
+\end{array} 
+\right | & =  (-1)^n \prod_{i=1}^{n} \lambda_i   \\
+(-1)^n\left | 
+\begin{array}{cccc}
+ a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n}  \\
+\vdots & \vdots  & \ddots & \vdots \\
+a_{n1} & a_{n2} & \cdots &   a_{nn}  
+\end{array} 
+\right | & =  (-1)^n \prod_{i=1}^{n} \lambda_i \\
+\left | A \right |  = \prod_{i=1}^{n} \lambda_i 
+\end{align}
+
+$$
+
+由此，$n$阶方阵的行列式等于特征值之积。
+
 ### 参考
 
 - [《新理解矩阵4》：相似矩阵的那些事儿](https://spaces.ac.cn/archives/1777)
+
 - [线性代数中，特征值与特征向量在代数和几何层面的实际意义是什么](https://www.zhihu.com/question/20507061)
+
+- [wiki: 迹](https://zh.wikipedia.org/wiki/%E8%B7%A1)
+
+- [wiki: 行列式](https://zh.wikipedia.org/wiki/%E8%A1%8C%E5%88%97%E5%BC%8F)
+
+- [线性代数 - 行列式基础](http://cynhard.com/2018/10/15/LA-Determinants-Basic/)
+
+  
 
