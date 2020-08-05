@@ -239,7 +239,7 @@ $$
 \\ & = \lambda^n -  \sum_{i=1}^n\ \lambda_i \lambda^{n-1}  + \sum_{i=1}^{n-2}c_{i}\lambda^{i}  +  (-1)^n \prod_{i=1}^{n} \lambda_i   \tag 2
 \end{align}
 $$
-上面公式中，$c_{n-i}$表示$\lambda$的幂次数是$1, 2, \cdots, n-2$时的系数。由此，我们的问题变成，在满足公式$(1)$的情况下，证明：
+上面公式中，$c_{n-i}$表示$\lambda$的幂次数是$1, 2, \cdots, n-2$时的系数。由此，我们的问题变成，在满足上面公式的情况下，证明：
 $$
 \left\{  
 \begin{array}{lll}  
@@ -298,9 +298,9 @@ b_{n1} & b_{n2} & \cdots & b_{nn}
 $$
 根据[行列式计算的定义](http://cynhard.com/2018/10/15/LA-Determinants-Basic/#n-%E9%98%B6%E8%A1%8C%E5%88%97%E5%BC%8F)，每一行取一个数，每次取的列必须不同，我们可以得到：
 $$
-|B| =\sum\limits (-1)^t b_{1p_1}b_{2p_2}\cdots b_{np_n}
+|B| =\sum\limits (-1)^{\tau} b_{1p_1}b_{2p_2}\cdots b_{np_n}
 $$
-其中$p_1, p_2, \cdots, p_n$为自然数$1$到$n$的排列组合之一，$t$为这个排列的[逆序数](https://baike.baidu.com/item/%E9%80%86%E5%BA%8F%E6%95%B0)。这样的排列共有$n!$。。通过观察不难发现，要获得$\lambda$的$n-1$次幂，$b_{1p_1}, b_{2p_2}, \cdots,  b_{np_n}$当且仅当满足下面的公式才满足：
+其中$p_1, p_2, \cdots, p_n$为自然数$1$到$n$的排列组合之一，$\tau$为这个排列的[逆序数](https://baike.baidu.com/item/%E9%80%86%E5%BA%8F%E6%95%B0)，这样的排列共有$n!$。通过观察不难发现，要获得$\lambda$的$n-1$次幂，$b_{1p_1}, b_{2p_2}, \cdots,  b_{np_n}$当且仅当满足下面的公式才满足：
 $$
 b_{1p_1} = b_{11}=  \lambda - a_{11} \\
 b_{1p_1} = b_{22}=  \lambda - a_{22} \\
@@ -325,7 +325,7 @@ $$
   \sum_{i=1}^n\ \lambda_i &=tr(A) 
  \end{align}
 $$
-由此，$n$阶方阵的迹等于特征值的之和。
+由此得证，$n$阶方阵的迹等于特征值的之和。
 
 下面再来看行列式，由公式$(2)$我们可以得到：
 $$
@@ -362,7 +362,7 @@ a_{n1} & a_{n2} & \cdots &   a_{nn}
 \left | A \right |  = \prod_{i=1}^{n} \lambda_i 
 \end{align}
 $$
-由此，$n$阶方阵的行列式等于特征值之积。
+由此得证，$n$阶方阵的行列式等于特征值之积。
 
 ### 参考
 
