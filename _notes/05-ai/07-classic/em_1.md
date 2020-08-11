@@ -108,7 +108,7 @@ $$
        - E步：计算联合分布的条件概率期望：
          $$
          \begin{align}
-         Q_i(z_{i}) = P( z_{i}|x_{i};\theta^{j})
+         Q_i(z_{i}) = P( z_{i}|x_{i};\theta^{j}), \ \ \  \sum\limits_{z_{i}}Q_i(z_{i}) =1
          \\ L(\theta, \theta^{j}) = \sum\limits_{i=1}^m\sum\limits_{z_{i}}Q_i(z_{i})\log \frac {P(x_{i}， z_{i};\theta)} {Q_i(z_{i})} \tag 4
     \end{align}
          $$

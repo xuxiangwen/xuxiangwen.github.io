@@ -5,6 +5,15 @@ description: Hosting Marp slide deck on the web
 theme: uncover
 paginate: true
 _paginate: false
+header: 'Header content'
+footer: 'Footer content'
+---
+
+# Page 1
+
+---
+
+## Page 2
 ---
 
 ![bg](../../../../jian-xu3/splunk-study/images/gradient.jpg)
