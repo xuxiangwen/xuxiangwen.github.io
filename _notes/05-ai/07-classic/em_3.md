@@ -1,7 +1,7 @@
 ---
 title: EM算法实践：聚类
 categories: algorithm
-date: 2020-07-31
+date: 2020-08-13
 ---
 
 [EM](https://zh.wikipedia.org/wiki/%E6%9C%80%E5%A4%A7%E6%9C%9F%E6%9C%9B%E7%AE%97%E6%B3%95)（Expectation-Maximum）算法在机器学习中有极为广泛的用途。为了能够加深理解，本文将运用EM算法原理来分析两个经典的聚类模型：K-Means和GMM。
@@ -176,7 +176,7 @@ E(\theta^{j+1}) &= E(\theta^{j+1}, \theta^{j+1})
 \\ & \leq 
  \sum_i^m\sum_k^K\gamma_{ik}^{j}(x_i-\mu_k^{j+1})^2  
  \\ & =E(\theta^{j+1}, \theta^{j}) 
-\\ & \leq E(\theta^{j}, \theta^{j}) & 根据公式(1)
+\\ & \leq E(\theta^{j}, \theta^{j}) 
 \\ & = E(\theta^{j})
 \end{align}
 $$
@@ -188,13 +188,13 @@ GMM（Gaussian Mixture Model） 混合高斯模型也是经典的聚类方法之
 
 ### 定义
 
-- 整个分布式有$K$个高斯模型组成，设它们的均值为：$\mu=(\mu_1, \mu_2, \cdots, \mu_K)$，协方差矩阵为$\Sigma=(\Sigma_1, \Sigma_2, \cdots, \Sigma_K)$，则第k个高斯分布的概率密度可以表示为：
+- 整个分布式由$K$个高斯模型组成，设它们的均值为：$\mu=(\mu_1, \mu_2, \cdots, \mu_K)$，协方差矩阵为$\Sigma=(\Sigma_1, \Sigma_2, \cdots, \Sigma_K)$，则第k个高斯分布的概率密度可以表示为：
   $$
   \mathcal { N } ( \mathrm { x } | \mu_k , \Sigma_k ) = \frac { 1 } { ( 2 \pi ) ^ { D / 2 }  | \Sigma_k |  ^ { 1 / 2 } } \exp \left[ - \frac { 1 } { 2 } ( x - \mu_k ) ^ { T } \Sigma_k  ^ { - 1 } ( x - \mu_k ) \right]
   $$
   其中$D$表示单个样本$x$的维度，$\Sigma_k=\frac 1 m (x-\mu_k)(x-\mu_k)^T $，$\Sigma_k^{-1}$表示协方差矩阵的逆矩阵，
 
-- 变量分布由多个高斯分布组合而成，$\pi = (\pi_1, \pi_2, \cdots, \pi_K)$表示各个高斯分布的系数（概率），且满足：
+- 整个分布由多个高斯分布**线性**组合而成，$\pi = (\pi_1, \pi_2, \cdots, \pi_K)$表示各个高斯分布的系数（概率），且满足：
   $$
   \sum_{k=1}^K \pi_{k} =1
   $$
@@ -208,23 +208,21 @@ GMM（Gaussian Mixture Model） 混合高斯模型也是经典的聚类方法之
 
 - 极大对数似然估计如下：
   $$
-  L(\theta) =\sum _ { i = 1 } ^ { m } \log { \sum _ { k = 1 } ^ { K } \pi _ { k } N ( x _ { i } | \mu _ { k } , \Sigma _ { k } ) }
+  L(\theta) =\sum _ { i = 1 } ^ { m } \log P(x_i; \theta) =\sum _ { i = 1 } ^ { m } \log { \sum _ { k = 1 } ^ { K } \pi _ { k } N ( x _ { i } | \mu _ { k } , \Sigma _ { k } ) }
   $$
   通过极大化$L(\theta)$，来获得对应的模型参数$\theta$，即：
   $$
   \theta = arg \max \limits_{\theta}\sum\limits_{i=1}^mL(\theta)
   $$
 
-- 隐变量设为$z=(z_1,z_2,...z_m)$，表示样本属于某个高斯分布，对于$z_i$，可以有$K$个取值，其对应的概率分布满足。
+- 隐变量设为$z=(z_1,z_2,...z_m)$，表示样本属于某个高斯分布，对于$z_i$，可以有$K$个取值（从$1$到$K$），其对应的概率分布满足。
   $$
   \sum\limits_{z_{i}}Q_i(z_{i}) =1
   $$
 
 ### 算法推导
 
-首先，随机初始化模型参数$\theta$的初值$\theta^1= (\pi^1,\mu^1,\Sigma^1)$。
-
-然后 for $j$  from $1$ to $J$开始EM算法迭代。还是分为E步和M步
+首先，随机初始化模型参数$\theta$的初值$\theta^1= (\pi^1,\mu^1,\Sigma^1)$。然后 for $j$  from $1$ to $J$开始EM算法迭代。还是分为E步和M步。
 
 #### E步
 
@@ -257,7 +255,7 @@ $$
         \sum\limits_{i=1}^m\sum\limits_{k=1}^K\gamma_{ik} \log\pi_k
         \\ &- \frac { 1 } { 2 }\sum\limits_{i=1}^m\sum\limits_{k=1}^K \gamma_{ik}  ( x_i - \mu_k ) ^ { T } \Sigma_k ^ { - 1 } ( x_i - \mu_k ) 
         \\ & - \frac { 1 } { 2 }\sum\limits_{i=1}^m\sum\limits_{k=1}^K\gamma_{ik} \log |\Sigma_k |  
-        \\ & + \sum\limits_{i=1}^m\sum\limits_{k=1}^K\gamma_{ik} \log \frac { 1 } { ( 2 \pi ) ^ { D / 2 }  \gamma_{ik}}   \tag 2
+        \\ & + \sum\limits_{i=1}^m\sum\limits_{k=1}^K\gamma_{ik} \log \frac { 1 } { ( 2 \pi ) ^ { D / 2 }  \gamma_{ik}}   
        \end{align}
 $$
 由于上面最后一行是常数，在下面求导中，可以忽略。
@@ -554,9 +552,9 @@ compare_kmeans_gmm(X_filtered, y_filtered)
 
 ![image-20200813072442110](images/image-20200813072442110.png)
 
-可以看到，K-Means进一步下滑明显，而GMM也下降了，但还是比较稳定。
+可以看到，K-Means下降明显，GMM也下降了，但总体效果还是比较号的。
 
-从上面五种情况来看，GMM比其K-Means说，适应性更加好，更加的稳定。
+从上面五种情况来看，GMM比K-Means，适应性更好，稳定性更好。
 
 ## 参考
 
