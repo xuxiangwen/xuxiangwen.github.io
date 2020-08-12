@@ -187,7 +187,7 @@ X^2 = \begin{bmatrix}
 $$
 
 $$
-X^2 \circ B^t  = \begin{bmatrix} 
+X^2 \circ B^T  = \begin{bmatrix} 
 b_{11}\sum x_{1k} x_{k1} &   b_{21}\sum x_{1k} x_{k2}  & \cdots & b_{j1}\sum x_{1k} x_{kj}  & \cdots & b_{n1}\sum x_{1k}x_{kn} \\
 b_{12}\sum x_{2k}x_{k1} & b_{22}\sum x_{2k}x_{k2} & \cdots & b_{j2}\sum x_{2k} x_{kj} & \cdots  & b_{n2}\sum x_{2k}x_{kn}  \\
 \vdots & \vdots  & \ddots & \vdots & \vdots & \vdots \\
