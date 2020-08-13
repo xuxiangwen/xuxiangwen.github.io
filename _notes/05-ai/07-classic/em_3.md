@@ -283,7 +283,7 @@ $$
 \frac {\partial ({B}  {w})^{T} } {\partial  {w} } \cdot  {w}=
 ({B} + {B}^{T})\cdot  {w}
 $$
-当$\mathbf{B}$是对称矩阵，则$\frac{\partial  {w}^{T} {B}  {w} } {\partial  {w} } = 2  B  w$，所以得出：
+当$B$是对称矩阵，则$\frac{\partial  {w}^{T} {B}  {w} } {\partial  {w} } = 2  B  w$，所以得出：
 
 $$
 \frac{\partial ( x_i - \mu_k ) ^ { T } \Sigma_k ^ { - 1 } ( x_i - \mu_k )}{\partial \mu_k} = 2\Sigma_k ^ { - 1 } ( \mu_k -x_i )
