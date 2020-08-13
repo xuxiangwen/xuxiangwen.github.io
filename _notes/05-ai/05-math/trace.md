@@ -3,7 +3,7 @@ title: 迹
 categories: linear-algebra
 date: 2020-08-12
 ---
-[TOC]
+
 方阵的迹（trace）是方阵主对角线元素的总和。定义如下：
 
 设方阵
