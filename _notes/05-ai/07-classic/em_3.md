@@ -276,19 +276,18 @@ $$
 \end{align}
 $$
 
-> 上面用到了向量求导，公式是
-> $$
-> \frac{\partial  {w}^{T} {B}  {w} } {\partial  {w} } = 
-> \frac {\partial  {w}^{T} } {\partial  {w} } \cdot {B}  {w} +
-> \frac {\partial ({B}  {w})^{T} } {\partial  {w} } \cdot  {w}=
-> ({B} + {B}^{T})\cdot  {w}
-> $$
-> 当$\mathbf{B}$是对称矩阵，则$\frac{\partial  {w}^{T} {B}  {w} } {\partial  {w} } = 2  B  w$，所以得出：
-> 
-> $$
-> \frac{\partial ( x_i - \mu_k ) ^ { T } \Sigma_k ^ { - 1 } ( x_i - \mu_k )}{\partial \mu_k} = 2\Sigma_k ^ { - 1 } ( \mu_k -x_i )
-> $$
+上面用到了向量求导，公式是：
+$$
+\frac{\partial  {w}^{T} {B}  {w} } {\partial  {w} } = 
+\frac {\partial  {w}^{T} } {\partial  {w} } \cdot {B}  {w} +
+\frac {\partial ({B}  {w})^{T} } {\partial  {w} } \cdot  {w}=
+({B} + {B}^{T})\cdot  {w}
+$$
+当$\mathbf{B}$是对称矩阵，则$\frac{\partial  {w}^{T} {B}  {w} } {\partial  {w} } = 2  B  w$，所以得出：
 
+$$
+\frac{\partial ( x_i - \mu_k ) ^ { T } \Sigma_k ^ { - 1 } ( x_i - \mu_k )}{\partial \mu_k} = 2\Sigma_k ^ { - 1 } ( \mu_k -x_i )
+$$
 令$\frac{\partial L(\theta, \theta^{j})}{\partial \mu_k}=0$，则：
 $$
 \begin{align}
