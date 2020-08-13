@@ -73,16 +73,16 @@ else
 
 
 if [ -d "$file_or_folder" ]; then
-  echo start to generate folder: $file_or_folder
+  echo start to generate the blogs for $file_or_folder
   for filepath in $(find $file_or_folder  -name '*.md' | grep -Ev '[0-9]{4}-[0-9]{2}-[0-9]{2}')
   do
     generate_one $filepath
   done
-  echo finish to generate folder: $file_or_folder
+  echo finish to generate the blogs for $file_or_folder
 elif [ -f "$file_or_folder" ]; then
-  echo start to generate file: $file_or_folder
+  echo start to generate the blog for $file_or_folder
   generate_one $file_or_folder
-  echo finish to generate file: $file_or_folder
+  echo finish to generate the blog for $file_or_folder
 else
   echo $file_or_folder does not exist
 fi
