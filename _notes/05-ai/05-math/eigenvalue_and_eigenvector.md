@@ -303,7 +303,7 @@ $$
 其中$p_1, p_2, \cdots, p_n$为自然数$1$到$n$的排列组合之一，$\tau$为这个排列的[逆序数](https://baike.baidu.com/item/%E9%80%86%E5%BA%8F%E6%95%B0)，这样的排列共有$n!$。通过观察不难发现，要获得$\lambda$的$n-1$次幂，$b_{1p_1}, b_{2p_2}, \cdots,  b_{np_n}$当且仅当满足下面的公式才满足：
 $$
 b_{1p_1} = b_{11}=  \lambda - a_{11} \\
-b_{1p_1} = b_{22}=  \lambda - a_{22} \\
+b_{1p_2} = b_{22}=  \lambda - a_{22} \\
 \vdots \\
 b_{1p_n} = b_{nn}=  \lambda - a_{nn} \\
 $$
