@@ -368,7 +368,7 @@ $$
  \sum\limits_{i=1}^m \gamma_{ik} 
  \left (
  (\Sigma_k^{-1})^T ( x_i - \mu_k )( x_i - \mu_k )^T -I  
- \right ) I
+ \right ) 
  &=  0 
  \\ 
  \sum\limits_{i=1}^m \gamma_{ik} \Sigma_k^{-1}( x_i - \mu_k )( x_i - \mu_k )^T &= I \sum\limits_{i=1}^m \gamma_{ik} 
