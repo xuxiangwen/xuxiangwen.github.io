@@ -4,7 +4,7 @@ categories: statistics
 date: 2020-07-09
 ---
 
-[蒙特卡罗方法（Monte Carlo Methods）](https://zh.wikipedia.org/wiki/%E8%92%99%E5%9C%B0%E5%8D%A1%E7%BE%85%E6%96%B9%E6%B3%95)是一种模拟计算方法。原理是通过大量随机样本，去了解一个系统，进而估算所要计算的值。它诞生于上个世纪40年代美国的"曼哈顿计划"，科学家[斯塔尼斯拉夫·乌拉姆](https://zh.wikipedia.org/wiki/斯塔尼斯拉夫·乌拉姆)、[约翰·冯·诺伊曼](https://zh.wikipedia.org/wiki/冯·诺伊曼)和[尼古拉斯·梅特罗波利斯](https://zh.wikipedia.org/wiki/尼古拉斯·梅特罗波利斯)发明了它。它的名字来源于乌拉姆的叔叔经常在[摩纳哥](https://zh.wikipedia.org/wiki/摩納哥)的[蒙特卡洛](https://zh.wikipedia.org/wiki/蒙特卡洛)赌场输钱。蒙特卡罗方法以概率为基础的方法，而赌场赢钱，同样需要计算概率，故此这个名字被大家广泛接受。
+[蒙特卡罗方法（Monte Carlo Methods）](https://zh.wikipedia.org/wiki/%E8%92%99%E5%9C%B0%E5%8D%A1%E7%BE%85%E6%96%B9%E6%B3%95)是一种模拟计算方法。原理是通过大量随机样本，去了解一个系统，进而估算所要计算的值。它诞生于上个世纪40年代美国的"曼哈顿计划"，科学家[斯塔尼斯拉夫·乌拉姆](https://zh.wikipedia.org/wiki/斯塔尼斯拉夫·乌拉姆)、[约翰·冯·诺伊曼](https://zh.wikipedia.org/wiki/冯·诺伊曼)和[尼古拉斯·梅特罗波利斯](https://zh.wikipedia.org/wiki/尼古拉斯·梅特罗波利斯)发明了它。它的名字来源于乌拉姆的叔叔经常在摩纳哥的蒙特卡洛赌场输钱。蒙特卡罗方法以概率为基础的方法，而赌场赢钱，同样需要计算概率，故此这个名字被大家广泛接受。
 
 ![img](images/roulette.png)
 
