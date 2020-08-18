@@ -1,0 +1,137 @@
+---
+title: Latex速查
+categories: others
+date: 2020-08-18
+---
+
+## 常用
+
+| Latex     | 代码          | 描述         |
+| :-------- | :------------ | :----------- |
+| $\leq$    | \leq          | 小于等于     |
+| $\geq$    | \geq | 大于等于     |
+| $\neq$    | \neq | 不等于       |
+| $\approx$ | \approx | 约等于       |
+| $X  \sim  \mathcal N(\mu,\sigma^2)$ | X  \sim  \mathcal N(\mu,\sigma^2) | 符合正态分布 |
+| $\hat{A}$ | \hat {A}      | 估计值       |
+| $X \in R^{n \times m}$ | X \in R^{n \times m} | 属于 |
+| $  u^\mathrm{T} $  |  u^T | 矩阵转置 |
+| $\mathrm{d}u $ | \mathrm{d}u  | 微分 |
+| $\frac 1 m $ | \frac 1 m  | 分数 |
+| $\frac {\partial u^T} {\partial u} $ | \frac {\partial u^T} {\partial u} | 偏导数 |
+| $\nabla{w} $  | \nabla{w} | 梯度 |
+| $\prod\limits_i^m x_i$ | \prod\limits_i^m x_i | 连乘 |
+| $\sum\limits_i^m$ | \sum\limits_i^m  | 累加 |
+| $\lVert {w} \rVert _{2} = w^\mathrm{T}w $ |  \lVert {w} \rVert _{2} = w^\mathrm{T}w |  |
+
+## 希腊字母
+
+| Latex     | 代码    |
+| :-------- | :------ |
+| $\varphi$ | \varphi |
+| $\phi$    | \phi    |
+| $\Phi$    | \Phi    |
+
+## 集合操作 
+
+| Latex        | 代码       | 描述     |
+| :----------- | :--------- | :------- |
+| $\cup$       | \cup       | 并集     |
+| $\in$        | \in        | 属于     |
+| $\notin$     | \notin     | 不属于   |
+| $\subset$    | \subset    | 被真包含 |
+| $\subseteq $ | \subseteq  | 被包含   |
+| $\supset$    | \subset    | 真包含   |
+| $\supseteq $ | \subseteq  | 包含     |
+| $\mid$       | \mid       |          |
+| $\mathbb{R}$ | \mathbb{R} | 实数     |
+| $\mathbb{Z}$ | \mathbb{Z} | 实数     |
+| $\mathbb{N}$ | \mathbb{N} | 实数     |
+
+## 其它
+
+### 对齐+公式编号
+
+$$
+\begin{align}
+y &= x + 5 \\
+&= 3 + 5 \\
+&= 8  \tag 1
+\end{align}
+$$
+
+~~~latex
+\begin{align}
+y &= x + 5 \\
+&= 3 + 5 \\
+&= 8  \tag 1
+\end{align}
+~~~
+
+### 括号
+
+#### 大括号
+
+$$
+BP = \begin{equation}  
+\left\{  
+\begin{array}{lcl}  
+ 1        &  & if\ c>r \\  
+ e^{(1-r/c)} &  & if\ c<=r  
+\end{array}  
+\right.
+\end{equation}
+$$
+
+~~~latex
+BP = \begin{equation}  
+\left\{  
+\begin{array}{lcl}  
+ 1        &  & if\ c>r \\  
+ e^{(1-r/c)} &  & if\ c<=r  
+\end{array}  
+\right.  
+\end{equation}   
+~~~
+
+#### 小括号
+
+$$
+\left( \frac{a}{b} \right)
+$$
+
+~~~latex
+\left( \frac{a}{b} \right)
+~~~
+
+#### 中括号 
+
+$$
+\left[ \frac{a}{b} \right]
+$$
+
+~~~latex
+\left[ \frac{a}{b} \right]
+~~~
+
+
+### Excel转化成markdown Table
+
+[Copy Table in Excel and Paste as a Markdown Table](https://thisdavej.com/copy-table-in-excel-and-paste-as-a-markdown-table/)
+
+## 参考
+
+- [Markdown备忘录](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+
+- [MarkDown](https://sourceforge.net/p/ipython/discussion/markdown_syntax)
+
+- [Math IM](http://mathim.com/static/chatprimer.html)
+
+- [LaTeX数学公式 ](http://blog.163.com/goldman2000@126/blog/static/167296895201221242646561/)
+
+- [LaTeX/Mathematics](https://en.wikibooks.org/wiki/LaTeX/Mathematics)
+
+- [LaTeX中导数、极限、求和、积分 ](http://blog.csdn.net/foreverdengwei/article/details/7665035)
+
+- [LaTeX大括号公式和一般括号总结](https://blog.csdn.net/miao0967020148/article/details/78712811)
+
