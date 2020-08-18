@@ -219,8 +219,12 @@ pandoc -t F -s take_notes_ppt.md \
 ~~~shell
  # 安装
  sudo  pip3 install notedown
- # 转化
+ 
+ # Markdown to Python Notebook 
  notedown tutorial.md > tutorial.ipynb
+ 
+ # Python Notebook to Markdown
+ notedown tutorial.ipynb --to markdown > tutorial_1.md
 ~~~
 
 下面是转换后呈现效果的比较，左边Typora，右边是Jupyter Notebook，呈现的样子基本一致，应该来说是比较理想的。
