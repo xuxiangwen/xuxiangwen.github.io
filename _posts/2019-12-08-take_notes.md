@@ -119,11 +119,11 @@ date: 2019-12-08
 ~~~mermaid
 graph LR; 
     CE --> Git((Git));  
-    Information-->|md|MDE[Markdown Editor: Typora];   
+    Information-->|md|MDE[Markdown Editor: Typora + VS Code];   
     Document-->|md|MDE;
     Article-->|md|MDE;    
-    ID[Interactive Doc]-->NE[Notebook Editor: Jupyter];
-    code --> CE(Code Editor);  
+    ID[Interactive Doc]-->NE[Notebook Editor: Jupyter Notebook];
+    code --> CE(Code Editor: PyCharm, VS Code);  
     MDE-->Others[ppt, pdf, word, html];
     NE-->Others;    
     MDE--> Git; 
@@ -221,8 +221,12 @@ pandoc -t F -s take_notes_ppt.md \
 ~~~shell
  # 安装
  sudo  pip3 install notedown
- # 转化
+ 
+ # Markdown to Python Notebook 
  notedown tutorial.md > tutorial.ipynb
+ 
+ # Python Notebook to Markdown
+ notedown tutorial.ipynb --to markdown > tutorial_1.md
 ~~~
 
 下面是转换后呈现效果的比较，左边Typora，右边是Jupyter Notebook，呈现的样子基本一致，应该来说是比较理想的。
