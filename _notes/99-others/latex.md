@@ -27,6 +27,8 @@ date: 2020-08-18
 | $\prod\limits_i^m x_i$ | \prod\limits_i^m x_i | 连乘 |
 | $\sum\limits_i^m$ | \sum\limits_i^m  | 累加 |
 | $\lVert {w} \rVert _{2} = w^\mathrm{T}w $ |  \lVert {w} \rVert _{2} = w^\mathrm{T}w |  |
+| $\square$ | \square | 正方形 |
+| $\triangle$ | \triangle | 三角形 |
 
 ## 希腊字母
 
@@ -117,6 +119,39 @@ $$
 ~~~latex
 \left[ \frac{a}{b} \right]
 ~~~
+
+#### 下括号和上括号
+
+$$
+\underbrace{\mathbf{A}}_{n\times n}{\mathbf{v}} = \underbrace{\lambda}_{eigenvalue} \overbrace{\mathbf{v}}^{eigenvector}
+$$
+
+~~~latex
+\underbrace{\mathbf{A}}_{n\times n}{\mathbf{v}} = \underbrace{\lambda}_{eigenvalue} \overbrace{\mathbf{v}}^{eigenvector}
+~~~
+
+### 箭头
+
+| 符号         | LaTex      | 描述     |
+| :----------- | :--------- | :------- |
+| $\uparrow	          $ | \uparrow	             |        |
+| $\downarrow	        $ | \downarrow	           |        |
+| $\Uparrow	          $ | \Uparrow	             |        |
+| $\Downarrow	        $ | \Downarrow	           |        |
+| $\updownarrow	      $ | \updownarrow	         |        |
+| $\Updownarrow	      $ | \Updownarrow	         |        |
+| $\rightarrow	      $ | \rightarrow	           |        |
+| $\leftarrow	        $ | \leftarrow	           |        |
+| $\Rightarrow	      $ | \Rightarrow	           |        |
+| $\Leftarrow	        $ | \Leftarrow	           |        |
+| $\leftrightarrow	  $ | \leftrightarrow	       |        |
+| $\Leftrightarrow	  $ | \Leftrightarrow	       |        |
+| $\longrightarrow	  $ | \longrightarrow	       |        |
+| $\longleftarrow	    $ | \longleftarrow	       |        |
+| $\Longrightarrow	  $ | \Longrightarrow	       |        |
+| $\Longleftarrow	    $ | \Longleftarrow	       |        |
+| $\longleftrightarrow$ | \longleftrightarrow	   |        |
+| $\Longleftrightarrow$ | \Longleftrightarrow	   |        |
 
 
 ### Excel转化成markdown Table

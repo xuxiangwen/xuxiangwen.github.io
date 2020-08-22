@@ -1,5 +1,3 @@
-
-
 ## 1. Pytorch简介
 
 PyTorch是一个基于Torch的Python开源机器学习库，用于自然语言处理等应用程序。 它主要由Facebook的人工智能研究小组开发。PyTorch和Google的Tensorflow是目前最火的的两个深度学习框架。

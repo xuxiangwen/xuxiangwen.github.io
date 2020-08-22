@@ -23,7 +23,7 @@ $$
 - 对于一个新的文档$a$，$U_{m \times k}^\mathrm {T}a$可以理解为$a$在$U_{m \times k}$列向量（主题）上的投影，根据投影的大小，可以看出$a$更有可能属于哪个主题。
 - $A_{m \times n}^* = U_{m \times k}U_{m \times k}^{\mathrm T}A_{m\times n} $：可以这样理解，$U_{m \times k}^{\mathrm T}A_{m\times n}$是$A_{m\times n}$在$U_{m\times k}$上的投影，而$A_{m \times n}^*$是把这个投影再变换到当前坐标系（也就是维度$m \times n$的向量空间）。
 
-### LsiModel
+## LsiModel
 
 [Gensim](https://radimrehurek.com/gensim/)里面实现了LSI算法，下面是使用gensim.models.LsiModel示例代码。
 
@@ -62,7 +62,7 @@ print("", model.show_topics(3, num_words=12))
 
 上面topics的结果中，每一行就是$U$的每个列向量。
 
-### 和奇异值分解比较
+## 和奇异值分解比较
 
 如前文所述，LSI采用了奇异值分解。下面的代码比较了奇异值分解和LSI，便于我们理解LSI中具体Feature的意义。
 
@@ -107,3 +107,14 @@ print("lsi[corpus] =\n", new_a)
 
 - LSI分解出的向量，和奇异值分解出的向量有时方向相反。
 - *lsi[corpus]* 等价$U^TA$，可以看成$A$变换到以$U$为基的对应矩阵，即$A$中每个列向量在以$U$为基中对应的向量（坐标）。
+
+## 最后
+
+有一个非常有意思的TED演讲，[你的用词透露了你未来的精神状态](http://open.163.com/movie/2016/7/1/8/MBQEDI5K0_MBQEDMK18.html)（对应的paper在[这里](https://www.nature.com/articles/npjschz201530.pdf)），用 LSA 来预测人的未来精神状态。 
+
+![image-20200822101007375](images/image-20200822101007375.png)
+
+## 参考
+
+- [wiki: 潜在语义分析（LSA） ](https://zh.wikipedia.org/wiki/%E6%BD%9C%E5%9C%A8%E8%AF%AD%E4%B9%89%E5%AD%A6)
+

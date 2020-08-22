@@ -424,8 +424,16 @@ Dirichlet(p_1,p_2,p_3|\alpha_1,\alpha_2, \alpha_3) = \frac{\Gamma(\alpha_1+ \alp
 $$
 更加通用的表达形式如下：
 $$
-Dirichlet(\vec p| \vec \alpha) = \frac{\Gamma(\sum\limits_{k=1}^K\alpha_k)}{\prod_{k=1}^K\Gamma(\alpha_k)}\prod_{k=1}^Kp_k^{\alpha_k-1}
+Dirichlet(\vec p| \vec \alpha) = \frac{\Gamma(\sum\limits_{k=1}^K\alpha_k)}{\prod\limits_{k=1}^K\Gamma(\alpha_k)}\prod_{k=1}^Kp_k^{\alpha_k-1}
 $$
+
+设$ \triangle(\vec \alpha) = \frac {\prod\limits_{k=1}^K\Gamma( \alpha_k)} {\Gamma(\sum\limits_{k=1}^K \alpha_k)}$，上面公式可以写成：
+$$
+Dirichlet(\vec p| \vec \alpha) = 
+\frac 1 {\triangle(\vec \alpha)}
+\prod_{k=1}^Kp_k^{\alpha_k-1}
+$$
+
 
 ### 数学期望
 

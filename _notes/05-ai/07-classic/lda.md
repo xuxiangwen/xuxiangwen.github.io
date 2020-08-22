@@ -21,15 +21,13 @@ LDA算法在文本主题识别、文本分类以及文本相似度计算方面�
 上图是LDA的概率图模型表示图。图中的阴影圆圈表示可观测变量（observed variable），非阴影圆圈表示潜在变量（latent variable），箭头表示两变量间的条件依赖性（conditional dependency），方框表示重复抽样，重复次数在方框的右下角。
 
 - $M $代表训练语料中的文章数；
-- $K$ 代表设置的主题数；
+- $K$ 代表主题数量；
 - $V $代表训练语料中的所有单词数，
 - $N $代表文章中的单词数， $N_i$代表第$i$篇文章的单词数；
 - $\theta $是一个$M\times K$ 的矩阵， $ {\theta}_m$代表第$m$篇文章的主题分布；
 - $\varphi$ 是一个$K \times V $的矩阵，$ {\varphi}_k$代表编号为 $k$的主题之上的词分布；
-- $\alpha $ 是每篇文档的主题分布的先验分布Dirichlet 分布的参数（也被称为超参
-  数），其中$ \theta_i \sim  Dir( \alpha)$；
-- $\beta$是每个主题的词分布的先验分布Dirichlet 分布的参数（也被称为超参
-  数），其中$ \varphi_k \sim  Dir( \beta)$；
+- $\alpha $ 是每篇文档的主题分布的先验分布Dirichlet 分布的参数，其中$ \theta_i \sim  Dir( \alpha)$；
+- $\beta$是每个主题的词分布的先验分布Dirichlet 分布的参数，其中$ \varphi_k \sim  Dir( \beta)$；
 - $w$是可被观测的词，$w_{ij}$表示第$i$篇文章的第$j$个单词；
 - $z$是每个对于被观测的词的潜在的主题分配，$z_{ij} $表示第$i$篇文章的第$j$个单词所属的主题。
 
@@ -56,28 +54,125 @@ LDA算法在文本主题识别、文本分类以及文本相似度计算方面�
 
 
 
-由于，$\alpha$和$ w$相互独立，$ \beta$和$z $相互独立，可以得到下面的联合分布。
+由于，$ w$和$\alpha$相互独立，$ \beta$和$z $相互独立，可以得到下面的联合分布。
 $$
 \begin{align}
-p( w,  z\vert  \alpha, \beta) &=  p( w \vert  z, \alpha, \beta) p( z \vert  \alpha, \beta) 
-\\ & = 
- p( w \vert  z,   \beta) p( z \vert   \alpha ) 
+p( w,  z\vert  \alpha, \beta) &=  p( w \vert  z, \alpha, \beta) p( z \vert  \alpha, \beta)  
+\\ & = p( w \vert  z,   \beta)p( z \vert   \alpha ) \tag 1
 \end{align}
 $$
-下面来求解$ p( w \vert  z,   \beta) $和$p( z \vert   \alpha ) $：
 $$
-\begin{align}
-p( w \vert  z,  \beta)  = 1
-\end{align}
+p( w \vert  z,   \beta)  =\int p(w \vert z, \varphi) p(\varphi \vert \beta) d \varphi \tag 2
 $$
 
 $$
+p( z \vert   \alpha ) = \int p(z \vert \theta) p(\theta \vert \alpha) d \theta  \tag 3
+$$
+
+其中公式$(3)$代表的过程是：
+$$
+\alpha \rightarrow \theta_m \rightarrow z_{i,j}
+$$
+其中公式$(2)$代表的过程是：
+$$
+\beta \rightarrow \varphi_k  \rightarrow w_{i,j} \leftarrow z_{i,j}
+$$
+下面首先看公式$(2)$中的$ p(w \vert z, \varphi) $，由于任意一个单词，根据其文章所在主题分布，可以获得一个主题，然后根据主题，可以获得该单词在该主题下的概率，从而得到：
+$$
 \begin{align}
-y &= x + 5 \\
-&= 3 + 5 \\
-&= 8
+ p(w \vert z, \varphi) 
+ &  = \prod\limits_{k=1}^K \prod\limits_{t=1}^{V} \varphi_{k, t}^{n_{k, t}}   \tag 4
 \end{align}
 $$
+其中$\varphi_{k, t}$表示第$t$个单词在第$k$个主题中的概率，$n_{k, t} $表示第$t$个单词在第$k$个主题出现的次数。下面来看$p(\varphi \vert \beta) $。
+$$
+\begin{align}
+p(\varphi \vert \beta) 
+ &  = \prod\limits_{k=1}^K p(\varphi_k \vert \beta)
+\\ &  = 
+\prod\limits_{k=1}^K  Dirichlet(\varphi_k|  \beta) 
+\\ &  = \prod\limits_{k=1}^K \left ( \frac 1 {\triangle(\beta)}
+\prod\limits_{t=1}^V\varphi_{k,t}^{\beta_t-1}  \right ) \tag 5
+\end{align}
+$$
+
+其中$ \triangle(\beta) = \frac {\prod\limits_{t=1}^V\Gamma(\beta_t)} {\Gamma(\sum\limits_{t=1}^V\beta_t)}$。把公式$(4)$和公式$(5)$带入公式$(2)$，可得：
+$$
+\begin{align}
+p( w \vert  z,   \beta)  &=\int p(w \vert z, \varphi) p(\varphi \vert \beta) d \varphi 
+\\ & = 
+\int \prod\limits_{k=1}^K \prod\limits_{t=1}^{V} \varphi_{k, t}^{n_{k, t}}      \prod\limits_{k=1}^K \left ( \frac 1 {\triangle(\beta)}
+\prod\limits_{t=1}^V\varphi_{k,t}^{\beta_t-1}  \right )    d \varphi_k
+\\ & = 
+\int \prod\limits_{k=1}^K \frac 1 {\triangle(\beta)} 
+ \prod\limits_{t=1}^{V}  \varphi_{k, t}^{n_{k, t}+\beta_t-1}       d \varphi_k
+\\ & = 
+\prod\limits_{k=1}^K \frac 1 {\triangle(\beta)} 
+\int \prod\limits_{t=1}^{V}  \varphi_{k, t}^{n_{k, t}+\beta_t-1}       d \varphi_k
+\\ & = 
+\prod\limits_{k=1}^K \frac {\triangle(n_k +\beta)} {\triangle(\beta)} 
+\int \frac 1 {\triangle(n_k +\beta)} \prod\limits_{t=1}^{V}  \varphi_{k, t}^{n_{k, t}+\beta_t-1}       d \varphi_k
+\end{align}
+$$
+由于 $\int \frac 1 {\triangle(n_k +\beta)} \prod\limits_{t=1}^{V}  \varphi_{k, t}^{n_{k, t}+\beta_t-1}       d \varphi =1 $，可得：
+$$
+\begin{align}
+p( w \vert  z,   \beta)  & = 
+\prod\limits_{k=1}^K \frac {\triangle(n_k +\beta)} {\triangle(\beta)} 
+\tag 6
+\end{align}
+$$
+同理的方式，我们可以计算公式$(3)$：
+$$
+\begin{align}
+p( z \vert   \alpha ) &= \int p(z \vert \theta) p(\theta \vert \alpha) d \theta 
+\\ & = 
+\int \underbrace{\prod\limits_{m=1}^M \prod\limits_{k=1}^{K} \theta_{m,k}^{n_{m, k}}}_{p(z \vert \theta) }    \ \ \underbrace{ \prod\limits_{m=1}^M \left ( \frac 1 {\triangle(\alpha)}
+\prod\limits_{k=1}^{K}\theta_{m,k}^{\alpha_k-1}  \right ) }_{p(\theta \vert \alpha)}   d \theta_m 
+\\ & = 
+\int \prod\limits_{m=1}^M  \frac 1 {\triangle(\alpha)} 
+\prod\limits_{k=1}^{K}  \theta_{m,k}^{n_{m, k}+\alpha_k-1}       d \theta_m
+\\ & = 
+\prod\limits_{m=1}^M \frac 1 {\triangle(\alpha)} 
+\int \prod\limits_{k=1}^{K}  \theta_{m,k}^{n_{m, k}+\alpha_k-1}       d \theta_m
+\\ & = 
+\prod\limits_{m=1}^M  \frac {\triangle(n_m +\alpha)} {\triangle(\alpha)} 
+\underbrace{ \int \frac 1 {\triangle(n_m +\alpha)} \prod\limits_{k=1}^{K}  \theta_{m,k}^{n_{m, k}+\alpha_k-1}       d \theta_m}_{=1}
+\\ & =
+\prod\limits_{m=1}^M  \frac {\triangle(n_m +\alpha)} {\triangle(\alpha)} 
+\tag 7
+\end{align}
+$$
+其中
+
+- $\theta_{m, k}$表示第$k$个主题在第$m$个文章中的概率
+- $n_{m, k} $表示第$k$个主题在第$m$个文章中的出现的次数（即该文档下有多少个词被分配到主题$k$）。
+
+接下来把公式$(6)$,$(7)$带入公式$(1)$。
+$$
+\begin{align}
+p( w,  z\vert  \alpha, \beta)  & = p( w \vert  z,   \beta)p( z \vert   \alpha ) 
+\\ & = 
+\prod\limits_{k=1}^K 
+\frac {\triangle(n_k +\beta)} {\triangle(\beta)}  \cdot
+\prod\limits_{m=1}^M 
+\frac {\triangle(n_m +\alpha)} {\triangle(\alpha)}  \tag 8
+\end{align}
+$$
+其中
+
+- $n_k$指第$k$个主题的单词分布
+  $$
+  n_k = \{n_{k1}, n_{k2}, \cdots, n_{kt},  \cdots, n_{kV}\}
+  $$
+  $n_{k, t} $表示第$t$个单词被分配到第$k$个主题的次数。
+
+- $n_m$指第$m$个文章的主题分布
+  $$
+  n_m = \{n_{m1}, n_{m2}, \cdots, n_{mk},  \cdots, n_{mK}\}
+  $$
+  $n_{m, k} $表示第$k$个主题在第$m$个文章中的出现的次数（即该文章下有多少个词被分配到主题$k$）。
+
 
 
 
@@ -124,6 +219,8 @@ $$
 - [Paper: Latent Dirichlet Allocation](https://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf)
 
 - [LDA学习笔记(4) – Gibbs Sampling 推导](https://carlhwang1989.wordpress.com/2015/02/18/lda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04-2/)
+
+- [自然语言处理之LDA主题模型](https://www.cnblogs.com/jiangxinyang/p/9358339.html)
 
   
 
