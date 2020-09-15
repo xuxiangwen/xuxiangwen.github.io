@@ -235,6 +235,60 @@ pandoc -t F -s take_notes_ppt.md \
 
 由此，整个流程是在两个工具之间切换进行的，首先在Typora中编写Markdown，如果有代码，则在Jupyter Notebook编写，运行成功后，粘贴回Typora，这样循环往复，当所有的内容完成后，使用notedown把Markdown生成Jupyter Notebook。
 
+#### 其它
+
+下面这些工具，采用的语法，有些是markdown的扩展，有些根本和markdown没有关系了，但它们相同的是，通过代码生成文档和图形。
+
+- [Marp for VS Code](https://github.com/marp-team/marp-vscode) ：markdown生成slides
+
+  ![Toggle Marp preview](/assets/images/toggle.gif)
+
+- [Mermaid](https://mermaid-js.github.io/mermaid/#/) ：生成Flowchart，Sequence diagram，Gantt diagram，Class diagram，Git graph，Entity Relationship Diagram，User Journey Diagram等
+
+  ~~~
+  sequenceDiagram
+      participant Alice
+      participant Bob
+      Alice->>John: Hello John, how are you?
+      loop Healthcheck
+          John->>John: Fight against hypochondria
+      end
+      Note right of John: Rational thoughts <br/>prevail!
+      John-->>Alice: Great!
+      John->>Bob: How about you?
+      Bob-->>John: Jolly good!
+  ~~~
+
+  ![image-20200915104152686](/assets/images/image-20200915104152686.png)
+
+- [Diagram.codes](https://www.diagram.codes/)：可以生成更多图，特别是思维导图。可以在其官网生成输入代码，生成图形，目前并不能直接在typora或者VS code中生成。
+
+  ~~~
+  "Main Idea" as map
+  
+  # Let's create 4 categories
+  map->"Category 1" as c1
+  map->"Category 2" as c2
+  map->"Category 3" as c3
+  map->"Category 4" as c4
+  
+  # Add children to categories
+  c1->"Item 1","Item 2","Item 3"
+  c2->"Item 5","Item 6","Item 7"
+  c3->"Item 8","Item 9","Item 10"
+  
+  # Add a longer name with the alias "someitem"
+  c4->"A long item
+  with a line break" as someitem
+  
+  # Add children to "someitem"
+  someitem->a,b,c,d
+  ~~~
+
+  
+
+  ![image-20200915103937746](/assets/images/image-20200915103937746.png)
+
 ## 工具的要求
 
 并不是对单一工具的，而是对于所用的工具集来说的。
