@@ -11,10 +11,34 @@ style: |
   section::after {
     font-weight: bold;
     text-shadow: 1px 1px 0 #fff;
+    right: 600px
   }
+  section {
+    padding: 50px;
+  }
+
+  header,
+  footer {
+    left: 1200px;
+    right: 50px;
+    height: 20px;
+  }
+
+  header {
+    top: 30px;
+  }
+
+  footer {
+    bottom: 30px;
+  }
+
 paginate: true
 _paginate: true
 _backgroundImage: "linear-gradient(to right, #97b8e3, #0188d1)" 
+
+header: '**bold** _italic_'
+footer: '![image](images/hp.png)'
+
 ---
 
 # <!-- fit --> Marpit Markdown
@@ -36,6 +60,7 @@ _backgroundImage: "linear-gradient(to right, #97b8e3, #0188d1)"
 # Slide 2
 
 bar
+[32](images/hp2.png)
 
 ---
 
@@ -168,3 +193,5 @@ h1 {
 ---
 
 # Red text
+
+---

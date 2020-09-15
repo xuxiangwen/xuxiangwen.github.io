@@ -127,7 +127,7 @@ Mermaid was nominated and won the JS Open Source Awards (2019) in the category "
 
 ![image-20200618115509038](images/image-20200618115509038.png)
 
-see [more examples](https://mermaid-js.github.io/mermaid/#/examples)
+see [more examples](https://mermaid-js.github.io/mermaid/#/examples), [Mermaid live editor](https://mermaid-js.github.io/mermaid-live-editor)
 
 ---
 
