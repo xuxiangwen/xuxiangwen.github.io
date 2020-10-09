@@ -1,3 +1,10 @@
+### Find然后删除文件或目录
+
+~~~shell
+find . -name "FILE-TO-FIND" -type f -exec rm -rf {} \;				# 删除文件
+find . -name "DIRECTORY-TO-FIND" -type d -exec rm -rf {} \;			# 删除目录
+~~~
+
 ### Shell 日期格式化
 
 ~~~shell
