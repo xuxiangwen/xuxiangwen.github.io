@@ -288,6 +288,8 @@ pandoc -t F -s take_notes_ppt.md \
   
 
   ![image-20200915103937746](/assets/images/image-20200915103937746.png)
+  
+  总体上来说，[Mermaid](https://mermaid-js.github.io/mermaid/#/)和[Diagram.codes](https://www.diagram.codes/)实现的图的种类还不够多，如果需要更加丰富的图形，还需要回到一些更加专业软件，尤其推荐[draw.io](https://app.diagrams.net/)，是完全免费的。
 
 ## 工具的要求
 
