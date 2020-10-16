@@ -32,7 +32,7 @@ docker exec -it ts-py3 bash
 # 第一次
 docker stop tf-gpu-py3
 docker rm tf-gpu-py3
-docker run -it -d --gpus all --name tf-gpu-py3 -v /home/grid/eipi10:/tf/eipi10 -p 18888:8888 -p 17007:7007  tensorflow/tensorflow:latest-gpu-py3-jupyter  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
+docker run -it -d --gpus all --name tf-gpu-py3 -v /home/grid/eipi10:/tf/eipi10 -p 18888:8888 -p 17007:7007  tensorflow/tensorflow:2.2.1-gpu-py3-jupyter  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
 docker logs tf-gpu-py3
 
 # 再次启动
@@ -43,22 +43,26 @@ docker exec -it tf-gpu-py3 bash
 安装一些软件和python package
 
 ~~~shell
-http_proxy='http://web-proxy.rose.hp.com:8080' apt-get update sh
-http_proxy='http://web-proxy.rose.hp.com:8080' apt install -y openssh-server
-scp grid@15.38.197.93:/home/grid/.ssh/id_rs*  /root/.ssh
+#http_proxy='http://web-proxy.rose.hp.com:8080' apt-get update 
+#http_proxy='http://web-proxy.rose.hp.com:8080' apt install -y openssh-server
+apt-get update 
+apt install -y openssh-server
+scp grid@15.15.166.35:/home/grid/.ssh/id_rs*  /root/.ssh/
 
-pip install --upgrade pip --proxy http://web-proxy.rose.hp.com:8080
-pip install --upgrade numpy scipy pandas --proxy http://web-proxy.rose.hp.com:8080 
-pip install --upgrade scikit-image --proxy http://web-proxy.rose.hp.com:8080 
-pip install --upgrade gensim --proxy http://web-proxy.rose.hp.com:8080 
-pip install --upgrade jieba --proxy http://web-proxy.rose.hp.com:8080  
-pip install --upgrade pyyaml --proxy http://web-proxy.rose.hp.com:8080  
-pip install --upgrade sklearn --proxy http://web-proxy.rose.hp.com:8080 
-pip install --upgrade psycopg2-binary --proxy http://web-proxy.rose.hp.com:8080 
-pip install --upgrade pymysql --proxy http://web-proxy.rose.hp.com:8080   
-pip install --upgrade awscli --user --proxy http://web-proxy.rose.hp.com:8080 
-pip install --upgrade torch torchvision --proxy http://web-proxy.rose.hp.com:8080
+# pip install如果有连接错误，可以加上参数 --proxy http://web-proxy.rose.hp.com:8080
+pip install --upgrade pip 
+pip install --upgrade numpy scipy pandas 
+pip install --upgrade scikit-image 
+pip install --upgrade gensim  
+pip install --upgrade jieba 
+pip install --upgrade pyyaml
+pip install --upgrade sklearn 
+pip install --upgrade psycopg2-binary 
+pip install --upgrade pymysql 
+pip install --upgrade awscli --user 
+pip install --upgrade torch torchvision 
 echo export PATH=\"\$PATH:/root/.local/bin\" >> /root/.bashrc
+
 ~~~
 
 **tensoarflow 1.5**

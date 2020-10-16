@@ -176,3 +176,4 @@ $$
 
 - [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
 - [机器学习中的线性代数之矩阵求导](http://blog.csdn.net/u010976453/article/details/54381248)
+

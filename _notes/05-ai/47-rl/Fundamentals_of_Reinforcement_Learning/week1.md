@@ -48,11 +48,13 @@
 
 非监督学习一般用于从没有标记的数据中发现隐藏的结构，它是没有输出值也没有奖励值的，它只有数据特征。同时和监督学习一样，数据之间也都是独立的，没有强化学习这样的前后依赖关系。
 
-强化学习需要权衡探索（Exploration）与利用（Exploitation）之间的关系。exploration是为了探索更好的action，而exploitation是从以往的经历中学习。为了获得大量奖励，强化学习个体必须倾向于过去已经尝试过并且能够有效获益的行动。 但是要发现这样的行为，它必须尝试以前没有选择过的行为。 个体必须充分Exploitation它既有经验以获得收益，但它也必须Exploration，以便在未来做出更好的动作选择。
+强化学习需要权衡探索（Exploration）与利用（Exploitation）之间的关系（即exploit－explore问题）。exploration是为了探索更好的action，而exploitation是从以往的经历中学习。为了获得大量奖励，强化学习个体必须倾向于过去已经尝试过并且能够有效获益的行动。 但是要发现这样的行为，它必须尝试以前没有选择过的行为。 个体必须充分Exploitation它既有经验以获得收益，但它也必须Exploration，以便在未来做出更好的动作选择。
 
 和很多只考虑单个子系统的方法相比，强化学习的另一个关键特征是它明确吧目标导向的agent与不确定环境相互作用作为一个整体来考虑。强化学习具有一个完整的、交互式的、寻求目标（goal-seeking）的agent，这个agent有明确的目标，可以感知环境的各个方面，并可以选择影响其环境的动作。
 
 最后，强化学习也在某种程度上符合人工智能回归简单的一般性原则的大趋势。 自20世纪60年代后期以来，许多人工智能研究人员认为普遍性的原则是不存在的，而智能则归因于拥有大量特殊用途的技巧，过程和启发式方法。 有人说，如果我们能够将相关的事实充分地提供给一台机器，比如一百万或十亿，那么它就会变得聪明起来。
+
+> exploit－explore问题。exploit 就是：对用户比较确定的兴趣，当然要利用开采迎合，好比说已经挣到的钱，当然要花；explore 就是：光对着用户已知的兴趣使用，用户很快会腻，所以要不断探索用户新的兴趣才行，这就好比虽然有一点钱可以花了，但是还得继续搬砖挣钱，不然花完了就得喝西北风。
 
 ### 1.3 例子
 
@@ -118,9 +120,31 @@
 $$
 V(S_t) \leftarrow V(S_t)+\alpha[V(S_t+1)−V(S_t)]
 $$
-其中 αα 是小正分数，称为 *步长*，它影响学习速度。 此更新规则是 *时序差分* 学习方法的一个例子，之所以称为时序差分， 是因为其变化基于两个连续时间的估计之间的差，即 V(St+1)−V(St)V(St+1)−V(St)。
+其中 $\alpha$是小正分数，称为 *步长*，它影响学习速度。 此更新规则是 *时序差分* 学习方法的一个例子，之所以称为时序差分， 是因为其变化基于两个连续时间的估计之间的差，即 $V(S_{t+1})−V(S_t)$。
 
 上述方法在此任务上表现良好。例如，如果步长参数随着时间的推移而适当减小，那么对于任何固定的对手， 该方法会收敛于在给定玩家最佳游戏的情况下从每个状态获胜的真实概率。 此外，采取的动作（探索性动作除外）实际上是针对这个（不完美的）对手的最佳动作。 换句话说，该方法收敛于针对该对手玩游戏的最佳策略。 如果步长参数没有随着时间的推移一直减小到零，那么这个玩家也可以很好地对抗那些慢慢改变他们比赛方式的对手。
+
+这个例子说明了进化方法和学习价值函数的方法之间的差异。 为了评估策略，进化方法保持策略固定并且针对对手进行多场游戏，或者使用对手的模型模拟多场游戏。 胜利的频率给出了对该策略获胜的概率的无偏估计，并且可用于指导下一个策略选择。 但是每次策略进化都需要多场游戏来计算概率，而且计算概率只关心最终结果，*每场游戏内* 的信息被忽略掉了。 例如，如果玩家获胜，那么游戏中的 *所有* 行为都会被认为是正确的，而不管具体移动可能对获胜至关重要。 甚至从未发生过的动作也会被认为是正确的！ 相反，值函数方法允许评估各个状态。 最后，进化和价值函数方法都在搜索策略空间，但价值函数学习会利用游戏过程中可用的信息。
+
+这个简单的例子说明了强化学习方法的一些关键特征。 首先，强调在与环境交互时学习，在这里就是与对手玩家下棋。 其次，有一个明确的目标，考虑到选择的延迟效果，正确的行为需要计划或前瞻。 例如，简单的强化学习玩家将学习如何为短视的对手设置多个行动陷阱。 强化学习解决方案的一个显着特征是它可以在不使用对手模型的情况下实现规划和前瞻的效果， 并且无需对未来状态和动作的可能序列进行精确搜索。
+
+虽然这个例子说明了强化学习的一些关键特征，但它很简单，它可能给人的印象是强化学习比实际上更受限。 虽然井字棋游戏是一个双人游戏，但强化学习也适用于没有外部对手的情况，即在“对自然的游戏”的情况下。 强化学习也不仅限于行为分解为单独步骤的问题，例如井字棋游戏，仅在每步结束时获得奖励。 当行为无限持续并且可以随时接收各种大小的奖励时，它也是适用的。 强化学习也适用于甚至不能分解为像井字棋游戏这样的离散时间步骤的问题。 一般原则也适用于连续时间问题，虽然理论变得更加复杂，我们在这份简介中将不会介绍。
+
+井字棋游戏具有相对较小的有限状态集，而当状态集非常大或甚至无限时，也可以使用强化学习。 例如，Gerry Tesauro（1992,1995）将上述算法与人工神经网络相结合，学习玩西洋双子棋，其具有大约 10201020 个状态。 在这么多状态中，只能经历一小部分。Tesauro的规划学得比以前的任何规划都要好得多，最终比世界上最好的人类棋手更好（第16.1节）。 人工神经网络为程序提供了从其经验中泛化的能力，以便在新状态下，它能根据其网络确定的过去面临的类似状态保存下来的信息来选择移动。 强化学习系统在如此大型状态集的问题中如何运作，与它从过去的经验中泛化的程度密切相关。 正是在这种情况中，我们最需要有强化学习的监督学习方法。 人工神经网络和深度学习（第9.6节）并不是唯一或最好的方法。
+
+在这个井字棋游戏的例子中，学习开始时没有超出游戏规则的先验知识，但强化学习绝不是需要学习和智能的白板（a tabula rasa view）。 相反，先验信息可以以各种方式结合到强化学习中，这对于有效学习是至关重要的（例如，参见第9.5，17.4和13.1节）。 我们也可以在井字棋游戏例子中访问真实状态，而强化学习也可以在隐藏部分状态时应用，或者当学习者看到不同状态相同时也可以应用强化学习。
+
+最后，井字棋游戏玩家能够向前看并知道每个可能移动所产生的状态。 要做到这一点，它必须拥有一个游戏模型，使其能够预见其环境如何随着它可能永远不会发生的动作变化而变化。 许多问题都是这样的，但在其他问题上，甚至可能缺乏行动效果的短期模型。 这些情况下都可以应用强化学习。模型不是必须的，但如果模型可用或可以学习，则模型可以很轻松使用（第8章）。
+
+另一方面，也有根本不需要任何环境模型的强化学习方法。 无模型系统甚至无法预测其环境如何响应单一操作而发生变化。 对于对手来说，如果井字棋游戏玩家没有任何类型的对手的模型，则他也是无模型的。 因为模型必须合理准确才有用，所以当解决问题的真正瓶颈是构建足够精确的环境模型时，无模型方法可以优于更复杂的方法。 无模型方法同时也是基于模型方法的重要组成模块。 在我们讨论如何将它们用作更复杂的基于模型方法的组件之前，我们在本书中将用几个章节专门介绍无模型方法。
+
+强化学习可以在系统的高级和低级层次中使用。 虽然井字棋游戏玩家只学习游戏的基本动作，但没有什么可以阻止强化学习在更高层次上工作， 其中每个“动作”本身可能是一个复杂的问题解决方法的应用。 在分层学习系统中，强化学习可以在几个层面上同时工作。
+
+- 练习1.1： *自我对弈* 假设上面描述的强化学习算法不是与随机对手对抗，而是双方都在学习。在这种情况下你认为会发生什么？是否会学习选择不同的行动策略？
+- 练习1.2： *对称性* 由于对称性，许多井字位置看起来不同但实际上是相同的。我们如何修改上述学习过程以利用这一点？ 这种变化会以何种方式改善学习过程？现在再想一想。假设对手没有利用对称性，在这种情况下，我们应该利用吗？那么，对称等价位置是否必须具有相同的价值？
+- 练习1.3： *贪婪地游戏* 假设强化学习玩家是 *贪婪的*，也就是说，它总是选择使其达到最佳奖励的位置。 它可能会比一个不贪婪的玩家学得更好或更差吗？可能会出现什么问题？
+- 练习1.4： *从探索中学习* 假设在 *所有* 动作之后发生了学习更新，包括探索性动作。 如果步长参数随时间适当减小（但不是探索倾向），则状态值将收敛到不同的概率集。 从探索性动作中的学习，我们行动和不行动两组的计算的概率（概念上）是什么？ 假设我们继续做出探索性的动作，哪一组概率可能学习得更好？哪一个会赢得更多？
+- 练习1.5： *其他改进* 你能想到其他改善强化学习者的方法吗？你能想出更好的方法来解决所提出的井字棋游戏问题吗？
 
 ## 1.7 小结
 
@@ -175,69 +199,4 @@ Sutton（1978a，b，c）进一步发展了Klopf的思想，特别是与动物�
 - [强化学习（一）模型基础 - 刘建平Pinard](https://www.cnblogs.com/pinard/p/9385570.html)
 - [强化学习导论 - 中文翻译 - 第一章](https://rl.qiwihui.com/zh_CN/latest/chapter1/introduction.html)
 
-# Week 2
-
-- Module 02: Markov Decision Processes
-  - Lesson 1: Introduction to Markov Decision Processes
-    - Understand Markov Decision Processes, or MDPs
-    - Describe how the dynamics of an MDP are defined
-    - Understand the graphical representation of a Markov Decision Process
-    - Explain how many diverse processes can be written in terms of the MDP framework
-  - Lesson 2: Goal of Reinforcement Learning
-    - Describe how rewards relate to the goal of an agent
-    - Understand episodes and identify episodic tasks
-  - Lesson 3: Continuing Tasks
-    - Formulate returns for continuing tasks using discounting
-    - Describe how returns at successive time steps are related to each other
-    - Understand when to formalize a task as episodic or continuing
-
-# Week 3
-
-- Module 03: Values Functions & Bellman Equations
-  - Lesson 1: Policies and Value Functions
-    - Recognize that a policy is a distribution over actions for each possible state
-    - Describe the similarities and differences between stochastic and deterministic policies
-    - Identify the characteristics of a well-defined policy
-    - Generate examples of valid policies for a given MDP
-    - Describe the roles of state-value and action-value functions in reinforcement learning
-    - Describe the relationship between value functions and policies
-    - Create examples of valid value functions for a given MDP
-  - Lesson 2: Bellman Equations
-    - Derive the Bellman equation for state-value functions
-    - Derive the Bellman equation for action-value functions
-    - Understand how Bellman equations relate current and future values
-    - Use the Bellman equations to compute value functions
-  - Lesson 3: Optimality (Optimal Policies & Value Functions)
-    - Define an optimal policy
-    - Understand how a policy can be at least as good as every other policy in every state
-    - Identify an optimal policy for given MDPs
-    - Derive the Bellman optimality equation for state-value functions
-    - Derive the Bellman optimality equation for action-value functions
-    - Understand how the Bellman optimality equations relate to the previously
-    - introduced Bellman equations
-    - Understand the connection between the optimal value function and optimal policies
-    - Verify the optimal value function for given MDPs
-
-# Week 4
-
-- Module 04: Dynamic Programming
-  - Lesson 1: Policy Evaluation (Prediction)
-    - Understand the distinction between policy evaluation and control
-    - Explain the setting in which dynamic programming can be applied, as well as its limitations
-    - Outline the iterative policy evaluation algorithm for estimating state values under a given policy
-    - Apply iterative policy evaluation to compute value functions
-  - Lesson 2: Policy Iteration (Control)
-    - Understand the policy improvement theorem
-    - Use a value function for a policy to produce a better policy for a given MDP
-    - Outline the policy iteration algorithm for finding the optimal policy
-    - Understand “the dance of policy and value”
-    - Apply policy iteration to compute optimal policies and optimal value functions
-  - Lesson 3: Generalized Policy Iteration
-    - Understand the framework of generalized policy iteration
-    - Outline value iteration, an important example of generalized policy iteration
-    - Understand the distinction between synchronous and asynchronous dynamic programming methods
-    - Describe brute force search as an alternative method for searching for an optimal policy
-    - Describe Monte Carlo as an alternative method for learning a value function
-    - Understand the advantage of Dynamic programming and “bootstrapping” over these alternative strategies for finding the optimal policy
-
-# Week 5
+# 

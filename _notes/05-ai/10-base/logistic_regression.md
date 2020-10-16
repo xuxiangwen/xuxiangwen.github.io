@@ -111,14 +111,3 @@ $e^x = \lim\limits_{n\to\infty}(1+ \frac x n)^n$
 2. [e (数学常数)](https://zh.wikipedia.org/wiki/E_(%E6%95%B0%E5%AD%A6%E5%B8%B8%E6%95%B0))
 3. [数学常数e的含义](http://www.ruanyifeng.com/blog/2011/07/mathematical_constant_e.html)
 
-```python
-
-```
-
-```python
-
-```
-
-```python
-
-```
