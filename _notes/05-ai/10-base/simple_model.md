@@ -1,7 +1,7 @@
 ---
 title: 几个基本模型
 categories: linear-algebra
-date: 2020-10-15
+date: 2020-10-16
 ---
 
 本文主要汇总一些基本且常用的算法和模型，简述原理，并做必要公式推导，用于备忘，而且不定期更新中。
@@ -180,7 +180,7 @@ $$
 $$
 不难发现，Logistic Regression其梯度求解和线性回归的高度相似。
 
-上面推导主要用到了sigmoid函数和log函数的求导，详见[常用向量导数公式](https://eipi10.cn/linear-algebra/2019/12/12/common_vector_derivative/)。
+上面推导主要用到了sigmoid函数和log函数的求导，详见[常用向量导数公式](https://eipi10.cn/linear-algebra/2019/12/12/common_vector_derivative/#sigmoid%E5%87%BD%E6%95%B0)。
 
 ## 3. Softmax回归
 
@@ -191,23 +191,48 @@ Softmax回归（Softmax Regression）也是一种线性模型，它是逻辑回�
 ![image-20201015162945377](images/image-20201015162945377.png)
 $$
 \begin{align}
-a_i = h(z_j) =   \frac {e^{z_i}}  {\sum_{k=1}^K e^{z_k}}
+a_i = h(z_i) =   \frac {e^{z_i}}  {\sum_{k=1}^K e^{z_k}}
 \end{align}
 $$
 
 其中$x$表示一个样本，$ z = Wx$，且
 $$
-W = \begin{bmatrix} w_1 \\ w_2 \\ \vdots \\ w_K^T \end{bmatrix}
+W = \begin{bmatrix} w_1^T \\ w_2^T \\ \vdots \\ w_K^T \end{bmatrix}
 $$
 下文中，将用一个样本进行推导，最后将扩展到多样本的情况。
 
 ### 3.2 策略
 
+一个样本的损失函数定义如下。
+$$
+\begin{align}
+J(W) = -  \log a^{T} \cdot y 
+\end{align}
+$$
+
 ### 3.3 算法
 
+采用梯度下降求解参数。
 
 
 
+查看一个样本$x$，对于$w_i$的梯度，推导如下：
+$$
+\begin{align}
+\nabla{w_i} &= \frac {\partial J(W_i)} {\partial w_i} 
+\\ &= \frac {\partial z^T} {\partial w_i} 
+\cdot\frac {\partial a^T} {\partial z} 
+\cdot\frac {\partial {\log a^T}} {\partial a} 
+\cdot\frac {\partial {-  \log a^{T} \cdot y }} {\partial \log a}
+\\ &=   \circ \frac 1 {a^T} \cdot (- y)
+\end{align}
+$$
+
+上面推导主要用到了softmax函数的求导，详见[常用向量导数公式](https://eipi10.cn/linear-algebra/2019/12/12/common_vector_derivative/#softmax函数)。
+
+## 历史
+
+- 2020-10-16：初始创建。包含线性回归，逻辑回归还有Softmax回归。
 
 
 
@@ -216,4 +241,3 @@ $$
 ### 策略
 
 ### 算法
-
