@@ -71,12 +71,15 @@ $$
 h(u) = \frac 1 {1+e^{-u}}
 $$
 
+导数公式如下：
 
 $$
 \begin{align}
 & \frac{\partial h(u)^T}{\partial  {u}} =diag(h(u)(1-h(u)))
 \\ \\
 & \frac{\partial h( {A} {u})^{T}}{\partial  {u}} =  {A}^{T} \cdot diag(h(Au)(1-h(Au))) =  {A}^{T} \circ \left ( h(Au)^{T}  (1-h(Au))^{T} \right )
+\\ \\
+& \frac{\partial\log h( {A} {u})^{T}}{\partial  {u}} =   {A}^{T} \circ \left ( h(Au)^{T}  (1-h(Au))^{T} \right ) \circ \frac 1 {h(Au)^{T}} = {A}^{T} \circ   (1-h(Au))^{T} 
 \end{align}
 $$
 
