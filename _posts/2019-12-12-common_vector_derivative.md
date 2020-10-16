@@ -102,6 +102,69 @@ $$
 
 $$
 
+### softmax函数
+
+$$
+
+\begin{align}
+a_i = h(z_i) =   \frac {e^{z_i}}  {\sum_{k=1}^K e^{z_k}}
+\end{align}
+
+$$
+
+其中
+
+$$
+
+z = \begin{bmatrix} z_1 \\ z_2 \\ \vdots \\ z_i \\ \vdots \\ z_K \end{bmatrix}, \ 
+a = \begin{bmatrix} a_1 \\ a_2 \\ \vdots \\ a_i \\ \vdots \\ a_K \end{bmatrix}
+
+$$
+
+导数公式如下：
+
+$$
+
+\frac{\partial a_j}{\partial  {z_i}} = \begin{equation}  
+\left\{  
+\begin{array}{lcl}  
+ a_i(1-a_i)  &  &  i=j \\  
+-a_i a_j &  &  i\neq j  
+\end{array}  
+\right.
+\end{equation}
+
+$$
+
+$$
+
+\frac{\partial a^T}{\partial  {z}} =  diag(a) - a \cdot {a}^{T}
+
+$$
+
+$$
+
+\begin{align}
+& \frac{\partial h( {A} {z})^{T}}{\partial  {z}} =  {A}^{T} \cdot \left ( diag(h(Az)) - h(Az) \cdot {h(Az)}^{T} \right )
+\end{align}
+
+$$
+
+$$
+
+\begin{align}
+
+\frac{\partial\log h( {A} {z})^{T}}{\partial  {z}} & =   {A}^{T} \cdot \left ( diag(h(Az)) - h(Az) \cdot {h(Az)}^{T} \right ) \circ \frac 1 {h(Az)^{T}} 
+\\ & = {A}^{T} \cdot  \left (1-h(Az)d \right ) 
+\end{align}
+
+$$
+
+其中$d = \begin{bmatrix} 
+1 & 1&  \ldots&  1
+\end{bmatrix}
+$。
+
 ## 历史
 
-- 2020-10-16：添加sigmoid函数
+- 2020-10-16：添加sigmoid，softmax函数
