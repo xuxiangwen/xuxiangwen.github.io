@@ -1,6 +1,6 @@
 ---
 title: 几个基本模型
-categories: linear-algebra
+categories: algorithm
 date: 2020-10-18
 ---
 
