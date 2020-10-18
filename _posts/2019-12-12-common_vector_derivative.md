@@ -155,12 +155,12 @@ $$
 \begin{align}
 
 \frac{\partial\log h( {A} {z})^{T}}{\partial  {z}} & =   {A}^{T} \cdot \left ( diag(h(Az)) - h(Az) \cdot {h(Az)}^{T} \right ) \circ \frac 1 {h(Az)^{T}} 
-\\ & = {A}^{T} \cdot  \left (1-h(Az)d \right ) 
+\\ & = {A}^{T} \cdot  \left (1-h(Az)d^T \right ) 
 \end{align}
 
 $$
 
-其中$d = \begin{bmatrix} 
+其中$d^T = \begin{bmatrix} 
 1 & 1&  \ldots&  1
 \end{bmatrix}
 $。
