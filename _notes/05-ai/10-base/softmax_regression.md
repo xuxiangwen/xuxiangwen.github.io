@@ -179,7 +179,7 @@ $
 
 这个结果非常好理解，预测误差越大，导数的（绝对值）越大；预测误差越小，导数越接近于0。 非常有意思的是，对于Linear Regression, Logistic Regression这两个回归，其梯度公式和这个完全一致。
 
-###  2.5 对W的偏导数
+###  2.5 对$W$的偏导数
 
 再来观察单个神经元。
 
@@ -235,7 +235,7 @@ J(W) = - \frac{1}{m}  \sum Y .* \log A = - \frac{1}{m}  \sum_{i=1}^m y_i^\mathrm
 \end{align}
 $
 
- 
+
 $
 \begin{align}
 J(W) =  - \frac{1}{m} log \space {e^{a_{correct}} \over {\underset i \sum e^{a_i} } } 
@@ -262,17 +262,13 @@ Since we want to predict probabilities, it would be logical for us to define sof
 If you write down the expression for crossentropy as a function of softmax logits (a), you'll see:
 
 $$
-
  loss = - log \space {e^{a_{correct}} \over {\underset i \sum e^{a_i} } } 
-
 $$
 
 If you take a closer look, ya'll see that it can be rewritten as:
 
 $$
-
  loss = - a_{correct} + log {\underset i \sum e^{a_i} } 
-
 $$
 
 It's called Log-softmax and it's better than naive log(softmax(a)) in all aspects:

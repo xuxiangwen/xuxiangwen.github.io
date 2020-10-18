@@ -1,7 +1,7 @@
 ---
 title: 几个基本模型
 categories: linear-algebra
-date: 2020-10-16
+date: 2020-10-18
 ---
 
 本文主要汇总一些基本且常用的算法和模型，简述原理，并做必要公式推导，用于备忘，而且不定期更新中。
@@ -14,14 +14,14 @@ date: 2020-10-16
 
 ### 1.1 模型
 
-$\hat y $是模型的预测值。
+设$X \in R^{m \times n}, w \in R^{n\times 1}, \hat y,y \in  R^{m \times 1} $，$\hat y $是模型的预测值。
 $$
 \hat y = Xw
 $$
 
 ### 1.2 策略
 
-损失函数定义如下，需要最小化该函数。
+损失函数定义如下，需要最小化该函数。y
 $$
 \begin{align}
 J(w) &= \frac 1 {2m}  \sum_{i=1}^m (\hat y_i - y_i)^2    \\
@@ -105,7 +105,7 @@ $$
 
 ![img](images/sigmoid.gif)
 
-采用sigmoid函数。
+设$X \in R^{m \times n}, w \in R^{n\times 1}, z,h(z),y \in  R^{m \times 1} $，采用sigmoid函数。
 $$
 h(z) = \frac{1}{1+e^{-z}}
 $$
@@ -178,9 +178,9 @@ $$
  \\ &=  \frac 1 m X^T (h(z) -y)
 \end{align}
 $$
-不难发现，Logistic Regression其梯度求解和线性回归的高度相似。
+不难发现，Logistic Regression其梯度求解和线性回归的结构完全相同。
 
-上面推导主要用到了sigmoid函数和log函数的求导，详见[常用向量导数公式](https://eipi10.cn/linear-algebra/2019/12/12/common_vector_derivative/#sigmoid%E5%87%BD%E6%95%B0)。
+上面推导主要用到了sigmoid函数和log函数的求导，详见[sigmoid函数导数](https://eipi10.cn/linear-algebra/2019/12/12/common_vector_derivative/#sigmoid%E5%87%BD%E6%95%B0)。
 
 ## 3. Softmax回归
 
@@ -189,55 +189,102 @@ Softmax回归（Softmax Regression）也是一种线性模型，它是逻辑回�
 ### 3.1 模型
 
 ![image-20201015162945377](images/image-20201015162945377.png)
+
+上图中$ x $表示一个样本，$ z = Wx$，且
+$$
+W = \begin{bmatrix} w_1^T \\ w_2^T \\ \vdots \\ w_K^T \end{bmatrix} ，
+z = \begin{bmatrix} z_1 \\ z_2 \\ \vdots \\ z_K \end{bmatrix}= \begin{bmatrix} w_1^Tx \\ w_2^Tx \\ \vdots \\ w_K^Tx \end{bmatrix}
+$$
+
 $$
 \begin{align}
 a_i = h(z_i) =   \frac {e^{z_i}}  {\sum_{k=1}^K e^{z_k}}
 \end{align}
 $$
 
-其中$x$表示一个样本，$ z = Wx$，且
+采用向量的表示如下：
 $$
-W = \begin{bmatrix} w_1^T \\ w_2^T \\ \vdots \\ w_K^T \end{bmatrix}
+\begin{align}
+a = h(z) =   \frac {e^z}  {d^T \cdot e^z}
+\end{align}
 $$
-下文中，将用一个样本进行推导，最后将扩展到多样本的情况。
+其中$ d^T = \begin{bmatrix} 1 & 1& \cdots 1 \end{bmatrix}$。
+
+扩展到m个样本，设设$X \in R^{n \times m}, w \in R^{k \times n}, Z, A, Y \in  R^{k \times m},Z = W \cdot X $，则：
+$$
+\begin{align}
+A = h(Z) =   \frac {e^Z}  {d^T \cdot e^Z}
+\end{align}
+$$
 
 ### 3.2 策略
 
-一个样本的损失函数定义如下。
+单样本的损失函数如下：
+$$
+j = - \log a^T y
+$$
+m个样本的损失函数定义如下。
 $$
 \begin{align}
-J(W) = -  \log a^{T} \cdot y 
+J(W) = -  \frac 1 m \sum \log A \circ Y 
 \end{align}
 $$
 
 ### 3.3 算法
 
-采用梯度下降求解参数。
+采用梯度下降求解参数。分成两步。
 
+#### 对$Z$的偏导数
 
-
-查看一个样本$x$，对于$w_i$的梯度，推导如下：
+首先看单样本。
 $$
 \begin{align}
-\nabla{w_i} &= \frac {\partial J(W_i)} {\partial w_i} 
-\\ &= \frac {\partial z^T} {\partial w_i} 
-\cdot\frac {\partial a^T} {\partial z} 
+ \frac {\partial j} {\partial z}  &=  
+\frac {\partial a^T} {\partial z} 
 \cdot\frac {\partial {\log a^T}} {\partial a} 
 \cdot\frac {\partial {-  \log a^{T} \cdot y }} {\partial \log a}
-\\ &=   \circ \frac 1 {a^T} \cdot (- y)
+\\ &=   \left ( diag(a) - a \cdot {a}^{T} \right ) \circ \frac 1 {a^T} \cdot (- y)
+\\ &=  \left ( a \cdot d^T -1 \right )  \cdot y   
+\\ &=    a \cdot d^T \cdot y  - y   & 由于d^T \cdot y = 1
+\\ &=    a  - y   
+\end{align}
+$$
+很容易，推广到所有样本，则：
+$$
+\begin{align}
+\frac {\partial {J(W)}} {\partial Z} 
+&=  \frac 1 m (A - Y)
 \end{align}
 $$
 
-上面推导主要用到了softmax函数的求导，详见[常用向量导数公式](https://eipi10.cn/linear-algebra/2019/12/12/common_vector_derivative/#softmax函数)。
+#### 对$W$的偏导数
+
+$$
+W = \begin{bmatrix} w_1^T \\ w_2^T \\ \vdots \\ w_K^T \end{bmatrix}
+$$
+
+为了简化，首先计算对$W$中某一行（记为$w$）的偏导数，满足$z^T = w^T X$，推导如下：
+$$
+\begin{align}
+\frac {\partial J(W)} {\partial w}  &=  
+\frac {\partial z^T} {\partial w} \cdot \frac {\partial J(W)} {\partial z}  
+\\ &=   X \cdot \frac 1 m (a-y)^T 
+\\ &=  \frac 1 m X   (a-y)^T 
+\end{align}
+$$
+然后扩展到整个$W$，不难得出：
+$$
+\begin{align}
+\frac {\partial J(W)} {\partial W^T}  &=  \frac 1 m X  (A-Y)^T \\
+\frac {\partial J(W)} {\partial W}  &=  \frac 1 m (A-Y)  X^T
+\end{align}
+$$
+上面推导主要用到了softmax函数的求导，详见[softmax函数导数](https://eipi10.cn/linear-algebra/2019/12/12/common_vector_derivative/#softmax函数)。
+
+> 如果仔细观察，softmax的梯度其实和logistic regression的梯度其实也是结构完全相同，只是由于在softmax中$X,$和logistic regression中对应的$X$，刚好是进行了转置，所以梯度矩阵也进行了转置。而之所以要进行转置的原因之一，是因为softmax中是多个输出，在画图的时候，纵向排列的多个输出更加好画，易于表达。
 
 ## 历史
 
-- 2020-10-16：初始创建。包含线性回归，逻辑回归还有Softmax回归。
+- 2020-10-18：初始创建。包含线性回归，逻辑回归，Softmax回归。
 
 
-
-### 模型
-
-### 策略
-
-### 算法
