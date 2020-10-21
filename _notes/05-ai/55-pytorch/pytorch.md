@@ -293,63 +293,6 @@ $$
 
 
 
-#### torch.nn.Conv2d
-
-https://pytorch.org/docs/stable/nn.html?highlight=conv2d#torch.nn.Conv2d
-
-~~~
-CLASStorch.nn.Conv2d(
-  in_channels,  # 输入通道数
-  out_channels, # 输出通道数
-  kernel_size,  # 卷积核大小
-  stride=1,     # 滑动窗口，默认为1，指每次卷积对原数据滑动1个单元格
-  padding=0,    # 两边的空白填充（一般补0）
-  dilation=1,   # 卷积核内部之间的间隔，默认1
-  groups=1,     # 将输入数据分组，通常不用管这个参数，没有太大意义
-  bias=True, 
-  padding_mode='zeros'
-)
-~~~
-
-- input size: $(N,C_{in}, H_{in},W_{in})$
-
-  - $N$：batch size。也就是每次训练所使用的样本个数
-  - $C_{in}$： 输入channel数量
-  - $H_{in}$：输入图片的(像素)高度
-  - $W_{in}$： 输入图性的(像素)宽度
-- output size: $(N,C_{out}, H_{out},W_{out})$
-
-  - $N$：batch size。也就是每次训练所使用的样本个数
-  - $C_{out}$： 输出channel数量
-  - $H_{out}$：输出图片的(像素)高度
-  - $W_{out}$：输出图片的(像素)宽度
-- dilation：卷积核内部之间的间隔，默认为1，其卷积核如下图所示：
-
-![image-20200113103126914](images/image-20200113103126914.png)
-
-​		如果dilation=2，则如下图所示，dilation表示的是灰色格子之间的序号的间隔。
-
-![image-20200113102809015](images/image-20200113102809015.png)
-
-- 输出的size大小
-
-  设$$\mathbf {S_{in}} = \begin{bmatrix} H_{in} & W_{in} \end{bmatrix}  $$，$$ \mathbf {S_{out} }= \begin{bmatrix} H_{out} & W_{out} \end{bmatrix}  $$，则
-  $$
-  \mathbf {S_{out}} = \lfloor \frac {\mathbf { S_{in}} + 2\mathbf p  - \mathbf d \circ (\mathbf k -1 ) - 1} { \mathbf s}  + 1 \rfloor
-  $$
-  其中$p$表示padding，$d$表示dilation，$k$表示kernal size，$s$表示stride。
-
-  上面的公式中，可以这样逐步理解
-
-  1. $\mathbf d \circ (\mathbf k -1 ) - 1 $- 表示卷积核所占的空间，
-  2. $\mathbf { S_{in}} + 2\mathbf p  - \mathbf d \circ (\mathbf k -1 ) - 1$表示减去一个卷积核所占空间
-  3. $\frac {\mathbf { S_{in}} + 2\mathbf p  - \mathbf d \circ (\mathbf k -1 ) - 1} { \mathbf s}$ 表示剩下空间可以容纳几个卷积核
-  4. $+ 1$：表示把第2步减去的卷积核，再加回来。
-
-#### 
-
-
-
 
 
 

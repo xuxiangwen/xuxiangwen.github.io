@@ -91,7 +91,7 @@ $$
 上面推导主要调用了以下两个公式。
 $$
 \frac{\partial \mathbf {w}^\mathbf{T}\mathbf {w} }{\partial \mathbf {w} } = 2\mathbf {w} \\
-\frac{\partial (\mathbf{A}\mathbf {w})^\mathbf{T} }{\partial \mathbf {w} } = = 
+\frac{\partial (\mathbf{A}\mathbf {w})^\mathbf{T} }{\partial \mathbf {w} }  = 
 \mathbf{A}^\mathbf{T}
 $$
 

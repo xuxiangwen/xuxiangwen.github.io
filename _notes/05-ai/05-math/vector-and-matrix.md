@@ -116,6 +116,8 @@ $$
 
 ### 矩阵乘法
 
+![img](images/1042-imfiehp9487964.gif)
+
 英文称Matmul Product。当$$\mathbf A$$ 是$$m\times n$$矩阵，$$\mathbf B$$是$$n\times p$$阶矩阵，它们的乘积$$\mathbf A \cdot \mathbf B$$是一个$$m\times p$$阶矩阵 。矩阵的乘法仅当第一个矩阵$$\mathbf A $$的列数和另一个矩阵$$\mathbf B$$的行数相等时才能进行。矩阵乘法计算规则是：乘积矩阵中的每个元素等于$$\mathbf A$$的每一行，乘以$$\mathbf B$$的每一列，然后相加汇总。
 
 ![img](images/6135025-dae2263a2c50de24-1575457889153.webp)
@@ -140,6 +142,8 @@ $$
  附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#矩阵乘法)。
 
 **哈达玛积**
+
+![img](images/97ab-imfiehp9488189.gif)
 
 还有一种非常普遍，而且简单的矩阵相乘，称之为哈达玛积（Hadamard product）。
 
@@ -314,4 +318,9 @@ $$
 - [什么是矩阵](https://www.jianshu.com/p/f9826690133c)
 - [矩阵乘法](https://zh.wikipedia.org/wiki/%E7%9F%A9%E9%99%A3%E4%B9%98%E6%B3%95)
 - [矩阵乘法的本质是什么？](https://www.zhihu.com/question/21351965/answer/176777987 )
+- [动画看懂张量乘法](https://tech.sina.cn/csj/2019-12-25/doc-iihnzhfz8204796.d.html?from=wap)
 
+## 历史
+
+- 2020-12-02：初始版本
+- 2020-10-19：增加一些动态图来表示矩阵乘法，哈达玛积
