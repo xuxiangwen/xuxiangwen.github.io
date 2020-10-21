@@ -2,7 +2,7 @@
 # generated from _notes/05-ai/10-base/simple_model.md
 
 title: 几个基本模型
-categories: linear-algebra
+categories: algorithm
 date: 2020-10-18
 ---
 
