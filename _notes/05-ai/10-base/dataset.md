@@ -1,6 +1,6 @@
 ---
 title: 常用数据集
-categories: Others
+categories: others
 date: 2020-10-22
 ---
 
