@@ -1,5 +1,5 @@
 ---
-title: EM算法实践：PLSA
+title: EM算法实践：K-Means和GMM
 categories: algorithm
 date: 2020-08-22
 ---
