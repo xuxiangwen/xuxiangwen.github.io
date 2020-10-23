@@ -271,6 +271,7 @@ LeNet是Yann LeCun等人提出的卷积神经网络结构，有多个版本，�
 import logging
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 import time
 import torch
 import torchvision
@@ -373,7 +374,7 @@ class LeNet(nn.Module):
                     num_correct = 0
 ~~~
 
-下面是数据加载的代码。
+下面是创建模型和数据加载的代码。
 
 ~~~python
 print("-"*50 + "\n创建模型")    
@@ -390,8 +391,8 @@ for param in params:
 print("-"*50 + "\n获取数据")
 transform = transforms.Compose(
     [transforms.ToTensor(),
-     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-
+     transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))])
+os.makedirs("./data")
 trainset = torchvision.datasets.CIFAR10(root='./data/cifar10', train=True,
                                         download=True, transform=transform)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=32,
@@ -436,7 +437,8 @@ with TaskTime('training', True):
     LeNet.train(net, criterion, trainloader, optimizer=optimizer, epoches=10, use_cuda=True)
     
 print("-"*50 + "\n保存，加载模型") 
-model_path = './lenet.pth'
+os.makedirs("./model")
+model_path = './model/lenet.pth'
 torch.save(net.state_dict(), model_path) 
 net = LeNet(in_dim=3, n_class=10)
 net.load_state_dict(torch.load(model_path))     
@@ -444,18 +446,140 @@ net.load_state_dict(torch.load(model_path))
 print("-"*50 + "\n评估模型")    
 train_accuracy = LeNet.compute_accuarcy(net, trainloader, criterion, use_cuda=True)   
 test_accuracy = LeNet.compute_accuarcy(net, testloader, criterion, use_cuda=True)
-print('Train Accuracy: {}%, Test Accuracy: {}%'.format(100 * train_accuracy, 100*test_accuracy)) 
+print('Train Accuracy: {:0.1f}%, Test Accuracy: {:0.1f}%'.format(100 * train_accuracy, 100*test_accuracy)) 
 ~~~
 
 ![image-20201022234015162](images/image-20201022234015162.png)
 
-准确率只有64%，模型的表现还不够好，留待以后提升。
+准确率只有64%，而且存在过拟合。现在对模型做一些修改，看看效果任何。
 
 ### tensorflow实现
 
+首先是模型代码。
 
+~~~python
+import logging
+import os
+import tensorflow as tf
+import time
+from tensorflow.keras import datasets, layers, models
+import matplotlib.pyplot as plt
+
+
+logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
+logging.root.setLevel(level=logging.INFO)
+
+# 设置GPU内存使用上限
+gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
+print(gpus, cpus)
+tf.config.experimental.set_virtual_device_configuration(
+    gpus[0],
+    [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=1024)]
+)
+
+class TaskTime:
+    def __init__(self, task_name, show_start=False):
+        self.show_start = show_start
+        self.task_name = task_name
+        self.start_time = time.time()
+
+    def elapsed_time(self):
+        return time.time()-self.start_time
+
+    def __enter__(self):
+        if self.show_start:
+            logging.info('start {}'.format(self.task_name))
+        return self;
+
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        logging.info('finish {} [elapsed time: {:.2f} seconds]'.format(self.task_name, self.elapsed_time()))
+
+def lenet(in_dim=1, n_class=10):
+    model = models.Sequential()
+    model.add(layers.Conv2D(6, (5, 5), activation='relu', input_shape=(32, 32, in_dim)))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(16, (5, 5), activation='relu'))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Flatten())
+    model.add(layers.Dense(120, activation='relu'))
+    model.add(layers.Dense(84, activation='relu'))
+    model.add(layers.Dense(n_class))    
+    return model
+~~~
+
+然后创建模型并加载数据。
+
+~~~python
+print("-"*50 + "\n创建模型") 
+model = lenet(in_dim=3, n_class=10)
+
+print("-"*50 + "\n显示参数")
+model.summary()
+
+print("-"*50 + "\n获取数据")
+# 默认的保存路径是~/.keras/datasets/
+(train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
+
+# Normalize pixel values to be between 0 and 1
+train_images, test_images = train_images / 255.0, test_images / 255.0
+
+print(train_images.shape, train_labels.shape, train_images.shape, test_labels.shape)
+print(type(train_images), type(train_labels.shape))
+
+print("-"*50 + "\n显示图片示例")
+class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
+               'dog', 'frog', 'horse', 'ship', 'truck']
+
+plt.figure(figsize=(10,2))
+for i in range(5):
+    plt.subplot(1,5,i+1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    plt.imshow(train_images[i])
+    # The CIFAR labels happen to be arrays, 
+    # which is why you need the extra index
+    plt.xlabel(class_names[train_labels[i][0]])
+plt.show()
+~~~
+
+![image-20201023122302448](images/image-20201023122302448.png)
+
+下面是模型训练，保存加载，以及模型评估的代码。
+
+~~~python
+print("-"*50 + "\n训练模型")
+model.compile(optimizer='adam',
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              metrics=['accuracy'])
+with TaskTime('training', True):
+    history = model.fit(train_images, train_labels, epochs=10, batch_size=32,
+                        validation_data=(test_images, test_labels))
+
+print("-"*50 + "\n保存，加载模型") 
+os.makedirs("./model")
+model.save('model/tf_lenet.h5') 
+model = tf.keras.models.load_model('model/tf_lenet.h5')  
+    
+print("-"*50 + "\n评估模型")    
+plt.plot(history.history['accuracy'], label='accuracy')
+plt.plot(history.history['val_accuracy'], label = 'val_accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.ylim([0.5, 1])
+plt.legend(loc='lower right')
+
+train_loss, train_acc = model.evaluate(train_images,  train_labels, verbose=2)
+test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+print('Train Accuracy: {:0.1f}%, Test Accuracy: {:0.1f}%'.format(100 * train_acc, 100*test_acc)) 
+~~~
+
+![image-20201023130910175](images/image-20201023130910175.png)
+
+![image-20201023130925884](images/image-20201023130925884.png)
 
 ## 参考
 
-
+- [TF Tutorial - Convolutional Neural Network (CNN)](https://www.tensorflow.org/tutorials/images/cnn)
+- [Torch Tutorial - TRAINING A CLASSIFIER](https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html)
 
