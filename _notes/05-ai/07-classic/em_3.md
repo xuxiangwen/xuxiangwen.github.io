@@ -1,7 +1,7 @@
 ---
 title: EM算法实践：K-Means和GMM
 categories: algorithm
-date: 2020-08-22
+date: 2020-08-13
 ---
 
 [EM](https://zh.wikipedia.org/wiki/%E6%9C%80%E5%A4%A7%E6%9C%9F%E6%9C%9B%E7%AE%97%E6%B3%95)（Expectation-Maximum）算法在机器学习中有极为广泛的用途。为了能够加深理解，本文将运用EM算法原理来分析两个经典的聚类模型：K-Means和GMM。

@@ -1,7 +1,7 @@
 ---
 title: EM算法实践：PLSA
 categories: algorithm
-date: 2020-08-13
+date: 2020-08-22
 ---
 
 在NLP领域，[PLSA](https://zh.wikipedia.org/wiki/%E6%A6%82%E7%8E%87%E6%BD%9C%E5%9C%A8%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90)（Probabilistic Latent Semantic Analysis），即概率隐性语义分析是非常著名的主题模型算法之一。为了能够加深理解，本文将运用EM算法原理来分析推导该模型。
