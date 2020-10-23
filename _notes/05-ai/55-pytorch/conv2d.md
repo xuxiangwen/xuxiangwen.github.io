@@ -1,7 +1,7 @@
 ---
 title: Conv2D
 categories: deep-learning
-date: 2020-10-20
+date: 2020-10-22
 ---
 
 本文将详细介绍Conv2d，并比较torch和tensorflow中的定义，然后通过它们实现经典的[LeNet](https://www.jiqizhixin.com/graph/technologies/6c9baf12-1a32-4c53-8217-8c9f69bd011b)。
@@ -54,7 +54,7 @@ class torch.nn.Conv2d(
 
 ![image-20200113103126914](images/image-20200113103126914.png)
 
-​		如果dilation=2，则如下图所示，dilation表示的是灰色格子之间的序号的间隔。
+​		如果dilation=2，则卷积核如下图所示，计算时忽略白色各自，只有灰色的格子参与。
 
 ![image-20200113102809015](images/image-20200113102809015.png)
 
@@ -76,14 +76,16 @@ import torch
     for parameters in conv2d.parameters():
         print(parameters.size())
     
-    ## 上面两行代码等价于下面代码    
-    print(conv2d.weights.size())
-    print(conv2d.bias.size())
+    # 上面两行代码等价于下面代码    
+    #print(conv2d.weights.size())
+    #print(conv2d.bias.size())
     ~~~
     
     ![image-20201020090817136](images/image-20201020090817136.png)
 
-##  [tf.keras.layers.Conv2D](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Conv2D)
+##  [tensorflow.keras.layers.Conv2D](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Conv2D)
+
+tensorflow.keras.layers.Conv2D和torch.nn.Conv2d非常相似，但它集成了更多的功能，比如kernel_initializer，bias_initializer，kernel_regularizer和bias_regularizer等。
 
 ~~~python
 class tf.keras.layers.Conv2D(
@@ -154,11 +156,11 @@ class tf.keras.layers.Conv2D(
 
   ![image-20201020093743424](images/image-20201020093743424.png)
 
-  从结果上看，参数的个数和pytorch完全相同，但维度的设置完全不同。
+  从结果上看，参数的个数和pytorch完全相同，但维度的设置不同。
 
 ## padding逻辑
 
-前文介绍了pytorch和tensorflow中关于padding逻辑，下面是代码以Conv1D为例（Conv2D逻辑是相同的），展示了其中的细节，首先看tensorflow的padding。
+前文介绍了pytorch和tensorflow中关于padding逻辑，下面以Conv1D为例（Conv2D逻辑是相同的），展示了其中的细节，首先看tensorflow的padding。
 
 - valid：边缘不填充
 
@@ -263,154 +265,197 @@ LeNet是Yann LeCun等人提出的卷积神经网络结构，有多个版本，�
 
 ### pytorch实现
 
-从上面结构图来看，不算输入层，LeNet共有7层，但有参数的只有5层，所以在pytorch中使用torch.nn定了这5层，而其它两层使用torch.nn.Fu
+从上面结构图来看，不算输入层，LeNet共有7层，但有参数的只有5层，所以在pytorch中使用torch.nn定了这5层，而其它两层使用torch.nn.functional来定义。下面是模型代码。
 
 ~~~python
+import logging
+import matplotlib.pyplot as plt
+import numpy as np
+import time
 import torch
+import torchvision
+import torch.nn.functional as F
 from torch import nn, optim
-#import torch.nn.functional as F
-from torch.autograd import Variable
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from torchvision import datasets
-#from logger import Logger
 
-# 定义超参数
-batch_size = 128        # 批的大小
-learning_rate = 1e-2    # 学习率
-num_epoches = 20        # 遍历训练集的次数
-
-# 数据类型转换，转换成numpy类型
-#def to_np(x):
-#    return x.cpu().data.numpy()
+logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
+logging.root.setLevel(level=logging.INFO)
 
 
-# 下载训练集 MNIST 手写数字训练集
-train_dataset = datasets.MNIST(
-    root='./data', train=True, transform=transforms.ToTensor(), download=True)
+class TaskTime:
+    def __init__(self, task_name, show_start=False):
+        self.show_start = show_start
+        self.task_name = task_name
+        self.start_time = time.time()
 
-test_dataset = datasets.MNIST(
-    root='./data', train=False, transform=transforms.ToTensor())
+    def elapsed_time(self):
+        return time.time()-self.start_time
 
-train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+    def __enter__(self):
+        if self.show_start:
+            logging.info('start {}'.format(self.task_name))
+        return self;
 
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        logging.info('finish {} [elapsed time: {:.2f} seconds]'.format(self.task_name, self.elapsed_time()))
 
-# 定义 Convolution Network 模型
-class Cnn(nn.Module):
-    def __init__(self, in_dim, n_class):
-        super(Cnn, self).__init__()    # super用法:Cnn继承父类nn.Model的属性，并用父类的方法初始化这些属性
-        self.conv = nn.Sequential(     #padding=2保证输入输出尺寸相同(参数依次是:输入深度，输出深度，ksize，步长，填充)
-            nn.Conv2d(in_dim, 6, 5, stride=1, padding=2),
-            nn.ReLU(True),
-            nn.MaxPool2d(2, 2),
-            nn.Conv2d(6, 16, 5, stride=1, padding=0),
-            nn.ReLU(True), 
-            nn.MaxPool2d(2, 2))
+        
+class LeNet(nn.Module):
+    def __init__(self, in_dim=1, n_class=10):
+        super(LeNet, self).__init__()    
 
-        self.fc = nn.Sequential(
-            nn.Linear(400, 120), 
-            nn.Linear(120, 84), 
-            nn.Linear(84, n_class))
-
+        self.conv1 = nn.Conv2d(in_dim, 6, 5)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.fc1 = nn.Linear(16 * 5 * 5, 120)  
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, n_class)        
+        
     def forward(self, x):
-        out = self.conv(x)
-        out = out.view(out.size(0), -1)
-        out = self.fc(out)
-        return out
+        x = F.max_pool2d(F.relu(self.conv1(x)), 2)
+        x = F.max_pool2d(F.relu(self.conv2(x)), 2)
+        x = x.view(x.size()[0], -1)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+    
+    @classmethod
+    def compute_accuarcy(cls, net, loader, criterion, use_cuda=False):
+        num_correct = 0
+        total = 0
+        with torch.no_grad():
+            for data in loader:
+                inputs, labels = data
+                _, _, _, _, correct, _ = cls.forward_(net, inputs, labels, criterion, use_cuda) 
+                total += labels.size(0)
+                num_correct += correct
+        return num_correct/total
 
+    @classmethod
+    def forward_(cls, net, inputs, labels, criterion, use_cuda=False):   
+        if use_cuda and  torch.cuda.is_available(): 
+            net = net.cuda()
+            criterion = criterion.cuda()
+            inputs = inputs.cuda()
+            labels = labels.cuda()
+        outputs = net(inputs)
+        loss = criterion(outputs, labels)    
+        _, predicted = torch.max(outputs.data, 1)
+        correct = (predicted == labels).sum().item()
+        accuracy = correct/labels.size(0) 
+        return inputs, labels, outputs, loss, correct, accuracy     
+    
+    @classmethod
+    def train(cls, net, criterion, trainloader, optimizer, testloader=None, epoches=2, use_cuda=False):        
+        for epoch in range(epoches):  # loop over the dataset multiple times
+            running_loss = 0.0
+            num_correct = 0
+            for i, data in enumerate(trainloader, 0):
+                inputs, labels = data   
+                # 正向传播
+                _, _, _, loss, correct, _ = cls.forward_(net, inputs, labels, criterion, use_cuda)   
+                running_loss += loss
+                num_correct += correct
 
-model = Cnn(1, 10)  # 图片大小是28x28,输入深度是1，最终输出的10类
-use_gpu = torch.cuda.is_available()  # 判断是否有GPU加速
-if use_gpu:
-    model = model.cuda()
+                # 反向传播
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
 
-# 定义loss和optimizer
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(model.parameters(), lr=learning_rate)
-
-#logger = Logger('./logs')
-# 开始训练
-for epoch in range(num_epoches):
-    print('epoch {}'.format(epoch + 1))      # .format为输出格式，formet括号里的即为左边花括号的输出
-    print('*' * 10)
-    running_loss = 0.0
-    running_acc = 0.0
-    for i, data in enumerate(train_loader, 1):
-        img, label = data
-        # cuda
-        if use_gpu:
-            img = img.cuda()
-            label = label.cuda()
-        img = Variable(img)
-        label = Variable(label)
-        # 向前传播
-        out = model(img)
-        loss = criterion(out, label)
-        running_loss += loss.item() * label.size(0)
-        _, pred = torch.max(out, 1)
-        num_correct = (pred == label).sum()
-        accuracy = (pred == label).float().mean()
-        running_acc += num_correct.item()
-        # 向后传播
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-        """
-        # ========================= Log ======================
-        step = epoch * len(train_loader) + i
-        # (1) Log the scalar values
-        info = {'loss': loss.data[0], 'accuracy': accuracy.data[0]}
-
-        for tag, value in info.items():
-            logger.scalar_summary(tag, value, step)
-
-        # (2) Log values and gradients of the parameters (histogram)
-        for tag, value in model.named_parameters():
-            tag = tag.replace('.', '/')
-            logger.histo_summary(tag, to_np(value), step)
-            logger.histo_summary(tag + '/grad', to_np(value.grad), step)
-
-        # (3) Log the images
-        info = {'images': to_np(img.view(-1, 28, 28)[:10])}
-
-        for tag, images in info.items():
-            logger.image_summary(tag, images, step)
-        if i % 300 == 0:
-            print('[{}/{}] Loss: {:.6f}, Acc: {:.6f}'.format(
-                epoch + 1, num_epoches, running_loss / (batch_size * i),
-                running_acc / (batch_size * i)))
-        """
-    print('Finish {} epoch, Loss: {:.6f}, Acc: {:.6f}'.format(
-        epoch + 1, running_loss / (len(train_dataset)), running_acc / (len(train_dataset))))
-    model.eval()
-    eval_loss = 0
-    eval_acc = 0
-    for data in test_loader:
-        img, label = data
-        if use_gpu:
-            img = Variable(img, volatile=True).cuda()
-            label = Variable(label, volatile=True).cuda()
-        else:
-            img = Variable(img, volatile=True)
-            label = Variable(label, volatile=True)
-        out = model(img)
-        loss = criterion(out, label)
-        eval_loss += loss.item() * label.size(0)
-        _, pred = torch.max(out, 1)
-        num_correct = (pred == label).sum()
-        eval_acc += num_correct.item()
-    print('Test Loss: {:.6f}, Acc: {:.6f}'.format(eval_loss / (len(
-        test_dataset)), eval_acc / (len(test_dataset))))
-    print()
-
-# 保存模型
-torch.save(model.state_dict(), './cnn.pth')
+                # print statistics
+                running_loss += loss.item()
+                if i % 500 == 499:    # print every 2000 mini-batches
+                    print('[%d, %5d] loss: %.3f, accuracy: %.1f' %
+                          (epoch + 1, i + 1, running_loss / 500, 100*num_correct/labels.size(0)/500))
+                    running_loss = 0.0
+                    num_correct = 0
 ~~~
+
+下面是数据加载的代码。
+
+~~~python
+print("-"*50 + "\n创建模型")    
+net = LeNet(in_dim=3, n_class=10)
+print(net)
+
+print("-"*50 + "\n显示参数")
+# 由于存在bias，所以每一层都有两个参数张量，共有10个参数张量。
+params = list(net.parameters())
+print(len(params))
+for param in params:
+    print(param.size())                
+                
+print("-"*50 + "\n获取数据")
+transform = transforms.Compose(
+    [transforms.ToTensor(),
+     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+
+trainset = torchvision.datasets.CIFAR10(root='./data/cifar10', train=True,
+                                        download=True, transform=transform)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=32,
+                                          shuffle=True, num_workers=2)
+
+testset = torchvision.datasets.CIFAR10(root='./data/cifar10', train=False,
+                                       download=True, transform=transform)
+testloader = torch.utils.data.DataLoader(testset, batch_size=32,
+                                         shuffle=False, num_workers=2)
+
+classes = ('plane', 'car', 'bird', 'cat', 'deer', 
+           'dog', 'frog', 'horse', 'ship', 'truck')
+
+print("-"*50 + "\n显示图片示例")
+plt.rcParams['figure.figsize'] = (12.0, 1.5) 
+def imshow(img):
+    img = img / 2 + 0.5     # unnormalize
+    npimg = img.numpy()
+    plt.imshow(np.transpose(npimg, (1, 2, 0)))
+    plt.show()
+
+# get some random training images
+dataiter = iter(trainloader)
+images, labels = dataiter.next()
+print(images.size())
+
+# show images
+imshow(torchvision.utils.make_grid(images[0:8]))
+print(' '.join('%5s' % classes[labels[j]] for j in range(8)))
+~~~
+
+![image-20201022231155489](images/image-20201022231155489.png)
+
+下面是模型训练，保存加载，以及模型评估的代码。
+
+~~~python
+print("-"*50 + "\n训练模型")
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+
+with TaskTime('training', True):
+    LeNet.train(net, criterion, trainloader, optimizer=optimizer, epoches=10, use_cuda=True)
+    
+print("-"*50 + "\n保存，加载模型") 
+model_path = './lenet.pth'
+torch.save(net.state_dict(), model_path) 
+net = LeNet(in_dim=3, n_class=10)
+net.load_state_dict(torch.load(model_path))     
+    
+print("-"*50 + "\n评估模型")    
+train_accuracy = LeNet.compute_accuarcy(net, trainloader, criterion, use_cuda=True)   
+test_accuracy = LeNet.compute_accuarcy(net, testloader, criterion, use_cuda=True)
+print('Train Accuracy: {}%, Test Accuracy: {}%'.format(100 * train_accuracy, 100*test_accuracy)) 
+~~~
+
+![image-20201022234015162](images/image-20201022234015162.png)
+
+准确率只有64%，模型的表现还不够好，留待以后提升。
+
+### tensorflow实现
 
 
 
 ## 参考
 
-- 
+
 
