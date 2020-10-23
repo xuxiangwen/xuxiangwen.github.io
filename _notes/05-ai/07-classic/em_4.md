@@ -6,7 +6,7 @@ date: 2020-08-13
 
 在NLP领域，[PLSA](https://zh.wikipedia.org/wiki/%E6%A6%82%E7%8E%87%E6%BD%9C%E5%9C%A8%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90)（Probabilistic Latent Semantic Analysis），即概率隐性语义分析是非常著名的主题模型算法之一。为了能够加深理解，本文将运用EM算法原理来分析推导该模型。
 
-开始之前，再次复习KM算法的流程。
+开始之前，再次复习EM算法的流程。
 
 - 输入：观察数据$x=(x_1,x_2,...x_m)$，联合分布$P(x,z;θ)$, 条件分布$P(z\vert x;θ)$, 最大迭代次数$J$。
 
