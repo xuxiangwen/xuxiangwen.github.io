@@ -1,52 +1,112 @@
-## MNIST
+[MNIST](https://eipi10.cn/others/2020/10/22/dataset/)（Mixed National Institute of Standards and Technology）数据集是著名的手写数字数据集，被誉为数据科学领域的`果蝇`。本文使用pytorch和tensorflow实现对MNIST数据集进行分类，先从简单的模型开始，然后使用LeNet。
 
-下面用上面的模型，尝试一下[MNIST](https://eipi10.cn/others/2020/10/22/dataset/#MNIST)数据集。由于MNIST数据集的每张图片由28×2828×28 个像素点构成，每个像素点用一个灰度值(0−2550−255)表示，需要对之前的模型做一些修改。
+## 经典神经网络
 
-### pytorch再实现
+首先，尝试用经典的神经网络来进行分类。
 
-为了保持模型的参数维持一致，在第一个卷积积增加一个参数padding=2。
+### pytorch
 
 ~~~python
-class LeNet2(nn.Module):
-    def __init__(self, in_dim=1, n_class=10):
-        super(LeNet2, self).__init__()    
+import logging
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import time
+import torch
+import torchvision
+import torch.nn.functional as F
+from torch import nn, optim
+from torch.utils.data import DataLoader
+from torchvision import transforms
+from torchvision import datasets
 
-        self.conv1 = nn.Conv2d(in_dim, 6, 5, padding=2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(16 * 5 * 5, 120)  
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, n_class)        
+logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
+logging.root.setLevel(level=logging.INFO)
+
+class TaskTime:
+    def __init__(self, task_name, show_start=False):
+        self.show_start = show_start
+        self.task_name = task_name
+        self.start_time = time.time()
+
+    def elapsed_time(self):
+        return time.time()-self.start_time
+
+    def __enter__(self):
+        if self.show_start:
+            logging.info('start {}'.format(self.task_name))
+        return self;
+
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        time.sleep(0.5)
+        logging.info('finish {} [elapsed time: {:.2f} seconds]'.format(self.task_name, self.elapsed_time()))
         
+def compute_accuarcy(net, loader, criterion, use_cuda=False):
+    num_correct = 0
+    total = 0
+    with torch.no_grad():
+        for data in loader:
+            inputs, labels = data
+            _, _, _, _, correct, _ = forward_(net, inputs, labels, criterion, use_cuda) 
+            total += labels.size(0)
+            num_correct += correct
+    return num_correct/total
+
+def forward_(net, inputs, labels, criterion, use_cuda=False):   
+    if use_cuda and  torch.cuda.is_available(): 
+        net = net.cuda()
+        criterion = criterion.cuda()
+        inputs = inputs.cuda()
+        labels = labels.cuda()
+    outputs = net(inputs)
+    loss = criterion(outputs, labels)    
+    _, predicted = torch.max(outputs.data, 1)
+    correct = (predicted == labels).sum().item()
+    accuracy = correct/labels.size(0) 
+    return inputs, labels, outputs, loss, correct, accuracy     
+    
+def train(net, criterion, trainloader, optimizer, testloader=None, epoches=2, use_cuda=False):        
+    for epoch in range(epoches):  # loop over the dataset multiple times
+        running_loss = 0.0
+        num_correct = 0
+        for i, data in enumerate(trainloader, 0):
+            inputs, labels = data   
+            # 正向传播
+            _, _, _, loss, correct, _ = forward_(net, inputs, labels, criterion, use_cuda)   
+            running_loss += loss
+            num_correct += correct
+
+            # 反向传播
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+            # print statistics
+            running_loss += loss.item()
+            if i % 500 == 499:    # print every 2000 mini-batches
+                print('[%d, %5d] loss: %.3f, accuracy: %.1f' %
+                      (epoch + 1, i + 1, running_loss / 500, 100*num_correct/labels.size(0)/500))
+                running_loss = 0.0
+                num_correct = 0
+                
+class NN(nn.Module):
+    def __init__(self, in_dim=1, n_class=10, p=0.2):
+        super(LeNet, self).__init__()    
+
+        self.fc1 = nn.Linear(28*28, 128)  
+        self.fc2 = nn.Linear(128, n_class)
+        
+        self.drop_layer = nn.Dropout(p=p)
+          
     def forward(self, x):
-        x = F.max_pool2d(F.relu(self.conv1(x)), 2)
-        x = F.max_pool2d(F.relu(self.conv2(x)), 2)
         x = x.view(x.size()[0], -1)
         x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
-
-class LeNet3(nn.Module):
-    def __init__(self, in_dim=1, n_class=10, padding=2):
-        super(LeNet3, self).__init__()    
-
-        self.conv1 = nn.Conv2d(in_dim, 32, 3)
-        self.conv2 = nn.Conv2d(32, 64, 3)
-        self.conv3 = nn.Conv2d(64, 64, 3)
-        self.fc1 = nn.Linear(64 * 4 * 4, 64)  
-        self.fc2 = nn.Linear(64, n_class)        
-        
-    def forward(self, x):
-        x = F.max_pool2d(F.relu(self.conv1(x)), 2)
-        x = F.max_pool2d(F.relu(self.conv2(x)), 2)
-        x = F.relu(self.conv3(x))
-        x = x.view(x.size()[0], -1)
-        x = F.relu(self.fc1(x))
+        x = self.drop_layer(x)
         x = self.fc2(x)
         return x
 ~~~
 
-接下来加载数据。
+下面是数据加载的代码。
 
 ~~~python
 def torch_mnist_extract_data():
@@ -78,6 +138,7 @@ def torch_mnist_extract_data():
         # get some random training images
         dataiter = iter(trainloader)
         images, labels = dataiter.next()
+        print(images.shape)
 
         # show images
         print(' '.join('%5s' % labels[j].item() for j in range(8)))
@@ -86,90 +147,83 @@ def torch_mnist_extract_data():
     return trainset, trainloader, testset, testloader
 
 trainset, trainloader, testset, testloader = torch_mnist_extract_data()    
+
 ~~~
 
-![image-20201024104029367](images/image-20201024104029367.png)
+![image-20201026111108647](images/image-20201026111108647.png)
 
-下面来训练LeNet2。
-
-~~~python
-print("-"*50 + "\n创建模型")    
-net = LeNet2(in_dim=1, n_class=10)
-print(net)
-
-print("-"*50 + "\n显示参数")
-# 由于存在bias，所以每一层都有两个参数张量，共有10个参数张量。
-params = list(net.parameters())
-print(len(params))
-for param in params:
-    print(param.size())    
-
-print("-"*50 + "\n训练模型")
-criterion = nn.CrossEntropyLoss()
-# optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
-# Adam优化的速度比SGD明显要快
-optimizer = optim.Adam(net.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
-
-with TaskTime('training', True):
-    train(net, criterion, trainloader, optimizer=optimizer, epoches=10, use_cuda=True) 
-    
-print("-"*50 + "\n评估模型")    
-train_accuracy = compute_accuarcy(net, trainloader, criterion, use_cuda=True)   
-test_accuracy = compute_accuarcy(net, testloader, criterion, use_cuda=True)
-print('Train Accuracy: {:0.1f}%, Test Accuracy: {:0.1f}%'.format(100 * train_accuracy, 100*test_accuracy)) 
-~~~
-
-![image-20201024104315821](images/image-20201024104315821.png)
-
-![image-20201024104452865](images/image-20201024104452865.png)
-
-accuracy能达到将近99%，非常理想。然后来训练LeNet3。
+接下来是模型创建，模型训练，保存加载，以及模型评估的代码。
 
 ~~~python
-with TaskTime('创建模型', True): 
-    net = LeNet3(in_dim=1, n_class=10)
+def torch_train_evaluate(net, epoches=2, save_model=False, model_file_name='torch_nn.pth'):                   
+    with TaskTime('显示参数', True):
+         # 由于存在bias，所以每一层都有两个参数张量，共有10个参数张量。
+        params = list(net.parameters())
+        print(len(params))
+        for param in params:
+            print(param.size())  
+
+    with TaskTime('模型训练', True):
+        criterion = nn.CrossEntropyLoss()
+        optimizer = optim.Adam(net.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
+        train(net, criterion, trainloader, optimizer=optimizer, epoches=epoches, use_cuda=True)
+
+    if save_model:  
+        with TaskTime('保存，加载模型', True):
+            model_root_path = os.path.join(os.path.expanduser('~'), '.pytorch/model') 
+            if not os.path.exists(model_root_path): os.makedirs(model_root_path)
+            model_path = os.path.join(model_root_path, model_file_name)
+            torch.save(net.state_dict(), model_path) 
+            net = LeNet(in_dim=1, n_class=10)
+            net.load_state_dict(torch.load(model_path))     
+
+    with TaskTime('评估模型', True):
+        train_accuracy = compute_accuarcy(net, trainloader, criterion, use_cuda=True)   
+        test_accuracy = compute_accuarcy(net, testloader, criterion, use_cuda=True)
+        print('Train Accuracy: {:0.1f}%, Test Accuracy: {:0.1f}%'.format(100 * train_accuracy, 100*test_accuracy)) 
+        
+with TaskTime('创建模型', True):      
+    net = NN(in_dim=1, n_class=10)
     print(net)
 
-torch_train_evaluate(net)
+torch_train_evaluate(net, epoches=5, save_model=True, model_name='torch_nn.pth')
 ~~~
 
-![image-20201024104951049](images/image-20201024104951049.png)
+![image-20201026113344634](images/image-20201026113344634.png)
 
-![image-20201024105021569](images/image-20201024105021569.png)
+Accuracy超过95%，应该来说，效果非常不错。
 
-accuracy能超过99%，非常好。
-
-### tensorflow再实现
-
-同样，增加了一个参数padding='same'，另外input_shape改成了(28, 28, in_dim)。
+### tensorflow
 
 ~~~python
-def lenet2(in_dim=1, n_class=10):
-    model = models.Sequential()
-    model.add(layers.Conv2D(6, (5, 5), activation='relu', padding='same', input_shape=(28, 28, in_dim)))
-    model.add(layers.MaxPooling2D((2, 2)))
-    model.add(layers.Conv2D(16, (5, 5), activation='relu'))
-    model.add(layers.MaxPooling2D((2, 2)))
-    model.add(layers.Flatten())
-    model.add(layers.Dense(120, activation='relu'))
-    model.add(layers.Dense(84, activation='relu'))
-    model.add(layers.Dense(n_class))    
-    return model
+import logging
+import os
+import tensorflow as tf
+import time
+from tensorflow.keras import datasets, layers, models
+import matplotlib.pyplot as plt
 
-def lenet3(in_dim=1, n_class=10):
+logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
+logging.root.setLevel(level=logging.INFO)
+
+# 设置GPU内存使用上限
+gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
+print(gpus)
+tf.config.experimental.set_virtual_device_configuration(
+    gpus[0],
+    [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=1024)]
+)
+
+def net():
     model = models.Sequential()
-    model.add(layers.Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(28, 28, in_dim)))
-    model.add(layers.MaxPooling2D((2, 2)))
-    model.add(layers.Conv2D(64, (3, 3), activation='relu'))
-    model.add(layers.MaxPooling2D((2, 2)))
-    model.add(layers.Conv2D(64, (3, 3), activation='relu'))    
-    model.add(layers.Flatten())
-    model.add(layers.Dense(64, activation='relu'))
-    model.add(layers.Dense(n_class))    
+    model.add(layers.Flatten(input_shape=(28, 28)))
+    model.add(layers.Dense(128, activation='relu'))
+    model.add(layers.Dropout(0.2))
+    model.add(layers.Dense(10))    
     return model
 ~~~
 
-接下来加载数据。
+然后加载数据。
 
 ~~~python
 def tf_mnist_extract_data():
@@ -178,7 +232,7 @@ def tf_mnist_extract_data():
         (train_images, train_labels), (test_images, test_labels) = datasets.mnist.load_data()
 
         # Normalize pixel values to be between 0 and 1
-        train_images, test_images = train_images / 255.0, test_images / 255.0
+        train_images, test_images = train_images / 255.0, test_images / 255.0     
 
         print(train_images.shape, train_labels.shape, train_images.shape, test_labels.shape)
         print(type(train_images), type(train_labels.shape))
@@ -191,7 +245,7 @@ def tf_mnist_extract_data():
             plt.xticks([])
             plt.yticks([])
             plt.grid(False)
-            plt.imshow(train_images[i])
+            plt.imshow(train_images[i], cmap='gray', interpolation='none')
             # The CIFAR labels happen to be arrays, 
             # which is why you need the extra index
             plt.xlabel(train_labels[i])
@@ -202,52 +256,137 @@ def tf_mnist_extract_data():
 train_images, train_labels, test_images, test_labels = tf_mnist_extract_data()
 ~~~
 
-![image-20201024105610572](images/image-20201024105610572.png)
+![image-20201026113532842](images/image-20201026113532842.png)
 
-下面来训练lenet2。
+接下来是模型创建，模型训练，保存加载，以及模型评估的代码。
+
+~~~python
+def tf_train_evaluate(model, epochs=2, save_model=False, model_file_name='tf_nn.h5'):   
+    with TaskTime('显示参数', True):
+        model.summary()
+
+    with TaskTime('模型训练', True):    
+        model.compile(optimizer='adam',
+                      loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+                      metrics=['accuracy'])
+        history = model.fit(train_images, train_labels, epochs=epochs, batch_size=32,
+                            validation_data=(test_images, test_labels))
+
+    if save_model:
+        with TaskTime('保存，加载模型', True): 
+            model_root_path = os.path.join(os.path.expanduser('~'), '.keras/model') 
+            if not os.path.exists(model_root_path): os.makedirs(model_root_path)
+            model_path = os.path.join(model_root_path, model_file_name)
+            model.save(model_path) 
+            model = tf.keras.models.load_model(model_path)  
+
+    with TaskTime('评估模型', True): 
+        plt.plot(history.history['accuracy'], label='accuracy')
+        plt.plot(history.history['val_accuracy'], label = 'val_accuracy')
+        plt.xlabel('Epoch')
+        plt.ylabel('Accuracy')
+        plt.ylim([0.5, 1])
+        plt.legend(loc='lower right')
+
+        train_loss, train_acc = model.evaluate(train_images,  train_labels, verbose=2)
+        test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+        print('Train Accuracy: {:0.1f}%, Test Accuracy: {:0.1f}%'.format(100 * train_acc, 100*test_acc)) 
+
+with TaskTime('创建模型', True): 
+    model = nn( )
+
+tf_train_evaluate(model, epochs=5, save_model=True, model_file_name='tf_nn.h5')
+~~~
+
+![image-20201026114421894](images/image-20201026114421894.png)
+
+Accuracy更加好，超过97%，应该来说，效果非常不错。
+
+## LeNet模型
+
+下面尝试用[LeNet5](https://eipi10.cn/deep-learning/2020/10/23/lenet/)来实现，看看是不是还能有提高。下面是LeNet5的结构图。
+
+![image-20201019113632136](images/image-20201019113632136.png)
+
+### pytorch
+
+在LeNet5中，输入层是$32\times32$的图片，而MNIST是$28\times28$的图片，为了保持模型的结构不变，在第一个卷积积增加一个参数padding=2。
+
+~~~python
+class LeNet(nn.Module):
+    def __init__(self, in_dim=1, n_class=10):
+        super(LeNet2, self).__init__()    
+
+        self.conv1 = nn.Conv2d(in_dim, 6, 5, padding=2)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.fc1 = nn.Linear(16 * 5 * 5, 120)  
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, n_class)        
+        
+    def forward(self, x):
+        x = F.max_pool2d(F.relu(self.conv1(x)), 2)
+        x = F.max_pool2d(F.relu(self.conv2(x)), 2)
+        x = x.view(x.size()[0], -1)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+~~~
+
+下面来训练LeNet。
+
+~~~python
+with TaskTime('创建模型', True):      
+    net = LeNet(in_dim=1, n_class=10)
+    print(net)
+
+torch_train_evaluate(net, save_model=True, epoches=5)
+~~~
+
+![image-20201025170204922](images/image-20201025170204922.png)
+
+经过5个epoch，accuracy有一些提供，能达到将近99%，非常理想。
+
+### tensorflow
+
+同样为了保持模型的结构不变，设置一个参数padding='same'，另外input_shape改成了(28, 28, in_dim)。
+
+~~~python
+def lenet(in_dim=1, n_class=10):
+    model = models.Sequential()
+    model.add(layers.Conv2D(6, (5, 5), activation='relu', padding='same', input_shape=(28, 28, in_dim)))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(16, (5, 5), activation='relu'))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Flatten())
+    model.add(layers.Dense(120, activation='relu'))
+    model.add(layers.Dense(84, activation='relu'))
+    model.add(layers.Dense(n_class))    
+    return model
+~~~
+
+由于采用卷积神经网络，需要有channel，所以对数据增加一个维度。
+
+~~~python
+train_images = train_images.reshape(train_images.shape + (1,))
+test_images = test_images.reshape(test_images.shape + (1,))   
+~~~
+
+下面来训练lenet。
 
 ~~~python
 with TaskTime('创建模型', True): 
-    model = lenet2(in_dim=1, n_class=10)
+    model = lenet(in_dim=1, n_class=10)
 
 tf_train_evaluate(model)
 ~~~
 
-下面来训练lenet3。
+![image-20201025172316449](images/image-20201025172316449.png)
 
-~~~python
-print("-"*50 + "\n创建模型") 
-model = lenet3(in_dim=3, n_class=10)
+![image-20201025172342817](images/image-20201025172342817.png)
 
-print("-"*50 + "\n显示参数")
-model.summary()
+同样，accuracy有所提高，也接近99%，非常好。
 
-print("-"*50 + "\n训练模型")
-model.compile(optimizer='adam',
-              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-              metrics=['accuracy'])
-with TaskTime('training', True):
-    history = model.fit(train_images, train_labels, epochs=10, batch_size=32,
-                        validation_data=(test_images, test_labels))
+## 参考
 
-print("-"*50 + "\n保存，加载模型") 
-model_root_path = os.path.join(os.path.expanduser('~'), '.keras/model') 
-if not os.path.exists(model_root_path): os.makedirs(model_root_path)
-model_path = os.path.join(model_root_path, 'tf_lenet.h5')
-model.save(model_path) 
-model = tf.keras.models.load_model(model_path)  
-    
-print("-"*50 + "\n评估模型")    
-plt.plot(history.history['accuracy'], label='accuracy')
-plt.plot(history.history['val_accuracy'], label = 'val_accuracy')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.ylim([0.5, 1])
-plt.legend(loc='lower right')
-
-train_loss, train_acc = model.evaluate(train_images,  train_labels, verbose=2)
-test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
-print('Train Accuracy: {:0.1f}%, Test Accuracy: {:0.1f}%'.format(100 * train_acc, 100*test_acc))
-~~~
-
-## 
+- [TensorFlow 2 quickstart for beginners](https://www.tensorflow.org/tutorials/quickstart/beginner)
