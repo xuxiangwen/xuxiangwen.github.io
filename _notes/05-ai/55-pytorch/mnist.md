@@ -1,4 +1,9 @@
-[MNIST](https://eipi10.cn/others/2020/10/22/dataset/)（Mixed National Institute of Standards and Technology）数据集是著名的手写数字数据集，被誉为数据科学领域的`果蝇`。本文使用pytorch和tensorflow实现对MNIST数据集进行分类，先从简单的模型开始，然后使用LeNet。
+---
+title: MNIST
+categories: deep-learning
+date: 2020-10-26
+---
+[MNIST](https://eipi10.cn/others/2020/10/22/dataset/)（Mixed National Institute of Standards and Technology）数据集是著名的手写数字数据集，被誉为数据科学领域的`果蝇`。本文使用pytorch和tensorflow实现对MNIST数据集进行分类，先从经典神经网络开始，然后使用LeNet。
 
 ## 经典神经网络
 
@@ -91,7 +96,7 @@ def train(net, criterion, trainloader, optimizer, testloader=None, epoches=2, us
                 
 class NN(nn.Module):
     def __init__(self, in_dim=1, n_class=10, p=0.2):
-        super(LeNet, self).__init__()    
+        super(NN, self).__init__()    
 
         self.fc1 = nn.Linear(28*28, 128)  
         self.fc2 = nn.Linear(128, n_class)
@@ -174,7 +179,7 @@ def torch_train_evaluate(net, epoches=2, save_model=False, model_file_name='torc
             if not os.path.exists(model_root_path): os.makedirs(model_root_path)
             model_path = os.path.join(model_root_path, model_file_name)
             torch.save(net.state_dict(), model_path) 
-            net = LeNet(in_dim=1, n_class=10)
+            net = NN(in_dim=1, n_class=10)
             net.load_state_dict(torch.load(model_path))     
 
     with TaskTime('评估模型', True):
@@ -186,7 +191,7 @@ with TaskTime('创建模型', True):
     net = NN(in_dim=1, n_class=10)
     print(net)
 
-torch_train_evaluate(net, epoches=5, save_model=True, model_name='torch_nn.pth')
+torch_train_evaluate(net, epoches=5, save_model=True, model_file_name='torch_nn.pth')
 ~~~
 
 ![image-20201026113344634](images/image-20201026113344634.png)
@@ -214,7 +219,7 @@ tf.config.experimental.set_virtual_device_configuration(
     [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=1024)]
 )
 
-def net():
+def neural_network():
     model = models.Sequential()
     model.add(layers.Flatten(input_shape=(28, 28)))
     model.add(layers.Dense(128, activation='relu'))
@@ -293,14 +298,14 @@ def tf_train_evaluate(model, epochs=2, save_model=False, model_file_name='tf_nn.
         print('Train Accuracy: {:0.1f}%, Test Accuracy: {:0.1f}%'.format(100 * train_acc, 100*test_acc)) 
 
 with TaskTime('创建模型', True): 
-    model = nn( )
+    model = neural_network( )
 
 tf_train_evaluate(model, epochs=5, save_model=True, model_file_name='tf_nn.h5')
 ~~~
 
 ![image-20201026114421894](images/image-20201026114421894.png)
 
-Accuracy更加好，超过97%，应该来说，效果非常不错。
+Accuracy比pytorch明显更加一点，超过97%，效果非常不错。
 
 ## LeNet模型
 
@@ -315,7 +320,7 @@ Accuracy更加好，超过97%，应该来说，效果非常不错。
 ~~~python
 class LeNet(nn.Module):
     def __init__(self, in_dim=1, n_class=10):
-        super(LeNet2, self).__init__()    
+        super(LeNet, self).__init__()    
 
         self.conv1 = nn.Conv2d(in_dim, 6, 5, padding=2)
         self.conv2 = nn.Conv2d(6, 16, 5)
@@ -340,12 +345,12 @@ with TaskTime('创建模型', True):
     net = LeNet(in_dim=1, n_class=10)
     print(net)
 
-torch_train_evaluate(net, save_model=True, epoches=5)
+torch_train_evaluate(net, epoches=5)
 ~~~
 
-![image-20201025170204922](images/image-20201025170204922.png)
+![image-20201026120641942](images/image-20201026120641942.png)
 
-经过5个epoch，accuracy有一些提供，能达到将近99%，非常理想。
+经过5个epoch，accuracy有一些提高，能达到将近99%，非常理想。
 
 ### tensorflow
 
@@ -378,14 +383,18 @@ test_images = test_images.reshape(test_images.shape + (1,))
 with TaskTime('创建模型', True): 
     model = lenet(in_dim=1, n_class=10)
 
-tf_train_evaluate(model)
+tf_train_evaluate(model, epochs=5)
 ~~~
 
-![image-20201025172316449](images/image-20201025172316449.png)
+![image-20201026121110346](images/image-20201026121110346.png)
 
-![image-20201025172342817](images/image-20201025172342817.png)
+![image-20201026121127180](images/image-20201026121127180.png)
 
-同样，accuracy有所提高，也接近99%，非常好。
+同样，比起经典神经网络，accuracy又提高了一点，接近99%，非常好。
+
+## 总结
+
+总体上无论采用经典神经网络还是LeNet都能取得不错的效果，LeNet收敛速度更快，Accuracy也高一点。
 
 ## 参考
 
