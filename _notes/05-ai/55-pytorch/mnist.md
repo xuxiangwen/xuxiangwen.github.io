@@ -491,7 +491,10 @@ train_images, train_labels, test_images, test_labels = tf_mnist_extract_data(dat
 接下来开始训练模型，第一个看经典的神经网络。
 
 ~~~python
+with TaskTime('创建模型', True): 
+    model = neural_network( )
 
+tf_train_evaluate(model, epochs=5)
 ~~~
 
 ![image-20201028095215543](images/image-20201028095215543.png)
@@ -506,7 +509,10 @@ test_images = tf.expand_dims(test_images, axis=-1)
 训练代码如下：
 
 ~~~python
+with TaskTime('创建模型', True): 
+    model = lenet(in_dim=1, n_class=10)
 
+tf_train_evaluate(model, epochs=5)
 ~~~
 
 ![image-20201028100025596](images/image-20201028100025596.png)
