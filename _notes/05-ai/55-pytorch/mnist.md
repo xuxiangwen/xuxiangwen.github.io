@@ -3,7 +3,7 @@ title: MNIST
 categories: deep-learning
 date: 2020-10-26
 ---
-[MNIST](https://eipi10.cn/others/2020/10/22/dataset/)（Mixed National Institute of Standards and Technology）数据集是著名的手写数字数据集，被誉为数据科学领域的`果蝇`。本文使用pytorch和tensorflow实现对MNIST数据集进行分类，先从经典神经网络开始，然后使用LeNet。
+[MNIST](https://eipi10.cn/others/2020/10/22/dataset/)（Mixed National Institute of Standards and Technology）数据集是著名的手写数字数据集，被誉为数据科学领域的`果蝇`。本文使用pytorch和tensorflow实现对MNIST数据集进行分类，先从经典神经网络开始，然后使用LeNet，最后还尝试了用相同的算法对[Fashion MNIST](https://eipi10.cn/others/2020/10/22/dataset/#fashion-mnist)数据集进行分类。
 
 ## 经典神经网络
 
@@ -114,23 +114,33 @@ class NN(nn.Module):
 下面是数据加载的代码。
 
 ~~~python
-def torch_mnist_extract_data():
+def torch_mnist_extract_data(dataset='mnist', classes=None):
     with TaskTime('获取数据', True):
         transform = transforms.Compose(
             [transforms.ToTensor(),
              transforms.Normalize(mean=(0.5), std=(0.5))])
         data_path = os.path.join(os.path.expanduser('~'), '.pytorch/datasets') 
         if not os.path.exists(data_path): os.makedirs(data_path)
-        trainset = torchvision.datasets.MNIST(root=os.path.join(data_path, 'mnist'), train=True,
-                                              download=True, transform=transform)
-        trainloader = torch.utils.data.DataLoader(trainset, batch_size=32,
-                                                  shuffle=True, num_workers=2)
+        if dataset=='mnist':
+            trainset = torchvision.datasets.MNIST(root=os.path.join(data_path, dataset), train=True,
+                                                  download=True, transform=transform)
+            trainloader = torch.utils.data.DataLoader(trainset, batch_size=32,
+                                                      shuffle=True, num_workers=2)
 
-        testset = torchvision.datasets.MNIST(root=os.path.join(data_path, 'mnist'), train=False,
-                                             download=True, transform=transform)
-        testloader = torch.utils.data.DataLoader(testset, batch_size=32,
-                                                 shuffle=False, num_workers=2)
+            testset = torchvision.datasets.MNIST(root=os.path.join(data_path, dataset), train=False,
+                                                 download=True, transform=transform)
+            testloader = torch.utils.data.DataLoader(testset, batch_size=32,
+                                                     shuffle=False, num_workers=2)
+        else:
+            trainset = torchvision.datasets.FashionMNIST(root=os.path.join(data_path, dataset), train=True,
+                                                          download=True, transform=transform)
+            trainloader = torch.utils.data.DataLoader(trainset, batch_size=32,
+                                                      shuffle=True, num_workers=2)
 
+            testset = torchvision.datasets.FashionMNIST(root=os.path.join(data_path, dataset), train=False,
+                                                        download=True, transform=transform)
+            testloader = torch.utils.data.DataLoader(testset, batch_size=32,
+                                                     shuffle=False, num_workers=2)           
 
     with TaskTime('显示图片示例', True):
         plt.rcParams['figure.figsize'] = (12.0, 1.5) 
@@ -146,13 +156,13 @@ def torch_mnist_extract_data():
         print(images.shape)
 
         # show images
-        print(' '.join('%5s' % labels[j].item() for j in range(8)))
+        print(' '.join('%5s' %  labels[j].item() if classes is None else classes[labels[j].item()] for j in range(8)))
         imshow(torchvision.utils.make_grid(images[0:8]))
 
     return trainset, trainloader, testset, testloader
 
 trainset, trainloader, testset, testloader = torch_mnist_extract_data()    
-
+   
 ~~~
 
 ![image-20201026111108647](images/image-20201026111108647.png)
@@ -231,10 +241,13 @@ def neural_network():
 然后加载数据。
 
 ~~~python
-def tf_mnist_extract_data():
+def tf_mnist_extract_data(dataset='mnist', classes=classes):
     with TaskTime('获取数据', True):
         # 默认的保存路径是~/.keras/datasets/
-        (train_images, train_labels), (test_images, test_labels) = datasets.mnist.load_data()
+        if dataset=='mnist':
+            (train_images, train_labels), (test_images, test_labels) = datasets.mnist.load_data()
+        else:
+            (train_images, train_labels), (test_images, test_labels) = datasets.fashion_mnist.load_data()
 
         # Normalize pixel values to be between 0 and 1
         train_images, test_images = train_images / 255.0, test_images / 255.0     
@@ -253,7 +266,7 @@ def tf_mnist_extract_data():
             plt.imshow(train_images[i], cmap='gray', interpolation='none')
             # The CIFAR labels happen to be arrays, 
             # which is why you need the extra index
-            plt.xlabel(train_labels[i])
+            plt.xlabel(train_labels[i] if classes is None else classes[train_labels[i]])
         plt.show()
     
     return train_images, train_labels, test_images, test_labels
@@ -373,8 +386,8 @@ def lenet(in_dim=1, n_class=10):
 由于采用卷积神经网络，需要有channel，所以对数据增加一个维度。
 
 ~~~python
-train_images = train_images.reshape(train_images.shape + (1,))
-test_images = test_images.reshape(test_images.shape + (1,))   
+train_images = tf.expand_dims(train_images, axis=-1)
+test_images = tf.expand_dims(test_images, axis=-1)
 ~~~
 
 下面来训练lenet。
@@ -392,10 +405,155 @@ tf_train_evaluate(model, epochs=5)
 
 同样，比起经典神经网络，accuracy又提高了一点，接近99%，非常好。
 
+## Fashion MNIST
+
+对于MNIST数据集，无论采用经典神经网络还是LeNet都能取得不错的效果，LeNet收敛速度更快，Accuracy也高一点。下面来尝试一下[Fashion MNIST](https://eipi10.cn/others/2020/10/22/dataset/#fashion-mnist)数据集，这个数据集和MNIST的结构完全相同，代码可以几乎不用修改。
+
+### pytorch
+
+首先下载数据。
+
+~~~python
+classes=['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal','Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+trainset, trainloader, testset, testloader = torch_mnist_extract_data(dataset='fashion-mnist', classes=classes) 
+~~~
+
+![image-20201028092402301](images/image-20201028092402301.png)
+
+接下来开始训练模型，第一个看经典的神经网络。
+
+~~~python
+with TaskTime('创建模型', True):      
+    net = NN(in_dim=1, n_class=10)
+    print(net)
+
+torch_train_evaluate(net, epoches=5)
+~~~
+
+![image-20201028092721943](images/image-20201028092721943.png)
+
+Accuracy只有85%，下面再来看LeNet。
+
+~~~python
+with TaskTime('创建模型', True):      
+    net = LeNet(in_dim=1, n_class=10)
+    print(net)
+
+torch_train_evaluate(net, epoches=5)
+~~~
+
+![image-20201028092924485](images/image-20201028092924485.png)
+
+Accuracy提高到了89%，不错。下面来看一种改进的LeNet。它增加了一层卷积，并大大增加了卷积的深度，同时减少了一层全连接层（或许可以减少一些过拟合）。
+
+~~~python
+class LeNet1(nn.Module):
+    def __init__(self, in_dim=1, n_class=10):
+        super(LeNet1, self).__init__()    
+
+        self.conv1 = nn.Conv2d(in_dim, 32, 3, padding=2)
+        self.conv2 = nn.Conv2d(32, 64, 3)
+        self.conv3 = nn.Conv2d(64, 64, 3)
+        self.fc1 = nn.Linear(64 * 4 * 4, 64)  
+        self.fc2 = nn.Linear(64, n_class)        
+        
+    def forward(self, x):
+        x = F.max_pool2d(F.relu(self.conv1(x)), 2)
+        x = F.max_pool2d(F.relu(self.conv2(x)), 2)
+        x = F.relu(self.conv3(x))
+        x = x.view(x.size()[0], -1)
+        x = F.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+    
+with TaskTime('创建模型', True):      
+    net = LeNet1(in_dim=1, n_class=10)
+    print(net)
+
+torch_train_evaluate(net, epoches=5)
+~~~
+
+![image-20201028093718791](images/image-20201028093718791.png)
+
+Accuracy继续提高到了91%。增加卷积的深度，看来还是有用的。
+
+### tensorflow
+
+首先也是下载数据。
+
+~~~python
+classes=['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal','Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+train_images, train_labels, test_images, test_labels = tf_mnist_extract_data(dataset='fashion-mnist', classes=classes)
+~~~
+
+![image-20201028094735210](images/image-20201028094735210.png)
+
+接下来开始训练模型，第一个看经典的神经网络。
+
+~~~python
+
+~~~
+
+![image-20201028095215543](images/image-20201028095215543.png)
+
+Accuracy只有87%左右，下面再来看LeNet。别忘了由于采用卷积神经网络，需要有channel，所以对数据增加一个维度。
+
+~~~python
+train_images = tf.expand_dims(train_images, axis=-1)
+test_images = tf.expand_dims(test_images, axis=-1)
+~~~
+
+训练代码如下：
+
+~~~python
+
+~~~
+
+![image-20201028100025596](images/image-20201028100025596.png)
+
+和pytorch一样，Accuracy同样提高到了89%。然后看改进的LeNet。它增加了一层卷积，并大大增加了卷积的深度，同时减少了一层全连接层（或许可以减少一些过拟合）。
+
+~~~python
+def lenet1(in_dim=1, n_class=10):
+    model = models.Sequential()
+    model.add(layers.Conv2D(32, (3, 3), activation='relu', padding="same", input_shape=(28, 28, in_dim)))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(64, (3, 3), activation='relu'))    
+    model.add(layers.Flatten())
+    model.add(layers.Dense(64, activation='relu'))
+    model.add(layers.Dense(n_class))    
+    return model
+
+with TaskTime('创建模型', True): 
+    model = lenet1(in_dim=1, n_class=10)
+
+tf_train_evaluate(model, epochs=5)
+~~~
+
+![image-20201028100413237](images/image-20201028100413237.png)
+
+同样，Accuracy也提高到了91%。如果再训练5个epoch，得到结果如下。
+
+![image-20201028100558373](images/image-20201028100558373.png)
+
+准确率还是91%多，但过拟合明显严重多了，看来要继续改进模型结构才可以啊。
+
 ## 总结
 
-总体上无论采用经典神经网络还是LeNet都能取得不错的效果，LeNet收敛速度更快，Accuracy也高一点。
+归纳上面的模型训练结果，可以得出以下几个结论。
+
+- LeNet比经典的神经网络参数要少，模型收敛更快，准确率明显提升。
+- MNIST数据集过于简单了，很简单的算法也能轻易取得99%的准确率。建议采用Fashion MNIST作为替代。
+- 增加卷积的深度，对于准确率的提升是有明显作用的。
+- 本文中，对于Fashion MNIST最好只能取得91%的准确率，还需要采用新的模型结构才能继续提升。
 
 ## 参考
 
 - [TensorFlow 2 quickstart for beginners](https://www.tensorflow.org/tutorials/quickstart/beginner)
+
+## 历史
+
+- 2020-10-26：初始版本
+- 2020-10-28：采用相同算法，对Fashion Mnist数据集进行分类
