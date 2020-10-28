@@ -74,7 +74,11 @@ nvidia-docker run -it  --name ts-gpu-py2  -v /home/grid/eipi10:/notebooks/eipi10
 docker exec -it ts-gpu-py2 bash
 ~~~
 
-### 
+### Dot net 
+
+~~~shell
+docker run -it --rm -p 28888:28888 -v /home/grid/eipi10:/home/user/local secana/dotnet-interactive:latest
+~~~
 
 ### Ruby开发环境
 
