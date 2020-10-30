@@ -8,7 +8,7 @@ date: 2020-10-18
 
 ## 1. 线性回归
 
-线性回归（Linear Regression）是利用称为线性回归方程的最小二乘函数对一个或多个自变量和因变量之间关系进行建模的一种回归分析. 
+线性回归（Linear Regression）是利用称为线性回归方程的最小二乘函数对一个或多个自变量和因变量之间关系进行建模的一种回归分析。
 
 ![Gradient descent for linear regression using Golang](images/Nulab-Gradient-descent-for-linear-regression-using-Golang-Blog.png)
 
@@ -21,7 +21,7 @@ $$
 
 ### 1.2 策略
 
-损失函数定义如下，需要最小化该函数。y
+损失函数定义如下，需要最小化该函数。
 $$
 \begin{align}
 J(w) &= \frac 1 {2m}  \sum_{i=1}^m (\hat y_i - y_i)^2    \\

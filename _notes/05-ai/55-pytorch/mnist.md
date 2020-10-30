@@ -504,6 +504,10 @@ Accuracy只有87%左右，下面再来看LeNet。别忘了由于采用卷积神�
 ~~~python
 train_images = tf.expand_dims(train_images, axis=-1)
 test_images = tf.expand_dims(test_images, axis=-1)
+
+# 下面两行代码可以实现上面相同的逻辑
+# train_images = train_images[..., np.newaxis]
+# test_images = test_images[..., np.newaxis]
 ~~~
 
 训练代码如下：

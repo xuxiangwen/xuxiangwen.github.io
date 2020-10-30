@@ -175,7 +175,7 @@ trainset, trainloader, testset, testloader = torch_cifar10_extract_data()
 接下来是模型创建，模型训练，保存加载，以及模型评估的代码。
 
 ~~~python
-def torch_train_evaluate(net, save_model=False):                   
+def torch_train_evaluate(net, epoches=10, save_model=False):                   
     with TaskTime('显示参数', True):
          # 由于存在bias，所以每一层都有两个参数张量，共有10个参数张量。
         params = list(net.parameters())
@@ -188,7 +188,7 @@ def torch_train_evaluate(net, save_model=False):
         # optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
         # Adam优化的速度比SGD明显要快
         optimizer = optim.Adam(net.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
-        train(net, criterion, trainloader, optimizer=optimizer, epoches=10, use_cuda=True)
+        train(net, criterion, trainloader, optimizer=optimizer, epoches=epoches, use_cuda=True)
 
     if save_model:  
         with TaskTime('保存，加载模型', True):
@@ -293,7 +293,7 @@ train_images, train_labels, test_images, test_labels = tf_cifar10_extract_data()
 接下来是模型创建，模型训练，保存加载，以及模型评估的代码。
 
 ~~~python
-def tf_train_evaluate(model, save_model=False):   
+def tf_train_evaluate(model, epochs=10, save_model=False, callbacks=None):   
     with TaskTime('显示参数', True):
         model.summary()
 
@@ -301,8 +301,8 @@ def tf_train_evaluate(model, save_model=False):
         model.compile(optimizer='adam',
                       loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
                       metrics=['accuracy'])
-        history = model.fit(train_images, train_labels, epochs=10, batch_size=32,
-                            validation_data=(test_images, test_labels))
+        history = model.fit(train_images, train_labels, epochs=epochs, batch_size=32,
+                            callbacks=callbacks, validation_data=(test_images, test_labels))
 
     if save_model:
         with TaskTime('保存，加载模型', True): 
