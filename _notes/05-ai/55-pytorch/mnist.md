@@ -57,7 +57,7 @@ def compute_accuarcy(net, loader, criterion, use_cuda=False):
             num_correct += correct
     return num_correct/total
 
-def forward_(net, inputs, labels, criterion, use_cuda=False):   
+def forward(net, inputs, labels, criterion, use_cuda=False):   
     if use_cuda and  torch.cuda.is_available(): 
         net = net.cuda()
         criterion = criterion.cuda()
@@ -77,7 +77,7 @@ def train(net, criterion, trainloader, optimizer, testloader=None, epoches=2, us
         for i, data in enumerate(trainloader, 0):
             inputs, labels = data   
             # 正向传播
-            _, _, _, loss, correct, _ = forward_(net, inputs, labels, criterion, use_cuda)   
+            _, _, _, loss, correct, _ = forward(net, inputs, labels, criterion, use_cuda)   
             running_loss += loss
             num_correct += correct
 
@@ -86,9 +86,7 @@ def train(net, criterion, trainloader, optimizer, testloader=None, epoches=2, us
             loss.backward()
             optimizer.step()
 
-            # print statistics
-            running_loss += loss.item()
-            if i % 500 == 499:    # print every 2000 mini-batches
+            if i % 500 == 499:    
                 print('[%d, %5d] loss: %.3f, accuracy: %.1f' %
                       (epoch + 1, i + 1, running_loss / 500, 100*num_correct/labels.size(0)/500))
                 running_loss = 0.0

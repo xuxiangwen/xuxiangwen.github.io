@@ -30,14 +30,14 @@ docker exec -it ts-py3 bash
 
 ~~~shell
 # 第一次
-docker stop tf-gpu-py3
-docker rm tf-gpu-py3
-docker run -it -d --gpus all --name tf-gpu-py3 -v /home/grid/eipi10:/tf/eipi10 -p 18888:8888 -p 17007:7007  tensorflow/tensorflow:2.2.1-gpu-py3-jupyter  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
-docker logs tf-gpu-py3
+docker stop tf-gpu
+docker rm tf-gpu
+docker run -it -d --gpus all --name tf-gpu -v /home/grid/eipi10:/tf/eipi10 -p 18888:8888 -p 17007:7007 -p 16006-16015:6006-6015 tensorflow/tensorflow:2.2.1-gpu-py3-jupyter  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
+docker logs tf-gpu
 
 # 再次启动
-docker start tf-gpu-py3
-docker exec -it tf-gpu-py3 bash
+docker start tf-gpu
+docker exec -it tf-gpu bash
 ~~~
 
 安装一些软件和python package
@@ -59,7 +59,7 @@ pip install --upgrade pyyaml
 pip install --upgrade sklearn 
 pip install --upgrade psycopg2-binary 
 pip install --upgrade pymysql 
-pip install --upgrade awscli --user 
+# pip install --upgrade awscli --user 
 pip install --upgrade torch torchvision 
 echo export PATH=\"\$PATH:/root/.local/bin\" >> /root/.bashrc
 

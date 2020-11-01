@@ -133,7 +133,49 @@ docker volume prune
 docker system prune --volumes
 ~~~
 
+### 修改容器的端口映射
 
+https://blog.opensvc.net/yun-xing-zhong-de-dockerrong-qi/
+
+**有一个问题config.v2.json总是被重复覆盖，导致设置失败。留待以后解决**
+
+~~~shell
+container_id=
+# docker_path=/var/lib/docker/container/${container_id}
+docker_path=/home/docker/container/${container_id}
+
+~~~
+
+接下来修改hostconfig.json和config.v2.json.
+
+~~~shell
+cat hostconfig.json
+~~~
+
+![a](images/image-20201030111540841.png)
+
+~~~shell
+cat config.v2.json
+~~~
+
+![image-20201030111748727](images/image-20201030111748727.png)
+
+~~~shell
+portbindings='"PortBindings":{"6006/tcp":[{"HostIp":"","HostPort":"16006"}],"6007/tcp":[{"HostIp":"","HostPort":"16007"}],"6008/tcp":[{"HostIp":"","HostPort":"16008"}],"6009/tcp":[{"HostIp":"","HostPort":"16009"}],"6010/tcp":[{"HostIp":"","HostPort":"16010"}],"6011/tcp":[{"HostIp":"","HostPort":"16011"}],"6012/tcp":[{"HostIp":"","HostPort":"16012"}],"6013/tcp":[{"HostIp":"","HostPort":"16013"}],"6014/tcp":[{"HostIp":"","HostPort":"16014"}],"6015/tcp":[{"HostIp":"","HostPort":"16015"}],"7007/tcp":[{"HostIp":"","HostPort":"17007"}],"8888/tcp":[{"HostIp":"","HostPort":"18888"}]}'
+exposedports=''"ExposedPorts":{"6006/tcp":{},"6007/tcp":{},"6008/tcp":{},"6009/tcp":{},"6010/tcp":{},"6011/tcp":{},"6012/tcp":{},"6013/tcp":{},"6014/tcp":{},"6015/tcp":{},"7007/tcp":{},"8888/tcp":{}}''
+ports='"Ports":{"6006/tcp":[{"HostIp":"0.0.0.0","HostPort":"16006"}],"6007/tcp":[{"HostIp":"0.0.0.0","HostPort":"16007"}],"6008/tcp":[{"HostIp":"0.0.0.0","HostPort":"16008"}],"6009/tcp":[{"HostIp":"0.0.0.0","HostPort":"16009"}],"6010/tcp":[{"HostIp":"0.0.0.0","HostPort":"16010"}],"6011/tcp":[{"HostIp":"0.0.0.0","HostPort":"16011"}],"6012/tcp":[{"HostIp":"0.0.0.0","HostPort":"16012"}],"6013/tcp":[{"HostIp":"0.0.0.0","HostPort":"16013"}],"6014/tcp":[{"HostIp":"0.0.0.0","HostPort":"16014"}],"6015/tcp":[{"HostIp":"0.0.0.0","HostPort":"16015"}],"7007/tcp":[{"HostIp":"0.0.0.0","HostPort":"17007"}],"8888/tcp":[{"HostIp":"0.0.0.0","HostPort":"18888"}]}'
+
+sed -i "s|\"PortBindings\":.*}\]}|$portbindings|g"  hostconfig.json
+sed -i "s|\"ExposedPorts\":.*{}}|$exposedports|g"   config.v2.json
+sed -i "s|\"Ports\":.*}\]}|$ports|g"   config.v2.json
+
+cat hostconfig.json
+cat config.v2.json
+
+
+sed  "s|\"ExposedPorts\":.*\}\}|$exposedports|g"   config.v2.json
+sed  "s|\"PortBindings\":.*?}\]}|$ports|g"   config.v2.json
+~~~
 
 ### Window下Docker Container的时间同步
 
