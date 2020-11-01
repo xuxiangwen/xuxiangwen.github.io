@@ -459,4 +459,5 @@ test accuracy提高到了70%，效果提升也很明显。
 
 - 2020-10-23：初始版本
 - 2020-10-30：tensorflow增加了tensorboard可视化显示， pytorch增加了曲线图。
+- 2020-11-01：pytorch训练时，增加了validation accuaracy。
 
