@@ -111,7 +111,7 @@ def train(net, criterion, optimizer, trainloader, validationloader, epochs=2, us
             optimizer.step()
                         
             if i % 50 == 49:        
-                sys.stdout.write('\r[epoch %2d/%2d %5d] loss: %.3f, accuracy: %.3f' % 
+                sys.stdout.write('\r[epoch %2d/%d %5d] loss: %.3f, accuracy: %.3f' % 
                                   (epoch + 1, epochs, i+1, train_loss/train_total, train_num_correct/train_total))                
                 train_loss = 0.0
                 train_num_correct = 0
@@ -127,7 +127,7 @@ def train(net, criterion, optimizer, trainloader, validationloader, epochs=2, us
         val_loss_list.append(val_loss)
         val_accuracy_list.append(val_accuracy)         
         
-        sys.stdout.write('\r[epoch %2d/%2d] loss: %.3f, accuracy: %.3f, val_loss: %.3f, val_accuracy: %.3f \n' %
+        sys.stdout.write('\r[epoch %2d/%d] loss: %.3f, accuracy: %.3f, val_loss: %.3f, val_accuracy: %.3f \n' %
                           (epoch + 1, epochs, train_loss, train_accuracy, val_loss, val_accuracy))
          
 
@@ -171,7 +171,7 @@ def torch_cifar10_extract_data():
         testset = torchvision.datasets.CIFAR10(root=os.path.join(data_path, 'cifar10'), train=False,
                                                download=True, transform=transform)
         testloader = torch.utils.data.DataLoader(testset, batch_size=32,
-                                                 shuffle=False, num_workers=2)
+                                                 shuffle=True, num_workers=2)
 
     classes = ('plane', 'car', 'bird', 'cat', 'deer', 
                'dog', 'frog', 'horse', 'ship', 'truck')
@@ -199,7 +199,7 @@ def torch_cifar10_extract_data():
 trainset, trainloader, testset, testloader = torch_cifar10_extract_data()
 ~~~
 
-![image-20201023184915487](images/image-20201023184915487.png)
+![image-20201101150408237](images/image-20201101150408237.png)
 
 接下来是模型创建，模型训练，保存加载，以及模型评估的代码。
 
@@ -225,7 +225,6 @@ def torch_train_evaluate(net, epochs=10, save_model=False):
             if not os.path.exists(model_root_path): os.makedirs(model_root_path)
             model_path = os.path.join(model_root_path, 'torch_lenet.pth')
             torch.save(net.state_dict(), model_path) 
-            net = LeNet(in_dim=3, n_class=10)
             net.load_state_dict(torch.load(model_path))     
 
     with TaskTime('评估模型', True):
@@ -239,7 +238,7 @@ def torch_train_evaluate(net, epochs=10, save_model=False):
         
         _, train_accuracy = compute_loss_accuarcy(net, trainloader, criterion, use_cuda=True)   
         _, test_accuracy = compute_loss_accuarcy(net, testloader, criterion, use_cuda=True)
-        print('Train Accuracy: {:0.3f}%, Test Accuracy: {:0.3f}%'.format(train_accuracy, test_accuracy)) 
+        print('Train Accuracy: {:0.3f}, Test Accuracy: {:0.3f}'.format(train_accuracy, test_accuracy)) 
         
 with TaskTime('创建模型', True):      
     net = LeNet(in_dim=3, n_class=10)
@@ -248,7 +247,7 @@ with TaskTime('创建模型', True):
 torch_train_evaluate(net, save_model=True, epochs=10)
 ~~~
 
-
+![image-20201101150630468](images/image-20201101150630468.png)
 
 准确率似乎不太好，只有60%多，且存在一定过拟合。
 
@@ -323,7 +322,7 @@ def tf_cifar10_extract_data():
 train_images, train_labels, test_images, test_labels = tf_cifar10_extract_data()
 ~~~
 
-![image-20201023190145097](images/image-20201023190145097.png)
+![image-20201101150713011](images/image-20201101150713011.png)
 
 接下来是模型创建，模型训练，保存加载，以及模型评估的代码。
 
@@ -366,11 +365,11 @@ with TaskTime('创建模型', True):
 tf_train_evaluate(model, save_model=True)
 ~~~
 
-![image-20201023190919046](images/image-20201023190919046.png)
+![image-20201101151724671](images/image-20201101151724671.png)
 
-![image-20201023191128872](images/image-20201023191128872.png)
+![image-20201101151747493](images/image-20201101151747493.png)
 
-accuracy，和pytorch非常接近，也是60%多，但同样10次迭代，只需要一半的时间（55秒多），可能原因是上面pytorch中training的代码是自己写的，而tensorflow中都是调用tf原生的函数。
+accuracy，和pytorch非常接近，也是60%多，但同样10次迭代，只需要一半不到的时间，可能原因是上面pytorch中training的代码是自己写的，而tensorflow中都是调用tf原生的函数。
 
 ## 模型优化
 
@@ -411,11 +410,9 @@ with TaskTime('创建模型', True):
 torch_train_evaluate(net)
 ~~~
 
-![image-20201023191256464](images/image-20201023191256464.png)
+![image-20201101152201145](images/image-20201101152201145.png)
 
-![image-20201023230118589](images/image-20201023230118589.png)
-
-test accuracy提高到了72%，效果提升明显。
+test accuracy提高到了70%多了，效果提升明显。
 
 ### tensorflow优化
 
@@ -444,11 +441,11 @@ with TaskTime('创建模型', True):
 tf_train_evaluate(model)
 ~~~
 
-![image-20201023231627664](images/image-20201023231627664.png)
+![image-20201101152546020](images/image-20201101152546020.png)
 
-![image-20201023231728031](images/image-20201023231728031.png)
+![image-20201101152610752](images/image-20201101152610752.png)
 
-test accuracy提高到了70%，效果提升也很明显。
+test accuracy也提高到了70%多了，效果提升也很明显。
 
 ## 参考
 
