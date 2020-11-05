@@ -144,7 +144,7 @@ def lenet1(in_dim=1, n_class=10):
 ~~~python
 # !rm -rf logs/fit/
 log_dir="logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1
+tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
 with TaskTime('创建模型', True): 
     model = lenet1(in_dim=3, n_class=10)

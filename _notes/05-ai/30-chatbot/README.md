@@ -1,8 +1,24 @@
-## 平台和工具
 
-- Facebook开源会话机器人的平台 [http://parl.ai](https://link.zhihu.com/?target=http%3A//parl.ai/)
 
-## 文章摘要
+
+
+## 2020-11-03
+
+https://www.cedextech.com/blog/open-source-chatbot-tools/
+
+another 2 open source software:
+
+- #### [BotKit](https://botkit.ai/)  : 已经被微软并购
+
+- #### [Rasa](https://rasa.com/)
+
+- #### [Botpress](https://botpress.com/)
+
+- #### [BotMan](https://botman.io/)
+
+https://blog.stormbirds.cn/articles/2019/02/21/1550713333208.html
+
+## Old
 
 ### [聊天机器人资源合集：项目，语聊，论文，教程](https://gitee.com/fendouai/Awesome-Chatbot)
 
