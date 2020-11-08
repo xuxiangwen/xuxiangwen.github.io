@@ -12,7 +12,7 @@ date: 2020-11-09
 
 - 创建一个新的类，这个类继承`tf.keras.callbacks.Callback`。
 
-- 根据需求，重载tf.keras.callbacks.Callback`中的如下方法。
+- 根据需求，重载`tf.keras.callbacks.Callback`中的如下方法。
   - `on_(train|test|predict)_begin(self, logs=None)`
   - `on_(train|test|predict)_end(self, logs=None)`
   - `on_(train|test|predict)_batch_begin(self, batch, logs=None)`
@@ -38,10 +38,10 @@ date: 2020-11-09
       on_test_begin(self, logs=None)
       for batch in test_batches:
           on_test_batch_begin(self, batch, logs=None)
-          on_test_batch_end(self, batch, logs=None)： # logs.keys = [loss, ...]
-      on_test_end(self, logs=None)					# logs.keys = [loss, ...]    
-      on_epoch_end(self, epoch, logs=None)			# logs.keys = [loss, val_loss, ...]
-  on_train_end(self, logs=None)						# logs.keys = [loss, val_loss, ...]
+          on_test_batch_end(self, batch, logs=None)	 # logs.keys = [loss, ...]
+      on_test_end(self, logs=None)	# logs.keys = [loss, ...]    
+      on_epoch_end(self, epoch, logs=None)	# logs.keys = [loss, val_loss, ...]
+  on_train_end(self, logs=None)	# logs.keys = [loss, val_loss, ...]
   ~~~
 
 - `tf.keras.Model.evaluate()`
@@ -53,7 +53,7 @@ date: 2020-11-09
   for batch in test_batches:
   	on_test_batch_begin(self, batch, logs=None)			
       on_test_batch_end(self, batch, logs=None)   	# logs.keys = [loss, ...] 
-  on_test_end(self, logs=None)						# logs.keys = [loss, val_loss, ...]
+  on_test_end(self, logs=None)	# logs.keys = [loss, val_loss, ...]
   ~~~
 
 - `tf.keras.Model.predict()`
