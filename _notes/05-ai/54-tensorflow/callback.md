@@ -202,21 +202,9 @@ res = model.predict(x_test, batch_size=256, callbacks=[CustomCallback()])
 
 ### Early Stopping
 
-在模型训练时，为了减少过拟合，往往会采用Early Stopping的技术。它会比较某一个metrics（最常用的是`val_loss`）是否在持续在降低，如果连续几个epochs都没有降低，将会中止训练，而且往往会把参数恢复到之前metrics最低时候的参数。TensorFlow中实现的Early Stopping功能的类是tf.keras.callbacks.EarlyStopping，定义如下。
+在模型训练时，为了减少过拟合，往往会采用Early Stopping的技术。它会比较某一个metrics（最常用的是`val_loss`）是否在持续在降低，如果连续几个epochs都没有降低，将会中止训练，而且往往会把参数恢复到之前metrics最低时候的参数。
 
-```py
-tf.keras.callbacks.EarlyStopping(
-    monitor='val_loss', 
-    min_delta=0, 
-    patience=0, 
-    verbose=0, 
-    mode='auto',
-    baseline=None, 
-    restore_best_weights=False
-)
-```
-
-下面自定义的类也实现了Early Stopping的逻辑，和TensorFlow的版本相比，稍微简单了一点点。当`self.model.stop_training = True`时，训练将会退出。
+下面自定义的类实现了Early Stopping的逻辑。下面代码中，当设置`self.model.stop_training = True`后，训练将会退出。
 
 ~~~python
 class MyEarlyStopping(keras.callbacks.Callback):
@@ -299,7 +287,21 @@ plot_history(history, metrics_name='loss')
 
 上图中第15 epoch，val_loss获得最低的值，接下来五轮epoch，val_loss无法获得更低的值，所以训练退出。
 
-如果调用`keras.callbacks.EarlyStopping`，效果完全相同。
+TensorFlow在tf.keras.callbacks.EarlyStopping类中也实现的Early Stopping功能，其逻辑和上面的实现基本相同。
+
+```py
+tf.keras.callbacks.EarlyStopping(
+    monitor='val_loss', 
+    min_delta=0, 
+    patience=0, 
+    verbose=0, 
+    mode='auto',
+    baseline=None, 
+    restore_best_weights=False
+)
+```
+
+如果调用`keras.callbacks.EarlyStopping`，效果完全一样。
 
 ~~~python
 model = get_model()
