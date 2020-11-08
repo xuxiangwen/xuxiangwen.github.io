@@ -28,19 +28,21 @@ docker exec -it ts-py3 bash
 
 **gpu**
 
+既然大多数情况，都会创建gpu的版本，干脆用最简单的名字tf吧。而且TensorFlow 2.1 是支持 Python 2 的最后一个 TF 版本，之后，只支持python3，所以docker tag中也不再需要py3了
+
 ~~~shell
-# 第一次
-docker stop tf-gpu
-docker rm tf-gpu
-docker run -it -d --gpus all --name tf-gpu -v /home/grid/eipi10:/tf/eipi10 -p 18888:8888 -p 17007:7007 -p 16006-16015:6006-6015 tensorflow/tensorflow:2.2.1-gpu-py3-jupyter  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
-docker logs tf-gpu
+container_name=tf
+docker stop $container_name
+docker rm $container_name
+docker run -it -d --gpus all --name $container_name -v /home/grid/eipi10:/tf/eipi10 -p 18888:8888 -p 17007:7007 -p 16006-16015:6006-6015 tensorflow/tensorflow:latest-gpu-jupyter  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
+docker logs $container_name
 
 # 再次启动
-docker start tf-gpu
-docker exec -it tf-gpu bash
+docker start $container_name
+docker exec -it $container_name bash
 ~~~
 
-安装一些软件和python package
+安装一些软件和python package。
 
 ~~~shell
 #http_proxy='http://web-proxy.rose.hp.com:8080' apt-get update 
