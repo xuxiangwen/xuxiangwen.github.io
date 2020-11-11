@@ -31,17 +31,17 @@ date: 2020-11-09
   ~~~python
   on_train_begin(self, logs=None)
   for epoch in epoches:
-  	on_epoch_begin(self, epoch, logs=None)
+      on_epoch_begin(self, epoch, logs=None)
       for batch in train_batches:
           on_train_batch_begin(self, batch, logs=None)
-          on_train_batch_end(self, batch, logs=None) 	# logs.keys = [loss, ...]        
+          on_train_batch_end(self, batch, logs=None)     # logs.keys = [loss, ...]        
       on_test_begin(self, logs=None)
       for batch in test_batches:
           on_test_batch_begin(self, batch, logs=None)
-          on_test_batch_end(self, batch, logs=None)	 # logs.keys = [loss, ...]
-      on_test_end(self, logs=None)	# logs.keys = [loss, ...]    
-      on_epoch_end(self, epoch, logs=None)	# logs.keys = [loss, val_loss, ...]
-  on_train_end(self, logs=None)	# logs.keys = [loss, val_loss, ...]
+          on_test_batch_end(self, batch, logs=None)     # logs.keys = [loss, ...]
+      on_test_end(self, logs=None)    # logs.keys = [loss, ...]    
+      on_epoch_end(self, epoch, logs=None)    # logs.keys = [loss, val_loss, ...]
+  on_train_end(self, logs=None)    # logs.keys = [loss, val_loss, ...]
   ~~~
 
 - `tf.keras.Model.evaluate()`
@@ -51,9 +51,9 @@ date: 2020-11-09
   ~~~python
   on_test_begin(self, logs=None)
   for batch in test_batches:
-  	on_test_batch_begin(self, batch, logs=None)			
-      on_test_batch_end(self, batch, logs=None)   	# logs.keys = [loss, ...] 
-  on_test_end(self, logs=None)	# logs.keys = [loss, val_loss, ...]
+      on_test_batch_begin(self, batch, logs=None)            
+      on_test_batch_end(self, batch, logs=None)       # logs.keys = [loss, ...] 
+  on_test_end(self, logs=None)    # logs.keys = [loss, val_loss, ...]
   ~~~
 
 - `tf.keras.Model.predict()`
@@ -63,8 +63,8 @@ date: 2020-11-09
   ~~~python
   on_predict_begin(self, logs=None)
   for batch in test_batches:
-  	on_predict_batch_begin(self, batch, logs=None)	
-  	on_predict_batch_end(self, batch, logs=None)	# logs = [outputs, ...] 
+      on_predict_batch_begin(self, batch, logs=None)    
+      on_predict_batch_end(self, batch, logs=None)    # logs = [outputs, ...] 
   on_predict_end(self, logs=None)
   ~~~
 
@@ -115,7 +115,7 @@ def get_mnist():
 class CustomCallback(keras.callbacks.Callback):
     def on_train_begin(self, logs=None):
         keys = list(logs.keys())
-        print("Starting training; got log keys: {}".format(keys))
+        print("Starting training; got log keys: {}".format(keys))        
 
     def on_train_end(self, logs=None):
         keys = list(logs.keys())
