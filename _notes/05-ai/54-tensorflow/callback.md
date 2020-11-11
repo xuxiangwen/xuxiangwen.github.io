@@ -332,10 +332,14 @@ plot_history(history, metrics_name='loss')
 然后创建callback，它将在每个epoch保存一次模型参数，代码如下。
 
 ~~~python
-checkpoint_dir = "./checkpoints"
-if not os.path.exists(checkpoint_dir):  os.makedirs(checkpoint_dir)
-checkpoint_path = os.path.join(checkpoint_dir, "weights.{epoch:02d}-{val_loss:.2f}.h5")
+import shutil
 
+checkpoint_dir = "./checkpoints"
+if os.path.exists(checkpoint_dir):
+    shutil.rmtree(checkpoint_dir)
+os.makedirs(checkpoint_dir)
+
+checkpoint_path = os.path.join(checkpoint_dir, "weights.{epoch:02d}-{val_loss:.2f}.h5")
 cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
                                                  save_weights_only=True,
                                                  verbose=1)
@@ -351,7 +355,7 @@ model.fit(
 pprint(os.listdir(checkpoint_dir))
 ~~~
 
-
+![image-20201111174325438](images/image-20201111174325438.png)
 
 上面生成了5个[HDF5](https://zhuanlan.zhihu.com/p/104145585)格式的参数文件。下面是加载模型参数的代码。
 
@@ -365,7 +369,7 @@ loss, accuracy = model.evaluate(x_test, y_test, batch_size=256, verbose=0)
 print('test loss is {:.3f}, test accuracy is {:.3f}'.format(loss, accuracy))
 ~~~
 
-![image-20201111101110095](images/image-20201111101110095.png)
+![image-20201111174445703](images/image-20201111174445703.png)
 
 ## 参考
 
