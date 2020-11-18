@@ -323,7 +323,25 @@ plot_history(history, metrics_name='loss')
 
 ### Save Checkpoints
 
-在训练模型的时候，有时候需要要保存中间的一些结果，采用callback可以很容易做到这一点。首先安装所需要的包。
+在训练模型的时候，有时候需要要保存中间的一些结果，采用tf.keras.callbacks.ModelCheckpoint可以很容易做到这一点。下面是创建ModelCheckpoint的一些参数。
+
+| Arguments           | 描述                                                         |
+| :------------------ | ------------------------------------------------------------ |
+| `filepath`          | 模型保存的文件路径。可以添加一些变量，比如：`weights.{epoch:02d}-{val_loss:.2f}.hdf5` |
+| `monitor`           | 监控的metrics，仅当`save_best_only=True`时发挥作用。默认是val_loss。 |
+| `verbose`           | verbosity mode, 0 or 1.                                      |
+| `save_best_only`    | 如果`save_best_only=True`, 仅仅当monitor的metrics获得最佳性能后才会保存模型 |
+| `mode`              | 根据monitor的metrics的最优来决定是否保存模型。仅当`save_best_only=True`时发挥作用，有三个值：auto, min, max。默认为auto。 |
+| `save_weights_only` | 是否仅仅保存模型weights，默认False                           |
+| `save_freq`         | 保存的频次，可以设置`'epoch'`或者 integer. 当设置 `'epoch'`,则每个epoch都会保存模型。当设置为整数，表示每训练`save_freq`个batch，模型会保存一次。 默认是`'epoch'`。 |
+
+需要注意的有两点：
+
+- 当`save_best_only=True`时，避免设置`save_freq`的值，这是因为monitor监控的一般是val_loss, val_accuaracy等，它们是validation数据集上的metrics，`save_freq`会在on_train_batch_end实现触发模型保存的动作，但这个事件里，logs参数并没有validation数据集上的metrics。
+
+- 在版本Tensor Flow 2.3.1中，在ModelCheckpoint的filepath参数中，不支持batch作为参数，这应该是个bug，因为这样的需求很常见。在早期的2.0.0版本中，反而支持，让人困惑。
+
+下面来看具体代码实现，首先安装所需要的包。
 
 ~~~python
 !pip install -q pyyaml h5py  # Required to save models in HDF5 format

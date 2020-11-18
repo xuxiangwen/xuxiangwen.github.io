@@ -30,3 +30,14 @@ Google引入了AI Hub，使AI可以更广泛地接触企业，使他们更容易
 ### TensorFlow API Document
 
 https://www.tensorflow.org/api_docs/python/tf
+
+## [Keras Applictions](https://keras.io/api/applications/)
+
+Kera的应用模块Application提供了带有预训练权重的Keras模型，这些模型可以用来进行预测、特征提取和finetune
+
+## [Tensorflow Hub](https://www.tensorflow.org/hub)
+
+TensorFlow Hub 是一个包含经过训练的机器学习模型的代码库，这些模型稍作调整便可部署到任何设备上。您只需几行代码即可重复使用经过训练的模型，例如 BERT 和 Faster R-CNN。
+
+对应中文网站：
+
