@@ -78,7 +78,7 @@ evaulate(model, x_test, y_test)
   - variables.index：参数的索引文件。如果在分布式情况下，参数可能会从不同的分区（shards）得到。
   - variables.data-00000-of-00001：参数文件。如果有多个分区，将会有多个文件。
 - assets：保存TF计算图 (graph) 所用到的内容。
-- saved_model.pb：模型的结构。包含 protobuf 对象序列化后的数据，包含了计算图，可以从中得到所有运算符（operators）的细节，也包含张量（tensors）和 Variables 定义，但不包含 Variable 的值，因此只能从中恢复计算图，但一些训练的权值仍需要从 checkpoint 中恢复。
+- saved_model.pb：模型的结构。包含 [protobuf](https://colobu.com/2019/10/03/protobuf-ultimate-tutorial-in-go/) 对象序列化后的数据，包含了计算图，可以从中得到所有运算符（operators）的细节，也包含张量（tensors）和 Variables 定义，但不包含 Variable 的值，因此只能从中恢复计算图，但一些训练的权值仍需要从 checkpoint 中恢复。
 
 ### HDF5格式
 

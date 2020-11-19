@@ -8,11 +8,9 @@ date: 2020-10-22
 
 ## MNIST
 
-[MNIST](http://yann.lecun.com/exdb/mnist/)（Mixed National Institute of Standards and Technology）数据集是著名的手写数字数据集，被誉为数据科学领域的`果蝇`。
-
 ![img](images/8389494-c279133be28eb263.webp)
 
-数据分为四部分。
+[MNIST](http://yann.lecun.com/exdb/mnist/)（Mixed National Institute of Standards and Technology）数据集是著名的手写数字数据集，被誉为数据科学领域的`果蝇`。数据分为四部分。
 
 | 数据文件                                                     | 描述         | 数据量 |
 | ------------------------------------------------------------ | ------------ | ------ |
@@ -28,6 +26,8 @@ date: 2020-10-22
 ~~~python
 import gzip
 import logging
+import matplotlib.pyplot as plt
+import numpy as np
 import os
 import six.moves.urllib as urllib
 
@@ -45,7 +45,7 @@ def mnist_download(target_path, source_url='http://yann.lecun.com/exdb/mnist', h
 
     def maybe_download(file_name):
         if not os.path.exists(target_path):
-            os.mkdir(target_path)
+            os.makedirs(target_path)
         file_path = os.path.join(target_path, file_name)
         if not os.path.exists(file_path):
             source_file_url = os.path.join(source_url, file_name)
@@ -230,6 +230,8 @@ CIFAR-10数据集被划分成了5个训练的batch和1个测试的batch，每个
 ~~~python
 import logging
 import os
+import matplotlib.pyplot as plt
+import numpy as np
 import tarfile
 import six.moves.urllib as urllib
 
@@ -247,7 +249,7 @@ def cifar10_download_and_extract(target_path, source_url="https://www.cs.toronto
 
     def maybe_download(file_name):
         if not os.path.exists(target_path):
-            os.mkdir(target_path)
+            os.makedirs(target_path)
         file_path = os.path.join(target_path, file_name)
         if not os.path.exists(file_path):
             source_file_url = os.path.join(source_url, file_name)
@@ -345,6 +347,8 @@ Large Movie Review Dataset包括 50,000 条标记情感的电影评论，其中�
 ~~~python
 import gzip
 import logging
+import matplotlib.pyplot as plt
+import numpy as np
 import os
 import tarfile
 import six.moves.urllib as urllib
@@ -363,7 +367,7 @@ def lmrd_download_and_extract(target_path, source_url='https://ai.stanford.edu/~
 
     def maybe_download(file_name):
         if not os.path.exists(target_path):
-            os.mkdir(target_path)
+            os.makedirs(target_path)
         file_path = os.path.join(target_path, file_name)
         if not os.path.exists(file_path):
             source_file_url = os.path.join(source_url, file_name)
@@ -496,13 +500,177 @@ for file_name in pos_files[0:3]:
 
 ![image-20201105141742737](images/image-20201105141742737.png)
 
+## EuroSAT dataset
+
+![Image Name](images/q74ercqrjz.png)
+
+[EuroSAT dataset](https://github.com/phelber/EuroSAT)是基于哨兵2号（Sentinel-2）卫星拍摄的图像收集而成，覆盖了13个光谱带，由10个分类组成，总共27,000张带标签和地理参考的土地使用图像。用于检测土地使用分类和土地覆盖变化等问题的研究，以帮助改善地理环境。数据集包含以下十类，每类包含2000～3000张图片，图片像素为64x64。
+
+- Industrial Buildings 工业建筑
+- Residential Buildings 居民楼
+- Annual Crop 庄稼作物
+- Permanent Crop 永久性作物
+- River 河
+- Sea & Lake 海洋湖泊
+- Herbaceous Vegetation 草本植被
+- Highway 高速公路
+- Pasture 牧场
+- Forest 森林
+
+各类图片示例如下：
+
+![Image Name](images/q74ermu6td.png)
+
+数据集下载地址是http://madm.dfki.de/files/sentinel/EuroSAT.zip
+
+### 数据下载
+
+~~~python
+import logging
+import os
+import matplotlib.pyplot as plt
+import numpy as np
+import zipfile
+import six.moves.urllib as urllib
+
+logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
+logging.root.setLevel(level=logging.INFO)
+
+def eurosat_download_and_extract(target_path, source_url="http://madm.dfki.de/files/sentinel", http_proxy=None):
+    if http_proxy is not None:
+        proxy_handler = urllib.request.ProxyHandler({'http': http_proxy, 'https': http_proxy})
+        opener = urllib.request.build_opener(proxy_handler)
+    else:
+        opener = urllib.request.build_opener()
+
+    urllib.request.install_opener(opener)
+
+    def maybe_download(file_name):
+        if not os.path.exists(target_path):
+            os.makedirs(target_path)
+        file_path = os.path.join(target_path, file_name)
+        if not os.path.exists(file_path):
+            source_file_url = os.path.join(source_url, file_name)
+            logging.info(source_file_url)
+            filepath, _ = urllib.request.urlretrieve(source_file_url, file_path)
+            statinfo = os.stat(filepath)
+            logging.info('Successfully downloaded {} {} bytes.'.format(file_name, statinfo.st_size))
+        return file_path
+    
+    tar_gz_file = 'EuroSAT.zip'
+    data_path= maybe_download(tar_gz_file)
+    
+    # extract the tar.gz file
+    extract_path = os.path.join(target_path, "2750")
+    logging.info("extract {} to {}".format(tar_gz_file, extract_path))
+    with zipfile.ZipFile(data_path, 'r') as zip_ref:
+        zip_ref.extractall(target_path)
+    return extract_path
+
+local_path = os.path.join('.', 'data/eurosat')
+data_path = eurosat_download_and_extract(local_path)
+~~~
+
+![image-20201119104546525](images/image-20201119104546525.png)
+
+下载并解压后，其目录结构如下。
+
+![image-20201119095811686](images/image-20201119095811686.png)
+
+2750目录下有10个文件夹，对应上节说的10个类，每个文件夹下有2000~3000个文件。
+
+![image-20201119100340018](images/image-20201119100340018.png)
+
+### 读取数据
+
+首先看看这些图片都是什么样子的。
+
+~~~python
+plt.figure(figsize=(13,13))
+
+i = -1
+label_cnt = 10
+for label in os.listdir(data_path): 
+    files = os.listdir(os.path.join(data_path, label))
+    i = i+1
+    if i>=label_cnt: break 
+    for j in range(label_cnt):
+        plt.subplot(label_cnt, label_cnt, label_cnt*i+j+1)
+        plt.tight_layout()
+        file_path =  os.path.join(data_path, label, files[j])
+        image = Image.open(file_path)
+        if j==0: plt.text(0, 10, label, color='red')
+        plt.imshow(image)
+        plt.xticks([])
+        plt.yticks([])
+
+plt.subplots_adjust(wspace=0, hspace=0)        
+plt.show()
+~~~
+
+![image-20201119112945640](images/image-20201119112945640.png)
+
+接下来是把这些图片转化到numpy的narrary中去。
+
+~~~python
+def extract_data_label(data_path, labels):
+    data = []
+    label = []    
+    
+    i = 0
+    for child in labels: 
+        files = os.listdir(os.path.join(data_path, child))
+        for file in files:
+            file_path =  os.path.join(data_path, child, file)
+            image = Image.open(file_path)
+            x = np.asarray(image)
+            data.append(x)
+            label.append(i)
+        i = i + 1
+
+    data = np.stack(data, axis=0)
+    label = np.array(label)
+    return data, label
+
+labels = os.listdir(data_path)
+data, label = extract_data_label(data_path, labels)
+
+print(data.shape)
+print(label.shape)
+print(labels)
+~~~
+
+![image-20201119121352528](images/image-20201119121352528.png)
+
+最后来验证一下，看看我们的转化是否正确。
+
+~~~python
+plt.figure(figsize=(10,10))
+
+indexes = np.random.randint(len(data), size=25)
+for i,index in enumerate(indexes):
+
+    plt.subplot(5,5,i+1)
+    plt.tight_layout()
+    plt.imshow(data[index])
+    plt.title("{}".format(classes[label[index]]))
+    plt.xticks([])
+    plt.yticks([])
+       
+plt.show()    
+~~~
+
+![image-20201119122501919](images/image-20201119122501919.png)
+
 ## 参考
 
 - [Fashion-MNIST：替代MNIST手写数字集的图像数据集](https://zhuanlan.zhihu.com/p/28847070)
+- [EuroSAT土地使用情况图像数据集](https://www.kesci.com/mw/dataset/5e6b3125dd480d002c21c46c)
 
 ## 历史
 
 - 2020-10-22：初始版本。包含MNIST和CIFAR10数据集合
 - 2020-10-27：新增数据集Fashion MNIST
 - 2020-11-04：增加数据集Large Movie Review Dataset
+- 2020-11-19：增加数据集EuroSAT dataset
 
