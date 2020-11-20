@@ -325,15 +325,15 @@ plot_history(history, metrics_name='loss')
 
 在训练模型的时候，有时候需要要保存中间的一些结果，采用tf.keras.callbacks.ModelCheckpoint可以很容易做到这一点。下面是创建ModelCheckpoint的一些参数。
 
-| Arguments           | 描述                                                         |
-| :------------------ | ------------------------------------------------------------ |
-| `filepath`          | 模型保存的文件路径。可以添加一些变量，比如：`weights.{epoch:02d}-{val_loss:.2f}.hdf5` |
-| `monitor`           | 监控的metrics，仅当`save_best_only=True`时发挥作用。默认是val_loss。 |
-| `verbose`           | verbosity mode, 0 or 1.                                      |
-| `save_best_only`    | 如果`save_best_only=True`, 仅仅当monitor的metrics获得最佳性能后才会保存模型 |
-| `mode`              | 根据monitor的metrics的最优来决定是否保存模型。仅当`save_best_only=True`时发挥作用，有三个值：auto, min, max。默认为auto。 |
-| `save_weights_only` | 是否仅仅保存模型weights，默认False                           |
-| `save_freq`         | 保存的频次，可以设置`'epoch'`或者 integer. 当设置 `'epoch'`,则每个epoch都会保存模型。当设置为整数，表示每训练`save_freq`个batch，模型会保存一次。 默认是`'epoch'`。 |
+| Arguments         | 描述                                                         |
+| :---------------- | ------------------------------------------------------------ |
+| filepath          | 模型保存的文件路径。可以添加一些变量，比如：`weights.{epoch:02d}-{val_loss:.2f}.hdf5` |
+| monitor           | 监控的metrics，仅当`save_best_only=True`时发挥作用。默认是val_loss。 |
+| verbose           | verbosity mode, 0 or 1.                                      |
+| save_best_only    | 如果`save_best_only=True`, 仅仅当monitor的metrics获得最佳性能后才会保存模型 |
+| mode              | 根据monitor的metrics的最优来决定是否保存模型。仅当`save_best_only=True`时发挥作用，有三个值：auto, min, max。默认为auto。 |
+| save_weights_only | 是否仅仅保存模型weights，默认False                           |
+| save_freq         | 保存的频次，可以设置`'epoch'`或者 integer. 当设置 `'epoch'`,则每个epoch都会保存模型。当设置为整数，表示每训练`save_freq`个batch，模型会保存一次。 默认是`'epoch'`。 |
 
 需要注意的有两点：
 
