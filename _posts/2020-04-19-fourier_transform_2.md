@@ -242,207 +242,171 @@ $$
 
 ## 总结
 
-下面总结上面谈到的各种傅里叶级数的公式。一个周期函数可以表示成：
+### 周期函数
 
-- 实数二维平面（实数轴+时间轴）
-  
-  - 正弦+余弦函数的组合
+下面总结上面谈到的各种傅里叶级数的公式。一个周期函数可以表示成多种形式。
 
-    $$
+#### 实数二维平面（实数轴+时间轴）
 
-    f(x) = \frac {a_0} 2 + \sum_{n=1}^{N} \left( a_n\cos(\frac {2\pi nx} {T}) +  b_n\sin(\frac {2\pi nx} {T})\right )
+- 正弦+余弦函数的组合
 
-    $$
+  $$
 
-    
-    其中：
-    
+  f(x) = \frac {a_0} 2 + \sum_{n=1}^{N} \left( a_n\cos(\frac {2\pi nx} {T}) +  b_n\sin(\frac {2\pi nx} {T})\right )
 
-    $$
-
-    a_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\cos(\frac {2\pi nx} {T})  dx \\
-    b_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\sin(\frac {2\pi nx} {T})  dx
-
-    $$
-
-  - 正弦函数的组合
-
-    $$
-
-    \begin{align}
-    f(x) =   \sum_{n=0}^{N} A_n\sin(\frac {2\pi nx} {T} + \phi_n)  \\
-    \end{align}
-
-    $$
-
-    
-    其中：
-    
-
-    $$
-
-    A_0=\frac {a_0} 2, \phi_0=\frac \pi 2 \\  A_n = \sqrt {a_n^2 + b_n^2}, \\ {A_n}\sin(\phi_n) =  {a_n} , \ {A_n}\cos(\phi_n) = {b_n}
-
-    $$
+  $$
 
   
-- 复数三维空间（复平面+时间轴）
+  其中：
+  
 
-  - 匀速圆周运动组合的投影：三维等轴螺旋线的叠加（下面公式）在虚数轴和时间轴的投影
+  $$
 
-    $$
+  a_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\cos(\frac {2\pi nx} {T})  dx \\
+  b_n = \frac 2 T \int_{x_0}^{x_0+T} f(x)\sin(\frac {2\pi nx} {T})  dx
 
-    \sum_{n=0}^{N} A_n e^{\mathbf i( {\omega nx}  + \phi_n)}
+  $$
 
-    $$
+- 正弦函数的组合
 
-    其中：
+  $$
 
-    $$
+  \begin{align}
+  f(x) =   \sum_{n=0}^{N} A_n\sin(\frac {2\pi nx} {T} + \phi_n)  \\
+  \end{align}
 
-    A_0=\frac {a_0} 2, \phi_0=\frac \pi 2 \\  A_n = \sqrt {a_n^2 + b_n^2}, \\ {A_n}\sin(\phi_n) =  {a_n} , \ {A_n}\cos(\phi_n) = {b_n} \\
-    \omega= \frac {2\pi} T
+  $$
 
-    $$
+  
+  其中：
+  
 
-  - 匀速圆周运动组合：三维等轴螺旋线的叠加
+  $$
 
-    $$
+  A_0=\frac {a_0} 2, \phi_0=\frac \pi 2 \\  A_n = \sqrt {a_n^2 + b_n^2}, \\ {A_n}\sin(\phi_n) =  {a_n} , \ {A_n}\cos(\phi_n) = {b_n}
 
-    f(x) =  \sum_{n=-N}^{N} c_n \cdot e^{\mathbf i\omega nx}
+  $$
 
-    $$
+#### 复数三维空间（复平面+时间轴）
 
-    其中：
+- 匀速圆周运动组合的投影：三维等轴螺旋线的叠加（下面公式）在虚数轴和时间轴的投影
 
-    $$
+  $$
 
-    c_n= \frac 1 T \int_{x_0}^{x_0+T} f(x) e^{-\mathbf i\omega nx} dx \\
-    \omega= \frac {2\pi} T
+  \sum_{n=0}^{N} A_n e^{\mathbf i( {\omega nx}  + \phi_n)}
 
-    $$
+  $$
 
-    
+  其中：
+
+  $$
+
+  A_0=\frac {a_0} 2, \phi_0=\frac \pi 2 \\  A_n = \sqrt {a_n^2 + b_n^2}, \\ {A_n}\sin(\phi_n) =  {a_n} , \ {A_n}\cos(\phi_n) = {b_n} \\
+  \omega= \frac {2\pi} T
+
+  $$
+
+- 匀速圆周运动组合：三维等轴螺旋线的叠加
+
+  $$
+
+  f(x) =  \sum_{n=-N}^{N} c_n \cdot e^{\mathbf i\omega nx}
+
+  $$
+
+  其中：
+
+  $$
+
+  c_n= \frac 1 T \int_{x_0}^{x_0+T} f(x) e^{-\mathbf i\omega nx} dx \\
+  \omega= \frac {2\pi} T
+
+  $$
+
+  
 
 > 上面的公式虽然形式不相同，但其共同点是，设定一组基（向量之间两两正交），然后把周期函数，看成是基上的一个向量，这些基，是由各种函数构成的。在欧几里得空间里，向量是实数，在酉空间里，向量扩展到复数，而在希尔伯特空间里，向量被扩展到了函数。在傅里叶级数中，周期函数变成了一个向量，非常简单，而它的核心变化主要体现在基的变化上，不得不再次佩服数学化繁为简的奇妙。
 
+### 向量
+
 下面列举一下傅里叶级数中的基和周期函数代表的向量。
 
-- 实数二维平面
+#### 实数二维平面
 
-    - 正弦+余弦函数的组合
+- 正弦+余弦函数的组合
 
-        - 基
+    - 基
 
-          $$
+      $$
 
-          \mathbf Q =\begin{bmatrix}
-            \frac 1 2 & 
-            \cos(\frac {2\pi x} {T}) & \cos(\frac {4\pi x} {T}) & \cdots  & 
-            \sin(\frac {2\pi x} {T})  & 
-            \sin(\frac {4\pi x} {T}) & \cdots  
+      \mathbf Q =\begin{bmatrix}
+        \frac 1 2 & 
+        \cos(\frac {2\pi x} {T}) & \cos(\frac {4\pi x} {T}) & \cdots  & 
+        \sin(\frac {2\pi x} {T})  & 
+        \sin(\frac {4\pi x} {T}) & \cdots  
+      \end{bmatrix}
+
+      $$
+
+      
+      向量之间两两正交，但并不是正交矩阵（向量的模不为1）
+
+      $$
+
+      \mathbf {Q^{T}}  \mathbf Q =
+      \begin{bmatrix} 
+      \frac T 4 & 0 & \cdots & 0 \\
+      0 & \frac T 2  & \cdots  &0 \\
+      0 & 0 & \ddots   &  \vdots \\
+      0    &0 & \cdots & \frac T 2 \\
+      \end{bmatrix}
+
+      $$
+
+    - 向量
+
+      $$
+
+      \mathcal F(n) = \begin{bmatrix}
+            a_0 & a_1 & a_2  & \cdots &  a_n & \cdots & b_1 & b_2 & \cdots &  b_n & \cdots
           \end{bmatrix}
 
-          $$
+      $$
 
-          
-          向量之间两两正交，但并不是正交矩阵（向量的模不为1）
+      
+    - 线性方程组
 
-          $$
+      $$
 
-          \mathbf {Q^{T}}  \mathbf Q =
-          \begin{bmatrix} 
-          \frac T 4 & 0 & \cdots & 0 \\
-          0 & \frac T 2  & \cdots  &0 \\
-          0 & 0 & \ddots   &  \vdots \\
-          0    &0 & \cdots & \frac T 2 \\
-          \end{bmatrix}
+      \mathbf Q\mathcal F(n) = f(x)
 
-          $$
+      $$
 
-        - 向量
-
-          $$
-
-          \mathcal F(n) = \begin{bmatrix}
-                a_0 & a_1 & a_2  & \cdots &  a_n & \cdots & b_1 & b_2 & \cdots &  b_n & \cdots
-              \end{bmatrix}
-
-          $$
-
-          
-        - 线性方程组
-
-          $$
-
-          \mathbf Q\mathcal F(n) = f(x)
-
-          $$
-
-    - 正弦函数的组合
-
-        - 基
-
-          $$
-
-          \mathbf Q = \begin{bmatrix}
-                  1 & 
-                  \sin(\frac {2\pi x} {T}+\phi_1)  & 
-                  \sin(\frac {4\pi x} {T}+\phi_2) & \cdots & \sin(\frac {2n\pi x} {T}+\phi_n)  & \cdots
-                \end{bmatrix}
-
-          $$
-
-            向量之间两两正交，但并不是正交矩阵（向量的模不为1）
-
-          $$
-
-          \mathbf {Q^{T}}  \mathbf Q =
-            \begin{bmatrix} 
-            T & 0 & \cdots & 0 \\
-            0 & \frac T 2  & \cdots  &0 \\
-            0 & 0 & \ddots   &  \vdots \\
-            0    &0 & \cdots & \frac T 2 \\
-            \end{bmatrix}
-
-          $$
-
-          
-        - 向量
-
-          $$
-
-          \mathcal F(n) =
-          \begin{bmatrix}
-            A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
-            \end{bmatrix}
-
-          $$
-
-          
-        - 线性方程组
-
-            $$
-
-            \mathbf Q\mathcal F(n) = f(x)
-
-            $$
-
-- 复数三维空间
-
-  - 匀速圆周运动组合的投影
+- 正弦函数的组合
 
     - 基
 
       $$
 
       \mathbf Q = \begin{bmatrix}
-      1 & 
-        e^{\mathbf i( {\omega x}  + \phi_1)}  & 
-        e^{\mathbf i( {\omega 2x}  + \phi_2)} & 
-        \cdots & 
-        e^{\mathbf i( {\omega nx}  + \phi_n)}) & \cdots
-      \end{bmatrix}
+              1 & 
+              \sin(\frac {2\pi x} {T}+\phi_1)  & 
+              \sin(\frac {4\pi x} {T}+\phi_2) & \cdots & \sin(\frac {2n\pi x} {T}+\phi_n)  & \cdots
+            \end{bmatrix}
+
+      $$
+
+        向量之间两两正交，但并不是正交矩阵（向量的模不为1）
+
+      $$
+
+      \mathbf {Q^{T}}  \mathbf Q =
+        \begin{bmatrix} 
+        T & 0 & \cdots & 0 \\
+        0 & \frac T 2  & \cdots  &0 \\
+        0 & 0 & \ddots   &  \vdots \\
+        0    &0 & \cdots & \frac T 2 \\
+        \end{bmatrix}
 
       $$
 
@@ -451,89 +415,126 @@ $$
 
       $$
 
-      \mathcal F(n)=  \begin{bmatrix}
-          A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
-          \end{bmatrix}
-
-      $$
-
-  
-  - 匀速圆周运动组合
-  
-    - 基
-
-        $$
-
-        \mathbf Q = \begin{bmatrix}
-        \cdots &
-          e^{-\mathbf i {\omega nx}  }
-          \cdots & 
-          e^{-\mathbf i {\omega 2x} } & 
-           e^{-\mathbf i {\omega x}  }  & 
-          1 & 
-        e^{\mathbf i {\omega x}  }  & 
-          e^{\mathbf i {\omega 2x} } & 
-          \cdots & 
-          e^{\mathbf i {\omega nx}  }& \cdots
+      \mathcal F(n) =
+      \begin{bmatrix}
+        A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
         \end{bmatrix}
 
-        $$
-
-        由于$\mathbf Q$是一个复数矩阵，不难得到
-
-        $$
-
-        \mathbf Q^* \mathbf Q =  T   \mathbf {I}
-
-        $$
-
-        $\mathbf {I}$是单位矩阵，$\mathbf Q^* $表示[共轭转置](https://zh.wikipedia.org/wiki/%E5%85%B1%E8%BD%AD%E8%BD%AC%E7%BD%AE)，即
-
-        $$
-
-        \mathbf Q^* = \begin{bmatrix}
-        \cdots &
-          e^{\mathbf i {\omega nx}  }
-          \cdots & 
-          e^{\mathbf i {\omega 2x} } & 
-           e^{\mathbf i {\omega x}  }  & 
-          1 & 
-          e^{-\mathbf i {\omega x}  }  & 
-          e^{-\mathbf i {\omega 2x} } & 
-          \cdots & 
-          e^{-\mathbf i {\omega nx}  }& \cdots
-        \end{bmatrix}^{\mathbf T}
-
-        $$
-
-  
-        > 上面$\mathbf T $表示转置。
-        
-    - 向量
-
       $$
 
-        \mathcal F(n) = \begin{bmatrix}
-           \cdots & c_{-n} & \cdots & c_{-2} &  c_{-1}  &  c_0 & c_1 & c_2  & \cdots &  c_n & \cdots
-            \end{bmatrix}
-
-      $$
-
-    
+      
     - 线性方程组
 
         $$
 
-        \begin{align}
-        \mathbf Q\mathcal F(n) &= f(x) \\
-        \mathcal F(n) &= \mathbf {(Q^{*}Q)^{-1}Q^{*}}f(x)  \\
-        \mathcal F(n) &= \frac 1 T   \mathbf {Q^{*}}f(x)
-        \end{align}
+        \mathbf Q\mathcal F(n) = f(x)
 
         $$
 
+#### 复数三维空间
+
+- 匀速圆周运动组合的投影
+
+  - 基
+
+    $$
+
+    \mathbf Q = \begin{bmatrix}
+    1 & 
+      e^{\mathbf i( {\omega x}  + \phi_1)}  & 
+      e^{\mathbf i( {\omega 2x}  + \phi_2)} & 
+      \cdots & 
+      e^{\mathbf i( {\omega nx}  + \phi_n)}) & \cdots
+    \end{bmatrix}
+
+    $$
+
     
-        > 从形式上来说，上面的数学公式，甚为简单优美。
+  - 向量
+
+    $$
+
+    \mathcal F(n)=  \begin{bmatrix}
+        A_0 & A_1 & A_2  & \cdots &  A_n  & \cdots
+        \end{bmatrix}
+
+    $$
+
+- 匀速圆周运动组合
+
+  - 基
+
+      $$
+
+      \mathbf Q = \begin{bmatrix}
+      \cdots &
+        e^{-\mathbf i {\omega nx}  }
+        \cdots & 
+        e^{-\mathbf i {\omega 2x} } & 
+         e^{-\mathbf i {\omega x}  }  & 
+        1 & 
+      e^{\mathbf i {\omega x}  }  & 
+        e^{\mathbf i {\omega 2x} } & 
+        \cdots & 
+        e^{\mathbf i {\omega nx}  }& \cdots
+      \end{bmatrix}
+
+      $$
+
+      由于$\mathbf Q$是一个复数矩阵，不难得到
+
+      $$
+
+      \mathbf Q^* \mathbf Q =  T   \mathbf {I}
+
+      $$
+
+      $\mathbf {I}$是单位矩阵，$\mathbf Q^* $表示[共轭转置](https://zh.wikipedia.org/wiki/%E5%85%B1%E8%BD%AD%E8%BD%AC%E7%BD%AE)，即
+
+      $$
+
+      \mathbf Q^* = \begin{bmatrix}
+      \cdots &
+        e^{\mathbf i {\omega nx}  }
+        \cdots & 
+        e^{\mathbf i {\omega 2x} } & 
+         e^{\mathbf i {\omega x}  }  & 
+        1 & 
+        e^{-\mathbf i {\omega x}  }  & 
+        e^{-\mathbf i {\omega 2x} } & 
+        \cdots & 
+        e^{-\mathbf i {\omega nx}  }& \cdots
+      \end{bmatrix}^{\mathbf T}
+
+      $$
+
+      > 上面$\mathbf T $表示转置。
+      
+  - 向量
+
+    $$
+
+      \mathcal F(n) = \begin{bmatrix}
+         \cdots & c_{-n} & \cdots & c_{-2} &  c_{-1}  &  c_0 & c_1 & c_2  & \cdots &  c_n & \cdots
+          \end{bmatrix}
+
+    $$
+
+  
+  - 线性方程组
+
+      $$
+
+      \begin{align}
+      \mathbf Q\mathcal F(n) &= f(x) \\
+      \mathcal F(n) &= \mathbf {(Q^{*}Q)^{-1}Q^{*}}f(x)  \\
+      \mathcal F(n) &= \frac 1 T   \mathbf {Q^{*}}f(x)
+      \end{align}
+
+      $$
+
+  
+      > 从形式上来说，上面的数学公式，甚为简单优美。
 
 ## 参考
 
