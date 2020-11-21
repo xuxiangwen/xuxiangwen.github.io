@@ -532,6 +532,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import zipfile
 import six.moves.urllib as urllib
+from PIL import Image
 
 logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
 logging.root.setLevel(level=logging.INFO)
@@ -662,10 +663,19 @@ plt.show()
 
 ![image-20201119122501919](images/image-20201119122501919.png)
 
+## SVHN
+
+<img src="images/examples_new.png" alt="img" style="zoom: 46.5%;" />     ![img](images/32x32eg.png)      
+
+[The Street View House Numbers (SVHN)](http://ufldl.stanford.edu/housenumbers/)是一个为训练目标检测算法而“真实”存在的一个图像数据集，它来自于谷歌街景中的房屋号码。与上边提到的MNIST数据集类似，SVHN也包含10个类别，但数据量更大（6,30,420张图片）.
+
+
+
 ## 参考
 
 - [Fashion-MNIST：替代MNIST手写数字集的图像数据集](https://zhuanlan.zhihu.com/p/28847070)
 - [EuroSAT土地使用情况图像数据集](https://www.kesci.com/mw/dataset/5e6b3125dd480d002c21c46c)
+- [25个深度学习相关公开数据集](https://zhuanlan.zhihu.com/p/35449783)
 
 ## 历史
 
@@ -673,4 +683,5 @@ plt.show()
 - 2020-10-27：新增数据集Fashion MNIST
 - 2020-11-04：增加数据集Large Movie Review Dataset
 - 2020-11-19：增加数据集EuroSAT dataset
+- 2020-11-20：增加数据集SVHN
 
