@@ -43,6 +43,17 @@ date: 2020-11-18
 同样，保存整个模型，然后加载回来。
 
 ~~~python
+import os
+import tensorflow as tf
+from tensorflow import keras
+
+gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
+tf.config.experimental.set_memory_growth(device=gpus[0], enable=True)
+tf.config.experimental.set_virtual_device_configuration(
+  gpus[0],
+  [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=1024)]
+)
+
 def tree(path, intent=""):  
     if len(intent)>0:
         print(intent + os.path.basename(path))
@@ -142,17 +153,6 @@ evaulate(model, x_test, y_test)
  首先训练模型。
 
 ~~~python
-import os
-import tensorflow as tf
-from tensorflow import keras
-
-gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
-tf.config.experimental.set_memory_growth(device=gpus[0], enable=True)
-tf.config.experimental.set_virtual_device_configuration(
-  gpus[0],
-  [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=1024)]
-)
-
 def get_model():
     model = keras.models.Sequential()
     model.add(keras.layers.Flatten(input_shape=(28, 28)))
