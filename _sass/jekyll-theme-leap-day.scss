@@ -9,7 +9,7 @@ by Matt Graham
 
 body {
   /*font:14px/22px 'Quattrocento Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-  font:14px/22px monospace;  
+  font:14px/22px Roboto, arial, sans-serif;  
   color:#2b2b2b;
   font-weight:Normal;
   margin: 0px;
@@ -320,6 +320,8 @@ nav {
     list-style: none;
     list-style-image:none;
     line-height:10px;
+    font-family: Roboto, arial, sans-serif;
+    font-size: 13px;
     li {
       padding: 5px 0px;
       line-height: 16px;
@@ -353,12 +355,12 @@ nav {
 }
 
 aside {
-  width: 290px;
+  width: 300px;
   position: fixed;
   top: 80px;
   left: 50%;
   text-align: left;
-  margin-left:-705px;    
+  margin-left:-715px;    
   overflow: auto;  
   height:calc(100% - 80px);  
 
@@ -366,6 +368,8 @@ aside {
     list-style: none;
     list-style-image:none;
     line-height:10px;
+    font-family: Roboto, arial, sans-serif; 
+    font-size: 13px;
     li {
       padding: 5px 0px;
       line-height: 16px;
