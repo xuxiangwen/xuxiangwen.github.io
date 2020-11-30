@@ -19,7 +19,7 @@ $$
 
 一个列向量，可以看成$$1 \times n$$阶矩阵，一个行向量可以看成$$n \times 1$$阶矩阵。上面公式右边的表达形式，能够使得向量内积和矩阵乘法用统一的表达方式表达。
 
-### 夹角余弦
+## 夹角余弦
 
 ![image-20191112123802508](images/image-20191112123802508-1575458885809.png)
 
@@ -49,7 +49,7 @@ $$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#两个垂直向量的内积)。
 
-### 单位向量
+## 单位向量
 
  指大小等于1的向量。可以用$$\frac {\mathbf b} {\|\mathbf b\|}$$表示单位向量。
 
@@ -59,7 +59,7 @@ $$
 \mathbf{a}\cdot \frac {\mathbf b} {\|\mathbf b\|} = \|\mathbf a \| \cos \theta
 $$
 
-### 几何意义
+## 几何意义
 
 如下图所示，$$\|\mathbf a \| \cos \theta$$是向量$$\mathbf a$$在向量$$\mathbf b$$上投影的长度。
 
@@ -79,7 +79,7 @@ $$
 \cos \theta = \frac {\mathbf{a}}  {\|\mathbf a \|}  \cdot \frac {\mathbf b} {\|\mathbf b\|}
 $$
 
-### 其他意义
+## 其他意义
 
 - 物理上，向量内积可以理解为做[功](https://zh.wikipedia.org/wiki/%E5%8A%9F)。 功就是力与位移的内积。
   $$
@@ -102,7 +102,7 @@ $$
 
   > 平面上方和下方是以w的方向作为参照的，如果和w同向，就是上方，反之就是下方。
 
-### 再看矩阵乘法
+## 再看矩阵乘法
 
 基于向量内积，可以简化矩阵乘法的表达形式。
 
@@ -152,7 +152,7 @@ $$
 
 上述两种思路，都能简明表达矩阵乘法，在实际的计算中，非常有用。
 
-### 参考
+## 参考
 
 - [机器学习的数学基础：向量篇](https://www.hahack.com/math/math-vector/ )
 

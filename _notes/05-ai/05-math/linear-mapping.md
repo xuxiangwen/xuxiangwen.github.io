@@ -9,7 +9,7 @@ date: 2019-12-05
 
  ![File:Eigenvectors.gif](images/Eigenvectors-1575459117113.gif) 
 
-### 定义
+## 定义
 
 设 $$\mathbf V，\mathbf W $$为两个向量空间， 如果$$f:\mathbf V \rightarrow \mathbf W$$满足
 
@@ -27,7 +27,7 @@ $$
 
 其中$$f = \mathbf A， \mathbf{\alpha} \in \mathbf V， \mathbf {\beta} \in \mathbf W  $$。为了加深理解，下面看最简单的线性变换：旋转，缩放以及正交化。
 
-### 旋转
+## 旋转
 
 在同一向量空间，最基本的线性变换之一是旋转。在二维空间，如下矩阵$$\mathbf A$$将会把向量进行逆时针旋转$$\theta $$。
 
@@ -83,7 +83,7 @@ $$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#旋转)。
 
-### 缩放
+## 缩放
 
 在二维空间，下面的矩阵会对向量各个分量进行拉伸和缩放。
 $$
@@ -133,7 +133,7 @@ $$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#缩放)。
 
-### 旋转+缩放
+## 旋转+缩放
 
 正交矩阵带来了旋转，对角矩阵进行了缩放，而旋转，缩放都是一种简单运动，复杂一点的运动可以组合多个旋转，缩放，由此可以把线性映射（变换）理解成一种组合运动。
 
@@ -161,7 +161,7 @@ $$
 $$
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#缩放+旋转)。
 
-### 正交化
+## 正交化
 
 一个平行四边形，通过改变角度，可以很容易变成一个长方形。与此类似，[正交化](https://zh.wikipedia.org/wiki/%E6%AD%A3%E4%BA%A4%E5%8C%96)是指把一组（线性无关）的向量经过线性变换后，使得各个向量之间相互垂直（内积为0），然后再对向量进行缩放，使得每个向量成为单位向量。容易想象，在一个二维平面，任意两个向量（不共线），首先通过变换使得两个向量垂直，然后进行缩放，可以把它们变成正交矩阵。
 
@@ -203,7 +203,7 @@ $$
 
 附[代码](https://nbviewer.jupyter.org/github/xuxiangwen/xuxiangwen.github.io/blob/master/_notes/05-ai/50-my-course/machine_learning/c0002.ipynb#正交化)。
 
-### 内积和投影
+## 内积和投影
 
 还可以从内积角度来理解线性映射。    
 $$
@@ -230,7 +230,7 @@ $$
 
 当$$\mathbf {a_1}, \mathbf {a_2}, \cdots, \mathbf {a_m}$$是单位向量时，**$$\mathbf \beta$$是向量$$\mathbf \alpha$$ 在$$\mathbf  A$$各个行向量上的投影**，即以行向量为基的坐标系上的坐标。
 
-### 参考
+## 参考
 
 - [百度百科：线性变换](https://baike.baidu.com/item/%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2)
 - [回顾线性空间](https://scientificrat.com/2017/10/11/%E5%9B%9E%E9%A1%BE%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4/)
