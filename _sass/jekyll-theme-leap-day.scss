@@ -111,8 +111,8 @@ code {
   /*color:#efefef;*/
   /*text-shadow: 0px 1px 0px #000;*/
   margin: 0 4px;
-  padding: 2px 6px;
-  background: rgba(27,31,35,0.05);
+  padding: 2px 4px;
+  background: rgba(27,31,35,0.10);
   border-radius: 2px;
 }
 
@@ -138,7 +138,7 @@ table {
 th {
   text-align:left;
   padding:5px 10px;
-  border-bottom:1px solid #e5e5e5;
+  border:1px solid #e5e5e5;
   color: #444;
 }
 
@@ -146,10 +146,10 @@ td {
   text-align:left;
   padding:5px 10px;
   border-bottom:1px solid #e5e5e5;
-  border-right: 1px solid #ffcc00;
+  border-right: 1px solid #e5e5e5;
 
   &:first-child {
-    border-left: 1px solid #ffcc00;
+    border-left: 1px solid #e5e5e5;
   }
 }
 
@@ -378,7 +378,7 @@ aside {
   ul {
     list-style: none;
     list-style-image:none;
-    font-size: 14px;
+    font-size: 13px;
     line-height:10px;
     li {
       padding: 5px 0px;

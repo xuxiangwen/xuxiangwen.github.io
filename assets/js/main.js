@@ -10,6 +10,7 @@ var sectionHeight = function() {
   }
 }
 
+
 $(window).resize(sectionHeight);
 
 $(function() {
@@ -32,3 +33,25 @@ $(function() {
 
   $('img').on('load', sectionHeight);
 });
+
+$(document).ready(function() {
+    $("aside ul li a").on("click", function (e) {
+       console.log('a click: scrollTop=' +$("aside").scrollTop())
+       document.cookie = "scrollTop=" + $("aside").scrollTop() + "; path=/"; 
+       return true;
+    });    
+    if(document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+        var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/); 
+        scroll_top = parseInt(arr[1])
+        $("aside").animate({scrollTop: scroll_top}, 0);
+        console.log('ready: scrollTop=' + scroll_top )
+    }   
+})
+
+window.onload = function() {
+    if(document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+        var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/); 
+        scroll_top = parseInt(arr[1])
+        console.log('onload: scrollTop=' + scroll_top )
+    }       
+}
