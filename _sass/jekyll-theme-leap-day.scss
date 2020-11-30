@@ -9,9 +9,9 @@ by Matt Graham
 
 body {
   /*font:14px/22px 'Quattrocento Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-  font:13px/22px sans-serif;  
+  font:14px/22px monospace;  
   color:#2b2b2b;
-  font-weight:300;
+  font-weight:Normal;
   margin: 0px;
   padding:0px 0 20px 0px;
   background: url(../images/body-background.png) #eae6d1;
@@ -107,7 +107,9 @@ blockquote {
 
 code {
   /*font-family: 'Lucida Sans', Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;*/
-  font-size:13px;
+  font-family:  monospace;
+  font-size:14px;
+  /*font-weight:300;  */
   /*color:#efefef;*/
   /*text-shadow: 0px 1px 0px #000;*/
   margin: 0 4px;
@@ -306,7 +308,7 @@ small {
 }
 
 nav {
-  width: 250px;
+  width: 280px;
   position: fixed;
   top: 80px;
   left:50%;
@@ -317,7 +319,6 @@ nav {
   ul {
     list-style: none;
     list-style-image:none;
-    font-size: 13px;
     line-height:10px;
     li {
       padding: 5px 0px;
@@ -334,7 +335,6 @@ nav {
       }
         
       &.tag-h2 { 
-        font-size: 1.1em;  
         padding: 3px 0px;
       }  
     }
@@ -353,19 +353,18 @@ nav {
 }
 
 aside {
-  width: 300px;
+  width: 290px;
   position: fixed;
   top: 80px;
   left: 50%;
   text-align: left;
-  margin-left:-715px;    
+  margin-left:-705px;    
   overflow: auto;  
   height:calc(100% - 80px);  
 
   ul {
     list-style: none;
     list-style-image:none;
-    font-size: 13px;
     line-height:10px;
     li {
       padding: 5px 0px;
