@@ -264,7 +264,7 @@ _bin/generate.sh _posts/vector-and-matrix.md
 
 8. 把原始文件路径添加到生成中的blog中，便于查找其来源。
 
-   ![image-20200522142557255](images/image-20200522142557255.png)
+   ![image-20200522142557255](assets/images/image-20200522142557255.png)
 
 
 
