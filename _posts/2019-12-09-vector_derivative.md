@@ -8,7 +8,7 @@ date: 2019-12-09
 
 向量导数非常重要，是机器学习中进行梯度下降计算的基本方式。
 
-### 基本运算
+## 基本运算
 
 向量导数有些抽象，很多人觉得有些难懂。但这就像小孩子学习乘法一样，开始也觉得难懂，可一旦小孩子背熟99乘法表后，便能快速掌握乘法。向量导数也是如此，只要能理解基本远算公式，并熟练推导它们，一定可以快速掌握向量导数，甚至矩阵导数。
 
@@ -67,7 +67,7 @@ $$\frac{\partial \mathbf {w}^\mathbf{T} \mathbf{B} \mathbf {w} } {\partial \math
 \frac {\partial (\mathbf{B} \mathbf {w})^\mathbf{T} } {\partial \mathbf {w} } \cdot \mathbf {w}=
 (\mathbf{B} + \mathbf{B}^\mathbf{T})\cdot \mathbf {w}$$
 
-###  复合函数
+##  复合函数
 
 首先定义一下列向量对于列向量的导数：
 
@@ -204,3 +204,4 @@ $$
 
 - [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
 - [机器学习中的线性代数之矩阵求导](http://blog.csdn.net/u010976453/article/details/54381248)
+
