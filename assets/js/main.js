@@ -10,21 +10,18 @@ var sectionHeight = function() {
   }
 }
 
-var scroll_to_anchor = function(pos){
-  var position = pos.offset().top - 90;
-  console.log("scroll_to_anchor: "+position)  
-  $("html, body").animate({scrollTop: position}, 400);
+var scroll_to_anchor = function(pos, scroll_time){
+  var position = pos - 90; 
+//   console.log('scroll_to_position:' + position)
+  $("html, body").animate({scrollTop: position}, scroll_time);
 }    
-
-var anchor = window.location.hash;
-window.location.hash = "";
 
 $(window).resize(sectionHeight);
 
 $(function() {
   var outline = new Map();
   $("section h2, section h3").each(function(){
-    var current_id = $(this).text().toLowerCase().replace(/ /g, '-').replace(/[\+\=\(\),:：\.\{\}\/\$]/g,'-');
+    var current_id = $(this).text().replace(/ /g, '-').replace(/[\+\=\(\),:：\.\{\}\/\$]/g,'-');
    
     // 对于相同标题的内容，添加递增序号，区别开来   
     if (outline.has(current_id)) {
@@ -41,11 +38,10 @@ $(function() {
   });
 
   $("nav ul li").on("click", "a", function(event) {
-    scroll_to_anchor($($(this).attr("href")))  
+    scroll_to_anchor($($(this).attr("href")).offset().top, 400)  
     //$("nav ul li a").parent().removeClass("active");
     //$(this).parent().addClass("active");
     event.preventDefault();
-    //console.log($(this).text)  
   });
 
   sectionHeight();
@@ -55,7 +51,6 @@ $(function() {
 
 $(document).ready(function() {
     $("aside ul li a").on("click", function (e) {
-       //console.log('a click: scrollTop=' +$("aside").scrollTop())
        document.cookie = "scrollTop=" + $("aside").scrollTop() + "; path=/"; 
        return true;
     });    
@@ -63,22 +58,17 @@ $(document).ready(function() {
         var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/); 
         scroll_top = parseInt(arr[1])
         $("aside").animate({scrollTop: scroll_top}, 0);
-        //console.log('ready: scrollTop=' + scroll_top )
     }   
 })
 
 window.onload = function() {
-    if(document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
-        var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/); 
-        scroll_top = parseInt(arr[1])
-        //console.log('onload: scrollTop=' + scroll_top )
-    } 
-    if (anchor.length>0 ){
-      console.log('anchor='+anchor);
-      console.log('anchor.length='+$(anchor).length);  
-      if ($(anchor).length>0) {  
-        scroll_to_anchor($(anchor));
-      }    
-      window.location.hash = anchor;  
+    if (window.location.hash.length>0 ){
+      
+      var position = $("html, body").scrollTop();
+        
+//       console.log('onload:anchor='+window.location.hash);  
+//       console.log('scrollTop()='+position);    
+      if (position>0) 
+          scroll_to_anchor(position, 0);   
     }    
 }
