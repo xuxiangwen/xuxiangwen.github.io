@@ -47,27 +47,24 @@ $(function() {
   sectionHeight();
 
   $('img').on('load', sectionHeight);
+    
+  $("aside ul li a").on("click", function (e) {
+     document.cookie = "scrollTop=" + $("aside").scrollTop() + "; path=/"; 
+     return true;
+  });    
+    
+  if(document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+    var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/); 
+    scroll_top = parseInt(arr[1])
+    $("aside").animate({scrollTop: scroll_top}, 0);
+  }   
 });
 
-$(document).ready(function() {
-    $("aside ul li a").on("click", function (e) {
-       document.cookie = "scrollTop=" + $("aside").scrollTop() + "; path=/"; 
-       return true;
-    });    
-    if(document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
-        var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/); 
-        scroll_top = parseInt(arr[1])
-        $("aside").animate({scrollTop: scroll_top}, 0);
-    }   
-})
+
 
 window.onload = function() {
-    if (window.location.hash.length>0 ){
-      
+    if (window.location.hash.length>0 ){      
       var position = $("html, body").scrollTop();
-        
-//       console.log('onload:anchor='+window.location.hash);  
-//       console.log('scrollTop()='+position);    
       if (position>0) 
           scroll_to_anchor(position, 0);   
     }    
