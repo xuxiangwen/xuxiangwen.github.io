@@ -21,7 +21,7 @@ $(window).resize(sectionHeight);
 $(function() {
   var outline = new Map();
   $("section h2, section h3").each(function(){
-    var current_id = $(this).text().replace(/ /g, '-').replace(/[\+\=\(\),:：\.\{\}\/\$]/g,'-');
+    var current_id = $(this).text().toLowerCase().replace(/ /g, '-').replace(/[\+\=\(\),:：\.\{\}\/\$?]/g,'-');
    
     // 对于相同标题的内容，添加递增序号，区别开来   
     if (outline.has(current_id)) {
