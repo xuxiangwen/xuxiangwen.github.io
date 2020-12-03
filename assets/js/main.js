@@ -50,7 +50,7 @@ $(function() {
   });
 
   $("nav ul li").on("click", "a", function(event) {     
-    scroll_to_anchor($($(this).attr("href")).offset().top, 250)  
+    scroll_to_anchor($($(this).attr("href")).offset().top, 200)  
 //     setTimeout(() => {
 //       $("nav ul li a").removeClass('active'); 
 //       $(this).addClass('active');
