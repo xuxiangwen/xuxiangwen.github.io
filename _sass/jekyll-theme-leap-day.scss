@@ -10,8 +10,7 @@ by Matt Graham
 body {
   /*font:14px/22px 'Quattrocento Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   font:14px/22px Roboto, arial, sans-serif;  
-  color:#2b2b2b;
-  font-weight:Normal;
+  color:#2b2b2b;  
   margin: 0px;
   padding:0px 0 20px 0px;
   background: url(../images/body-background.png) #eae6d1;
@@ -343,14 +342,15 @@ nav {
 
     a {
       color: #666;
-
       &:hover { color: #999; }
+      padding-left:8px;  
     }
 
-    // .active {
-    //   border-right:solid 4px #39C;
-    //   padding-right:13px;
-    // }
+    .active {
+      border-left:solid 4px #39C;
+      padding-left:4px;
+      font-weight:bold;  
+    }
   }
 }
 
@@ -404,10 +404,10 @@ aside {
       &:hover { color: #999; }
     }
 
-    // .active {
-    //   border-right:solid 4px #39C;
-    //   padding-right:13px;
-    // }
+//     .active {
+//       border-right:solid 4px #39C;
+//       padding-right:13px;
+//     }
   }
 }
 
@@ -432,6 +432,10 @@ footer {
   nav{
     display: none;
   }
+    
+  aside{
+    display: none;
+  }  
 
   header, section, footer {
     float:none;

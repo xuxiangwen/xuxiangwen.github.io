@@ -16,6 +16,19 @@ var scroll_to_anchor = function(pos, scroll_time){
   $("html, body").animate({scrollTop: position}, scroll_time);
 }    
 
+var  locate_catalog = function(){
+  var headers = $('section h2, section h3');
+  var catalog = $('nav ul li a');    
+  var scroll_height = $(window).scrollTop()+120;
+  for(var i =0;i<headers.length;i++){
+    var header_height = $(headers[i]).offset().top;    
+    if (header_height<scroll_height){  
+      catalog.removeClass('active'); 
+      $(catalog[i]).addClass('active');
+    }
+  }
+}
+
 $(window).resize(sectionHeight);
 
 $(function() {
@@ -34,13 +47,14 @@ $(function() {
 
     $(this).attr("id", current_id);  
     $("nav ul").append("<li class='tag-" + this.nodeName.toLowerCase() + "'><a href='#" + current_id + "'>" + $(this).text() + "</a></li>");
-    $("nav ul li:first-child a").parent().addClass("active");
   });
 
-  $("nav ul li").on("click", "a", function(event) {
+  $("nav ul li").on("click", "a", function(event) {     
     scroll_to_anchor($($(this).attr("href")).offset().top, 400)  
-    //$("nav ul li a").parent().removeClass("active");
-    //$(this).parent().addClass("active");
+//     setTimeout(() => {
+//       $("nav ul li a").removeClass('active'); 
+//       $(this).addClass('active');
+//     }, 410);        
     event.preventDefault();
   });
 
@@ -58,6 +72,10 @@ $(function() {
     scroll_top = parseInt(arr[1])
     $("aside").animate({scrollTop: scroll_top}, 0);
   }   
+    
+  /*绑定滚动事件 */   
+  $(window).bind('scroll', locate_catalog);   
+
 });
 
 
@@ -65,7 +83,12 @@ $(function() {
 window.onload = function() {
     if (window.location.hash.length>0 ){      
       var position = $("html, body").scrollTop();
-      if (position>0) 
+      if (position>0) {
           scroll_to_anchor(position, 0);   
-    }    
+     
+      }    
+    }  
 }
+
+
+
