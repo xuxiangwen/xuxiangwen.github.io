@@ -85,7 +85,7 @@ window.onload = function() {
       var position = $("html, body").scrollTop();
       if (position>0) {
           scroll_to_anchor(position, 0);   
-     
+          locate_catalog()
       }    
     }  
 }
