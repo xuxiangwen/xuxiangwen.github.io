@@ -348,7 +348,77 @@ print("search_bisect : {:0.2f} seconds".format(t3.timeit(number=1000000)))
 
 可以发现bisect的时间只要1秒左右，真的快的太多了。即使吧`search_interative`改成和bisect相同的实现，性能还是无法提高。其原因在于bisect模块已经预编译成了c代码，所以快得多。
 
-## 参见
+## 实践
+
+![scroll](/assets/images/scroll.gif)
+
+下面来实际例子中应用binary search。在浏览本文的时候，如果滚动鼠标的滚轮，会发现右边的目录栏中也会有变化，它会同步显示当前浏览内容所属的目录。这个效果简单好用，能够帮助读者定位所看的内容。它的实现也很简单，当滚动滚轮时，对于当前内容所在的目录，添加一个特别样式，同时把其它的目录恢复到初始样式。具体步骤下：
+
+1. 当滚轮滚动时，获取滚动条当前的位置。假设是250。
+
+2. 再获取内容区域所有目录的位置。假设这个队列是[100, 200, 300, 400, 500, 600]。
+
+3. 把滚动条位置和目录的位置进行比较，判断出当前滚动条位置属于哪一个目录。
+
+   很明显，250这个位置，属于200这个位置的目录。这相当于把250插入到队列中，然后获取它前一个item的位置。因此，需要对上面的binary_search做一些修改。
+
+   - 无论是否找到，都需要返回能插入的位置。
+   - 为了获取所属目录，插入的位置还需要再减去1，
+
+4. 对于当前内容所在的目录，添加一个特别样式，同时把其它的目录恢复到初始样式。
+
+下面是上面逻辑的JavaScript实现代码。
+
+~~~javascript
+var binary_search = function(x, item) {
+    low = 0
+    high = x.length-1
+    while (low<high){
+        mid = parseInt((low + high)/2)
+        if (x[mid]==item) {
+            high = mid        
+        } else if (x[mid]>item) {
+            high = mid-1                             
+        } else {
+            low = mid+1
+        }
+    }  
+    
+    if (x[low]>item) return low -1
+    return low
+}
+
+var  locate_catalog = function(){
+  // 获取内容区域所有目录  
+  var headers = $('section h2, section h3');  
+  // 获取右边区域的所有目录
+  var catalog = $('nav ul li a');    
+    
+  // 获取当前滚动条所在位置。其中+120是为了添加header区域所占控件。
+  var scroll_height = $(window).scrollTop()+120;
+  var positions = [];
+  // 获得内容区域的目录所在的位置
+  for(let i =0;i<headers.length;i++){
+    positions[i] =  $(headers[i]).offset().top
+  }
+    
+  // 运用binary search查找当前滚动条所在位置，属于哪个目录。
+  var index = binary_search(positions, scroll_height) 
+  // 把右边区域的所有目录恢复默认样式
+  catalog.removeClass('active'); 
+  if (index >= 0) {
+    // 在右边区域，对当前内容所在目录添加样式，highlight显示。  
+    $(catalog[index]).addClass('active');      
+  }    
+}
+
+$(function() {
+  /*绑定滚动事件 */   
+  $(window).bind('scroll', locate_catalog);   
+});
+~~~
+
+## 参考
 
 - [binary_search](https://github.com/egonSchiele/grokking_algorithms/tree/master/01_introduction_to_algorithms/python)
 
@@ -358,4 +428,7 @@ print("search_bisect : {:0.2f} seconds".format(t3.timeit(number=1000000)))
 
 - [数组二分查找算法](https://docs.python.org/zh-cn/3.6/library/bisect.html)
 
-  
+## 历史
+
+- 2020-11-16：初始版本。
+- 2020-12-05：新增binary search的实践。
