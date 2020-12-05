@@ -350,7 +350,7 @@ print("search_bisect : {:0.2f} seconds".format(t3.timeit(number=1000000)))
 
 ## 实践
 
-![scroll](/assets/images/scroll.gif)
+![scroll](/assets/images/scroll-1607137784186.gif)
 
 下面来实际例子中应用binary search。在浏览本文的时候，如果滚动鼠标的滚轮，会发现右边的目录栏中也会有变化，它会同步显示当前浏览内容所属的目录。这个效果简单好用，能够帮助读者定位所看的内容。它的实现也很简单，当滚动滚轮时，对于当前内容所在的目录，添加一个特别样式，同时把其它的目录恢复到初始样式。具体步骤下：
 
