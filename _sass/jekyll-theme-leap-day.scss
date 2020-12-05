@@ -9,9 +9,8 @@ by Matt Graham
 
 body {
   /*font:14px/22px 'Quattrocento Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-  font:13px/22px sans-serif;  
-  color:#2b2b2b;
-  font-weight:300;
+  font:14px/22px Roboto, arial, sans-serif;  
+  color:#2b2b2b;  
   margin: 0px;
   padding:0px 0 20px 0px;
   background: url(../images/body-background.png) #eae6d1;
@@ -77,11 +76,16 @@ ul{
     list-style-image:url('../images/bullet.png');
 }*/
 
-#blog_title {
-  margin:20px, 0, 15px, 0px;    
-  font-size:28px;   
+.segment {
+    
+  h1 {
+    margin:15px 0 15px;   
+  }    
+  padding:3px 0px 3px;    
   line-height:1.3;  
 }
+
+
 
 strong {
   font-weight: bold;
@@ -107,7 +111,9 @@ blockquote {
 
 code {
   /*font-family: 'Lucida Sans', Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;*/
-  font-size:13px;
+  font-family:  monospace;
+  font-size:14px;
+  /*font-weight:300;  */
   /*color:#efefef;*/
   /*text-shadow: 0px 1px 0px #000;*/
   margin: 0 4px;
@@ -306,7 +312,7 @@ small {
 }
 
 nav {
-  width: 250px;
+  width: 280px;
   position: fixed;
   top: 80px;
   left:50%;
@@ -317,8 +323,9 @@ nav {
   ul {
     list-style: none;
     list-style-image:none;
-    font-size: 13px;
     line-height:10px;
+    font-family: Roboto, arial, sans-serif;
+    font-size: 13px;
     li {
       padding: 5px 0px;
       line-height: 16px;
@@ -334,23 +341,24 @@ nav {
       }
         
       &.tag-h2 { 
-        font-size: 1.1em;  
         padding: 3px 0px;
       }  
     }
 
     a {
       color: #666;
-
       &:hover { color: #999; }
+      padding-left:9px;  
     }
 
-    // .active {
-    //   border-right:solid 4px #39C;
-    //   padding-right:13px;
-    // }
+    .active {
+      border-left:solid 5px #39C;
+      padding-left:4px;
+      font-weight:bold;  
+    }
   }
 }
+
 
 aside {
   width: 300px;
@@ -365,8 +373,9 @@ aside {
   ul {
     list-style: none;
     list-style-image:none;
-    font-size: 13px;
     line-height:10px;
+    font-family: Roboto, arial, sans-serif; 
+    font-size: 13px;
     li {
       padding: 5px 0px;
       line-height: 16px;
@@ -401,10 +410,10 @@ aside {
       &:hover { color: #999; }
     }
 
-    // .active {
-    //   border-right:solid 4px #39C;
-    //   padding-right:13px;
-    // }
+//     .active {
+//       border-right:solid 4px #39C;
+//       padding-right:13px;
+//     }
   }
 }
 
@@ -429,6 +438,10 @@ footer {
   nav{
     display: none;
   }
+    
+  aside{
+    display: none;
+  }  
 
   header, section, footer {
     float:none;
