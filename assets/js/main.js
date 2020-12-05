@@ -37,13 +37,11 @@ var  locate_catalog = function(){
   var catalog = $('nav ul li a');    
   var scroll_height = $(window).scrollTop()+120;
   var positions = [];
-  console.log(positions)
   for(let i =0;i<headers.length;i++){
     positions[i] =  $(headers[i]).offset().top
   }
   var index = binary_search(positions, scroll_height) 
   catalog.removeClass('active'); 
-  console.log(index, scroll_height)
   if (index >= 0) {
     $(catalog[index]).addClass('active');      
   }    
