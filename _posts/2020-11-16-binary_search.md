@@ -394,7 +394,7 @@ var  locate_catalog = function(){
   // 获取右边区域的所有目录
   var catalog = $('nav ul li a');    
     
-  // 获取当前滚动条所在位置。其中+120是为了添加header区域所占控件。
+  // 获取当前滚动条所在位置。其中+120是为了添加header区域所占空间。
   var scroll_height = $(window).scrollTop()+120;
   var positions = [];
   // 获得内容区域的目录所在的位置
