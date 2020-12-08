@@ -4,7 +4,16 @@
 
 ### Todo List
 
+- 2020-12-07：整理之前tensorflow课程里面的内容，把每个ipynb里面有什么大概做一个介绍。
+  
+  - customising-models-tensorflow2： done
+  - getting-started-with-tensor-flow2： tbd
+  
 - 2020-11-26： 把之前blog里面的每个内容都分别进行细化。比如mnist中，就把tensorflow和pytorch分开，变成两篇文章。把模型的构建都改成funcational形式，增加混淆矩阵，同时分成多个模型优化步骤。
+  
+  - 数据获取
+    - tensorflow.keras.datasets
+    - tensorflow-datasets
   - 经典神经网络
   - Lenet
   - 更好的模型
@@ -21,8 +30,12 @@
 
     ![image-20201206091812157](images/image-20201206091812157.png)
 
-  - [Line Numbers in Jekyll Code Blocks](https://www.richwerden.com/2017/line-numbers-in-jekyll-code.html) ：使用rouge，但是效果不是特别号
+  - [基于Jekyll搭建个人博客](https://wu-kan.cn/_posts/2019-01-18-%E5%9F%BA%E4%BA%8EJekyll%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/)：采用prism实现，看来效果不错，可以研究一下。
 
+  - [Adding line numbers to the code block layout for my Jekyll site](http://blog.arwsoft.id/2017/adding-line-numbers-to-code-block-layout-for-my-jekyll-site)：自己用javascript来写的，但是行号还是会被选中，效果不是最好。
+  
+  - [Line Numbers in Jekyll Code Blocks](https://www.richwerden.com/2017/line-numbers-in-jekyll-code.html) ：使用rouge，但是效果不是特别号
+  
     ~~~yml
     markdown: kramdown
     kramdown:
@@ -31,6 +44,16 @@
             block:
                 line_numbers: true
     ~~~
+
+- 2020-12-07：kminst数据集介绍，好像是日本做的，对日本字的识别 
+
+- 2020-12-07：做 [LSUN dataset](https://www.yf.io/p/lsun)的介绍
+
+  [LSUN Dataset](https://www.yf.io/p/lsun) 是一个大规模图像数据集，其基于人类在循环中进行深度学习的构建，包含 10 个场景类别和 20 个对象类别，共计约 100 万张标记图像。该数据集由加州大学伯克利分校等于 2015 年发布。
+
+  2020-12-07：增加数据集LSUN Dataset。
+
+  这个数据集超大，下载起来太麻烦了
 
 ### Done
 
