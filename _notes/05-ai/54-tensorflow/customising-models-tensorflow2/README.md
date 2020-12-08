@@ -51,7 +51,10 @@ TF运行的设备，可以GPU或CPU。比较了CPU和GPU在矩阵加法，矩阵
 
 #### Week_2_Programming_Assignment.ipynb
 
-第一周的大作业。
+第二周的大作业。主要两部分：
+
+- 对于一个The LSUN Dataset很小的子集，采用data augmentation减少数据过拟合
+- 对于CIFAR-100数据集，创建Dataset，添加filter，使用map对数据进行一些修改。
 
 #### Week_2_TensorFlow_Datasets.ipynb
 
