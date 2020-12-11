@@ -4,6 +4,8 @@
 
 ### Todo List
 
+- 2020-12-07：收集当前文本分类的一些例子，同时展示benchmark。
+  
 - 2020-12-07：整理之前tensorflow课程里面的内容，把每个ipynb里面有什么大概做一个介绍。
   
   - customising-models-tensorflow2： done
@@ -20,9 +22,18 @@
   - 网上更好的模型
   - 迁移学习
   
+- 2020-12-08：针对超参数调优，做一个blog
+
 - 2020-12-01：把Cats vs. Dogs的模型优化，做一个blog。
 
 - 2020-12-05：做 [DSD100 dataset](https://sigsep.github.io/datasets/dsd100.html)的介绍
+
+- 2020-12-10： [AI Experiments](https://experiments.withgoogle.com/collection/ai) 里面又很多好玩的东西
+
+- 2020-12-08： 手工实现 [基于PyTorch实现word2vec模型](https://lonepatient.top/2019/01/18/Pytorch-word2vec.html#one-word-model) 
+
+  - 手推一下公式
+  - 实际计算一下向量。
 
 - 2020-12-06：给jekyii的代码块添加行号，同时添加语言提示
 
@@ -231,4 +242,8 @@ Second Edition](http://www.cs.colorado.edu/~martin/slp2.html) 应该和上面的
 
 ```
 
-51330112 宽带
+## 5 资源
+
+- [Embedding Projector](http://projector.tensorflow.org/)：可视化embedding的好工具。
+- [State-of-the-Art](https://paperswithcode.com/sota)：当前业界的高水准的成绩
+
