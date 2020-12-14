@@ -4,6 +4,18 @@
 
 ### Todo List
 
+- 2020-12-14：[博士带你学LSTM|怎么样开发Stacked LSTMs？](https://mp.weixin.qq.com/s?__biz=Mzg4MDE3OTA5NA==&mid=2247491166&idx=1&sn=e38d0c2db4a192431e56914b1e0ca63e&source=41#wechat_redirect) 考虑实现该文
+  
+- 2020-12-14：阅读该文[Attention 机制](https://easyai.tech/ai-definition/attention/)
+  
+- 2020-12-12：LSTM参数计算，GRU参数计算
+  
+- 2020-12-12：多分类sample
+  
+  - [Multi-Class Text Classification with Scikit-Learn](https://towardsdatascience.com/multi-class-text-classification-with-scikit-learn-12f1e60e0a9f)
+  - [Multi Class Text Classification With Deep Learning Using BERT](https://towardsdatascience.com/multi-class-text-classification-with-deep-learning-using-bert-b59ca2f5c613)
+  - [Multi-Class Text Classification Model Comparison and Selection](https://towardsdatascience.com/multi-class-text-classification-model-comparison-and-selection-5eb066197568)
+  
 - 2020-12-07：收集当前文本分类的一些例子，同时展示benchmark。
   
 - 2020-12-07：整理之前tensorflow课程里面的内容，把每个ipynb里面有什么大概做一个介绍。
@@ -44,9 +56,9 @@
   - [基于Jekyll搭建个人博客](https://wu-kan.cn/_posts/2019-01-18-%E5%9F%BA%E4%BA%8EJekyll%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/)：采用prism实现，看来效果不错，可以研究一下。
 
   - [Adding line numbers to the code block layout for my Jekyll site](http://blog.arwsoft.id/2017/adding-line-numbers-to-code-block-layout-for-my-jekyll-site)：自己用javascript来写的，但是行号还是会被选中，效果不是最好。
-  
+
   - [Line Numbers in Jekyll Code Blocks](https://www.richwerden.com/2017/line-numbers-in-jekyll-code.html) ：使用rouge，但是效果不是特别号
-  
+
     ~~~yml
     markdown: kramdown
     kramdown:
@@ -55,6 +67,8 @@
             block:
                 line_numbers: true
     ~~~
+
+  - 或许可以尝试 https://github.com/EnlighterJS/EnlighterJS
 
 - 2020-12-07：kminst数据集介绍，好像是日本做的，对日本字的识别 
 
