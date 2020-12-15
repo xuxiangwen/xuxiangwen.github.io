@@ -1,4 +1,4 @@
-## RNN
+## SimpleRNN
 
 ![img](images/20150915110014414)
 
@@ -11,6 +11,25 @@
 #### 总参数数量
 
 shape(h)× [shape(h)+shape(x)] + shape(h) 
+
+### 参数
+
+- units：输出维度
+- activation：激活函数，为预定义的激活函数名（参考[激活函数](https://keras-cn.readthedocs.io/en/latest/other/activations)）
+- use_bias: 布尔值，是否使用偏置项
+- kernel_initializer：权值初始化方法，为预定义初始化方法名的字符串，或用于初始化权重的初始化器。参考[initializers](https://keras-cn.readthedocs.io/en/latest/other/initializations)
+- recurrent_initializer：循环核的初始化方法，为预定义初始化方法名的字符串，或用于初始化权重的初始化器。参考[initializers](https://keras-cn.readthedocs.io/en/latest/other/initializations)
+- bias_initializer：权值初始化方法，为预定义初始化方法名的字符串，或用于初始化权重的初始化器。参考[initializers](https://keras-cn.readthedocs.io/en/latest/other/initializations)
+- kernel_regularizer：施加在权重上的正则项，为[Regularizer](https://keras-cn.readthedocs.io/en/latest/other/regularizers)对象
+- bias_regularizer：施加在偏置向量上的正则项，为[Regularizer](https://keras-cn.readthedocs.io/en/latest/other/regularizers)对象
+- recurrent_regularizer：施加在循环核上的正则项，为[Regularizer](https://keras-cn.readthedocs.io/en/latest/other/regularizers)对象
+- activity_regularizer：施加在输出上的正则项，为[Regularizer](https://keras-cn.readthedocs.io/en/latest/other/regularizers)对象
+- kernel_constraints：施加在权重上的约束项，为[Constraints](https://keras-cn.readthedocs.io/en/latest/other/constraints)对象
+- recurrent_constraints：施加在循环核上的约束项，为[Constraints](https://keras-cn.readthedocs.io/en/latest/other/constraints)对象
+- bias_constraints：施加在偏置上的约束项，为[Constraints](https://keras-cn.readthedocs.io/en/latest/other/constraints)对象
+- dropout：0~1之间的浮点数，控制输入线性变换的神经元断开比例
+- recurrent_dropout：0~1之间的浮点数，控制循环状态的线性变换的神经元断开比例
+- 其他参数参考Recurrent的说明
 
 ## LSTM
 
@@ -74,7 +93,29 @@ model.summary()
 
 
 
+### 参数
+
+- units：输出维度
+- activation：激活函数，为预定义的激活函数名（参考[激活函数](https://keras-cn.readthedocs.io/en/latest/other/activations)）
+- recurrent_activation: 为循环步施加的激活函数（参考[激活函数](https://keras-cn.readthedocs.io/en/latest/other/activations)）
+- use_bias: 布尔值，是否使用偏置项
+- kernel_initializer：权值初始化方法，为预定义初始化方法名的字符串，或用于初始化权重的初始化器。参考[initializers](https://keras-cn.readthedocs.io/en/latest/other/initializations)
+- recurrent_initializer：循环核的初始化方法，为预定义初始化方法名的字符串，或用于初始化权重的初始化器。参考[initializers](https://keras-cn.readthedocs.io/en/latest/other/initializations)
+- bias_initializer：权值初始化方法，为预定义初始化方法名的字符串，或用于初始化权重的初始化器。参考[initializers](https://keras-cn.readthedocs.io/en/latest/other/initializations)
+- kernel_regularizer：施加在权重上的正则项，为[Regularizer](https://keras-cn.readthedocs.io/en/latest/other/regularizers)对象
+- bias_regularizer：施加在偏置向量上的正则项，为[Regularizer](https://keras-cn.readthedocs.io/en/latest/other/regularizers)对象
+- recurrent_regularizer：施加在循环核上的正则项，为[Regularizer](https://keras-cn.readthedocs.io/en/latest/other/regularizers)对象
+- activity_regularizer：施加在输出上的正则项，为[Regularizer](https://keras-cn.readthedocs.io/en/latest/other/regularizers)对象
+- kernel_constraints：施加在权重上的约束项，为[Constraints](https://keras-cn.readthedocs.io/en/latest/other/constraints)对象
+- recurrent_constraints：施加在循环核上的约束项，为[Constraints](https://keras-cn.readthedocs.io/en/latest/other/constraints)对象
+- bias_constraints：施加在偏置上的约束项，为[Constraints](https://keras-cn.readthedocs.io/en/latest/other/constraints)对象
+- dropout：0~1之间的浮点数，控制输入线性变换的神经元断开比例
+- recurrent_dropout：0~1之间的浮点数，控制循环状态的线性变换的神经元断开比例
+- 其他参数参考Recurrent的说明
+
 ## GRU
+
+**GRU全称**为Gated Recurrent Unit，它是LSTM的简化版变种，就目前的实验来看，**GRU**在性能上几乎与LSTM持平，但是在资源消耗方面会小一些。 更新门用于控制前一时刻的状态信息被带入到当前状态中的程度，更新门的值越大说明前一时刻的状态信息带入越多。
 
 GRU与LSTM非常相似，但它去除了Cell State，使用Hidden State来传递信息。GRU只有两个Gates: Reset Gate和Update Gate。
 
@@ -104,13 +145,32 @@ h^{t}=(1-z) \odot h^{t-1}+z \odot h^{\prime}
 $$
 Update Gate: z的范围为0~1，它的值越接近1，代表记忆数据越多；它的值越接近0，则代表遗忘的越多。
 
+
+
 ### Stacked LSTM
 
 ![preview](images/v2-e77a5a96718c52a0f890e3bf1a77f731_r.jpg)
 
 
 
+### 参数
 
+- units：输出维度
+- activation：激活函数，为预定义的激活函数名（参考[激活函数](https://keras-cn.readthedocs.io/en/latest/other/activations)）
+- use_bias: 布尔值，是否使用偏置项
+- kernel_initializer：权值初始化方法，为预定义初始化方法名的字符串，或用于初始化权重的初始化器。参考[initializers](https://keras-cn.readthedocs.io/en/latest/other/initializations)
+- recurrent_initializer：循环核的初始化方法，为预定义初始化方法名的字符串，或用于初始化权重的初始化器。参考[initializers](https://keras-cn.readthedocs.io/en/latest/other/initializations)
+- bias_initializer：权值初始化方法，为预定义初始化方法名的字符串，或用于初始化权重的初始化器。参考[initializers](https://keras-cn.readthedocs.io/en/latest/other/initializations)
+- kernel_regularizer：施加在权重上的正则项，为[Regularizer](https://keras-cn.readthedocs.io/en/latest/other/regularizers)对象
+- bias_regularizer：施加在偏置向量上的正则项，为[Regularizer](https://keras-cn.readthedocs.io/en/latest/other/regularizers)对象
+- recurrent_regularizer：施加在循环核上的正则项，为[Regularizer](https://keras-cn.readthedocs.io/en/latest/other/regularizers)对象
+- activity_regularizer：施加在输出上的正则项，为[Regularizer](https://keras-cn.readthedocs.io/en/latest/other/regularizers)对象
+- kernel_constraints：施加在权重上的约束项，为[Constraints](https://keras-cn.readthedocs.io/en/latest/other/constraints)对象
+- recurrent_constraints：施加在循环核上的约束项，为[Constraints](https://keras-cn.readthedocs.io/en/latest/other/constraints)对象
+- bias_constraints：施加在偏置上的约束项，为[Constraints](https://keras-cn.readthedocs.io/en/latest/other/constraints)对象
+- dropout：0~1之间的浮点数，控制输入线性变换的神经元断开比例
+- recurrent_dropout：0~1之间的浮点数，控制循环状态的线性变换的神经元断开比例
+- 其他参数参考Recurrent的说明
 
 ## Stateful RNN
 
@@ -137,11 +197,221 @@ Update Gate: z的范围为0~1，它的值越接近1，代表记忆数据越多�
 
 ## 参数和output计算
 
-~~~python
+使用tensorflow中的定义。
 
+### Embedding
+
+~~~python
+def get_output_shape(output_dim, input_length=None)
+    if input_length is None:
+        output_shape = (None, None, output_dim)   
+    else:
+        output_shape = (None, input_length, output_dim)     
+    return output_shape 
+
+def get_weight_number(input_dim, output_dim)
+	return input_dim * output_dim
 ~~~
 
- 
+- *input_length*：序列长度（sequence_length）。
+- *output_dim*：词向量的长度（word_vector_length）。
+
+- *input_dim*：词表的个数+1。
+
+> 为何*input_dim*等于$  \mathbf {maximum\_integer\_index + 1}$。
+
+### SimpleRNN 
+
+~~~python
+def get_output_shape(units, return_sequence, sequence_length=None)
+    if return_sequence:
+        if sequence_length is None:
+            output_shape = (None, None, units)   
+        else:
+            output_shape = (None, sequence_length, units)     
+    else:
+        output_shape = (None, units) 
+    return output_shape
+
+def get_weight_number(units, input_length)
+	return units * (input_length + units + 1)
+~~~
+
+- *units*：RNN的Hidden State的长度。
+- *return_sequence*：是否返回Hidden State序列。如果为True，即Stacked RNN。
+- *sequence_length*：序列的长度。
+
+对于SimpleRNN，LSTM， GRU通用的计算公式为：
+$$
+\mathbf {num_params= g ×[ h（h + i）+ h ]}
+$$
+
+- g：gate的数量。SimpleRNN为1，GRU为3，LSTM为4。
+- h：Hidden State的长度。
+- i：输入向量的长度，往往是词向量的长度（word_vector_length）
+
+### LSTM
+
+~~~python
+def get_output_shape(units, return_sequence, batch_size, sequence_length=None)
+    # 同RNN
+
+def get_weight_number(units, input_length)
+        return 4 * units * (input_length + units + 1)
+~~~
+
+- 参数个数是RNN的4倍。
+
+### GRU
+
+~~~python
+def get_output_shape(units, return_sequence, sequence_length=None)
+    # 同RNN
+
+def get_weight_number(units, input_length, reset_after=True)
+	if reset_after:
+    	weight_number = 3 * units * (input_length + units + 2)  
+    else:
+        weight_number = 3 * units * (input_length + units + 1)
+	return weight_number
+~~~
+
+- reset_after。默认为true。其计算逻辑，参考[calculating the number of parameters of a GRU layer (Keras)](https://stackoverflow.com/questions/57318930/calculating-the-number-of-parameters-of-a-gru-layer-keras)。
+
+###  Bidirectional
+
+~~~python
+def get_output_shape(origin_shape, merge_mode='concat')
+    if merge_mode=='concat':
+        output_shape = origin_shape*2
+    else: # 'sum', 'mul', 'concat', 'ave', None}
+        output_shape = origin_shape
+    return output_shape
+
+def get_weight_number(orign_number)
+    return 2*orign_number
+~~~
+
+- *origin_shape*：原始layer的输出shape。
+- *orign_number*：原始layer的参数个数。
+
+### Stateful
+
+Stateful RNN， LSTM or GRU。
+
+~~~python
+def get_output_shape(origin_shape, batch_size)
+    return [batch_size] + origin_shape[1:]
+
+def get_weight_number(orign_number)
+	return orign_number	
+~~~
+
+和RNN的output_shape相比，第一个维度由None替换为batch_size。
+
+上述相关验证代码如下。
+
+~~~python
+import numpy as np
+import tensorflow as tf
+from  tensorflow.keras.layers import Embedding, SimpleRNN, LSTM, GRU, Bidirectional
+
+
+def get_weights_count(layer):
+    return np.sum([np.prod(weight.shape) for weight in layer.weights])
+
+def show_info(output_shape, weight_number):
+    print('     output.shape =', output_shape)
+    print('     weight_number =', weight_number)
+    
+        
+
+print('='*50 +'\n' + 'Embedding(input_dim=1001, output_dim=16)')
+model = tf.keras.Sequential([
+   Embedding(input_dim=1001, output_dim=16)
+])
+show_info(model.layers[0].output.shape, get_weights_count(model.layers[0]))
+
+print('='*50+'\n' + 'Embedding(input_dim=1001, output_dim=16, input_length=100)')
+model = tf.keras.Sequential([
+    Embedding(input_dim=1001, output_dim=16, input_length=100)
+])
+show_info(model.layers[0].output.shape, get_weights_count(model.layers[0]))
+
+print('='*50+'\n' + 'SimpleRNN(units=32)')
+model = tf.keras.Sequential([
+    Embedding(input_dim=1001, output_dim=16),
+    SimpleRNN(units=32),
+])
+show_info(model.layers[1].output.shape, get_weights_count(model.layers[1]))
+
+print('='*50+'\n' + 'SimpleRNN(units=32, return_sequences=True)')
+model = tf.keras.Sequential([
+    Embedding(input_dim=1001,  output_dim=16),
+    SimpleRNN(units=32, return_sequences=True),
+])
+show_info(model.layers[1].output.shape, get_weights_count(model.layers[1]))
+
+
+print('='*50+'\n' + 'SimpleRNN(units=32, return_sequences=True) with sequence_length=100')
+model = tf.keras.Sequential([
+    Embedding(input_dim=1001, output_dim=16, input_length=100),
+    SimpleRNN(units=32, return_sequences=True),
+])
+show_info(model.layers[1].output.shape, get_weights_count(model.layers[1]))
+
+
+print('='*50+'\n' + 'Bidirectional(layer= SimpleRNN(units=32), merge_mode="concat")')
+model = tf.keras.Sequential([
+    Embedding(input_dim=1001, output_dim=16),
+    Bidirectional(layer= SimpleRNN(units=32), merge_mode="concat")
+])
+show_info(model.layers[1].output.shape, get_weights_count(model.layers[1]))
+
+
+print('='*50+'\n' + 'LSTM(units=32)')
+model = tf.keras.Sequential([
+    Embedding(input_dim=1001, output_dim=16),
+    LSTM(units=32),
+])
+show_info(model.layers[1].output.shape, get_weights_count(model.layers[1]))
+
+
+print('='*50+'\n' + 'GRU(units=32)')
+model = tf.keras.Sequential([
+    Embedding(input_dim=1001, output_dim=16),
+    GRU(units=32),
+])
+show_info(model.layers[1].output.shape, get_weights_count(model.layers[1]))
+
+print('='*50+'\n' + 'GRU(units=32, reset_after=False)')
+model = tf.keras.Sequential([
+    Embedding(input_dim=1001, output_dim=16),
+    GRU(units=32, reset_after=False),
+])
+show_info(model.layers[1].output.shape, get_weights_count(model.layers[1]))
+
+
+print('='*50+'\n' + 'LSTM(units=32, stateful=True, batch_input_shape=(4, 100, 16))')
+model = tf.keras.Sequential([
+    LSTM(units=32, stateful=True, batch_input_shape=(4, None, 16)),
+])
+show_info(model.layers[0].output.shape, get_weights_count(model.layers[0]))
+
+print('='*50+'\n' + 'LSTM(units=32, return_sequences=True, stateful=True, batch_input_shape=(4, None, 16))')
+model = tf.keras.Sequential([
+    LSTM(units=32, return_sequences=True, stateful=True, batch_input_shape=(4, None, 16)),
+])
+show_info(model.layers[0].output.shape, get_weights_count(model.layers[0]))
+
+print('='*50+'\n' + 'LSTM(units=32, return_sequences=True, stateful=True, batch_input_shape=(4, 100, 16)),')
+model = tf.keras.Sequential([
+    LSTM(units=32, return_sequences=True, stateful=True, batch_input_shape=(4, 100, 16)),
+])
+show_info(model.layers[0].output.shape, get_weights_count(model.layers[0]))
+~~~
+
+![image-20201215113207487](images/image-20201215113207487.png)
 
 ## 参考
 

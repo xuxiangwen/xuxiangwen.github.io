@@ -38,6 +38,10 @@
 
 - 2020-12-01：把Cats vs. Dogs的模型优化，做一个blog。
 
+- 2020-12-15： markdown bug for '\_'  . see https://eipi10.cn/deep-learning/2020/10/21/conv2d/
+
+  ![image-20201215081127963](images/image-20201215081127963.png)
+
 - 2020-12-05：做 [DSD100 dataset](https://sigsep.github.io/datasets/dsd100.html)的介绍
 
 - 2020-12-10： [AI Experiments](https://experiments.withgoogle.com/collection/ai) 里面又很多好玩的东西
