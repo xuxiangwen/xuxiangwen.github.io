@@ -36,7 +36,7 @@ class torch.nn.Conv2d(
   - $H_{out}$：输出图片的(像素)高度
   - $W_{out}$：输出图片的(像素)宽度
   
-  设$$\mathbf {S_{in}} = \begin{bmatrix} H_{in} & W_{in} \end{bmatrix}  $$，$$ \mathbf {S_{out} }= \begin{bmatrix} H_{out} & W_{out} \end{bmatrix}  $$，则
+  设$$\mathbf {S_{in}} = \begin{bmatrix} H_{in} & W_{in} \end{bmatrix}  $$，$$ \mathbf {S_{out} }= \begin{bmatrix} H_{out} & W_{out} \end{bmatrix}  $$，则 
   $$
   \mathbf {S_{out}} = \lfloor \frac {\mathbf { S_{in}} + 2 \times \mathbf {padding}  - \mathbf {dilation} \circ (\mathbf {kernal\_size} -1 ) - 1} { \mathbf {stride}}  + 1 \rfloor
   $$
