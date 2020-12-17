@@ -4,6 +4,8 @@
 
 ### Todo List
 
+- 2020-12-16：使用from_logits=True，验证predict的值，每一行的sum是否是1
+  
 - 2020-12-14：[博士带你学LSTM|怎么样开发Stacked LSTMs？](https://mp.weixin.qq.com/s?__biz=Mzg4MDE3OTA5NA==&mid=2247491166&idx=1&sn=e38d0c2db4a192431e56914b1e0ca63e&source=41#wechat_redirect) 考虑实现该文
   
 - 2020-12-14：阅读该文[Attention 机制](https://easyai.tech/ai-definition/attention/)

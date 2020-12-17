@@ -450,7 +450,7 @@ evaluate_show(lenet_model,
 # 混淆矩阵
 print('-'*120)
 plot_confusion_matrix(mlp_model, 
-                      model2=letnet_model,
+                      model2=lenet_model,
                       images=test_images, 
                       labels=test_labels)  
 
@@ -470,7 +470,10 @@ plot_predicted_sample([mlp_model, lenet_model],
 
 ~~~python
 # 错误分析
-plot_predicted_sample([lenet_model, mlp_model], sample_count=5)   
+plot_predicted_sample([lenet_model, mlp_model],
+                      images=test_images, 
+                      labels=test_labels,
+                      sample_count=5)  
 ~~~
 
 ![image-20201212093252356](images/image-20201212093252356.png)

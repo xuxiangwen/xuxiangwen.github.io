@@ -277,7 +277,7 @@ print(train_images.shape, train_labels.shape)
 print(test_images.shape, test_labels.shape)
 ~~~
 
-![image-20201210224132607](images/image-20201210224132607.png)
+![image-20201215145028187](images/image-20201215145028187.png)
 
 然后创建train，validatiaon和test数据集。
 
@@ -306,7 +306,7 @@ images, labels = iter(train_dataset).next()
 show_images(images, labels, x_num=4, y_num=8, figsize=(12, 6))
 ~~~
 
-![image-20201209150908574](images/image-20201209150908574.png)
+![image-20201215145106117](images/image-20201215145106117.png)
 
 接下来再看看数据分布。
 
@@ -314,9 +314,9 @@ show_images(images, labels, x_num=4, y_num=8, figsize=(12, 6))
 plot_distribution(train_labels, test_labels)
 ~~~
 
-![image-20201211120420917](images/image-20201211120420917.png)
+![image-20201215145127425](images/image-20201215145127425.png)
 
-上图中，可以看到，数据的分布总体上是比较均匀的，而且训练数据集和测试数据集，也是几乎相同的分布。
+上图中，可以看到，数据的分布是绝对均匀。
 
 ## MLP
 
@@ -341,7 +341,7 @@ mlp_model = get_mlp(input_shape)
 mlp_model.summary()
 ~~~
 
-![image-20201210224246538](images/image-20201210224246538.png)
+![image-20201215145429205](images/image-20201215145429205.png)
 
 下面来训练模型。
 
@@ -350,11 +350,9 @@ history = train(mlp_model, epochs=20)
 plot_history(history)
 ~~~
 
-![image-20201212092636482](images/image-20201212092636482.png)
+![image-20201215145403671](images/image-20201215145403671.png)
 
-![image-20201212092656908](images/image-20201212092656908.png)
-
-可以看到对于训练数据的准确率基本趋近于100%了，这意味着模型几乎已经获得（它所能学到的）所有的模式了，再增加训练时间，也没有用了。
+![image-20201215145444921](images/image-20201215145444921.png)
 
 下面评估一下模型。
 
@@ -383,7 +381,7 @@ plot_predicted_sample([mlp_model],
                       sample_count=5) 
 ~~~
 
-![image-20201212092732338](images/image-20201212092732338.png)
+![image-20201215145533472](images/image-20201215145533472.png)
 
 ![image-20201212092751414](images/image-20201212092751414.png)
 
