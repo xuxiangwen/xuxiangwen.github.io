@@ -40,6 +40,7 @@ class torch.nn.Conv2d(
   $$
   \mathbf {S_{out}} = \lfloor \frac {\mathbf { S_{in}} + 2 \times \mathbf {padding}  - \mathbf {dilation} \circ (\mathbf {kernal\_size} -1 ) - 1} { \mathbf {stride}}  + 1 \rfloor
   $$
+  
   上面的公式中，可以这样逐步理解。
   
   - $\mathbf {dilation} \circ (\mathbf {kernal\_size} -1 ) + 1 $： 表示一个卷积核所占的空间
@@ -52,11 +53,11 @@ class torch.nn.Conv2d(
   
 - dilation：膨胀系数，一个卷积核内部之间的间隔，默认为1，其卷积核如下图所示：
 
-![image-20200113103126914](images/image-20200113103126914.png)
+  ![image-20200113103126914](images/image-20200113103126914.png)
 
-​		如果dilation=2，则卷积核如下图所示，计算时忽略白色各自，只有灰色的格子参与。
+  如果dilation=2，则卷积核如下图所示，计算时忽略白色各自，只有灰色的格子参与。
 
-![image-20200113102809015](images/image-20200113102809015.png)
+  ![image-20200113102809015](images/image-20200113102809015.png)
 
 - 参数个数
     $$
@@ -221,7 +222,7 @@ conv1d(x, kernel_size=6, strides=2, padding='same')
 
 ![image-20201019201811447](images/image-20201019201811447.png)
 
-~~~pytorch
+~~~python
 import torch 
 
 def conv1d(x, kernel_size=4, stride=2, padding=0):   
