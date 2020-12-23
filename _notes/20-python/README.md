@@ -1,5 +1,103 @@
 ## 技巧
 
+### 显示文件目录树+文件夹和文件删除
+
+~~~python
+import os
+import shutil
+
+def show_tree(path, max_depth=10, max_num=100):
+    def _show_tree(path, depth, max_num, prefix):
+        if max_num<=0 or depth>max_depth:
+            return max_num
+        if depth==1: 
+            print(path)
+            max_num=max_num-1
+        items = os.listdir(path)
+        for i, item in enumerate(items):
+            if max_num<=0: return max_num
+            newitem = path +'/'+ item
+            if i==len(items)-1:
+                print(prefix  + "└──" + item)            
+                new_prefix = prefix+"    "                
+            else:
+                print(prefix  + "├──" + item)
+                new_prefix = prefix+"│   "
+            max_num=max_num-1
+            if os.path.isdir(newitem):
+                max_num = _show_tree(newitem, depth=depth+1, max_num=max_num, prefix=new_prefix)         
+        return max_num
+    _show_tree(path, depth=1, max_num=max_num, prefix="")
+        
+def create_file(file_path):
+    file = open(file_path,'a')
+    file.write(file_path)
+    file.close()
+                                
+def prepare(base_path):
+    
+    if os.path.exists(base_path):
+        shutil.rmtree(base_path)
+    os.makedirs(base_path)
+    create_file(os.path.join(base_path, "file01.txt"))
+    create_file(os.path.join(base_path, "file02.txt"))
+    
+    folder1 = os.path.join(base_path, "folder1")
+    folder2 = os.path.join(base_path, "folder2")
+    folder3 = os.path.join(base_path, "folder3")
+    
+    os.makedirs(folder1)
+    os.makedirs(folder2)
+    os.makedirs(folder3)
+    
+    create_file(os.path.join(folder1, "file11.txt"))
+    
+    create_file(os.path.join(folder2, "file21.txt"))
+    create_file(os.path.join(folder2, "file22.txt"))    
+    
+    folder30 = os.path.join(folder3, "folder30")
+    os.makedirs(folder30)
+    
+    create_file(os.path.join(folder30, "file301.txt"))      
+    create_file(os.path.join(folder30, "file302.txt"))     
+    
+    create_file(os.path.join(folder3, "file31.txt"))
+    create_file(os.path.join(folder3, "file32.txt"))      
+    create_file(os.path.join(folder3, "file33.txt")) 
+    
+    folder34 = os.path.join(folder3, "folder34")
+    os.makedirs(folder34)
+    
+    create_file(os.path.join(folder34, "file341.txt"))      
+    create_file(os.path.join(folder34, "file342.txt"))     
+
+    
+base_path = 'tmp'   
+prepare(base_path)
+
+print('-'*50)
+print('显示目录树')
+show_tree(base_path) 
+
+print('-'*50)
+print('显示最多11个文件或目录')
+show_tree(base_path, max_num=11)
+
+print('-'*50)
+print('删除一个目录和一个文件')
+shutil.rmtree(os.path.join(base_path, "folder2"))   # 删除非空目录
+os.remove(os.path.join(base_path, "folder3/file32.txt"))	# # 删除文件
+show_tree(base_path) 
+
+print('-'*50)
+print('显示两层目录树')
+show_tree(base_path, max_depth=2)
+~~~
+
+![image-20201222112854373](images/image-20201222112854373.png)
+
+![image-20201222112909455](images/image-20201222112909455.png)
+
 ## 获得jupyter notebook的列表
 
 ~~~python

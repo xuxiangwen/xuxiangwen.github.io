@@ -4,17 +4,18 @@
 
 ### Todo List
 
+- 2020-12-22: 仔细阅读，理解Batch Normalization技术
+  
+  - [详解深度学习中的Normalization，BN/LN/WN](https://zhuanlan.zhihu.com/p/33173246)
+  - [深度学习中的Normalization模型](http://old-101.cvmart.net/community/article/detail/368)
+  
 - 2020-12-18: [Using Transfer Learning for NLP with Small Data](https://blog.insightdatascience.com/using-transfer-learning-for-nlp-with-small-data-71e10baf99a6) 仔细阅读这篇文章。看来要尽快学习到bert的技术，这样才可以. 类似文章
   
   https://towardsdatascience.com/text-classification-with-extremely-small-datasets-333d322caee2
   
-- 2020-12-16：使用from_logits=True，验证predict的值，每一行的sum是否是1
-  
 - 2020-12-14：[博士带你学LSTM|怎么样开发Stacked LSTMs？](https://mp.weixin.qq.com/s?__biz=Mzg4MDE3OTA5NA==&mid=2247491166&idx=1&sn=e38d0c2db4a192431e56914b1e0ca63e&source=41#wechat_redirect) 考虑实现该文
   
 - 2020-12-14：阅读该文[Attention 机制](https://easyai.tech/ai-definition/attention/)
-  
-- 2020-12-12：LSTM参数计算，GRU参数计算
   
 - 2020-12-12：多分类sample
   
@@ -28,17 +29,6 @@
   
   - customising-models-tensorflow2： done
   - getting-started-with-tensor-flow2： tbd
-  
-- 2020-11-26： 把之前blog里面的每个内容都分别进行细化。比如mnist中，就把tensorflow和pytorch分开，变成两篇文章。把模型的构建都改成funcational形式，增加混淆矩阵，同时分成多个模型优化步骤。
-  
-  - 数据获取
-    - tensorflow.keras.datasets
-    - tensorflow-datasets
-  - 经典神经网络
-  - Lenet
-  - 更好的模型
-  - 网上更好的模型
-  - 迁移学习
   
 - 2020-12-08：针对超参数调优，做一个blog
 
@@ -91,6 +81,25 @@
   这个数据集超大，下载起来太麻烦了
 
 ### Done
+
+- 2020-12-20: 自己实现Alexnet
+
+  由于VGG和Alexnet结构项式，但采用了，更小的卷积核，更深的结构，获得了更好的性能。所以研究VGG就可以了，不用看Alexnet。
+
+- 2020-11-26： 把之前blog里面的每个内容都分别进行细化。比如mnist中，就把tensorflow和pytorch分开，变成两篇文章。把模型的构建都改成funcational形式，增加混淆矩阵，同时分成多个模型优化步骤。
+
+  - 数据获取
+    - tensorflow.keras.datasets
+    - tensorflow-datasets
+  - 经典神经网络
+  - Lenet
+  - 更好的模型
+  - 网上更好的模型
+  - 迁移学习
+  
+- 2020-12-12：LSTM参数计算，GRU参数计算
+
+- 2020-12-16：使用from_logits=True，验证predict的值，每一行的sum是否是1。已经验证，每一行的sum不是1，需要手工再做softmax运算。
 
 - 2020-11-26：把eipi10.cn里面style改成，左边，文章目录结构，中间文件内容，右边所有文章列表的结构。
 
