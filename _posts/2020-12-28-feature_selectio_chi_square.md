@@ -91,29 +91,37 @@ cols = ['age', 'workclass', 'fnlwg', 'education', 'education-num',
        'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'income']
 df_census = pd.read_csv(data_path, names=cols, sep=', ', engine='python')
 df_census.head(5)
+
 ~~~
 
-![image-20201228094630652](/assets/images/image-20201228094630652.png)
+![image-20201228164408318](/assets/images/image-20201228164408318.png)
 
-### 工作时长 vs. 收入
-
-接下来来分析工作时长和收入的独立性关系。首先，对hour-per-week进行分箱（bin）处理。
+在分析之前，我们对数据进行一些整理。对age和hour-per-week进行分箱（bin）处理。
 
 ~~~python
 def process_hours(df):
-   cut_points = [0,9,19,29,39,49,1000]
-   label_names = ["0-9","10-19","20-29","30-39","40-49","50+"]
-   df["hours-category"] = pd.cut(df["hours-per-week"],
-                                            cut_points, labels=label_names)
-   return df
+    cut_points = [0,9,19,29,39,49,1000]
+    label_names = ["0-9","10-19","20-29","30-39","40-49","50+"]
+    df["hours"] = pd.cut(df["hours-per-week"],
+                         cut_points, labels=label_names)
+    return df
+
+def process_age(df):
+    cut_points = [0,20,40,60,200]
+    label_names = ["0-20","21-40","41-60","60+"]
+    df["age_"] = pd.cut(df["age"],cut_points, labels=label_names)
+    return df
 
 df_census = process_hours(df_census)
+df_census = process_age(df_census)
 df_census.head(5)
 ~~~
 
-![image-20201228115401136](/assets/images/image-20201228115401136.png)
+![image-20201228164337046](/assets/images/image-20201228164337046.png)
 
-接下来看看income和hours的基本统计情况。
+### 工作时长 vs. 收入
+
+下面以工作时长（hours）和收入（income）为例，分析它们的独立性关系。下面基本的一些统计信息。
 
 ~~~python
 def get_observed(df, column1, column2):
@@ -145,6 +153,7 @@ print(df_census[column1].value_counts())
 print('-'*50)
 print(df_census[column2].value_counts())
 
+print('-'*50)
 plot_distribution(df_census, column1, column2)
 
 df_observed = get_observed(df_census, column1, column2)
@@ -245,13 +254,15 @@ stats.chi2_contingency(df_observed.to_numpy())
 人口普查数据中，还有很多其它特征，我们也想检验它们和收入的独立关系。首先来看一看这些特征的分布。
 
 ~~~python
-columns = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'hours']
-plot_distribution(df_census, columns, 'income')
+columns = ['workclass', 'education', 'marital-status', 'occupation', 
+           'relationship', 'race', 'sex', 'hours', 'age']
+target_column = 'income'
+plot_distribution(df_census, columns, target_column)
 ~~~
 
 ![image-20201228155759025](/assets/images/image-20201228155759025.png)
 
-![image-20201228161102009](/assets/images/image-20201228161102009.png)
+![image-20201228164553442](/assets/images/image-20201228164553442.png)
 
 然后是使用上节的方法，依次求出它们和收入的$\chi^2$值 ，然后按照从大到小排序。
 
@@ -275,9 +286,9 @@ def chi_square(df, columns, target_column):
 chi_square(df_census, columns, target_column)
 ~~~
 
-![image-20201228161302645](/assets/images/image-20201228161302645.png)
+![image-20201228164618554](/assets/images/image-20201228164618554.png)
 
-从上面的结果，几乎所有的特征和收入都不是独立的（因为p_value都几乎为0），同时根据**卡方统计量**（chi_squared_stat）的排名，相对而言，种族（race）没有那么重要。在实际项目中，可以根据这个排名对特征进行筛选。
+从上面的结果显示，所有的特征和收入都不是独立的（因为p_value都几乎为0）。根据**卡方统计量**（chi_squared_stat）的排名，相对而言，种族（race）没有那么重要。在实际项目中，可以根据这个排名对特征进行筛选。
 
 ## 参考
 
