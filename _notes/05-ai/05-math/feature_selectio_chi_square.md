@@ -1,5 +1,5 @@
 ---
-title: 特征选择————卡方检验
+title: 特征选择——卡方检验
 categories: statistics
 date: 2020-12-28
 ---
