@@ -1,5 +1,30 @@
 ## 技巧
 
+### 给dataframe添加行和列汇总
+
+~~~python
+import numpy as np
+import pandas as pd
+from IPython.display import display
+
+index=['变态', '非变态']
+columns=['不定装', '女装', '男装']
+df_observed = pd.DataFrame([[150, 200, 400], [350, 500, 1500]], index=index, columns=columns)
+display(df_observed)
+
+def show_sum(df):
+    s = df.reset_index().melt('index', var_name=' ')
+    ct = pd.crosstab(index=s['index'], columns=s.iloc[:,1], values=s.value, 
+                     aggfunc='sum', margins=True, margins_name='合计',
+                     rownames=[''], 
+               ) 
+    display(ct)
+
+show_sum(df_observed)
+~~~
+
+![image-20201228084238323](images/image-20201228084238323.png)
+
 ### 显示文件目录树+文件夹和文件删除
 
 ~~~python

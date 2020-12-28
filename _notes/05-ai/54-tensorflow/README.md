@@ -44,6 +44,30 @@ test_reshuffle_each_iteration(False)
 
 ![image-20201221175720319](images/image-20201221175720319.png)
 
+下面顺便也贴一下sklearn里的train_test_split的使用。
+
+~~~python
+import numpy as np
+from sklearn.model_selection import train_test_split
+
+X, y = np.arange(10).reshape((5, 2)), range(5)
+print('-'*25, 'origin', '-'*25)
+print(X)
+print(y)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+
+print('-'*25, 'train', '-'*25)
+print(X_train)
+print(y_train)
+
+print('-'*25, 'test', '-'*25)
+print(X_test)
+print(y_test)
+~~~
+
+
+
 ### 显示模型详细信息
 
 ~~~python
@@ -264,3 +288,4 @@ TensorFlow Hub 是一个包含经过训练的机器学习模型的代码库，�
 -  [Deep Learning with TensorFlow 2.0 and Keras Regression, ConvNets, GANs, RNNs, NLP  more with TF 2.0 and the Keras API by Antonio Gulli, Amita Kapoor, Sujit Pal (z-lib.org).pdf](..\..\..\..\ai\book\deep-learning\Deep Learning with TensorFlow 2.0 and Keras Regression, ConvNets, GANs, RNNs, NLP  more with TF 2.0 and the Keras API by Antonio Gulli, Amita Kapoor, Sujit Pal (z-lib.org).pdf) 
 -  [Hands-On Machine Learning with Scikit-Learn, Keras, and Tensorflow Concepts, Tools, and Techniques to Build Intelligent Systems by Aurélien Géron (z-lib.org) (1).pdf](..\..\..\..\ai\book\deep-learning\Hands-On Machine Learning with Scikit-Learn, Keras, and Tensorflow Concepts, Tools, and Techniques to Build Intelligent Systems by Aurélien Géron (z-lib.org) (1).pdf) 
 -  [Python Machine Learning Machine Learning and Deep Learning with Python, scikit-learn, and TensorFlow 2 by Sebastian Raschka, Vahid Mirjalili (z-lib.org).pdf](..\..\..\..\ai\book\deep-learning\Python Machine Learning Machine Learning and Deep Learning with Python, scikit-learn, and TensorFlow 2 by Sebastian Raschka, Vahid Mirjalili (z-lib.org).pdf) 
+

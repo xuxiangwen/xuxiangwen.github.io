@@ -703,3 +703,15 @@ plot_predicted_sample([custom2_model, mlp_model, lenet_model, custom1_model],
 - 2020-10-28：采用相同算法，对Fashion Mnist数据集进行分类。
 - 2020-11-01：pytorch训练时，增加了validation accuaracy。
 - 2020-12-12：移除了pytorch的内容，集中tensorflow本身，尝试多个模型，同时增加了分析方法。
+
+
+
+
+
+
+
+### 2020-12-23 19:27
+
+![image-20201223194925416](images/image-20201223194925416.png)
+
+![image-20201223194627498](images/image-20201223194627498.png)

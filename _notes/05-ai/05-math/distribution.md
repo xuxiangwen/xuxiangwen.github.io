@@ -467,7 +467,19 @@ $$
 
 t分布：实际工作中，往往总体方差未知，常用样本方差s作为总体方差的估计值，为了与u变换区别，称为t变换
 
+下面参考[t分布, 卡方x分布，F分布](https://www.cnblogs.com/think-and-do/p/6509239.html)
 
+大家仔细比较一下下图。t分布（红色）虽然也是钟型曲线，但是中间较低、两侧尾巴却很高。
+
+![img](images/0)
+这就是t分布的优势！这个特征相当重要，百年来，t分布就指着这个特征活着的！
+
+比较一下上图两条曲线，我用这样一个词，“宽厚”，来形容t分布曲线的特征。是不是比正态分布曲线更**宽**啊？是不是比正态分布曲线更**厚**呢？
+
+
+
+![img](http://mmbiz.qpic.cn/mmbiz/Rq6bEQMmV2b8XwTb07Zn0TSJfibicL8RcxkQszbkSr39HWpzmY132yhv2Sp2jvJLGxRWCdjs6h28Oic0kiaVF9ukTg/0?wx_fmt=png)
+大家都说重要的事要重复三遍，我们再重复一下，样本量越小（自由度越小），t分布的尾部越高。
 
 ## 14. F分布
 
