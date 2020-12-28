@@ -206,7 +206,10 @@ show_sum(df_expected)
 
 有了这两个列联表后，就可以构建检验统计量 $\chi^2$ 。
 $$
-\chi^2 = \sum\frac{(观测频数 - 期望频数)^2}{期望频数}= \sum_{i=1}^{r} \sum_{j=1}^{c} {(O_{i,j} - E_{i,j})^2 \over E_{i,j}}  
+\begin{align}
+\chi^2 &= \sum\frac{(观测频数 - 期望频数)^2}{期望频数} \\
+&= \sum_{i=1}^{r} \sum_{j=1}^{c} {(O_{i,j} - E_{i,j})^2 \over E_{i,j}}
+\end{align}
 $$
 其中$r$为行数，$c $为列数，自由度 $df$为 $(6−1)×(2−1)=5$ 。
 
