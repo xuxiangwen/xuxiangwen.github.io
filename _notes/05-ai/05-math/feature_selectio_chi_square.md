@@ -364,3 +364,7 @@ chi_score(X, y)
 - [卡方检验(python)](https://cloud.tencent.com/developer/article/1398177)
 - [Adult Census Income](https://www.kaggle.com/uciml/adult-census-income?select=adult.csv)
 
+## 历史
+
+- 2020-12-28：初始版本。
+- 2020-12-29：添加对连续特征选取。
