@@ -214,7 +214,10 @@ show_sum(df_expected)
 
 $$
 
-\chi^2 = \sum\frac{(观测频数 - 期望频数)^2}{期望频数}= \sum_{i=1}^{r} \sum_{j=1}^{c} {(O_{i,j} - E_{i,j})^2 \over E_{i,j}}  
+\begin{align}
+\chi^2 &= \sum\frac{(观测频数 - 期望频数)^2}{期望频数} \\
+&= \sum_{i=1}^{r} \sum_{j=1}^{c} {(O_{i,j} - E_{i,j})^2 \over E_{i,j}}
+\end{align}
 
 $$
 
