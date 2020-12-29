@@ -35,6 +35,7 @@ import logging
 import os
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import shutil
 import six.moves.urllib as urllib
 import zipfile
@@ -42,9 +43,15 @@ import zipfile
 from IPython.display import display
 from PIL import Image
 from scipy import stats
+from sklearn.feature_selection import SelectKBest 
+from sklearn.preprocessing import LabelBinarizer
+from sklearn.utils.extmath import safe_sparse_dot
+from sklearn.utils import check_array
 
 logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
 logging.root.setLevel(level=logging.INFO)
+
+np.set_printoptions(suppress=True)
 ~~~
 
 下载并加载数据。
@@ -242,9 +249,9 @@ stats.chi2_contingency(df_observed.to_numpy())
 
 上面结果中有四项，分别对应$\chi^2$值 ，p值，自由度，期望频数表。
 
-### 特征选取
+### 离散特征选取
 
-人口普查数据中，还有很多其它特征，我们也想检验它们和收入的独立关系。首先来看一看这些特征的分布。
+人口普查数据中，还有很多其它（离散）特征，我们也想检验它们和收入的独立关系。首先来看一看这些特征的分布。
 
 ~~~python
 columns = ['workclass', 'education', 'marital-status', 'occupation', 
@@ -282,6 +289,74 @@ chi_square(df_census, columns, target_column)
 ![image-20201228164618554](images/image-20201228164618554.png)
 
 从上面的结果显示，所有的特征和收入都不是独立的（因为p_value都几乎为0）。根据**卡方统计量**（chi_squared_stat）的排名，相对而言，种族（race）没有那么重要。在实际项目中，可以根据这个排名对特征进行筛选。
+
+### 连续特征选取
+
+上节中，对数据集中离散特征进行了特征选取，下面使用[sklearn.feature_selection.SelectKBest](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html)对连续特征进行特征选取。其中最后一列是随机数，我们希望采用卡方检验剔除这个列。
+
+~~~python
+continuous_columns = ['age', 'fnlwg', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week']
+X = df_census[continuous_columns].to_numpy()
+# 添加一个随机数列，下面将验证这个列的卡方统计值
+np.random.seed(1229)
+X = np.concatenate((X, np.random.randint(0, 10, (X.shape[0],1))), axis=1)
+y = df_census[['income']].to_numpy()
+
+print('-'*25, 'X', '-'*25)
+print(X[0:5], X.shape)
+
+print('-'*25, 'X_selected', '-'*25)
+select_kbest = SelectKBest(chi2, k=3)
+X_selected = select_kbest.fit_transform(X, y)
+
+print(X_selected[0:5], X_selected.shape)
+
+print('-'*25, 'KBest scores', '-'*25)
+print('KBest scores=', np.round(select_kbest.scores_, 0))
+print('KBest pvalues=', np.round(select_kbest.pvalues_, 4)) 
+~~~
+
+![image-20201229105842832](images/image-20201229105842832.png)
+
+上面的结果可以看到，最后一列（随机列）的卡方统计量最小，而且p值超过0.05，这样我们可以接受该列和收入之间的关系是独立的，也就是说，可以剔除这一列。下面代码同样实现了上面的功能，可以便于我们理解`chi2`内部的逻辑。
+
+~~~python
+def chi_score(X, y):
+    # print('-'*25, 'LabelBinarizer y', '-'*25)
+    Y = LabelBinarizer().fit_transform(y)
+    if Y.shape[1] == 1: Y = np.append(1 - Y, Y, axis=1)    
+    # print(Y[48:53], Y.shape)
+
+    print('-'*25, 'observed', '-'*25)
+    # 对每个类别的特征的值进行汇总
+    observed = safe_sparse_dot(Y.T, X) 
+    print(observed, observed.shape)
+
+    print('-'*25, 'expected', '-'*25)
+    # 假定根据每个类别数量，均匀分配特征的值
+    feature_count = X.sum(axis=0).reshape(1, -1)
+    # print(feature_count, feature_count.shape)
+    class_prob = Y.mean(axis=0).reshape(1, -1)
+    # print(class_prob, class_prob.shape)
+    expected = np.dot(class_prob.T, feature_count)
+    print(expected, expected.shape)
+    
+    print('-'*25, 'chi square scores', '-'*25)
+    # 分别对于每个特征，计算其对应的卡方值
+    df = len(observed)-1
+    chi_squared_stats = np.sum((observed-expected)**2/expected,axis=0)
+    print('scores=', np.round(chi_squared_stats, 0))
+    p_values = np.array([1-stats.chi2.cdf(x=chi_squared_stat, df=df)
+                         for chi_squared_stat in chi_squared_stats])
+    
+    print('p_values=', np.round(p_values, 4))
+    
+chi_score(X, y)
+~~~
+
+![image-20201229110120845](images/image-20201229110120845.png)
+
+可以看到scores和p_values和SelectKBest的结果完全相同。
 
 ## 参考
 
