@@ -64,7 +64,7 @@ $$
   $$
   不难证明如下公式。
   $$
-  SSA = SSR + SSE
+  SST = SSR + SSE
   $$
 
 - $R^2 $ ：当组间差异越大，说明不同组对样本的影响越大。可以用这个指标来衡量变量的关系强度。
@@ -167,7 +167,8 @@ list(df_census.income.unique())
 np.random.seed(1229)
 df_census['random'] = np.random.randint(0, 10, (len(df_census),1))
 
-continuous_columns = ['age', 'fnlwg', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week', 'random']
+continuous_columns = ['age', 'fnlwg', 'education-num', 'capital-gain', 
+                      'capital-loss', 'hours-per-week', 'random']
 
 X = df_census[continuous_columns].to_numpy()
 y = df_census[['income']].to_numpy().ravel()
