@@ -265,15 +265,15 @@ df_census.columns = [name.replace('-', '_') for name in df_census.columns]
 continuous_columns = [name.replace('-', '_') for name in continuous_columns]
 
 for column in continuous_columns:
-    formula = 'income~C({})'.format(column)
+    formula = '{}~C(income)'.format(column)
     print('-'*25, formula, '-'*25)
     lm = ols('{}~C(income)'.format(column) , data=df_census).fit()
     display(anova_lm(lm))
 ~~~
 
-![image-20201230155302905](/assets/images/image-20201230155302905.png)
+![image-20201230160907946](/assets/images/image-20201230160907946.png)
 
-![image-20201230155320298](/assets/images/image-20201230155320298.png)
+![image-20201230160926087](/assets/images/image-20201230160926087.png)
 
 ## 参考
 
