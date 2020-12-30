@@ -1,5 +1,29 @@
 
 
+### 0. 中心极限定理
+
+设$X_1,X_2,\cdots ,X_n$为独立同分布的随机变量序列，均值为 $\mu$，方差为 $\sigma^2$，则
+$$
+Z_n=\frac{X_1+X_2+\cdots+X_n-n\mu}{\sigma \sqrt n}
+$$
+具有渐近分布 $N(0,1)$，也就是说当 $n \rightarrow \infty$ 时，
+$$
+P\left \{\frac{X_1+X_2+\cdots+X_n-n\mu}{\sigma \sqrt n} \leq x \right \} \rightarrow \frac{1}{\sqrt{2\pi} } \int_{-\infty }^{x} e^{ -\frac{t^2}{2} } \, dt
+$$
+换句话说，$n$个相互独立同分布的随机变量之和的分布近似于正态分布，$n$越大，近似程度越好。
+
+> 中心极限定理指的是给定一个任意分布的总体。我每次从这些总体中随机抽取 n 个抽样，一共抽 m 次。 然后把这 m 组抽样分别求出平均值。 这些平均值的分布接近正态分布。
+
+![img](images/v2-3e67fd4b7c24562d979a01bed2588b43_720w.jpg)
+
+
+
+![img](images/1719714-20190916004651497-486593872.png)
+
+![image-20201229144332248](images/image-20201229144332248.png)
+
+![img](https://img2018.cnblogs.com/blog/1719714/201909/1719714-20190916004812735-1533342475.png)
+
 ## 1. 伯努利分布
 
 伯努利分布就是我们常见的0-1分布，即它的随机变量只取0或者1，各自的频率分别取$1−p$和$p$，当$x=0$或者$x=1$时，数学定义为： 
@@ -503,17 +527,7 @@ $$
 
 ## 99. 其它
 
-### 中心极限定理
-
-设$X_1,X_2,\cdots ,X_n$为独立同分布的随机变量序列，均值为 $\mu$，方差为 $\sigma^2$，则
-$$
-Z_n=\frac{X_1+X_2+\cdots+X_n-n\mu}{\sigma \sqrt n}
-$$
-具有渐近分布 $N(0,1)$，也就是说当 $n \rightarrow \infty$ 时，
-$$
-P\left \{\frac{X_1+X_2+\cdots+X_n-n\mu}{\sigma \sqrt n} \leq x \right \} \rightarrow \frac{1}{\sqrt{2\pi} } \int_{-\infty }^{x} e^{ -\frac{t^2}{2} } \, dt
-$$
-换句话说，$n$个相互独立同分布的随机变量之和的分布近似于正态分布，$n$越大，近似程度越好。
+> 
 
 
 

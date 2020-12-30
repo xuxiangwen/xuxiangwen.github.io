@@ -1,5 +1,30 @@
 ## 技巧
 
+## F分布密度图
+
+~~~python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+
+def plot_pdf(dfs):
+    plt.figure(figsize=(10, 7))
+    x = np.linspace(-1, 5, 100000)    
+    for df1, df2  in dfs:
+        y1 = stats.f.pdf(x, df1, df2)
+        plt.plot(x, y1, label="m={}, n={}".format(df1, df2))   
+    plt.ylim(0, 1.5)
+    plt.xlim(0, 5)
+    plt.legend()
+    plt.show()
+
+dfs = [(1, 1), (1, 20), (5, 20), (20, 1), (20, 20)]
+plot_pdf(dfs)
+~~~
+
+![image-20201230113531124](images/image-20201230113531124.png)
+
 ### 给dataframe添加行和列汇总
 
 ~~~python
