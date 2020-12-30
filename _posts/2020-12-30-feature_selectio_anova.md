@@ -32,9 +32,9 @@ $$
 
 $$
 
-y_{11},y_{12}, \dots,y_{1n_i}  \\
-y_{21},y_{22}, \dots,y_{2n_i}  \\
-y_{31},y_{32}, \dots,y_{3n_i}
+y_{11},y_{12}, \dots,y_{1n_1}  \\
+y_{21},y_{22}, \dots,y_{2n_2}  \\
+y_{31},y_{32}, \dots,y_{3n_3}
 
 $$
 
@@ -86,7 +86,7 @@ $$
 
   $$
 
-  SSA = SSR + SSE
+  SST = SSR + SSE
 
   $$
 
@@ -107,6 +107,34 @@ $$
 ### 数据
 
 引入要使用的包。
+
+~~~python
+import logging
+import os
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import shutil
+import six.moves.urllib as urllib
+import zipfile
+
+from IPython.display import display
+from PIL import Image
+from scipy import stats
+from sklearn.feature_selection import SelectKBest, f_classif  
+from sklearn.preprocessing import LabelBinarizer
+from sklearn.utils.extmath import safe_sparse_dot
+from sklearn.utils import check_array
+from statsmodels.stats.anova import anova_lm
+from statsmodels.formula.api import ols
+
+logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
+logging.root.setLevel(level=logging.INFO)
+
+np.set_printoptions(suppress=True)
+~~~
+
+下载并加载数据。
 
 ~~~python
 def aduit_census_download(target_path, source_url="http://archive.ics.uci.edu/ml/machine-learning-databases/adult", http_proxy=None):
@@ -165,7 +193,8 @@ list(df_census.income.unique())
 np.random.seed(1229)
 df_census['random'] = np.random.randint(0, 10, (len(df_census),1))
 
-continuous_columns = ['age', 'fnlwg', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week', 'random']
+continuous_columns = ['age', 'fnlwg', 'education-num', 'capital-gain', 
+                      'capital-loss', 'hours-per-week', 'random']
 
 X = df_census[continuous_columns].to_numpy()
 y = df_census[['income']].to_numpy().ravel()
