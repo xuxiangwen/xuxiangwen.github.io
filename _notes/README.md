@@ -4,8 +4,6 @@
 
 ### Todo List
 
-- 2020-12-26： 添加callbacks.LearningRateScheduler和callbacks.ReduceLROnPlateau
-  
 - 2020-12-25: 把图像增强的方式，有机会过一遍[在Keras中使用图像增强来进行深度学习](https://www.kesci.com/mw/notebook/5e84541e246a590036b97c9f)
   
 - 2020-12-22: 仔细阅读，理解Batch Normalization技术
@@ -85,6 +83,8 @@
   这个数据集超大，下载起来太麻烦了
 
 ### Done
+
+- 2020-12-26： 添加callbacks.LearningRateScheduler和callbacks.ReduceLROnPlateau
 
 - 2020-12-23： LearningRateScheduler+和+ReduceLROnPlateau+会有冲突吗？
 
