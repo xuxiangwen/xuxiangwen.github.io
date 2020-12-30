@@ -26,7 +26,7 @@ $$
 
 下图显示不同自由度下卡方分布的概率密度曲线，可以看到自由度越大，卡方分布就越接近正态分布：
 
-![img](/assets/images/Chi-square_pdf.svg)
+![Chi-square distributionPDF.png](/assets/images/325px-Chi-square_distributionPDF.png)
 
 ## 实例分析
 
@@ -102,6 +102,14 @@ df_census.head(5)
 ~~~
 
 ![image-20201228164408318](/assets/images/image-20201228164408318.png)
+
+收入有两个值，一个是`<=50K`，一个是`>50K`。
+
+~~~python
+list(df_census.income.unique())
+~~~
+
+![image-20201230150113588](/assets/images/image-20201230150113588.png)
 
 在分析之前，我们对数据进行一些整理。对age和hour-per-week进行分箱（bin）处理。
 
