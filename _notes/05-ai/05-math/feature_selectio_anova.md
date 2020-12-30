@@ -24,9 +24,9 @@ $$
 
 我们知道，在科学研究和商业分析中，经常要比较若干个因素对业务指标的影响。比如，为了比较药物A,B,C对治疗某疾病的疗效，将实验对象分成三组，分别记录服用三种药物的治疗效果，得到三组样本：
 $$
-y_{11},y_{12}, \dots,y_{1n_i}  \\
-y_{21},y_{22}, \dots,y_{2n_i}  \\
-y_{31},y_{32}, \dots,y_{3n_i}
+y_{11},y_{12}, \dots,y_{1n_1}  \\
+y_{21},y_{22}, \dots,y_{2n_2}  \\
+y_{31},y_{32}, \dots,y_{3n_3}
 $$
 通过这些数据，希望回答：这三种药物对治疗该疾病有没有显著差异。首先我们假设这三种药物没有任何差异，也就说它们来自一个相同的正态分布。三组药物实验，可以看成从这个正态分布中分别做三组抽样。这样无疑满足了如下条件。
 
@@ -81,6 +81,34 @@ $$
 ### 数据
 
 引入要使用的包。
+
+~~~python
+import logging
+import os
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import shutil
+import six.moves.urllib as urllib
+import zipfile
+
+from IPython.display import display
+from PIL import Image
+from scipy import stats
+from sklearn.feature_selection import SelectKBest, f_classif  
+from sklearn.preprocessing import LabelBinarizer
+from sklearn.utils.extmath import safe_sparse_dot
+from sklearn.utils import check_array
+from statsmodels.stats.anova import anova_lm
+from statsmodels.formula.api import ols
+
+logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
+logging.root.setLevel(level=logging.INFO)
+
+np.set_printoptions(suppress=True)
+~~~
+
+下载并加载数据。
 
 ~~~python
 def aduit_census_download(target_path, source_url="http://archive.ics.uci.edu/ml/machine-learning-databases/adult", http_proxy=None):
