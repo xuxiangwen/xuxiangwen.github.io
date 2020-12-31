@@ -160,7 +160,7 @@ class ImageClassificationHelper(object):
     def get_callbacks(self, model, verbose):
         callbacks_ = []
         if self.params.callbacks.ModelCheckpoint.enabled:
-            print('ModelCheckpoint=(filepath={}, monitor={})'.format(
+            print('use ModelCheckpoint(filepath={}, monitor={})'.format(
                 model.checkpoint_path, self.params.callbacks.ModelCheckpoint.monitor))
             checkpoint_best_only = keras.callbacks.ModelCheckpoint(filepath=model.checkpoint_path,
                                                                    monitor=self.params.callbacks.ModelCheckpoint.monitor,
@@ -170,8 +170,7 @@ class ImageClassificationHelper(object):
             callbacks_.append(checkpoint_best_only)
 
         if self.params.callbacks.EarlyStopping.enabled:
-            print(
-                'EarlyStopping(monitor={}, patience={})'.format(self.params.callbacks.EarlyStopping.monitor,
+            print('use EarlyStopping(monitor={}, patience={})'.format(self.params.callbacks.EarlyStopping.monitor,
                                                                 self.params.callbacks.EarlyStopping.patience))
             early_stopping = keras.callbacks.EarlyStopping(monitor=self.params.callbacks.EarlyStopping.monitor,
                                                            patience=self.params.callbacks.EarlyStopping.patience,
@@ -179,7 +178,7 @@ class ImageClassificationHelper(object):
             callbacks_.append(early_stopping)
 
         if self.params.callbacks.ReduceLROnPlateau.enabled:
-            print('ReduceLROnPlateau=(monitor={}, factor={}, patience={})'.format(
+            print('use ReduceLROnPlateau(monitor={}, factor={}, patience={})'.format(
                 self.params.callbacks.ReduceLROnPlateau.monitor,
                 self.params.callbacks.ReduceLROnPlateau.factor,
                 self.params.callbacks.ReduceLROnPlateau.patience))
@@ -190,7 +189,7 @@ class ImageClassificationHelper(object):
             callbacks_.append(reduce_lr)
 
         if self.params.callbacks.LearningRateScheduler.enabled:
-            print('LearningRateScheduler=()')
+            print('use LearningRateScheduler()')
             lr_scheduler = keras.callbacks.LearningRateScheduler(self.params.callbacks.LearningRateScheduler.schedule,
                                                                  verbose=False)
             callbacks_.append(lr_scheduler)
