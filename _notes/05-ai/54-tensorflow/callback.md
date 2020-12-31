@@ -396,7 +396,7 @@ print('test loss is {:.3f}, test accuracy is {:.3f}'.format(loss, accuracy))
 | Arguments | 描述                                                         |
 | :-------- | ------------------------------------------------------------ |
 | monitor   | 监控的metrics。默认是val_loss。                              |
-| factor    | Learning Rate被降低的倍速。Learning Rate = Learning Rate * 倍速 |
+| factor    | Learning Rate被降低的倍数。Learning Rate = Learning Rate * 倍数 |
 | patience  | 没有进步的训练轮数，在这之后训练速率会被降低。               |
 | verbose   | verbosity mode, 0 or 1.                                      |
 | mode      | 指定是根据monitor的metrics的的减少或者增加来减少学习率。有三个值：auto, min, max。默认为auto。 |
@@ -433,15 +433,16 @@ model.fit(
 
 ~~~python
 def lr_schedule(epoch, lr):
-    lr_times = [(0, 1), (5, 1e-1), (10, 1e-2)]
+    lr_times = [(0, 1.0), (5, 1e-1), (10, 1e-2)]
     
     base_lr = 1e-1
+    new_lr = base_lr
     for border_epoch, times in lr_times:
         if epoch>=border_epoch: 
-            lr = base_lr*times
-            if epoch==border_epoch: 
-                print('Epoch %05d: LearningRateScheduler reducing learning rate to %s.' % (epoch + 1, lr))
-    return lr
+            new_lr = base_lr*times
+    if abs(lr - new_lr)>1e-7:
+        print('Epoch %05d: LearningRateScheduler reducing learning rate to %s from %s.' % (epoch + 1, new_lr, lr))
+    return new_lr
 
 learning_rate_scheduler = tf.keras.callbacks.LearningRateScheduler(lr_schedule, verbose=False)
 
@@ -455,11 +456,50 @@ model.fit(
     callbacks=[learning_rate_scheduler])
 ~~~
 
-![image-20201230223508444](images/image-20201230223508444.png)
+![image-20201231093912462](images/image-20201231093912462.png)
 
-可以看到每隔5个epoch，learning_rate都会降为原来0.1。
+可以看到每隔5个epoch，learning_rate都会降为原来的$\frac 1 {10}$。
 
 需要注意的是，如果同时定义了LearningRateScheduler和ReduceLROnPlateau，LearningRateScheduler的逻辑将会胜出，这是因为ReduceLROnPlateau是在on_epoch_end事件修改Learning Rate，而LearningRateScheduler是在on_epoch_start被调用，所以新的Learning Rate会覆盖老的Learning Rate。
+
+由此，在定义Schedule函数的时候，充分利用Schedule函数的第二参数lr（当前学习率），这样可以不会完全忽略ReduceLROnPlateau的逻辑。如下例中，当lr比new_lr小，但大于$\frac 1 {10}$new_lr的时候，仍然使用lr，只有当lr太小的时候，才使用new_lr，这样的好处是避免学习率过于小了，从而陷入过于局部的震荡中。
+
+~~~python
+def lr_schedule(epoch, lr):
+    lr_times = [(0, 1.0), (5, 1e-1), (10, 1e-2)]
+    
+    base_lr = 1e-1
+    new_lr = base_lr
+    for border_epoch, times in lr_times:
+        if epoch>=border_epoch: 
+            new_lr = base_lr*times
+    if abs(lr - new_lr)>1e-7:
+        # 如果lr比new_lr小，但是又大于0.1倍的new_lr，继续使用lr
+        if lr < new_lr and lr > 0.1*new_lr-(1e-7):
+            print('Epoch %05d: Still keep learning rate %s instead of %s' % 
+                  (epoch + 1, round(lr, 7), round(new_lr, 7))) 
+            return lr   
+        print('Epoch %05d: LearningRateScheduler reducing learning rate to %s from %s.' % 
+              (epoch + 1, round(new_lr, 7), round(lr, 7)))
+    return new_lr
+
+learning_rate_scheduler = tf.keras.callbacks.LearningRateScheduler(lr_schedule, verbose=False)
+reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, min_lr=1e-7, 
+                                                 patience=2, verbose=True) 
+    
+model = get_model()
+model.fit(
+    x_train,
+    y_train,
+    batch_size=64,
+    epochs=15,
+    validation_split=0.5,
+    callbacks=[reduce_lr, learning_rate_scheduler])
+~~~
+
+![image-20201231094829007](images/image-20201231094829007.png)
+
+可以看到，epoch  12，13，学习率仍然使用0.0001，而不是LearningRateScheduler所定义的0.001，只有当第epoch   13步后，学习率被ReduceLROnPlateau设置成了1e-05，这太小了，所以在epoch 14， 学习率又重新恢复到LearningRateScheduler的0.001。
 
 ## 参考
 
