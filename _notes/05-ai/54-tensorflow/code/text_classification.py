@@ -4,6 +4,7 @@ import logging
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import scipy
 import seaborn as sns
 import tensorflow as tf
 import time
@@ -117,33 +118,7 @@ class DictToObject(object):
         return obj
 
 
-def image_data_generator():
-    datagen = preprocessing.image.ImageDataGenerator(
-        # set input mean to 0 over the dataset
-        featurewise_center=False,
-        # set each sample mean to 0
-        samplewise_center=False,
-        # divide inputs by std of dataset
-        featurewise_std_normalization=False,
-        # divide each input by its std
-        samplewise_std_normalization=False,
-        # apply ZCA whitening
-        zca_whitening=False,
-        # randomly rotate images in the range (deg 0 to 180)
-        rotation_range=15,
-        # randomly shift images horizontally
-        width_shift_range=0.05,
-        # randomly shift images vertically
-        height_shift_range=0.05,
-        # randomly flip images
-        horizontal_flip=False,
-        # randomly flip images
-        vertical_flip=False
-    )    
-    return datagen     
-
-
-class ImageClassificationHelper(object):
+class TextClassificationHelper(object):
     
     def __init__(self, params, data, model_results={}):
         self.params = params
@@ -206,16 +181,15 @@ class ImageClassificationHelper(object):
         else:
             validation_dataset = self.data.val_dataset          
 
-        with TaskTime('training', True) as t: 
-            if self.params.use_data_augmentation:
-                print('use data augmentation')
-                steps_per_epoch = self.data.train_dataset_aug.steps_per_epoch
-                history = model.fit(self.data.train_dataset_aug, validation_data=validation_dataset, 
-                                    epochs=epochs, verbose=verbose, steps_per_epoch=steps_per_epoch,
+        with TaskTime('training', True) as t:
+            if self.data.is_sparse:
+                history = model.fit(self.data.train_dataset, validation_data=validation_dataset,
+                                    epochs=epochs, verbose=verbose, steps_per_epoch=self.data.train_dataset.steps,
+                                    validation_steps = validation_dataset.steps,
                                     callbacks=callbacks)
             else:
-                history = model.fit(self.data.train_dataset, validation_data=validation_dataset, 
-                                    epochs=epochs, verbose=verbose, 
+                history = model.fit(self.data.train_dataset, validation_data=validation_dataset,
+                                    epochs=epochs, verbose=verbose,
                                     callbacks=callbacks)
             history.train_time = t.elapsed_time()
         plot_history(history)
@@ -224,8 +198,13 @@ class ImageClassificationHelper(object):
     def compile(self, model):
         learning_rate = self.get_learning_rate(model.name)
         print('learning_rate={}'.format(learning_rate))
+
+        if len(self.params.classes) == 2:
+            loss = losses.BinaryCrossentropy(from_logits=True),
+        else:
+            loss = losses.SparseCategoricalCrossentropy(from_logits=True),
         model.compile(optimizer=optimizers.Adam(learning_rate=learning_rate),
-                      loss=losses.SparseCategoricalCrossentropy(from_logits=True),
+                      loss=loss,
                       metrics=self.params.metrics)
 
         dataset_path = './checkpoints/{}'.format(self.params.dataset_name)
@@ -347,12 +326,14 @@ class ImageClassificationHelper(object):
         plt.subplots_adjust(wspace=0.3, hspace=0.3)      
         plt.show()  
 
-    def plot_distribution(self, train_labels=None, test_labels=None):
+    def plot_distribution(self, train_labels=None, test_labels=None, classes=None):
         """打印类的分布"""
-        if train_labels is None: train_labels = self.data.train_labels
-        if test_labels is None: test_labels = self.data.test_labels
-            
-        classes = self.data.classes
+        if train_labels is None:
+            train_labels = self.data.train_labels
+        if test_labels is None:
+            test_labels = self.data.test_labels
+        if classes is None:
+            classes = self.data.classes
         
         def plot_dist(labels, title, color='blue', width = 0.7):
             bin_count = np.bincount(labels)
@@ -362,7 +343,7 @@ class ImageClassificationHelper(object):
             if classes is None:
                 plt.xticks(range(len(bin_count))) 
             else:
-                plt.xticks(range(len(bin_count)), labels=classes, rotation = 45) 
+                plt.xticks(range(len(bin_count)), labels=classes, rotation=45)
             plt.ylim(0, max(bin_count)*1.1) 
 
             for i, r in enumerate(rects):
@@ -372,7 +353,7 @@ class ImageClassificationHelper(object):
                              textcoords="offset points",
                              ha='center', va='bottom')
 
-        plt.figure(figsize=(16, 4))
+        plt.figure(figsize=(min(4*len(classes), 16), 4))
         plt.subplot(121)
         plot_dist(train_labels, 'Train', color='teal')
         plt.subplot(122)
@@ -462,8 +443,8 @@ class ImageClassificationHelper(object):
             else:
                 models = [best_model, model]
         else:   
-            models = [model] + [model_result['model'] for model_name, model_result in self.model_results.items() 
-                      if model_name!=model.name]
+            models = [model] + [model_result['model'] for model_name, model_result in self.model_results.items()
+                                if model_name!=model.name]
         
         if show_error:
             base_predictions = models[0].predict(images).argmax(axis=-1)  
@@ -508,101 +489,93 @@ class ImageClassificationHelper(object):
         plt.show()
         
 
-class ImageDataset(object):
-    def __init__(self, params):
-        super(ImageDataset, self).__init__()
+class SimpleData(object):
+    def __init__(self, data, labels):
+        self.data = data
+        self.labels = labels
+
+class TextDataset(object):
+    def __init__(self, params, train_texts, train_labels, test_texts, test_labels):
 
         self.dataset_name = params.dataset_name
         self.batch_size = params.batch_size
         self.validation_percent = params.validation_percent
-        self.augmentation_generator = params.augmentation_generator
-                
-        print('load {} data from source'.format(self.dataset_name))
-        self.classes = self.get_classes()
-        (self.train_images, self.train_labels), (self.test_images, self.test_labels) = self.load_data()
-        self.input_shape = self.train_images.shape[1:]
+        self.classes = params.classes
+
+        self.train_texts = train_texts
+        self.train_labels = train_labels
+        self.test_texts = test_texts
+        self.test_labels = test_labels
+        self.input_shape = self.train_texts.shape[1:]
         
         print('create train, validation and test dataset')
-        self.train_dataset, self.val_dataset, self.test_dataset, self.train_dataset_aug = self.get_datasets() 
+        self.is_sparse = type(train_texts) == scipy.sparse.csr.csr_matrix
+        self.train_dataset, self.val_dataset, self.test_dataset = self.get_datasets()
 
-    def get_classes(self):
-        dataset_name = self.dataset_name
-        if dataset_name[0:len('mnist')]=='mnist':
-            classes = None            
-        elif dataset_name[0:len('fashion-mnist')]=='fashion-mnist':
-            classes = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 
-                       'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
-        elif dataset_name[0:len('cifar10')]=='cifar10':
-            classes = ['plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
-        else:
-            raise Exception('{} is not supported '.format(dataset_name))
-        return classes
-        
-    def load_data(self):
-        dataset_name = self.dataset_name
-        if dataset_name[0:len('mnist')]=='mnist':
-            (train_images, train_labels), (test_images, test_labels) = datasets.mnist.load_data()
-        elif dataset_name[0:len('fashion-mnist')]=='fashion-mnist':
-            (train_images, train_labels), (test_images, test_labels) = datasets.fashion_mnist.load_data()
-        elif dataset_name[0:len('cifar10')]=='cifar10':
-            (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
-        else:
-            raise Exception('{} is not supported '.format(dataset_name))
-        if len(train_images.shape)<4:
-            train_images = np.expand_dims(train_images, axis=-1) 
-            test_images = np.expand_dims(test_images, axis=-1)
+    def refresh(self):
+        self.train_dataset, self.val_dataset, self.test_dataset = self.get_datasets()
+        return self
 
-        train_labels = np.squeeze(train_labels)
-        test_labels = np.squeeze(test_labels)
-            
-        train_images = train_images/255.0   
-        test_images = test_images/255.0   
-            
-        print('train:', train_images.shape, train_labels.shape)
-        print('test:', test_images.shape, test_labels.shape)            
-        return (train_images, train_labels), (test_images, test_labels)
-        
-    def get_datasets(self, random_state=42):
-        validation_percent = self.validation_percent
-        batch_size = self.batch_size
-        if validation_percent>0:
+    def get_sparse_datasets(self, random_state=42):
+    # def get_sparse_datasets(self, random_state=42):
+    #     X_train, X_val, y_train, y_val = self._get_train_val(random_state)
+    #     train_generator = self._get_generator(X_train, y_train, drop_remainder=True, shuffle=True)
+    #     train_generator.steps = X_train.shape[0] // self.batch_size
+    #     if X_val is not None:
+    #         validation_generator = self._get_generator(X_val, y_val, drop_remainder=True, shuffle=True)
+    #         validation_generator.steps = X_val.shape[0]//self.batch_size
+    #     else:
+    #         validation_generator = None
+    #     test_generator = self._get_generator(self.test_texts, self.test_labels)
+    #     return train_generator, validation_generator, test_generator
+
+    # def _get_generator(self, features, labels, drop_remainder=False, shuffle=False):
+    #     batch_size = self.batch_size
+    #     count = features.shape[0]
+    #     if shuffle:
+    #         permuted = np.random.permutation(count)
+    #         features = features[permuted]
+    #         labels = labels[permuted]
+    #     if drop_remainder:
+    #         steps = count // batch_size
+    #     else:
+    #         steps = (count - 1) // batch_size + 1
+    #     for i in range(steps):
+    #         yield (features[i * batch_size: (i + 1) * batch_size].todense(), labels[i * batch_size: (i + 1) * batch_size])
+
+    def _get_train_val(self, random_state=42):
+        if self.validation_percent>0:
             print('split train into train and validation')
-            X_train, X_val, y_train, y_val = train_test_split(self.train_images, self.train_labels, 
-                                                              test_size=validation_percent, 
+            X_train, X_val, y_train, y_val = train_test_split(self.train_texts, self.train_labels,
+                                                              test_size=self.validation_percent,
                                                               random_state=random_state)
             print('train:', X_train.shape, y_train.shape)
-            print('validation:', X_val.shape, y_val.shape)    
+            print('validation:', X_val.shape, y_val.shape)
         else:
-            X_train, X_val, y_train, y_val = self.train_images, None, self.train_labels, None
+            X_train, X_val, y_train, y_val = self.train_texts, None, self.train_labels, None
+        return X_train, X_val, y_train, y_val
 
-        test_dataset = tf.data.Dataset.from_tensor_slices((self.test_images, self.test_labels))
-        test_dataset = test_dataset.batch(batch_size)
+    def get_datasets(self, random_state=42):
+        if self.is_sparse:
+            return self.get_sparse_datasets()
+        X_train, X_val, y_train, y_val = self._get_train_val(random_state)
+
+        test_dataset = tf.data.Dataset.from_tensor_slices((self.test_texts, self.test_labels))
+        test_dataset = test_dataset.batch(self.batch_size)
 
         train_dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train))
-        train_dataset = train_dataset.shuffle(len(y_train), reshuffle_each_iteration = True)
-        train_dataset = train_dataset.batch(batch_size, drop_remainder=True)
-        
-        train_steps_per_epoch =  int(len(X_train) / batch_size)
-        
-        if self.augmentation_generator is not None: 
-            # compute quantities required for featurewise normalization
-            # (std, mean, and principal components if ZCA whitening is applied).              
-            self.augmentation_generator.fit(X_train)            
-            train_dataset_aug = self.augmentation_generator.flow(X_train, y_train, batch_size=batch_size, 
-                                                                 shuffle=True)             
-            train_dataset_aug.steps_per_epoch = int(len(X_train) / batch_size)
-        else:
-            train_dataset_aug = None
-   
-        if validation_percent>0: 
+        train_dataset = train_dataset.shuffle(len(y_train), reshuffle_each_iteration=True)
+        train_dataset = train_dataset.batch(self.batch_size, drop_remainder=True)
+
+        if self.validation_percent>0:
             val_dataset = tf.data.Dataset.from_tensor_slices((X_val, y_val))
-            val_dataset = val_dataset.shuffle(len(y_val), reshuffle_each_iteration = True)
-            val_dataset = val_dataset.batch(batch_size)
+            val_dataset = val_dataset.shuffle(len(y_val), reshuffle_each_iteration=True)
+            val_dataset = val_dataset.batch(self.batch_size)
         else:
             val_dataset = None
-        
-        return train_dataset, val_dataset, test_dataset, train_dataset_aug  
-  
+
+        return train_dataset, val_dataset, test_dataset
+
     
 class TaskTime:
     '''用于显示执行时间'''
