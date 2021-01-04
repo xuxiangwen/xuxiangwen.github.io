@@ -1,5 +1,47 @@
 ## 技巧
 
+### 稀疏矩阵csr_matrix
+
+Compressed Sparse Row Matrix 压缩稀疏行格式。稀疏矩阵csr_matrix有三种创建方式。其中最后一种有一点难理解，下面将解释。
+
+~~~python
+import numpy as np
+from scipy.sparse import csr_matrix
+
+m = csr_matrix((3, 4), dtype=np.int8)
+print('-'*50)
+print(m)
+print(m.toarray())
+
+row = np.array([0, 0, 1, 2, 2, 2])
+col = np.array([0, 2, 2, 0, 1, 2])
+data = np.array([6, 5, 4, 3, 2, 1])
+m = csr_matrix((data, (row, col)), shape=(3, 3))
+print('-'*50)
+print(m)
+print(m.toarray())
+
+indptr = np.array([0, 2, 3, 7])
+indices = np.array([0, 2, 2, 0, 1, 2, 3])
+data = np.array([7, 6, 5, 4, 3, 2, 1])
+m = csr_matrix((data, indices, indptr), shape=(3, 4))
+print('-'*50)
+print(m)
+print(m.toarray())
+~~~
+
+![image-20210103103818590](images/image-20210103103818590.png)
+
+最后一种方式是：**csr_matrix((data, indices, indptr), [shape=(M, N)])**
+
+- data：数据
+- indptr：每个数据的列位置
+- indices：指每一行数据，在data中开始的编号
+  - 第一行：0
+  - 第二行：2
+  - 第三行：3
+  - 结尾：7
+
 ## F分布密度图
 
 ~~~python
