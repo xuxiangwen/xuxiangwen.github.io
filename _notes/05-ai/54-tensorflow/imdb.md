@@ -29,9 +29,9 @@ from tensorflow.keras.layers.experimental.preprocessing import TextVectorization
 base_path = '/tf/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/code'
 sys.path.append(base_path)
 
-from text_classification import set_gpu_memory, lr_schedule, DictToObject
+from text_classification import set_gpu_memory, lr_schedule, ngram_vectorize, sequence_vectorize
 from text_classification import plot_distribution, plot_length_distribution, plot_frequency_distribution
-from text_classification import TextClassificationHelper
+from text_classification import DictToObject, TextClassificationHelper
 from text_classification import SimpleTextDataset, SequenceTextDataset
 
 # 代码自动重新加载
@@ -471,7 +471,7 @@ sequence_data = SequenceTextDataset(params, train_seq, train_labels, test_seq, t
 train_dir = os.path.join(dataset_dir, 'train')
 print(os.listdir(train_dir))
 remove_dir = os.path.join(train_dir, 'unsup')
-shutil.rmtree(remove_dir)
+if os.path.exists(remove_dir): shutil.rmtree(remove_dir)
 print(os.listdir(train_dir))
 ~~~
 
@@ -641,18 +641,27 @@ helper.model_summary(model, history=history)
 ### RNN
 
 ~~~python
-def get_rnn(embedding_dim, dropput=0):
-    model = tf.keras.Sequential([
-        layers.Embedding(input_dim=max_features+1, output_dim=embedding_dim, mask_zero=True),
-        layers.SimpleRNN(units=32),
-        layers.Dense(units=1)])
-    model.compile(loss=losses.BinaryCrossentropy(from_logits=True),
-                  optimizer='adam',
-                  metrics=tf.metrics.BinaryAccuracy(threshold=0.0))    
+def get_rnn(helper, name='rnn', dropout=None):
+    if dropout is None:
+        dropout = helper.get_model_param(name, 'dropout')    
+    
+    units = helper.get_model_param(name, 'units')
+    max_features = helper.get_model_param(name, 'max_features')
+    embedding_dim = helper.get_model_param(name, 'embedding_dim') 
+    
+    input = layers.Input(shape=helper.data.input_shape)
+    x = layers.Embedding(input_dim=max_features+1, output_dim=embedding_dim, mask_zero=True)(input)
+    x = layers.SimpleRNN(units=units)(x)
+    if dropout>0: x = layers.Dropout(dropout)(x)
+    x = layers.Dense(len(helper.params.classes))(x)  
+    
+    model = Model(inputs=input, outputs=x, name=name) 
+    helper.compile(model)      
     return model 
 
-model = get_rnn(embedding_dim=32)
-model.summary()  
+helper = TextClassificationHelper(params, model_results=model_results, data=sequence_data)
+model = get_rnn(helper)
+model.summary()
 ~~~
 
 ~~~python
