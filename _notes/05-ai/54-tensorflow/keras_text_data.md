@@ -14,7 +14,7 @@ keras.datasets中内置了一些数据集，这些数据往往作为benchmark，
 - load_data：加载数据。
 - get_word_index：返回一个word->index的字典。
 
-### 实例
+## 实例
 
 下面来实际调用一下。可以看到数据集被分成了训练和测试两部分。
 
@@ -113,13 +113,13 @@ def load_data(path='reuters.npz',
 get_word_index参数比较简单，下面详细说明load_data方法的参数。
 
 - path：数据保存的文件路径。默认值是reuters.npz，文件将保存在`~/.keras/datasets/reuters.npz`。
-- num_words ：词的个数。由于所有的词的index都是按照词频大小排列的，所以如果num_words 指定100，则index大于等于100的词都会被忽略。孙默认为None，表示不会忽略任何词汇。
-- skip_top ：忽略的热门（但无意义）的词汇（比如：the，of，to等）。默认为None，表示不会忽略任何词汇。
+- num_words ：词的个数。由于所有的词的index都是按照词频大小排列的，所以如果num_words 指定100，则index大于等于100的词都会被忽略。默认为None，表示不会忽略任何词。
+- skip_top ：要忽略的热门（但无意义）的词汇（比如：the，of，to等）。默认为None，表示不会忽略任何词。
 - maxlen：序列最大长度，如果超过maxlen的序列，会进行截断。默认为None，表示不限制长度。
 - seed：随机种子
-- start_char：序列开始的标记，默认为1。所以在上文显示示例数据时，可以每个新闻的第一个字符编号都是1。
-- oov_char：被去掉的单词（比如因为num_words的限制，或者skip_top的限制）就用这个字符代替。默认为2.
-- index_from：找到当前索引和大于当前索引的词
+- start_char：序列开始的标记。默认为1，故在上文示例数据中，每条新闻的第一个词编号都是1。如果设置成None，则不会添加开始标记。
+- oov_char：（由于num_words或者skip_top的限制）被去掉的词用这个字符代替。默认为2.
+- index_from：词的起始编号大于该值。
 
 下面的例子中，设置了num_words=100, skip_top=10。
 
