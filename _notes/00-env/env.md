@@ -8,20 +8,20 @@
 ```shell
 ## 环境
 # 安装pip on ubuntu
-http_proxy='http://web-proxy.rose.hp.com:8080' apt-get install -y  python3-pip
+# http_proxy='http://web-proxy.rose.hp.com:8080' apt-get install -y  python3-pip
 
 # 安装fontconfig on ubuntu
-http_proxy='http://web-proxy.rose.hp.com:8080' apt-get install -y fontconfig
+# http_proxy='http://web-proxy.rose.hp.com:8080' apt-get install -y fontconfig
 
 # update pip    
-!pip install --upgrade pip --proxy http://web-proxy.rose.hp.com:8080   
+!pip install --upgrade pip   
 
 ### Python3   Port :18888
 #### nlp
-!pip install nltk --proxy http://web-proxy.rose.hp.com:8080  
+!pip install nltk  
 
 #### PyTorch 
-!pip install torch torchvision --proxy http://web-proxy.rose.hp.com:8080        
+!pip install torch torchvision         
 !pip install --upgrade gensim --proxy http://web-proxy.rose.hp.com:8080     
 !pip install --upgrade scikit-image --proxy http://web-proxy.rose.hp.com:8080     
         

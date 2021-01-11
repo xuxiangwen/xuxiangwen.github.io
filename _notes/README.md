@@ -4,6 +4,8 @@
 
 ### Todo List
 
+- 2021-01-05： [fasttext和cnn的比较，使用keras imdb看效果——cnn要慢10倍。](https://www.cnblogs.com/bonelee/p/9145776.html) 这篇文章主要那个说了用Bi-gram来构建序列，然后
+  
 - 2020-12-25: 把图像增强的方式，有机会过一遍[在Keras中使用图像增强来进行深度学习](https://www.kesci.com/mw/notebook/5e84541e246a590036b97c9f)
   
 - 2020-12-22: 仔细阅读，理解Batch Normalization技术
@@ -14,8 +16,6 @@
 - 2020-12-18: [Using Transfer Learning for NLP with Small Data](https://blog.insightdatascience.com/using-transfer-learning-for-nlp-with-small-data-71e10baf99a6) 仔细阅读这篇文章。看来要尽快学习到bert的技术，这样才可以. 类似文章
   
   https://towardsdatascience.com/text-classification-with-extremely-small-datasets-333d322caee2
-  
-- 2020-12-14：[博士带你学LSTM|怎么样开发Stacked LSTMs？](https://mp.weixin.qq.com/s?__biz=Mzg4MDE3OTA5NA==&mid=2247491166&idx=1&sn=e38d0c2db4a192431e56914b1e0ca63e&source=41#wechat_redirect) 考虑实现该文
   
 - 2020-12-14：阅读该文[Attention 机制](https://easyai.tech/ai-definition/attention/)
   
@@ -83,6 +83,8 @@
   这个数据集超大，下载起来太麻烦了
 
 ### Done
+
+- 2020-12-14：[博士带你学LSTM|怎么样开发Stacked LSTMs？](https://mp.weixin.qq.com/s?__biz=Mzg4MDE3OTA5NA==&mid=2247491166&idx=1&sn=e38d0c2db4a192431e56914b1e0ca63e&source=41#wechat_redirect) 考虑实现该文
 
 - 2020-12-26： 添加callbacks.LearningRateScheduler和callbacks.ReduceLROnPlateau
 

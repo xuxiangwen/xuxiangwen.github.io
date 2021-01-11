@@ -5,6 +5,46 @@ lsof -i:80
 netstat -lnp|grep 80
 ~~~
 
+### JupyterLab
+
+~~~python
+container_name=jl
+docker stop $container_name
+docker rm $container_name
+
+docker run -it  -d  --gpus all \
+--name $container_name \
+-v /home/grid/eipi10:/tf/eipi10 \
+-p 28888:8888 -p 27007:7007 -p 26006-26015:6006-6015  \
+jupyter/scipy-notebook:17aba6048f44 \
+jupyter-lab --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
+~~~
+
+安装一些必备路那件
+
+~~~python
+docker exec -it jl bash
+pip install --upgrade pip 
+pip install --upgrade tensorflow-gpu==2.4.0
+pip install --upgrade numpy scipy pandas 
+pip install --upgrade scikit-image 
+pip install --upgrade gensim  
+pip install --upgrade jieba 
+pip install --upgrade pyyaml
+pip install --upgrade sklearn 
+pip install --upgrade psycopg2-binary 
+pip install --upgrade pymysql 
+pip install --upgrade torch torchvision 
+~~~
+
+上诉安装完后，如果运行如下代码，将会长久等待.
+
+~~~python
+import tensorflow as tf
+print(tf.__version__)
+print(tf.config.list_physical_devices('GPU'))
+~~~
+
 ### Tensorflow
 
 **cpu+docker compose**
@@ -61,6 +101,7 @@ pip install --upgrade pyyaml
 pip install --upgrade sklearn 
 pip install --upgrade psycopg2-binary 
 pip install --upgrade pymysql 
+pip install --upgrade seaborn
 # pip install --upgrade awscli --user 
 pip install --upgrade torch torchvision 
 echo export PATH=\"\$PATH:/root/.local/bin\" >> /root/.bashrc

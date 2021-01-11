@@ -12,7 +12,7 @@ keras.datasets中内置了一些数据集，这些数据往往作为benchmark，
 由于这两个数据集使用方法几乎完全相同，下面以reuters数据集为例，讲解其中用法。reuters有两个方法。
 
 - load_data：加载数据。
-- get_word_index：返回一个word->index的字典。
+- get_word_index：返回一个word->index的词典。
 
 ## 实例
 
@@ -34,7 +34,8 @@ print(x_test.shape, y_test.shape)
 ~~~python
 classes = ['cocoa','grain','veg-oil','earn','acq','wheat','copper','housing','money-supply',
    'coffee','sugar','trade','reserves','ship','cotton','carcass','crude','nat-gas',
-   'cpi','money-fx','interest','gnp','meal-feed','a[','iron-steel','rubber','heat','jobs',
+   'cpi','money-fx','interest','gnp','meal-feed','alum','oilseed','gold','tin',
+   'strategic-metal','livestock','retail','ipi','iron-steel','rubber','heat','jobs',
    'lei','bop','zinc','orange','pet-chem','dlr','gas','silver','wpi','hog','lead']
 
 np.random.seed(1031)
