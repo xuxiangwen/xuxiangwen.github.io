@@ -609,3 +609,11 @@ sudo make install
 ~~~
 
 > 默认情况下，centos仅仅安装了python2，可以使用上面的方式安装python3，这样对于环境的影响更小。
+
+### 安装lzma
+
+~~~shell
+sudo yum install -y xz-devel
+~~~
+
+然后从源代码重新安装python。
