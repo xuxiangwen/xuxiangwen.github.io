@@ -1,5 +1,38 @@
 ## 技巧
 
+## dataframe.to_dict
+
+格式`如`有：
+
+- `dict` (default) : dict like {column -> {index -> value}}
+- `list` : dict like {column -> [values]}
+- `series` : dict like {column -> Series(values)}
+- `split` : dict like {index -> [index], columns-> [columns], data -> [values]}
+- `records` : list like [{column -> value}, … , {column -> value}]
+- `index` : dict like {index -> {column -> value}}
+
+~~~python
+import pandas as pd
+
+N = 1
+df = pd.DataFrame({
+    'category': (
+        (['apples'] * 2 * N) +
+        (['oranges'] * 1 * N) 
+    )
+})
+df['x'] = np.random.randn(len(df['category']))
+
+print('-'*50)
+print(df)
+
+for orient in ['dict', 'list', 'series', 'split', 'records', 'index']:    
+    print('-'*30, orient, '-'*30)
+    pprint(df.to_dict(orient))
+~~~
+
+![image-20210112160546485](images/image-20210112160546485.png)
+
 ### 稀疏矩阵csr_matrix
 
 Compressed Sparse Row Matrix 压缩稀疏行格式。稀疏矩阵csr_matrix有三种创建方式。其中最后一种有一点难理解，下面将解释。
@@ -42,7 +75,7 @@ print(m.toarray())
   - 第三行：3
   - 结尾：7
 
-## F分布密度图
+### F分布密度图
 
 ~~~python
 import numpy as np
@@ -190,7 +223,7 @@ show_tree(base_path, max_depth=2)
 
 ![image-20201222112909455](images/image-20201222112909455.png)
 
-## 获得jupyter notebook的列表
+### 获得jupyter notebook的列表
 
 ~~~python
 #!/usr/bin/env python3
