@@ -1,7 +1,10 @@
 *.swp
 *.pyc
-.env/*
-.idea/*
+**/.env/
+**/.idea/
+**/tmp/
+**/__pycache__/
+**/cache-directory/
 .ipynb_checkpoints
 .sass-cache
 large-file/*
