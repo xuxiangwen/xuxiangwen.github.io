@@ -26,7 +26,7 @@ FLAKE_PW = os.getenv("FLAKE_PW")
 
 flake_warehouse = "snowflake_demos"
 flake_db = "LOANS"
-stage = "LOAN_STAGE"
+
 
 
 # Create Engine and connect to DB
@@ -68,7 +68,12 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 cache = Cache(
     app.server,
-    config={"CACHE_TYPE": "redis", "CACHE_REDIS_URL": os.environ.get("REDIS_URL", "")},
+    config={
+        'CACHE_TYPE': 'filesystem',
+        'CACHE_DIR': 'cache-directory',
+        'CACHE_THRESHOLD': 200
+    }
+    # config={"CACHE_TYPE": "redis", "CACHE_REDIS_URL": os.environ.get("REDIS_URL", "")},
 )
 
 # Cache functions
