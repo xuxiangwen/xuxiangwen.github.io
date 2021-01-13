@@ -3,6 +3,7 @@
 import logging
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 import pandas as pd
 import scipy
 import seaborn as sns
@@ -10,7 +11,9 @@ import tensorflow as tf
 import time
 
 from IPython.display import display, Image
+from sklearn.feature_extraction import text
 from sklearn.metrics import confusion_matrix
+from sklearn.feature_selection import SelectKBest, f_classif
 from tensorflow import keras
 from tensorflow.keras import preprocessing, datasets
 from tensorflow.keras import losses, optimizers, regularizers
@@ -41,6 +44,108 @@ def get_weight_num(obj):
     return np.sum([np.prod(p.shape) for p in obj.trainable_weights])
 
 
+def sequence_vectorize(train_texts, val_texts, top_k, max_sequence_length):
+    """Vectorizes texts as sequence vectors.
+
+    1 text = 1 sequence vector with fixed length.
+
+    # Arguments
+        train_texts: list, training text strings.
+        val_texts: list, validation text strings.
+
+    # Returns
+        x_train, x_val, word_index: vectorized training and validation
+            texts and word index dictionary.
+    """
+    # Create vocabulary with training texts.
+    tokenizer = preprocessing.text.Tokenizer(num_words=top_k)
+    tokenizer.fit_on_texts(train_texts)
+
+    # Vectorize training and validation texts.
+    x_train = tokenizer.texts_to_sequences(train_texts)
+    x_val = tokenizer.texts_to_sequences(val_texts)
+
+    # Get max sequence length.
+    max_length = len(max(x_train, key=len))
+    if max_length > max_sequence_length:
+        max_length = max_sequence_length
+
+    # Fix sequence length to max value. Sequences shorter than the length are
+    # padded in the beginning and sequences longer are truncated
+    # at the beginning.
+    x_train = preprocessing.sequence.pad_sequences(x_train, maxlen=max_length)
+    x_val = preprocessing.sequence.pad_sequences(x_val, maxlen=max_length)
+    return x_train, x_val, tokenizer
+
+
+def ngram_vectorize(train_texts, train_labels, val_texts, top_k, ngram_range=(1, 2),
+                    token_mode='word', min_document_frequency=2, stop_words=None):
+    """Vectorizes texts as n-gram vectors.
+
+    1 text = 1 tf-idf vector the length of vocabulary of unigrams + bigrams.
+
+    # Arguments
+        train_texts: list, training text strings.
+        train_labels: np.ndarray, training labels.
+        val_texts: list, validation text strings.
+
+    # Returns
+        x_train, x_val: vectorized training and validation texts
+    """
+    # Create keyword arguments to pass to the 'tf-idf' vectorizer.
+    kwargs = {
+        'ngram_range': ngram_range,  # Use 1-grams + 2-grams.
+        'dtype': 'int32',
+        'strip_accents': 'unicode',
+        'decode_error': 'replace',
+        'analyzer': token_mode,  # Split text into word tokens.
+        'min_df': min_document_frequency,
+        'stop_words': stop_words
+    }
+    vectorizer = text.TfidfVectorizer(**kwargs)
+
+    # Learn vocabulary from training texts and vectorize training texts.
+    x_train = vectorizer.fit_transform(train_texts)
+    print('before SelectKBest, the shape of train data is {}'.format(x_train.shape))
+
+    # Vectorize validation texts.
+    x_val = vectorizer.transform(val_texts)
+
+    # Select top 'k' of the vectorized features.
+    selector = SelectKBest(f_classif, k=min(top_k, x_train.shape[1]))
+    selector.fit(x_train, train_labels)
+    x_train = selector.transform(x_train).astype('float32')
+    x_val = selector.transform(x_val).astype('float32')
+
+    print('After SelectKBest, the shape of train data is {}'.format(x_train.shape))
+
+    return x_train, x_val, vectorizer
+
+
+def show_tree(path, max_depth=10, max_num=100):
+    def _show_tree(path, depth, max_num, prefix):
+        if max_num<=0 or depth>max_depth:
+            return max_num
+        if depth==1: 
+            print(path)
+            max_num=max_num-1
+        items = os.listdir(path)
+        for i, item in enumerate(items):
+            if max_num<=0: return max_num
+            newitem = path +'/'+ item
+            if i==len(items)-1:
+                print(prefix  + "└──" + item)            
+                new_prefix = prefix+"    "                
+            else:
+                print(prefix  + "├──" + item)
+                new_prefix = prefix+"│   "
+            max_num=max_num-1
+            if os.path.isdir(newitem):
+                max_num = _show_tree(newitem, depth=depth+1, max_num=max_num, prefix=new_prefix)         
+        return max_num
+    _show_tree(path, depth=1, max_num=max_num, prefix="")
+
+
 def plot_history(history):
     """显示训练的loss和accuracy的走势图"""
     plt.figure(figsize=(16, 5))
@@ -67,6 +172,126 @@ def plot_history(history):
     plt.xlabel('Epoch')
     plt.xticks(xticks)
     plt.legend(['Training', 'Validation'], loc='upper right')
+    plt.show()
+
+
+def plot_frequency_distribution(train_texts, test_texts=None, stop_words=text.ENGLISH_STOP_WORDS.union(["br"])):
+    def plot_frequency_distribution_of_ngrams(sample_texts,
+                                              ngram_range=(1, 2),
+                                              num_ngrams=50,
+                                              title=''
+                                              ):
+        """Plots the frequency distribution of n-grams.
+        # Arguments
+            samples_texts: list, sample texts.
+            ngram_range: tuple (min, mplt), The range of n-gram values to consider.
+                Min and mplt are the lower and upper bound values for the range.
+            num_ngrams: int, number of n-grams to plot.
+                Top `num_ngrams` frequent n-grams will be plotted.
+        """
+        # Create args required for vectorizing.
+        kwargs = {
+            'ngram_range': (1, 1),
+            'dtype': 'int32',
+            'strip_accents': 'unicode',
+            'decode_error': 'replace',
+            'analyzer': 'word',  # Split text into word tokens.
+            'stop_words': stop_words
+        }
+        vectorizer = text.CountVectorizer(**kwargs)
+
+        # This creates a vocabulary (dict, where keys are n-grams and values are
+        # idxices). This also converts every text to an array the length of
+        # vocabulary, where every element idxicates the count of the n-gram
+        # corresponding at that idxex in vocabulary.
+        vectorized_texts = vectorizer.fit_transform(sample_texts)
+
+        # This is the list of all n-grams in the index order from the vocabulary.
+        all_ngrams = list(vectorizer.get_feature_names())
+        num_ngrams = min(num_ngrams, len(all_ngrams))
+        # ngrams = all_ngrams[:num_ngrams]
+
+        # Add up the counts per n-gram ie. column-wise
+        all_counts = vectorized_texts.sum(axis=0).tolist()[0]
+
+        # Sort n-grams and counts by frequency and get top `num_ngrams` ngrams.
+        all_counts, all_ngrams = zip(*[(c, n) for c, n in sorted(
+            zip(all_counts, all_ngrams), reverse=True)])
+        ngrams = list(all_ngrams)[:num_ngrams]
+        counts = list(all_counts)[:num_ngrams]
+
+        idx = np.arange(num_ngrams)
+        plt.bar(idx, counts, width=0.8, color='b')
+        plt.xlabel('N-grams')
+        plt.ylabel('Frequencies')
+        plt.title('{} Frequency distribution of n-grams'.format(title))
+        plt.xticks(idx, ngrams, rotation=45)
+
+    if test_texts is None:
+        plt.figure(figsize=(16, 6))
+        plot_frequency_distribution_of_ngrams(train_texts, title='Train')
+        plt.show()
+    else:
+        plt.figure(figsize=(16, 12))
+        plt.subplot(211)
+        plot_frequency_distribution_of_ngrams(train_texts, title='Train')
+        plt.subplot(212)
+        plot_frequency_distribution_of_ngrams(test_texts, title='Test')
+        plt.show()
+
+
+def plot_length_distribution(train_text_lengths, test_text_lengths):
+    def plot_length_dist(lengths, title):
+        median = np.median(lengths)
+        plt.hist(lengths, 50)
+        plt.axvline(x=median, color='coral', linestyle='dashed', linewidth=2)
+        plt.text(median + 30, 100, median, color='coral')
+        plt.xlabel('Length of a sample')
+        plt.ylabel('Number of samples')
+        plt.title('{}: Sample Length Distribution'.format(title))
+
+    plt.figure(figsize=(12, 4))
+    plt.subplot(121)
+    plot_length_dist(train_text_lengths, 'Train')
+    plt.subplot(122)
+    plot_length_dist(test_text_lengths, 'Test')
+
+    plt.subplots_adjust(wspace=0.3, hspace=0.3)
+    plt.show()
+
+
+def plot_distribution(train_labels, test_labels, classes):
+    """打印类的分布"""
+    def plot_dist(labels, title, color='blue', width=0.7):
+        bin_count = np.bincount(labels)
+        bin_percentage = bin_count / len(labels)
+        rects = plt.bar(np.arange(len(bin_count)), bin_count, width, color=color)
+        plt.title(title)
+        if classes is None:
+            plt.xticks(range(len(bin_count)))
+        else:
+            plt.xticks(range(len(bin_count)), labels=classes, rotation=45)
+        plt.ylim(0, max(bin_count) * 1.1)
+
+        for i, r in enumerate(rects):
+            plt.annotate('{:0.1f}%'.format(int(bin_percentage[i] * 100)),
+                         xy=(r.get_x() + r.get_width() / 2, r.get_height()),
+                         xytext=(0, 3),  # 3 points vertical offset
+                         textcoords="offset points",
+                         ha='center', va='bottom')
+
+    if len(classes) <= 10:
+        plt.figure(figsize=(min(4 * len(classes), 16), 4))
+        plt.subplot(121)
+        plot_dist(train_labels, 'Train', color='teal')
+        plt.subplot(122)
+        plot_dist(test_labels, 'Test', color='coral')
+    else:
+        plt.figure(figsize=(20, 12))
+        plt.subplot(211)
+        plot_dist(train_labels, 'Train', color='teal')
+        plt.subplot(212)
+        plot_dist(test_labels, 'Test', color='coral')
     plt.show()
 
 
@@ -101,7 +326,19 @@ class DictToObject(object):
         objd = dict(_traverse(k, v) for k, v in self.source.items())
         self.__dict__.update(objd)
 
-    def get_similar_attribute(self, names):
+    def get_similar_attribute(self, name):
+        names = name.strip().split('.')
+        last_name = names[-1]
+        for i in range(0, len(names)):
+            _names = names[0:(len(names)-1-i)] + [last_name]
+            obj = self._get_similar_attribute(_names)
+            if obj is not None:
+                print('{}={}'.format('.'.join(_names), obj))
+                return obj
+        print('{}=None'.format('.'.join(names)))
+        return None
+
+    def _get_similar_attribute(self, names):
         def similar_attribute(obj, name):
             for key, attribute_ in obj.__dict__.items():
                 if key == name:
@@ -120,7 +357,7 @@ class DictToObject(object):
 
 class TextClassificationHelper(object):
     
-    def __init__(self, params, data, model_results={}):
+    def __init__(self, params, data=None, model_results={}):
         self.params = params
         self.model_results = model_results
         self.data = data
@@ -169,12 +406,16 @@ class TextClassificationHelper(object):
             callbacks_.append(lr_scheduler)
         return callbacks_
         
-    def train(self, model, callbacks=None, epochs=None, verbose=True):
+    def train(self, model, callbacks=None, epochs=None, verbose=True, batch_size=None):
         """要求模型设置name属性，用于保存模型。"""
         if epochs is None:
-            epochs = self.params.epochs
+            epochs = self.get_model_param(model.name, 'epochs')
         if callbacks is None:
             callbacks = self.get_callbacks(model, verbose)
+        if batch_size is not None and batch_size != self.data.batch_size:
+            print('Refresh datasets because batch_size is changed to {} from {}'.format(batch_size, self.data.batch_size))
+            self.data.batch_size = batch_size
+            self.data.refresh()
 
         if self.data.val_dataset is None:
             validation_dataset = self.data.test_dataset
@@ -182,10 +423,13 @@ class TextClassificationHelper(object):
             validation_dataset = self.data.val_dataset          
 
         with TaskTime('training', True) as t:
-            if self.data.is_sparse:
-                history = model.fit(self.data.train_dataset, validation_data=validation_dataset,
-                                    epochs=epochs, verbose=verbose, steps_per_epoch=self.data.train_dataset.steps,
-                                    validation_steps = validation_dataset.steps,
+            if isinstance(self.data, SimpleTextDataset):
+                history = model.fit(self.data.train_dataset.features,
+                                    self.data.train_dataset.labels,
+                                    validation_data=(validation_dataset.features, validation_dataset.labels),
+                                    epochs=epochs, verbose=verbose,
+                                    batch_size=self.params.batch_size,
+                                    shuffle=True,
                                     callbacks=callbacks)
             else:
                 history = model.fit(self.data.train_dataset, validation_data=validation_dataset,
@@ -196,13 +440,11 @@ class TextClassificationHelper(object):
         return history  
     
     def compile(self, model):
-        learning_rate = self.get_learning_rate(model.name)
-        print('learning_rate={}'.format(learning_rate))
-
-        if len(self.params.classes) == 2:
-            loss = losses.BinaryCrossentropy(from_logits=True),
-        else:
-            loss = losses.SparseCategoricalCrossentropy(from_logits=True),
+        learning_rate = self.get_model_param(model.name, 'learning_rate')
+        # if len(self.params.classes) == 2:
+        #     loss = losses.BinaryCrossentropy(from_logits=True),
+        # else:
+        loss = losses.SparseCategoricalCrossentropy(from_logits=True),
         model.compile(optimizer=optimizers.Adam(learning_rate=learning_rate),
                       loss=loss,
                       metrics=self.params.metrics)
@@ -214,6 +456,12 @@ class TextClassificationHelper(object):
                                                          
     def evaluate(self, model, train_time, train_dataset=None, val_dataset=None, test_dataset=None):
         """评估当前模型，并且显示所有模型的信息"""
+        def _evaluate(dataset):
+            if isinstance(self.data, SimpleTextDataset):
+                loss, accuracy = model.evaluate(dataset.features, dataset.labels, verbose=True)
+            else:
+                loss, accuracy = model.evaluate(dataset, verbose=True)
+            return loss, accuracy
         model_results = self.model_results
         if train_dataset is None:
             train_dataset = self.data.train_dataset
@@ -221,11 +469,11 @@ class TextClassificationHelper(object):
             val_dataset = self.data.val_dataset
         if test_dataset is None:
             test_dataset = self.data.test_dataset
-        
-        train_loss, train_accuracy = model.evaluate(train_dataset, verbose=False)
+
+        train_loss, train_accuracy = _evaluate(train_dataset)
         if val_dataset is not None:
-            val_loss, val_accuracy = model.evaluate(val_dataset, verbose=False)
-        test_loss, test_accuracy = model.evaluate(test_dataset, verbose=False)
+            val_loss, val_accuracy = _evaluate(val_dataset)
+        test_loss, test_accuracy = _evaluate(test_dataset)
         if model.name not in model_results or model_results[model.name]['test_accuracy']<test_accuracy:
             if val_dataset is not None:
                 model_results[model.name] = {'train_loss': round(train_loss, 6),
@@ -236,6 +484,7 @@ class TextClassificationHelper(object):
                                              'test_accuracy': round(test_accuracy, 4),
                                              'weight_number': get_weight_num(model),
                                              'model': model,
+                                             'data':self.data,
                                              'train_time': round(train_time, 0)}
             else:
                 model_results[model.name] = {'train_loss': round(train_loss, 6),
@@ -244,6 +493,7 @@ class TextClassificationHelper(object):
                                              'test_accuracy': round(test_accuracy, 4),
                                              'weight_number': get_weight_num(model),
                                              'model': model,
+                                             'data': self.data,
                                              'train_time': round(train_time, 0)}
         print('Test loss:{:0.4f}, Test Accuracy:{:0.2%}'.format(test_loss, test_accuracy))
                     
@@ -258,9 +508,9 @@ class TextClassificationHelper(object):
         print('-'*40, 'confusion matrix'  , '-'*40)
         self.plot_confusion_matrix(model)   
 
-        # 模型对比
-        print('-'*40, 'model improvement'.format(model.name), '-'*40)
-        self.plot_predicted_sample(model, sample_count=5, only_compare_best=True) 
+        # # 模型对比
+        # print('-'*40, 'model improvement'.format(model.name), '-'*40)
+        # self.plot_predicted_sample(model, sample_count=5, only_compare_best=True)
         
         # 错误比较        
         if len(self.model_results.keys())>1:
@@ -271,38 +521,35 @@ class TextClassificationHelper(object):
         print('-'*50, 'all models'.format(model.name), '-'*50)
         self.show_model_results()
 
-    def get_learning_rate(self, model_name):
-        learning_rate = self.params.model_params.get_similar_attribute([model_name, 'learning_rate'])
-        if learning_rate is None:
-            learning_rate = self.params.learning_rate
-        return learning_rate
- 
-    def get_dropout(self, model_name):
-        dropout = self.params.model_params.get_similar_attribute([model_name, 'dropout'])
-        if dropout is None:
-            dropout = self.params.dropout
-        return dropout   
+    def get_model_param(self, model_name, attribute):
+        return self.params.get_similar_attribute('model_params.{}.{}'.format(model_name, attribute))
+
+    # def get_learning_rate(self, model_name):
+    #     return self.get_model_param(model_name, 'learning_rate')
+    #
+    # def get_dropout(self, model_name):
+    #     return self.get_model_param(model_name, 'dropout')
     
     def get_best_model(self, exclude_mode_name=''):
         models = [(model_name, model_result['test_accuracy'])
                   for model_name, model_result in self.model_results.items() 
                   if model_name != exclude_mode_name]
         if len(models) == 0:
-            return None
+            return None, None
         models = sorted(models, key=lambda item: item[1])
         best_model_name = models[-1][0]
-        return self.model_results[best_model_name]['model']     
+        return self.model_results[best_model_name]['model'], self.model_results[best_model_name]['data']
         
     def show_model_results(self):
         """按照test_accuracy倒序显示所有模型的信息"""
         model_results = self.model_results
-        models_remove1 = {key:{key1:value1 for key1, value1 in value.items() if key1 != 'model'} 
+        models_remove1 = {key:{key1:value1 for key1, value1 in value.items() if key1 != 'model' and key1 != 'data'}
                           for key, value in model_results.items()}
         df_models = pd.DataFrame.from_dict(models_remove1, orient='index')
         df_models = df_models.sort_values('test_accuracy', ascending=False) 
         display(df_models)       
         
-    def show_images(self, images, labels, x_num=6, y_num=6, figsize=(8,8), images_mean=None):
+    def show_images(self, images, labels, x_num=6, y_num=6, figsize=(8, 8), images_mean=None):
         """显示图片"""
         classes = self.data.classes
         plt.figure(figsize=figsize)
@@ -324,7 +571,7 @@ class TextClassificationHelper(object):
 
         plt.tight_layout()
         plt.subplots_adjust(wspace=0.3, hspace=0.3)      
-        plt.show()  
+        plt.show()
 
     def plot_distribution(self, train_labels=None, test_labels=None, classes=None):
         """打印类的分布"""
@@ -334,76 +581,71 @@ class TextClassificationHelper(object):
             test_labels = self.data.test_labels
         if classes is None:
             classes = self.data.classes
-        
-        def plot_dist(labels, title, color='blue', width = 0.7):
-            bin_count = np.bincount(labels)
-            bin_percentage = bin_count/len(labels)
-            rects = plt.bar(np.arange(len(bin_count)), bin_count, width, color=color)
-            plt.title(title)
-            if classes is None:
-                plt.xticks(range(len(bin_count))) 
-            else:
-                plt.xticks(range(len(bin_count)), labels=classes, rotation=45)
-            plt.ylim(0, max(bin_count)*1.1) 
 
-            for i, r in enumerate(rects):
-                plt.annotate('{:0.1f}%'.format(int(bin_percentage[i]*100)),
-                             xy=(r.get_x() + r.get_width() / 2, r.get_height()),
-                             xytext=(0, 3),  # 3 points vertical offset
-                             textcoords="offset points",
-                             ha='center', va='bottom')
+        plot_distribution(train_labels, test_labels, classes)
 
-        plt.figure(figsize=(min(4*len(classes), 16), 4))
-        plt.subplot(121)
-        plot_dist(train_labels, 'Train', color='teal')
-        plt.subplot(122)
-        plot_dist(test_labels, 'Test', color='coral')
-
-        plt.show()
-
-    def plot_confusion_matrix(self, model1, images=None, labels=None, model2=None, compared=True):
+    def plot_confusion_matrix(self, model1, texts=None, labels=None, model2=None, compared=True):
         """打印混淆矩阵"""
-        def plot_cm(model):
-            predictions = model.predict(images).argmax(axis=-1)               
+        def plot_cm(model, texts):
+            # if len(classes) == 2:
+            #     predictions = model.predict(texts) > 0
+            # else:
+            predictions = model.predict(texts, verbose=True).argmax(axis=-1)
             cm = confusion_matrix(labels, predictions)
             bin_count = np.bincount(labels)
+
             if classes is None: 
                 index = range(len(bin_count))      
                 columns = range(len(bin_count))  
             else:
-                index = classes     
-                columns = classes           
+                classes_ = [_class[0:15] for _class in classes]
+                index = classes_
+                columns = classes_
+
             df_cm = pd.DataFrame(cm, index=index, columns=columns)
 
             plt.title("{} - Confusion matrix".format(model.name))
             sns.heatmap(df_cm, annot=True, fmt='g',cmap='coolwarm')
             if classes is not None: 
-                plt.yticks(rotation = 0)
-                plt.xticks(rotation = 45)
+                plt.yticks(rotation=0)
+                plt.xticks(rotation=45)
             plt.xlabel("Predicted")
             plt.ylabel("Actual")
 
-        if images is None: images = self.data.test_images
-        if labels is None: labels = self.data.test_labels 
+        if texts is None:
+            texts = self.data.test_texts
+        if labels is None:
+            labels = self.data.test_labels
         classes = self.data.classes
         
         if compared and model2 is None:
-            model2 = self.get_best_model(model1.name)
+            model2, data2 = self.get_best_model(model1.name)
 
-        if model2 is not None:            
-            plt.figure(figsize=(16, 6))
-            plt.subplot(1, 2, 1)
-            plot_cm(model2)
-            plt.subplot(1, 2, 2)
-            plot_cm(model1)         
+        if len(classes) <= 10:
+            height = min(6, len(classes)*2)
+        else:
+            height = min(len(classes), 20)
+        if model2 is not None:
+            if len(classes) <= 10:
+                plt.figure(figsize=(height*2+6, height))
+                plt.subplot(1, 2, 1)
+                plot_cm(model2, data2.test_texts)
+                plt.subplot(1, 2, 2)
+                plot_cm(model1, texts)
+            else:
+                plt.figure(figsize=(height, height*2))
+                plt.subplot(2, 1, 1)
+                plot_cm(model2, data2.test_texts)
+                plt.subplot(2, 1, 2)
+                plot_cm(model1, texts)
         else:  
-            plt.figure(figsize=(8, 6))
-            plot_cm(model1)
+            plt.figure(figsize=(height+1, height))
+            plot_cm(model1, texts)
 
         plt.show()    
 
-    def plot_predicted_sample(self, model, images=None, labels=None, sample_count=5, 
-                              show_error=True, images_mean=None, only_compare_best=False):
+    def plot_predicted_sample(self, model, texts=None, labels=None, sample_count=5, raw_texts=None,
+                              show_error=True, only_compare_best=False):
         """查看一些样本的分类情况"""
         def get_class(label):
             if classes is None:
@@ -411,94 +653,124 @@ class TextClassificationHelper(object):
             else:
                 return classes[label]
 
-        def plot_var(model, image, label):
-            predict = np.squeeze(tf.nn.softmax(model.predict(image)).numpy())
+        def plot_var(model, text, classes):
+            predict = np.squeeze(tf.nn.softmax(model.predict(text)).numpy())
             max_like = np.argmax(predict)
             max_like_value = predict[max_like]
 
             if classes is None:
                 _classes = range(label_count)
-                plt.text(max_like-0.5, max_like_value+0.02, 
+                plt.text(max_like-0.4, max_like_value+0.02,
                          '{:0.1f}%'.format(max_like_value*100), fontsize=8)            
-                plt.bar(_classes, predict, width=0.9, color='steelblue', alpha=0.8) 
+                plt.bar(_classes, predict, width=0.8, color='steelblue', alpha=0.8)
                 plt.ylim(0, 1.2)
-                plt.xticks(range(label_count), _classes, fontsize=8)          
+                plt.xticks(range(len(_classes)), _classes, fontsize=8)
+            elif len(classes) <= 5:
+                _classes = classes
+                plt.text(max_like-0.4, max_like_value+0.02,
+                         '{:0.1f}%'.format(max_like_value*100), fontsize=8)
+                plt.bar(_classes, predict, width=0.8, color='steelblue', alpha=0.8)
+                plt.ylim(0, 1.2)
+                _classes = [_class[0:10] for _class in _classes]
+                plt.xticks(range(len(_classes)), _classes, fontsize=8, rotation=45)
+            elif len(classes) > 10:
+                idx = predict.argsort()[-10:]
+                predict = predict[idx]
+                _classes = np.array(classes)[idx]
+                plt.text(max_like_value+0.02, label_count-1,
+                         '{:0.1f}%'.format(max_like_value*100), fontsize=8)
+                plt.barh(_classes, predict, height=0.8, color='steelblue', alpha=0.8)
+                plt.xlim(0, 1.2)
+                _classes = [_class[0:10] for _class in _classes]
+                plt.yticks(range(len(_classes)), _classes, fontsize=8)
             else:
                 _classes = classes
                 plt.text(max_like_value+0.02, max_like, 
                          '{:0.1f}%'.format(max_like_value*100), fontsize=8)             
-                plt.barh(_classes, predict, height=0.9, color='steelblue', alpha=0.8) 
+                plt.barh(_classes, predict, height=0.8, color='steelblue', alpha=0.8)
                 plt.xlim(0, 1.2)
-                plt.yticks(range(label_count), _classes, fontsize=8)
+                _classes = [_class[0:10] for _class in _classes]
+                plt.yticks(range(len(_classes)), _classes, fontsize=8)
             plt.title('{}: {}'.format(model.name, get_class(max_like)), fontsize=10)
 
-        if images is None: images = self.data.test_images
-        if labels is None: labels = self.data.test_labels 
+        if texts is None:
+            texts = self.data.test_texts
+        if labels is None:
+            labels = self.data.test_labels
+        if raw_texts is None:
+            raw_texts = self.data.raw_test_texts
         classes = self.data.classes
         
         if only_compare_best:
-            best_model = self.get_best_model(model.name)
+            best_model, best_data = self.get_best_model(model.name)
             if best_model is None:
-                models = [model]   
+                models = [(model, texts)]
             else:
-                models = [best_model, model]
+                models = [(best_model, best_data.test_texts), (model, texts)]
         else:   
-            models = [model] + [model_result['model'] for model_name, model_result in self.model_results.items()
-                                if model_name!=model.name]
-        
-        if show_error:
-            base_predictions = models[0].predict(images).argmax(axis=-1)  
-            error_indexes = base_predictions != labels
-            error_images = images[error_indexes]
-            error_labels = labels[error_indexes]
-            sample_indexes = np.random.randint(len(error_images), size=sample_count)  
-            sample_images = error_images[sample_indexes]
-            sample_labels = error_labels[sample_indexes]
-        else:
-            sample_indexes = np.random.randint(len(labels), size=sample_count)  
-            sample_images = images[sample_indexes]
-            sample_labels = labels[sample_indexes]
+            models = [(model, texts)] + [(model_result['model'], model_result['data'].test_texts)
+                                         for model_name, model_result in self.model_results.items()
+                                         if model_name!=model.name]
 
         bin_count = np.bincount(labels)
         label_count = len(bin_count)
-        column_count = len(models)+1 
-        if classes is None:
-            plt.figure(figsize=(2.2*column_count, sample_count*2.2))
+        column_count = len(models)+1
+
+        if show_error:
+            # print(models[0][0])
+            # print(texts.shape)
+            base_predictions = model.predict(texts, verbose=True).argmax(axis=-1)
+            error_indexes = base_predictions != labels
+            error_raw_texts = [raw_text for i, raw_text in enumerate(raw_texts) if base_predictions[i] != labels[i]]
+            error_labels = labels[error_indexes]
+            sample_indexes = np.random.randint(error_labels.shape[0], size=sample_count)
+            sample_labels = error_labels[sample_indexes]
+            sample_raw_texts = [error_raw_texts[index] for index in sample_indexes]
         else:
-            plt.figure(figsize=(2.8*column_count, sample_count*2.8))
-        channel_count = images.shape[-1]
+            sample_indexes = np.random.randint(len(labels), size=sample_count)
+            sample_labels = labels[sample_indexes]
+            sample_raw_texts = [raw_texts[index] for index in sample_indexes]
+
         for i in range(sample_count):
-            plt.subplot(sample_count, column_count, column_count*i+1)        
-            if images_mean is not None:
-                image = sample_images[i]+images_mean
+            print('.'*40, classes[sample_labels[i]], '.'*40)
+            if len(sample_raw_texts[i]) <= 3000:
+                print(sample_raw_texts[i])
             else:
-                image = sample_images[i]
-            if channel_count==1:
-                plt.imshow(image, cmap='gray')
+                print(sample_raw_texts[i][0:3000] + '...')
+            if classes is None:
+                plt.figure(figsize=(2.2 * column_count, 2.2))
+            elif len(classes) <= 5:
+                plt.figure(figsize=(2.8 * column_count, 2.2))
             else:
-                plt.imshow(image)        
-            plt.title('actual: {}'.format(get_class(sample_labels[i])), fontsize=10)
-            plt.xticks([])
-            plt.yticks([])
+                plt.figure(figsize=(3.2* column_count, 2.8))
+            for j, (model, _texts) in enumerate(models):
+                plt.subplot(1, column_count, j+1)
+                if show_error:
+                    error_texts = _texts[error_indexes]
+                    sample_texts = error_texts[sample_indexes]
+                else:
+                    sample_texts = _texts[sample_indexes]
+                plot_var(model, sample_texts[i:i+1], classes)
 
-            for j, model in enumerate(models):
-                plt.subplot(sample_count, column_count, column_count*i+j+2)
-                plot_var(model, sample_images[i:i+1], sample_labels[i])
-
-        plt.subplots_adjust(wspace=0.5, hspace=0.5)         
-        plt.show()
+            plt.subplots_adjust(wspace=0.5, hspace=0.5)
+            plt.show()
         
 
 class SimpleData(object):
-    def __init__(self, data, labels):
-        self.data = data
+    def __init__(self, features, labels):
+        self.features = features
         self.labels = labels
 
-class TextDataset(object):
-    def __init__(self, params, train_texts, train_labels, test_texts, test_labels):
 
+class TextDataset(object):
+    def __init__(self, params, train_texts, train_labels, test_texts, test_labels, raw_train_texts, raw_test_texts,
+                 batch_size=None):
+        super().__init__()
         self.dataset_name = params.dataset_name
-        self.batch_size = params.batch_size
+        if batch_size is None:
+            self.batch_size = params.batch_size
+        else:
+            self.batch_size = batch_size
         self.validation_percent = params.validation_percent
         self.classes = params.classes
 
@@ -507,57 +779,14 @@ class TextDataset(object):
         self.test_texts = test_texts
         self.test_labels = test_labels
         self.input_shape = self.train_texts.shape[1:]
+
+        self.raw_train_texts = raw_train_texts
+        self.raw_test_texts = raw_test_texts
         
         print('create train, validation and test dataset')
-        self.is_sparse = type(train_texts) == scipy.sparse.csr.csr_matrix
         self.train_dataset, self.val_dataset, self.test_dataset = self.get_datasets()
-
-    def refresh(self):
-        self.train_dataset, self.val_dataset, self.test_dataset = self.get_datasets()
-        return self
-
-    def get_sparse_datasets(self, random_state=42):
-    # def get_sparse_datasets(self, random_state=42):
-    #     X_train, X_val, y_train, y_val = self._get_train_val(random_state)
-    #     train_generator = self._get_generator(X_train, y_train, drop_remainder=True, shuffle=True)
-    #     train_generator.steps = X_train.shape[0] // self.batch_size
-    #     if X_val is not None:
-    #         validation_generator = self._get_generator(X_val, y_val, drop_remainder=True, shuffle=True)
-    #         validation_generator.steps = X_val.shape[0]//self.batch_size
-    #     else:
-    #         validation_generator = None
-    #     test_generator = self._get_generator(self.test_texts, self.test_labels)
-    #     return train_generator, validation_generator, test_generator
-
-    # def _get_generator(self, features, labels, drop_remainder=False, shuffle=False):
-    #     batch_size = self.batch_size
-    #     count = features.shape[0]
-    #     if shuffle:
-    #         permuted = np.random.permutation(count)
-    #         features = features[permuted]
-    #         labels = labels[permuted]
-    #     if drop_remainder:
-    #         steps = count // batch_size
-    #     else:
-    #         steps = (count - 1) // batch_size + 1
-    #     for i in range(steps):
-    #         yield (features[i * batch_size: (i + 1) * batch_size].todense(), labels[i * batch_size: (i + 1) * batch_size])
-
-    def _get_train_val(self, random_state=42):
-        if self.validation_percent>0:
-            print('split train into train and validation')
-            X_train, X_val, y_train, y_val = train_test_split(self.train_texts, self.train_labels,
-                                                              test_size=self.validation_percent,
-                                                              random_state=random_state)
-            print('train:', X_train.shape, y_train.shape)
-            print('validation:', X_val.shape, y_val.shape)
-        else:
-            X_train, X_val, y_train, y_val = self.train_texts, None, self.train_labels, None
-        return X_train, X_val, y_train, y_val
 
     def get_datasets(self, random_state=42):
-        if self.is_sparse:
-            return self.get_sparse_datasets()
         X_train, X_val, y_train, y_val = self._get_train_val(random_state)
 
         test_dataset = tf.data.Dataset.from_tensor_slices((self.test_texts, self.test_labels))
@@ -576,7 +805,48 @@ class TextDataset(object):
 
         return train_dataset, val_dataset, test_dataset
 
-    
+    def refresh(self):
+        self.train_dataset, self.val_dataset, self.test_dataset = self.get_datasets()
+        return self
+
+    def _get_train_val(self, random_state=42):
+        if self.validation_percent>0:
+            print('split train into train and validation')
+            X_train, X_val, y_train, y_val = train_test_split(self.train_texts, self.train_labels,
+                                                              test_size=self.validation_percent,
+                                                              random_state=random_state)
+            print('train:', X_train.shape, y_train.shape)
+            print('validation:', X_val.shape, y_val.shape)
+        else:
+            X_train, X_val, y_train, y_val = self.train_texts, None, self.train_labels, None
+        return X_train, X_val, y_train, y_val
+
+
+class SimpleTextDataset(TextDataset):
+    def __init__(self, params, train_texts, train_labels, test_texts, test_labels,
+                 raw_train_texts, raw_test_texts, batch_size=None):
+        super().__init__(params, train_texts, train_labels, test_texts, test_labels,
+                                                raw_train_texts, raw_test_texts, batch_size)
+
+    def get_datasets(self, random_state=42):
+        X_train, X_val, y_train, y_val = self._get_train_val(random_state)
+        train_data = SimpleData(X_train, y_train)
+        if X_val is not None:
+            val_data = SimpleData(X_train, y_train)
+        else:
+            val_data = None
+        test_data = SimpleData(self.test_texts, self.test_labels)
+        return train_data, val_data, test_data
+
+
+class SequenceTextDataset(TextDataset):
+    def __init__(self, params, train_texts, train_labels, test_texts, test_labels,
+                 raw_train_texts, raw_test_texts, tokenizer, batch_size=None):
+        super().__init__(params, train_texts, train_labels, test_texts, test_labels,
+                                                  raw_train_texts, raw_test_texts, batch_size)
+        self.tokenizer = tokenizer
+
+
 class TaskTime:
     '''用于显示执行时间'''
 
