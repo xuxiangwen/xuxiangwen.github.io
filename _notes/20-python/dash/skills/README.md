@@ -1,13 +1,159 @@
-## Skills
-
 ~~~shell
 mkdir -p skills
 cd skills
 ~~~
 
-### [Multi-Page Apps and URL Support](https://dash.plotly.com/urls)
+## 技巧
 
-#### Simple Sample
+### 文件下载
+
+~~~python
+python_file=download_file.py
+
+cat << EOF > $python_file
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import pandas as pd
+import urllib
+
+df = pd.DataFrame({
+    'a': [1, 2, 3, 4],
+    'b': [2, 1, 5, 6],
+    'c': ['x', 'x', 'y', 'y']
+})
+
+
+def generate_table(dataframe, max_rows=10):
+    return html.Table(
+        # Header
+        [html.Tr([html.Th(col) for col in dataframe.columns])] +
+
+        # Body
+        [html.Tr([
+            html.Td(dataframe.iloc[i][col]) for col in dataframe.columns
+        ]) for i in range(min(len(dataframe), max_rows))]
+    )
+
+
+app = dash.Dash(__name__)
+app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
+app.layout = html.Div([
+    html.Label('Filter'),
+
+    dcc.Dropdown(
+        id='field-dropdown',
+        options=[
+            {'label': i, 'value': i} for i in
+            (['all'] + list(df['c'].unique()))],
+        value='all'
+    ),
+    html.Div(id='table'),
+    html.A(
+        'Download Data',
+        id='download-link',
+        download="rawdata.csv",
+        href="",
+        target="_blank"
+    )
+])
+
+
+def filter_data(value):
+    if value == 'all':
+        return df
+    else:
+        return df[df['c'] == value]
+
+
+@app.callback(
+    dash.dependencies.Output('table', 'children'),
+    [dash.dependencies.Input('field-dropdown', 'value')])
+def update_table(filter_value):
+    dff = filter_data(filter_value)
+    return generate_table(dff)
+
+
+@app.callback(
+    dash.dependencies.Output('download-link', 'href'),
+    [dash.dependencies.Input('field-dropdown', 'value')])
+def update_download_link(filter_value):
+    dff = filter_data(filter_value)
+    csv_string = dff.to_csv(index=False, encoding='utf-8')
+    csv_string = "data:text/csv;charset=utf-8,%EF%BB%BF" + urllib.parse.quote(csv_string)
+    return csv_string
+
+
+if __name__ == '__main__':
+    app.run_server(debug=False, port='8051', host='0.0.0.0')
+    
+EOF
+
+python3 $python_file 
+~~~
+
+
+
+## Loading States
+
+### 使用 [Loading component](https://dash.plotly.com/dash-core-components/loading) 
+
+~~~python
+python_file=loading_states.py
+
+cat << EOF > $python_file
+# -*- coding: utf-8 -*-
+import dash
+import dash_html_components as html
+import dash_core_components as dcc
+import time
+
+from dash.dependencies import Input, Output, State
+
+app = dash.Dash(__name__)
+
+app.layout = html.Div(
+    children=[
+        html.H3("Edit text input to see loading state"),
+        dcc.Input(id="input-1", value='Input triggers local spinner'),
+        dcc.Loading(id="loading-1", children=[html.Div(id="loading-output-1")], type="default"),
+        html.Div(
+            [
+                dcc.Input(id="input-2", value='Input triggers nested spinner'),
+                dcc.Loading(
+                    id="loading-2",
+                    children=[html.Div([html.Div(id="loading-output-2")])],
+                    type="circle",
+                )
+            ]
+        ),
+    ],
+)
+
+@app.callback(Output("loading-output-1", "children"), Input("input-1", "value"))
+def input_triggers_spinner(value):
+    time.sleep(5)
+    return value
+
+
+@app.callback(Output("loading-output-2", "children"), Input("input-2", "value"))
+def input_triggers_nested(value):
+    time.sleep(5)
+    return value
+
+
+if __name__ == "__main__":
+    app.run_server(debug=False, port='8051', host='0.0.0.0')
+EOF
+
+python3 $python_file 
+~~~
+
+
+
+## [Multi-Page Apps and URL Support](https://dash.plotly.com/urls)
+
+### Simple Sample
 
 ~~~python
 python_file=multi_page_simple.py
@@ -150,7 +296,7 @@ python3 $python_file
 
 
 
-#### Dynamically Create a Layout for Multi-Page App Validation
+### Dynamically Create a Layout for Multi-Page App Validation
 
 Dash会验证callback的Input和Output设置是否正确。由于Multi-Page，所以在初始layout并不包含所有的组件，这时需要设置app.validation_layout来设置所有的component。
 
@@ -256,7 +402,7 @@ EOF
 python3 $python_file  
 ~~~
 
-#### Structuring a Multi-Page App
+### Structuring a Multi-Page App
 
 实际的网站，可能结构如下。
 
@@ -401,7 +547,7 @@ EOF
 
 python3 $python_file  
 
-### [DataTable Interactivity](https://dash.plotly.com/datatable/interactivity)
+## [DataTable Interactivity](https://dash.plotly.com/datatable/interactivity)
 
 `DataTable` 有如下几个属性。
 
@@ -415,7 +561,7 @@ python3 $python_file
 - Paging front-end (`page_action='native'`)
 - Hiding columns (`hidden_columns=[]`)
 
-#### 基本
+### 基本
 
 ~~~python
 python_file=datatable.py
@@ -665,4 +811,83 @@ python3 $python_file
 ![image-20210112191103058](images/image-20210112191103058.png)
 
 
+
+### dash_table_experiments
+
+~~~python
+python_file=dash_table_experiments.py
+
+cat << EOF > $python_file
+# -*- coding: UTF-8 -*-
+
+import dash
+from dash.dependencies import Input, Output, State
+import dash_core_components as dcc
+import dash_html_components as html
+import dash_table_experiments as dt
+import json
+import pandas as pd
+import plotly
+
+app = dash.Dash()
+
+app.scripts.config.serve_locally = True
+
+DF_GAPMINDER = pd.read_csv( 'https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv'
+)
+sparklines = {
+    c: html.Div(style={'height': 100, 'width': '100%'}, children=dcc.Graph(
+        id=c,
+        figure={
+            'data': [{
+                'x': DF_GAPMINDER[c],
+                'type': 'histogram'
+            }],
+            'layout': {
+                'height': 100,
+                'width': 150,
+                'margin': {
+                    'l': 0, 'r': 0, 't': 0, 'b': 0
+                },
+                'xaxis': {
+                    'showticklabels': False,
+                    'showline': False,
+                    'showgrid': False,
+                },
+                'yaxis': {
+                    'showticklabels': False,
+                    'showline': False,
+                    'showgrid': False,
+                }
+            }
+        },
+        config={'displayModeBar': False}
+    ))
+    for c in DF_GAPMINDER.columns
+}
+
+app.layout = html.Div([
+    html.H1('💖 Dash Sparklines 💖', style={'textAlign': 'center'}),
+    html.H2(html.I('Coming Soon'), style={'textAlign': 'center'}),
+    dt.DataTable(
+        rows=[sparklines] + DF_GAPMINDER.to_dict('records'),
+        id='table',
+        min_height=1500,
+    ),
+    html.Div(dcc.Dropdown(), style={'display': 'none'})
+], className="container")
+
+
+app.css.append_css({
+    "external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"
+})
+
+if __name__ == '__main__':
+    app.run_server(debug=True, port=8060)
+
+
+EOF
+
+python3 $python_file 
+~~~
 

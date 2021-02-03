@@ -1,4 +1,4 @@
-这是flask的一些学习内容，
+Flask 是一个 Python 实现的轻量级Web 开发框架。
 
 ## 内容
 
@@ -23,7 +23,8 @@ source venv/bin/activate
 Flask的安装，详见[Installation](https://flask.palletsprojects.com/en/1.1.x/installation/#python-version)。
 
 ```
-virtualenv --no-site-packages venv
+# python3中绑定了venv模块，可以调用它来创建虚拟环境。
+python3 -m venv venv
 source venv/bin/activate
 pip install flask
 flask --version

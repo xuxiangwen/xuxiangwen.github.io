@@ -4,6 +4,18 @@
 
 ### Todo List
 
+- 2021-01-28：吴恩达 **Machine Learning Yearning**
+  
+  **Github**：*https://github.com/deeplearning-ai/machine-learning-yearning-cn*
+  
+  **在线阅读**：*https://deeplearning-ai.github.io/machine-learning-yearning-cn/docs/home/*
+  
+  **中文版**：https://github.com/deeplearning-ai/machine-learning-yearning-cn/releases
+  
+- 2021-01-18： 如何得到notebook的名称，[How Do I Get The Current IPython / Jupyter Notebook Name](https://izziswift.com/how-do-i-get-the-current-ipython-jupyter-notebook-name/)
+  
+- 2021-01-13：有时间好好过一下snowflake。
+  
 - 2021-01-05： [fasttext和cnn的比较，使用keras imdb看效果——cnn要慢10倍。](https://www.cnblogs.com/bonelee/p/9145776.html) 这篇文章主要那个说了用Bi-gram来构建序列，然后
   
 - 2020-12-25: 把图像增强的方式，有机会过一遍[在Keras中使用图像增强来进行深度学习](https://www.kesci.com/mw/notebook/5e84541e246a590036b97c9f)

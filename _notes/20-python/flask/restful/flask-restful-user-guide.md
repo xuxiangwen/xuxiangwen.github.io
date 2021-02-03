@@ -4,7 +4,9 @@
 
 # 1.  Installation
 
+~~~shell
 pip install flask-restful
+~~~
 
 # 2. Quickstart
 

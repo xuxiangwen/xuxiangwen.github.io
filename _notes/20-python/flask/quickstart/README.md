@@ -2,6 +2,13 @@
 
 本文摘自[Quickstart](https://flask.palletsprojects.com/en/1.1.x/quickstart/)
 
+创建工作目录。
+
+~~~shell
+mkdir -p quickstart
+cd quickstart
+~~~
+
 ## 1. A Minimal Application
 
 最简单的Flask应用如下：
@@ -13,7 +20,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, Michael!'
+    return 'Hello, Michael ！！！'
 
 EOF
 ~~~
@@ -50,9 +57,6 @@ flask run --port 5001 --host 0.0.0.0
 > - 找到原因了，是版本问题，在新版1.1.1，有这个功能，而在老版0.12.2不支持
 > - 这个功能还真的好用啊。
 >
-> 
-
-
 
 ## 3. Routing
 
@@ -81,7 +85,7 @@ flask run --port 5001 --host 0.0.0.0
 
 可以获取变量。
 
-~~~
+~~~python
 cat << EOF > hello.py
 from flask import Flask, escape 
 
@@ -122,13 +126,15 @@ flask run --port 5001 --host 0.0.0.0
 
 Converter types:
 
-| Type     | Description                                |
-| -------- | ------------------------------------------ |
-| `string` | (default) accepts any text without a slash |
-| `int`    | accepts positive integers                  |
-| `float`  | accepts positive floating point values     |
-| `path`   | like `string` but also accepts slashes     |
-| `uuid`   | accepts UUID strings                       |
+| Type     | Description                                        |
+| -------- | -------------------------------------------------- |
+| `string` | (default) accepts any text without a slash（斜杠） |
+| `int`    | accepts positive integers                          |
+| `float`  | accepts positive floating point values             |
+| `path`   | like `string` but also accepts slashes（斜杠）     |
+| `uuid`   | accepts UUID strings                               |
+
+escape函数：把 &, <, >, ‘, ” 字符转化为 HTML-safe sequences。
 
 ### 3.2 Unique URLs / Redirection Behavior
 
@@ -137,7 +143,7 @@ Routing末尾
 - 有`/`， 表示该路由类似文件夹。如果访问时，没有带`/`，也会自动加上。
 - 没有`/`，表示该路由类似文件。如果访问时，加`/`,  会报错。
 
-~~~
+~~~python
 cat << EOF > hello.py
 from flask import Flask, escape 
 
@@ -170,11 +176,9 @@ flask run --port 5001 --host 0.0.0.0
 
 区分末尾`/`的好处时，便于搜索引擎能精确判断，避免同样的页面索引两次。
 
-
-
 ### 3.3 URL Building
 
-高级版的重定向redirect。
+高级版的重定向redirect。url_for是用来拼接 URL 的，可以使用程序 URL 映射中保存的信息生成 URL。url_for第一个参数是函数名。
 
 ~~~
 cat << EOF > hello.py
@@ -189,17 +193,30 @@ def index():
 @app.route('/login')
 def login():
     return 'login'
+    
+@app.route('/login/<name>')
+def login1(name):
+    return '{}'.format(escape(name))
 
 @app.route('/user/<username>')
 def profile(username):
     return '{}\'s profile'.format(escape(username))
+    
+@app.route('/customer')
+def abcd(hello):
+    return '{}\'s profile'.format(escape(username))    
 
 with app.test_request_context():
     print(url_for('index'))
     print(url_for('login'))
     print(url_for('login', next='/'))
+    print(url_for('login', abc='John Doe'))    
     print(url_for('profile', username='John Doe'))
-
+    print(url_for('index', _external=True))
+    print(url_for('abcd', id='h00001'))
+    print(url_for('abcd', name='michael'))
+    # 静态文件地址。
+    print(url_for('static', filename='style.css'))
 EOF
 
 
@@ -208,11 +225,9 @@ export FLASK_ENV=development
 flask run --port 5001 --host 0.0.0.0
 ~~~
 
-
-
 ### 3.4 HTTP Methods
 
-~~~
+~~~python
 cat << EOF > hello.py
 from flask import request, Flask
 
@@ -233,7 +248,11 @@ export FLASK_ENV=development
 flask run --port 5001 --host 0.0.0.0
 ~~~
 
+可以打开postman，来验证post
+
 ## 4. Static Files
+
+static是flask默认的静态文件路由。
 
 ~~~
 url_for('static', filename='style.css')

@@ -1,3 +1,13 @@
+### 统计脚本执行时间
+
+~~~shell
+startTime_s=`date +%s` 
+sleep 5
+endTime_s=`date +%s`
+sumTime=$[ $endTime_s - $startTime_s]
+echo "elapsed time: $sumTime seconds" 
+~~~
+
 ### Find然后删除文件或目录
 
 ~~~shell

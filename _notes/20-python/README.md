@@ -1,6 +1,6 @@
 ## 技巧
 
-## dataframe.to_dict
+### dataframe.to_dict
 
 格式`如`有：
 
@@ -642,6 +642,20 @@ sudo make install
 ~~~
 
 > 默认情况下，centos仅仅安装了python2，可以使用上面的方式安装python3，这样对于环境的影响更小。
+
+在python中引入一些包是，有时会报类似下面的错误。这种错误需要安装相应的软件后，再重新编译安装python。
+
+![image-20210113125601358](images/image-20210113125601358.png)
+
+~~~shell
+sudo yum install sqlite-devel
+cd Python-3.6.12
+./configure
+make
+sudo make install
+~~~
+
+
 
 ### 安装lzma
 

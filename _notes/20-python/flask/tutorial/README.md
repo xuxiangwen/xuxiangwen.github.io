@@ -6,11 +6,17 @@
 
 ![screenshot of index page](image/flaskr_index.png)
 
+首先，激活一下虚拟的python环境。
+
+~~~shell
+source ../venv/bin/activate
+~~~
+
 ## [Project Layout](https://flask.palletsprojects.com/en/1.1.x/tutorial/layout/)
 
 ~~~
-mkdir flask-tutorial
-cd flask-tutorial
+mkdir tutorial
+cd tutorial
 ~~~
 
 在该目录下，在教程过程中，将会创建以下文件。
@@ -90,11 +96,10 @@ cat << EOF > flaskr/__init__.py
 import os
 
 from flask import Flask
-from . import db, auth, blog
-
 
 def create_app(test_config=None):
     # create and configure the app
+    # instance_relative_config=True：配置文件的路径时相对instance目录的。
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
@@ -118,16 +123,10 @@ def create_app(test_config=None):
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
-    	
-    db.init_app(app)   
-    app.register_blueprint(auth.bp)
-    app.register_blueprint(blog.bp)
-    app.add_url_rule('/', endpoint='index')
 
     return app
 
 EOF
-
 
 ~~~
 
@@ -137,12 +136,6 @@ EOF
 
   - instance_relative_config=True： 知识app的配置文件是相对于instance folder的。
 
--  blog blueprint
-
-  - 没有定义url_prefix，这意味着该blueprint是`/`开始路由的。
-  - app.add_url_rule： 关联`index`和`/`。这使得`url_for('index')` or `url_for('blog.index')` 都能生成 `/` URL
-  
-  
 
 ### Run The Application
 
@@ -156,7 +149,7 @@ flask run --port 5002 --host 0.0.0.0
 
 ### Connect to the Database
 
-~~~
+~~~python
 cat << EOF > flaskr/db.py
 import sqlite3
 
@@ -236,7 +229,7 @@ CREATE TABLE post (
 );
 
 EOF
-  
+
 ~~~
 
 ### Register with the Application
@@ -245,9 +238,52 @@ EOF
 
 ### Initialize the Database File
 
-在instance目录下创建了数据库文件flaskr.sqlite。
+更新
+
+~~~shell
+cat << EOF > flaskr/__init__.py
+import os
+
+from flask import Flask
+from . import db
+
+def create_app(test_config=None):
+    # create and configure the app
+    # instance_relative_config=True：配置文件的路径时相对instance目录的。
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+    )
+
+    if test_config is None:
+        # load the instance config, if it exists, when not testing
+        app.config.from_pyfile('config.py', silent=True)
+    else:
+        # load the test config if passed in
+        app.config.from_mapping(test_config)
+
+    # ensure the instance folder exists
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass
+
+    # a simple page that says hello
+    @app.route('/hello')
+    def hello():
+        return 'Hello, World!'
+    	
+    db.init_app(app)   
+    return app
+
+EOF
 
 ~~~
+
+在instance目录下创建了数据库文件flaskr.sqlite。
+
+~~~shell
 export FLASK_APP=flaskr
 flask init-db
 ~~~
@@ -366,8 +402,6 @@ EOF
 - load_logged_in_user ： 检查用户id是否保存在session中，如果yes，则得到用户的数据。g的生命周期是本次request.
 
 - login_required:  由于创建，编辑，删除blog post要求用户必须处于登录状态。decorator 将包参数包装，然后返回一个新的view function. 
-
-  
 
 ## [Templates](https://flask.palletsprojects.com/en/1.1.x/tutorial/templates/)
 
@@ -696,6 +730,63 @@ EOF
 
 见blog.py。
 
+## Run the Application Again
+
+前面增加了两个Blueprint：auth和blog，下面更新`__init__.py`，然后运行Application。
+
+~~~python
+cat << EOF > flaskr/__init__.py
+import os
+
+from flask import Flask
+from . import db, auth, blog
+
+def create_app(test_config=None):
+    # create and configure the app
+    # instance_relative_config=True：配置文件的路径时相对instance目录的。
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+    )
+
+    if test_config is None:
+        # load the instance config, if it exists, when not testing
+        app.config.from_pyfile('config.py', silent=True)
+    else:
+        # load the test config if passed in
+        app.config.from_mapping(test_config)
+
+    # ensure the instance folder exists
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass
+
+    # a simple page that says hello
+    @app.route('/hello')
+    def hello():
+        return 'Hello, World!'
+    	
+    db.init_app(app)   
+    app.register_blueprint(auth.bp)
+    app.register_blueprint(blog.bp)
+    app.add_url_rule('/', endpoint='index')
+    
+    return app
+
+EOF
+
+export FLASK_APP=flaskr
+export FLASK_ENV=development
+flask run --port 5002 --host 0.0.0.0
+~~~
+
+blog blueprint
+
+- 没有定义url_prefix，这意味着该blueprint是`/`开始路由的。
+- app.add_url_rule： 关联`index`和`/`。这使得`url_for('index')` or `url_for('blog.index')` 都能生成 `/` URL
+
 ## [Make the Project Installable](https://flask.palletsprojects.com/en/1.1.x/tutorial/install/)
 
 ### Describe the Project
@@ -717,6 +808,7 @@ setup(
 
 EOF
 
+# MANIFEST.in 文件告诉python，拷贝flaskr/schema.sql，以及flaskr/static目录和flaskr/templates目录下的所有文件。
 cat << EOF > MANIFEST.in 
 include flaskr/schema.sql
 graft flaskr/static
@@ -737,8 +829,6 @@ pip list | grep flaskr
 ~~~
 
 pip命令将会在安装*editable* or *development* 模式下安装setup.py。
-
-
 
 ## [Test Coverage](https://flask.palletsprojects.com/en/1.1.x/tutorial/tests/)
 
@@ -1109,7 +1199,7 @@ python setup.py bdist_wheel
 
 在另外一个机器上安装
 
-~~~
+~~~shell
 #安装方法一： 把flaskr-1.0.0-py3-none-any.whl 拷贝到另外一台机器。然后执行下面命令
 ##  pip install dist/flaskr-1.0.0-py3-none-any.whl 
 

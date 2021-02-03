@@ -1,8 +1,78 @@
+## UI
+
+![demo](images/demo-1610516010647.gif)
+
+## 安装
+
+生成python虚拟环境，安装必须软件
+
+~~~shell
+cd dash-interest-rate
+virtualenv venv 
+source venv/bin/activate
+echo venv > .gitignore
+pip install -r requirements.txt
+# deactivate 
+# rm -rf venv
+~~~
+
+## 配置Snowflake 数据库
+
+### 申请snowflake账号
+
+参见[Signing Up for a Trial Account](https://docs.snowflake.com/en/user-guide/admin-trial-account.html)。
+
+https://zwa09388.snowflakecomputing.com/console#/internal/worksheet
+
+### 数据导入
+
+首先创建数据库，在snowflake的Worksheets中执行如下脚本。
+
+~~~sql
+create database loans;
+CREATE WAREHOUSE snowflake_demos WITH WAREHOUSE_SIZE = 'SMALL' WAREHOUSE_TYPE = 'STANDARD' AUTO_SUSPEND = 600 AUTO_RESUME = TRUE;
+~~~
+
+把如下两个文件下载到data目录下。
+
+~~~python
+mkdir -p data
+cd data
+wget https://plotly-tutorials.s3-us-west-1.amazonaws.com/dash-sample-apps/snowflake-demos/loan_desc.csv
+wget wget https://plotly-tutorials.s3-us-west-1.amazonaws.com/dash-sample-apps/snowflake-demos/clean_loan.csv
+    
+cd ..
+~~~
+
+然后在当前目录执行如下脚本。
+
+~~~shell
+source venv/bin/activate
+
+export FLAKE_ACCOUNT=zwa09388
+export FLAKE_USER=microsheen
+export FLAKE_PW=QAZ...02
+python3 upload_csv_to_snowflake.py
+~~~
+
+![image-20210113182805494](images/image-20210113182805494.png)
+
+### 启动
+
+~~~python
+export FLAKE_ACCOUNT=zwa09388
+export FLAKE_USER=microsheen
+export FLAKE_PW=QAZ...02
+python app.py
+~~~
+
+
+
 # Dash Interest Rate Modeling (with Snowflake)
 
 This app shows how to query loan data from a Snowflake Data Warehouse, and train and analyze a Ridge regression model using Dash.
 
-![demo](assets/demo.gif)
+
 
 ## Setting up Snowflake DB
 
@@ -22,8 +92,8 @@ For our app, we named our warehouse "snowflake_demos", our stage "LOAN_STAGE" an
 
 Then, you will need to export the following environment variables (you can write it in your `.bashrc`):
 ```
-export FLAKE_ACCOUNT = <your_account>
-export FLAKE_USER = <your_username>
+export FLAKE_ACCOUNT = microsheen@gmail.com
+export FLAKE_USER = 
 export FLAKE_PW = <your_password>
 ```
 

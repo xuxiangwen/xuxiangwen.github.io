@@ -7,6 +7,8 @@
 
 ### Install virtualenv
 
+对于python2需要如下安装，而python3中绑定了venv模块，可以调用它来创建虚拟环境。
+
 ~~~shell
 pip install virtualenv
 ~~~
@@ -20,8 +22,10 @@ pip install virtualenv
 
 ### 创建一个独立的Python运行环境
 
+#### python2
+
 ~~~
- virtualenv --no-site-packages venv 
+ virtualenv venv 
 ~~~
 
 或者
@@ -32,11 +36,18 @@ pip install virtualenv
 
 > 指定python版本的位置
 
-命令`virtualenv`就可以创建一个独立的Python运行环境。参数`--no-site-packages`，表示已经安装到系统Python环境中的所有第三方包都不会复制过来，这样，就得到了一个不带任何第三方包的“干净”的Python运行环境。
+命令`virtualenv`就可以创建一个独立的Python运行环境。
 
 新建的Python环境被放到当前目录下的`venv`目录。有了`venv`这个Python环境，可以用`source`进入该环境：
 
 ~~~
+source venv/bin/activate
+~~~
+
+#### python3
+
+~~~shell
+python3 -m venv venv
 source venv/bin/activate
 ~~~
 
