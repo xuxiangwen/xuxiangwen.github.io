@@ -120,17 +120,17 @@ sudo systemctl start docker
 ### 清理docker
 
 ~~~shell
-# 删除现有容器未使用的所有镜像
-docker image prune -a
-
 # 删除已停止的容器
-docker container prune 
+docker container prune -f
+
+# 删除现有容器未使用的所有镜像
+docker image prune -a -f
 
 # 删除所有未使用的卷
-docker volume prune 
+docker volume prune -f
 
 # 修剪镜像，容器，和网络
-docker system prune --volumes
+docker system prune --volumes -f
 ~~~
 
 ### 修改容器的端口映射

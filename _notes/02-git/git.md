@@ -1,4 +1,4 @@
-##  *git
+##  git
 
 ##  1. 常见命令
 
@@ -80,11 +80,11 @@ git --version
 
 
 
-#### github-git-cheat-sheet
+### github-git-cheat-sheet
 
 [github-git-cheat-sheet](<https://github.github.com/training-kit/downloads/zh_CN/github-git-cheat-sheet/>)
 
-#### 避免直接把代码提交到master
+### 避免直接把代码提交到master
 
 首先定位到本地的repository目录，然后执行以下脚本。这样当用户`git commit`的时候，会触发警告，并提交失败。
 
@@ -106,7 +106,7 @@ chmod 755 .git/hooks/pre-commit
 
 > 建议一个项目中，每个开发人员都在本地开发环境进行上述设置。
 
-#### [What's the difference between HEAD^ and HEAD~ in Git?](https://stackoverflow.com/questions/2221658/whats-the-difference-between-head-and-head-in-git)
+### [What's the difference between HEAD^ and HEAD~ in Git?](https://stackoverflow.com/questions/2221658/whats-the-difference-between-head-and-head-in-git)
 
 在版本树中, 对于某一个节点, 我们可以用^或者~定位其上游的节点. 逻辑如下图所示
 
@@ -134,11 +134,11 @@ I = F^   = B^3^    = A^^3^
 J = F^2  = B^3^2   = A^^3^2
 ```
 
-#### [删除敏感数据](https://help.github.com/en/articles/removing-sensitive-data-from-a-repository)
+### [删除敏感数据](https://help.github.com/en/articles/removing-sensitive-data-from-a-repository)
 
 有的时候不小心把一些敏感信息发不到了GitHub上, 即使把这些信息除去，在文件的历史版本，还是可以看到。这种情况下，我们有两个方法。
 
-##### [Using the BFG](<https://rtyley.github.io/bfg-repo-cleaner/>)
+#### [Using the BFG](<https://rtyley.github.io/bfg-repo-cleaner/>)
 
 下载BFG包到本地. 
 
@@ -175,7 +175,7 @@ git push
 # 
 ~~~
 
-##### [Using filter-branch](https://help.github.com/en/articles/removing-sensitive-data-from-a-repository#using-filter-branch)
+#### [Using filter-branch](https://help.github.com/en/articles/removing-sensitive-data-from-a-repository#using-filter-branch)
 
 和BFG相似的方法。
 
@@ -193,14 +193,14 @@ git reflog expire --expire=now --all
 git gc --prune=now
 ~~~
 
-##### 如何避免类似的泄密事件发生
+#### 如何避免类似的泄密事件发生
 
 - 使用可视化工具来提交, 这样可以更加容易看到哪些文件被添加, 修改和删除了.
 - 避免`git add .` and `git commit -a`
 - 使用`git add --interactive` 来review每个文件的 stage changes.
 - 使用 `git diff --cached` 来review  the changes that you have staged for commit
 
-#### 处理push大文件（超过100m）的文件
+### 处理push大文件（超过100m）的文件
 
 ~~~shell
 git rm --cached giant_file   # Stage our giant file for removal, but leave it on disk
@@ -208,7 +208,7 @@ git commit --amend -CHEAD   # Amend the previous commit with your change
 # Simply making a new commit won't work, as you need# to remove the file from the unpushed history as well
 git push   # Push our rewritten, smaller commit
 ~~~
-#### 设置用户和邮箱
+### 设置用户和邮箱
 
 ~~~shell
 #global configuration
@@ -219,7 +219,7 @@ git config --global user.email aa00@hp.com
 git config --global user.name aa00
 ~~~
 
-#### 查看设定
+### 查看设定
 
 ~~~shell
 git config --list          #列出所有 Git当时能找到的配置
@@ -227,27 +227,27 @@ git config user.name
 git config http.proxy
 ~~~
 
-#### 设置代理
+### 设置代理
 
 ~~~shell
 git config --global  http.proxy proxy-server:port
 ~~~
 
-#### 移除文件
+### 移除文件
 
 ```shell
 git rm PROJECTS.md            # 删除工作区和暂存区文件
 git rm --cached PROJECTS.md   # 删除暂存区文件。对文件不再trace
 ```
 
-#### 显示所有分支
+### 显示所有分支
 
 ~~~
 git branch -a    #包括本地和远程.
 git branch -vv   #显示本地分支和远程分支的关系
 ~~~
 
-#### 查看已暂存和未暂存的修改
+### 查看已暂存和未暂存的修改
 
 ```shell
 git diff            # 比较工作区和暂存区
@@ -255,7 +255,7 @@ git diff --staged   # 比较暂存区和git仓库
 git diff --cached   # 同上
 ```
 
-#### 回退修改
+### 回退修改
 
 **放弃当前工作区的修改**
 
@@ -310,13 +310,13 @@ git reset --soft  [commit-id]
 
 ![img](images/182237338854646.png)
 
-#### 查看远程仓库
+### 查看远程仓库
 
 ~~~shell
 git status -s    # 一种更为紧凑的格式输出 
 ~~~
 
-#### 查看已暂存和未暂存的修改
+### 查看已暂存和未暂存的修改
 
 ~~~shell
 git diff            # 比较工作区和暂存区
@@ -324,7 +324,7 @@ git diff --staged   # 比较暂存区和git仓库. 也可以用git diff --cached
 git diff head       # 比较工作区和版本库(当前)
 ~~~
 
-#### 查看日志
+### 查看日志
 
 ~~~shell
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -332,14 +332,14 @@ git lg -p 5         # 显示最近5次的提交结果
 git log --oneline --decorate --graph --all -p 5    # 上面的命令，内容和颜色都很丰富，下面的更简明
 ~~~
 
-#### [Git怎样撤销一次分支的合并Merge](https://segmentfault.com/q/1010000000140446)
+### [Git怎样撤销一次分支的合并Merge](https://segmentfault.com/q/1010000000140446)
 
 ```shell
 git checkout 【merge操作时所在的分支】
 git reset --hard 【merge前的版本号】
 ```
 
-#### git merge vs. git merge -no-ff
+### git merge vs. git merge -no-ff
 
 ![img](images/20160808140332699)
 

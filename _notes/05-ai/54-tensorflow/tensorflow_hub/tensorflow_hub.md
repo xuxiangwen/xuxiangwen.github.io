@@ -45,11 +45,7 @@ print(hub.resolve(handler))
 
 ![image-20210203103134259](images/image-20210203103134259.png)
 
-### SavedModels from TF Hub in TensorFlow 2
-
-SavedModel格式是TF2中建议得模型保存格式，同时这种格式也是TensorFlow Hub推荐的方式。
-
-#### 在keras模型中使用TF Hub
+### Examples
 
 ~~~python
 handler = "https://tfhub.dev/google/nnlm-en-dim128/2"
@@ -64,4 +60,12 @@ model.summary()
 ~~~
 
 ![image-20210203105423798](images/image-20210203105423798.png)
+
+下面是两个例子：
+
+- [basic_text_classification.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/tensorflow_hub/basic_text_classification.ipynb)：使用tf hub来进行分类的。
+
+- [tf2_image_retraining](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/tensorflow_hub/tf2_image_retraining.ipynb)：使用tf hub来对[flowers](https://www.tensorflow.org/datasets/catalog/tf_flowers)数据集进行分类。
+
+## Tutorials
 

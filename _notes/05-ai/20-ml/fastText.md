@@ -976,7 +976,7 @@ print(model_none.get_nearest_neighbors('accommodation'))
 
 
 
-## Automatic hyperparameter optimazation
+## Automatic hyperparameter optimization
 
 FastText提供了自动超参数调优的功能。
 

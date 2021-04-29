@@ -1,5 +1,127 @@
 ## 技巧
 
+### Data Frame 重新排序
+
+~~~python
+import pandas as pd
+df = pd.DataFrame({'num_legs': [2, 4, 8, 0, 6],
+                   'num_wings': [2, 0, 0, 0, 2],
+                   'num_specimen_seen': [10, 2, 1, 8, 6]},
+                  index=['falcon', 'dog', 'spider', 'fish', 'white ant'])
+display(df)
+display(df.sample(frac=1))          # 所有记录完全重新排序
+display(df.sample(frac=0.6))        # 随机获取60%的记录
+display(df.sample(n=2))             # 随机2条记录
+~~~
+
+![image-20210325114558608](images/image-20210325114558608.png)
+
+### \x与\u编码
+
+- \x：只是 16 进制的意思，后边跟两位，则表示单字节编码；
+
+- \d：十进制；
+
+- \o：八进制；
+
+- \u：unicode 码；
+
+  一般其后跟 4 个 16 进制数，因此，一般为 unicode-16
+
+### 将Unicode文本标准化 - unicodedata
+
+参见https://python3-cookbook.readthedocs.io/zh_CN/latest/c02/p09_normalize_unicode_text_to_regexp.html
+
+你正在处理Unicode字符串，需要确保所有字符串在底层有相同的表示。
+
+在Unicode中，某些字符能够用多个合法的编码表示。下面的两个字符串打印出来相同，但采用不同的编码。
+
+~~~python
+s1 = 'Spicy Jalape\u00f1o'
+s2 = 'Spicy Jalapen\u0303o'
+print(s1)
+print(s2)
+print(s1 == s2)
+print(len(s1))
+print(len(s2))
+~~~
+
+![image-20210224180956111](images/image-20210224180956111.png)
+
+在需要比较字符串的程序中使用字符的多种表示会产生问题。 为了修正这个问题，你可以使用unicodedata模块先将文本标准化。
+
+~~~python
+import unicodedata
+t1 = unicodedata.normalize('NFC', s1)
+t2 = unicodedata.normalize('NFC', s2)
+print(t1 == t2)
+print(ascii(t1))
+
+t3 = unicodedata.normalize('NFD', s1)
+t4 = unicodedata.normalize('NFD', s2)
+print(t3 == t4)
+print(ascii(t3))
+~~~
+
+![image-20210224181416108](images/image-20210224181416108.png)
+
+`normalize()` 第一个参数指定字符串标准化的方式。 NFC表示字符应该是整体组成(比如可能的话就使用单一编码)，而NFD表示字符应该分解为多个组合字符表示。
+
+unicodedata.category() 返回一个字符在UNICODE里分类的类型。
+
+~~~shell
+print(unicodedata.category('\u0303'))
+print(unicodedata.category('京'))
+print(unicodedata.category('M'))
+print(unicodedata.category('m'))
+print(unicodedata.category('!'))
+~~~
+
+![image-20210224182649386](images/image-20210224182649386.png)
+
+![image-20210224182721245](images/image-20210224182721245.png)
+
+![image-20210224182735310](images/image-20210224182735310.png)
+
+### sklearn 的 [classification_report](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html)
+
+- y_true 为样本真实标记，y_pred 为样本预测标记
+- support：某类别在测试数据中的样本个数
+- macro avg：每个类别评估指标未加权的平均值，比如准确率的 macro avg，`(0.50+0.00+1.00)/3=0.5`
+- weighted avg：加权平均，比如第一个值的计算方法，`(0.50*2 + 0.0*1 + 1.0*3)/6 = 0.666...`
+
+~~~python
+from sklearn.metrics import classification_report
+from pprint import pprint
+y_true = [0, 0, 1, 2, 2, 2]
+y_pred = [0, 1, 0, 2, 2, 1]
+target_names = ['class 0', 'class 1', 'class 2']
+print(classification_report(y_true, y_pred, target_names=target_names))
+pprint(classification_report(y_true, y_pred, target_names=target_names, output_dict=True))
+~~~
+
+![image-20210224180359812](images/image-20210224180359812.png)
+
+![image-20210203171955705](images/image-20210203171955705.png)
+
+也可以这样来得到，麻烦一些。
+
+~~~python
+from sklearn.metrics import accuracy_score, f1_score, precision_recall_fscore_support
+def score(predictions, labels):
+    accuracy = accuracy_score(labels, predictions)
+    f1_score_macro = f1_score(labels, predictions, average='macro')
+    f1_score_micro = f1_score(labels, predictions, average='micro')
+    score = precision_recall_fscore_support(labels, predictions)
+    return accuracy, f1_score_macro, f1_score_micro, score
+
+accuracy, f1_score_macro, f1_score_micro, score = score(y_pred, y_true)
+print(accuracy, f1_score_macro, f1_score_micro)
+print(np.array(score).T)
+~~~
+
+![image-20210325120747459](images/image-20210325120747459.png)
+
 ### dataframe.to_dict
 
 格式`如`有：
@@ -664,3 +786,9 @@ sudo yum install -y xz-devel
 ~~~
 
 然后从源代码重新安装python。
+
+
+
+
+
+![image-20210325124939039](images/image-20210325124939039.png)

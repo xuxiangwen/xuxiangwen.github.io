@@ -12,7 +12,7 @@
   
   **中文版**：https://github.com/deeplearning-ai/machine-learning-yearning-cn/releases
   
-- 2021-01-18： 如何得到notebook的名称，[How Do I Get The Current IPython / Jupyter Notebook Name](https://izziswift.com/how-do-i-get-the-current-ipython-jupyter-notebook-name/)
+- 
   
 - 2021-01-13：有时间好好过一下snowflake。
   
@@ -95,6 +95,8 @@
   这个数据集超大，下载起来太麻烦了
 
 ### Done
+
+- 2021-01-18： 如何得到notebook的名称，[How Do I Get The Current IPython / Jupyter Notebook Name](https://izziswift.com/how-do-i-get-the-current-ipython-jupyter-notebook-name/)
 
 - 2020-12-14：[博士带你学LSTM|怎么样开发Stacked LSTMs？](https://mp.weixin.qq.com/s?__biz=Mzg4MDE3OTA5NA==&mid=2247491166&idx=1&sn=e38d0c2db4a192431e56914b1e0ca63e&source=41#wechat_redirect) 考虑实现该文
 

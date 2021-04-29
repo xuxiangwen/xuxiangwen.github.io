@@ -413,6 +413,152 @@ show_info(model.layers[0].output.shape, get_weights_count(model.layers[0]))
 
 ![image-20201215113207487](images/image-20201215113207487.png)
 
+## return_sequences和return_state详解
+
+下面讲解RNN中return_sequences和return_state的作用。下面以LSTM为例。
+
+### LSTM
+
+再来看一看单个LSTM cell的输入输出情况。
+
+![img](images/v2-a659e57ffd4dbfc88f34da4beb1dde37_720w.jpg)
+
+从上图可以看出，单个LSTM cell其实有2个输出的，一个是$h_t$，一个是$c_t$。这里的$h_t$称为hidden state，$c_t$称为cell state。
+
+![image-20210226173542738](images/image-20210226173542738.png)
+
+Keras中的`return_sequences`和`return_state`，分别和h(t)和c(t)相关。下面来进行一些实验，看看它们的作用。
+
+#### 实验一： 默认输出
+
+首先准备模型的基本结构和数据。
+
+~~~python
+import numpy as np
+import tensorflow as tf
+
+from tensorflow.keras import models, layers, initializers
+
+physical_devices = tf.config.experimental.list_physical_devices('GPU')
+for device in physical_devices:
+    tf.config.experimental.set_memory_growth(device, True)
+
+def get_model(rnn_layer):
+    inputs = layers.Input(shape=(3, 4))
+    x = rnn_layer(inputs)
+    model = models.Model(inputs=inputs, outputs=x)
+    return model
+
+def predict(rnn_layer, data):
+    outputs = get_model(rnn_layer).predict(data)
+    print('-'*40, type(rnn_layer).__name__, '-'*40)
+    if isinstance(outputs, list):  
+        for output in outputs:
+            print(output, output.shape)
+    else:
+        print(outputs, outputs.shape)
+    
+np.random.seed(2021)
+data = np.random.rand(1, 3, 4)
+print(data) 
+~~~
+
+![image-20210226172009755](images/image-20210226172009755.png)
+
+上面代码创建一个输入序列，这个序列有一个样本，样本中有3个向量（也就是RNN中的timestep），每个向量的维度是4。
+
+下面看一看模型默认的输出。为了能够得到稳定的输出结果，下面设置了初始化函数。
+
+~~~python
+rnn_layer = layers.LSTM(units=2, 
+                        kernel_initializer = initializers.RandomNormal(seed=2021),
+                        recurrent_initializer = initializers.RandomNormal(seed=2021)
+                       )
+predict(rnn_layer, data)
+
+rnn_layer = layers.GRU(units=2, 
+                        kernel_initializer = initializers.RandomNormal(seed=2021),
+                        recurrent_initializer = initializers.RandomNormal(seed=2021)
+                       )
+predict(rnn_layer, data)
+~~~
+
+![image-20210414200900677](images/image-20210414200900677.png)
+
+上面的输出是最后一个timestep的，即$h_t$。
+
+#### 实验二：return_sequences=True
+
+~~~python
+rnn_layer = layers.LSTM(units=2, 
+                        kernel_initializer = initializers.RandomNormal(seed=2021),
+                        recurrent_initializer = initializers.RandomNormal(seed=2021)
+                       )
+predict(rnn_layer, data)
+
+rnn_layer = layers.GRU(units=2, 
+                        kernel_initializer = initializers.RandomNormal(seed=2021),
+                        recurrent_initializer = initializers.RandomNormal(seed=2021)
+                       )
+predict(rnn_layer, data)
+~~~
+
+![image-20210414201056106](images/image-20210414201056106.png)
+
+输出了一个array，长度为timestep，即$\begin{bmatrix} h_1 & h_2 & \cdots &  h_t\end{bmatrix}$。
+
+#### 实验三：return_state=True
+
+~~~python
+rnn_layer = layers.LSTM(units=2, 
+                        kernel_initializer = initializers.RandomNormal(seed=2021),
+                        recurrent_initializer = initializers.RandomNormal(seed=2021),
+                        return_state=True)
+predict(rnn_layer, data)
+
+rnn_layer = layers.GRU(units=2, 
+                       kernel_initializer = initializers.RandomNormal(seed=2021),
+                       recurrent_initializer = initializers.RandomNormal(seed=2021),
+                       return_state=True)
+predict(rnn_layer, data)
+~~~
+
+![image-20210414200933582](images/image-20210414200933582.png)
+
+输出是一个列表list，分别表示
+
+- 最后一个time step的hidden state，即$h_t$ 。
+- 最后一个time step的hidden state，即$h_t$ 。和上面相同
+- 最后一个time step的cell state，即$c_t$。注意GRU没有cell state。
+
+如果RNN的layer是SimpleRNN或者GRU，由于它们没有cell state，所以设置return_state是无效的。
+
+#### 实验四：return_sequences=True且return_state=True
+
+~~~python
+rnn_layer = layers.LSTM(units=2, 
+                        kernel_initializer = initializers.RandomNormal(seed=2021),
+                        recurrent_initializer = initializers.RandomNormal(seed=2021),
+                        return_sequences=True,
+                        return_state=True)
+predict(rnn_layer, data)
+
+rnn_layer = layers.GRU(units=2, 
+                       kernel_initializer = initializers.RandomNormal(seed=2021),
+                       recurrent_initializer = initializers.RandomNormal(seed=2021),
+                       return_sequences=True,
+                       return_state=True)
+predict(rnn_layer, data)
+~~~
+
+![image-20210414201244584](images/image-20210414201244584.png)
+
+输出是一个列表list，分别表示
+
+- 所有timestep的hidden state，即$\begin{bmatrix} h_1 & h_2 & \cdots &  h_t\end{bmatrix}$。
+- 最后一个time step的hidden state，即$h_t$ 。
+- 最后一个time step的cell state，即$c_t$。注意GRU没有cell state。
+
 ## 参考
 
 - [一份详细的LSTM和GRU图解](http://www.atyun.com/30234.html)
@@ -432,6 +578,8 @@ show_info(model.layers[0].output.shape, get_weights_count(model.layers[0]))
 - [LSTM 的奇葩设计](https://zhuanlan.zhihu.com/p/34500721)
 
 - [Keras实现RNN模型](https://www.cnblogs.com/LXP-Never/p/10940123.html)
+
+- [Keras中return_sequences和return_state有什么用？](https://zhuanlan.zhihu.com/p/85910281)
 
   
 

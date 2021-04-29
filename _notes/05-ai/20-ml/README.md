@@ -1,3 +1,27 @@
+### 增加维度（dimension）的几种方法
+
+有三种方法，以`np.expand_dims`最佳。
+
+~~~python
+import numpy as np
+a = np.array([[2, 1, 3], [1, 2, 4]])
+print(a, a.shape)
+
+print('-'*50)
+a1 = a.reshape(a.shape + (1,))
+print(a1, a1.shape)
+
+print('-'*50)
+a1 = a[..., np.newaxis]
+print(a1, a1.shape)
+
+print('-'*50)
+a1 = np.expand_dims(a, axis=-1)
+print(a1, a1.shape)
+~~~
+
+![image-20210317193555767](images/image-20210317193555767.png)
+
 ### 多分类
 
 - **OvR（One vs Rest）**，一对剩余的意思，有时候也称它为 OvA（One vs All）
