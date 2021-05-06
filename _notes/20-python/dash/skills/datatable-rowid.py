@@ -101,5 +101,5 @@ def update_graphs(row_ids, selected_row_ids, active_cell):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, port=6006, host='0.0.0.0')
 

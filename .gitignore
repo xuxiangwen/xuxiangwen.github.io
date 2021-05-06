@@ -9,6 +9,7 @@
 .sass-cache
 large-file/*
 model
+models
 data
 .project
 Gemfile.lock

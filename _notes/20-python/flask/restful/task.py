@@ -6,14 +6,16 @@ from flask import Flask, jsonify
 from flask import abort
 from flask import make_response
 from flask import request
+from flask import url_for
+from flask_httpauth import HTTPBasicAuth
 
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
+auth = HTTPBasicAuth()
 
 tasks = [
     {
         'id': 1,
-        'title': '买东西',
+        'title': u'Buy groceries',
         'description': u'Milk, Cheese, Pizza, Fruit, Tylenol',
         'done': False
     },
@@ -25,10 +27,30 @@ tasks = [
     }
 ]
 
+def make_public_task(task):
+    new_task = {}
+    for field in task:
+        if field == 'id':
+            new_task['uri'] = url_for('get_task', task_id=task['id'], _external=True)
+        else:
+            new_task[field] = task[field]
+    return new_task
 
+
+@auth.get_password
+def get_password(username):
+    if username == 'eipi10':
+        return 'abcd'
+    return None
+
+@auth.error_handler
+def unauthorized():
+    return make_response(jsonify({'error': 'Unauthorized access'}), 401)
+    
 @app.route('/todo/api/v1.0/tasks', methods=['GET'])
+@auth.login_required
 def get_tasks():
-    return jsonify({'tasks': tasks})
+    return jsonify({'tasks': list(map(make_public_task, tasks))})
 
 
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
@@ -36,7 +58,6 @@ def get_task(task_id):
     task = list(filter(lambda t: t['id'] == task_id, tasks))
     if len(task) == 0:
         abort(404)
-    print({'task': task[0]})    
     return jsonify({'task': task[0]})
 
 @app.errorhandler(404)

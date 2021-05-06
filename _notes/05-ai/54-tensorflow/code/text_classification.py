@@ -5,32 +5,23 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import pandas as pd
-import scipy
+import pickle
 import seaborn as sns
 import tensorflow as tf
-import time
+import util
+import text_predictor
 
-from IPython.display import display, Image
+from IPython.display import display
 from sklearn.feature_extraction import text
-from sklearn.metrics import confusion_matrix
-from sklearn.feature_selection import SelectKBest, f_classif
-from tensorflow import keras
-from tensorflow.keras import preprocessing, datasets
-from tensorflow.keras import losses, optimizers, regularizers
+from sklearn.metrics import confusion_matrix, roc_auc_score
 from sklearn.model_selection import train_test_split
+from tensorflow import keras
+from tensorflow.keras import losses, optimizers, models, metrics
+
 
 # 设置日志
 logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
 logging.root.setLevel(level=logging.INFO)
-
-
-def set_gpu_memory(gpu_memory_limit=None):
-    gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
-    print('set max gpu memory to {}'.format(gpu_memory_limit))
-    tf.config.experimental.set_virtual_device_configuration(
-        gpus[0],
-        [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=gpu_memory_limit)]
-    )
 
 
 def plot_model_structure(model):
@@ -39,125 +30,18 @@ def plot_model_structure(model):
     display(img)
 
 
-def get_weight_num(obj):
-    """得到模型或layer可训练参数的个数"""
-    return np.sum([np.prod(p.shape) for p in obj.trainable_weights])
-
-
-def sequence_vectorize(train_texts, val_texts, top_k, max_sequence_length):
-    """Vectorizes texts as sequence vectors.
-
-    1 text = 1 sequence vector with fixed length.
-
-    # Arguments
-        train_texts: list, training text strings.
-        val_texts: list, validation text strings.
-
-    # Returns
-        x_train, x_val, word_index: vectorized training and validation
-            texts and word index dictionary.
-    """
-    # Create vocabulary with training texts.
-    tokenizer = preprocessing.text.Tokenizer(num_words=top_k)
-    tokenizer.fit_on_texts(train_texts)
-
-    # Vectorize training and validation texts.
-    x_train = tokenizer.texts_to_sequences(train_texts)
-    x_val = tokenizer.texts_to_sequences(val_texts)
-
-    # Get max sequence length.
-    max_length = len(max(x_train, key=len))
-    if max_length > max_sequence_length:
-        max_length = max_sequence_length
-
-    # Fix sequence length to max value. Sequences shorter than the length are
-    # padded in the beginning and sequences longer are truncated
-    # at the beginning.
-    x_train = preprocessing.sequence.pad_sequences(x_train, maxlen=max_length)
-    x_val = preprocessing.sequence.pad_sequences(x_val, maxlen=max_length)
-    return x_train, x_val, tokenizer
-
-
-def ngram_vectorize(train_texts, train_labels, val_texts, top_k, ngram_range=(1, 2),
-                    token_mode='word', min_document_frequency=2, stop_words=None):
-    """Vectorizes texts as n-gram vectors.
-
-    1 text = 1 tf-idf vector the length of vocabulary of unigrams + bigrams.
-
-    # Arguments
-        train_texts: list, training text strings.
-        train_labels: np.ndarray, training labels.
-        val_texts: list, validation text strings.
-
-    # Returns
-        x_train, x_val: vectorized training and validation texts
-    """
-    # Create keyword arguments to pass to the 'tf-idf' vectorizer.
-    kwargs = {
-        'ngram_range': ngram_range,  # Use 1-grams + 2-grams.
-        'dtype': 'int32',
-        'strip_accents': 'unicode',
-        'decode_error': 'replace',
-        'analyzer': token_mode,  # Split text into word tokens.
-        'min_df': min_document_frequency,
-        'stop_words': stop_words
-    }
-    vectorizer = text.TfidfVectorizer(**kwargs)
-
-    # Learn vocabulary from training texts and vectorize training texts.
-    x_train = vectorizer.fit_transform(train_texts)
-    print('before SelectKBest, the shape of train data is {}'.format(x_train.shape))
-
-    # Vectorize validation texts.
-    x_val = vectorizer.transform(val_texts)
-
-    # Select top 'k' of the vectorized features.
-    selector = SelectKBest(f_classif, k=min(top_k, x_train.shape[1]))
-    selector.fit(x_train, train_labels)
-    x_train = selector.transform(x_train).astype('float32')
-    x_val = selector.transform(x_val).astype('float32')
-
-    print('After SelectKBest, the shape of train data is {}'.format(x_train.shape))
-
-    return x_train, x_val, vectorizer
-
-
-def show_tree(path, max_depth=10, max_num=100):
-    def _show_tree(path, depth, max_num, prefix):
-        if max_num<=0 or depth>max_depth:
-            return max_num
-        if depth==1: 
-            print(path)
-            max_num=max_num-1
-        items = os.listdir(path)
-        for i, item in enumerate(items):
-            if max_num<=0: return max_num
-            newitem = path +'/'+ item
-            if i==len(items)-1:
-                print(prefix  + "└──" + item)            
-                new_prefix = prefix+"    "                
-            else:
-                print(prefix  + "├──" + item)
-                new_prefix = prefix+"│   "
-            max_num=max_num-1
-            if os.path.isdir(newitem):
-                max_num = _show_tree(newitem, depth=depth+1, max_num=max_num, prefix=new_prefix)         
-        return max_num
-    _show_tree(path, depth=1, max_num=max_num, prefix="")
-
-
-def plot_history(history):
+def plot_history(history, key_metric_name='accuracy'):
     """显示训练的loss和accuracy的走势图"""
     plt.figure(figsize=(16, 5))
-    max_epoch = len(history.history['accuracy'])
+    max_epoch = len(history.history[key_metric_name])
     epochs = range(1, max_epoch+1)
     if max_epoch <= 20:
         xticks = range(0, max_epoch+1)
     else:
         xticks = range(0, max_epoch+1, (max_epoch-1)//20+1)
     plt.subplot(121)
-    plt.plot(epochs, history.history['accuracy'])
-    plt.plot(epochs, history.history['val_accuracy'])
+    plt.plot(epochs, history.history[key_metric_name])
+    plt.plot(epochs, history.history['val_'+key_metric_name])
     plt.title('Accuracy vs. epochs')
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
@@ -355,15 +239,21 @@ class DictToObject(object):
         return obj
 
 
+class Params(DictToObject):
+    def __init__(self, dictionary, base_path='./models'):
+        super().__init__(dictionary)
+        self.save_path = os.path.join(base_path, self.dataset_name, self.program_name.split('.')[0])
+
+
 class TextClassificationHelper(object):
     
-    def __init__(self, params, data=None, model_results={}):
+    def __init__(self, params, datasets=None, model_results={}):
         self.params = params
         self.model_results = model_results
-        self.data = data
+        self.datasets = datasets
         
-    def set_data(self, data):  
-        self.data = data
+    def set_datasets(self, datasets):
+        self.datasets = datasets
         
     def set_model_results(self, model_results):  
         self.model_results = model_results
@@ -375,7 +265,7 @@ class TextClassificationHelper(object):
                 model.checkpoint_path, self.params.callbacks.ModelCheckpoint.monitor))
             checkpoint_best_only = keras.callbacks.ModelCheckpoint(filepath=model.checkpoint_path,
                                                                    monitor=self.params.callbacks.ModelCheckpoint.monitor,
-                                                                   save_weights_only=True,
+                                                                   save_weights_only=False,
                                                                    save_best_only=True,
                                                                    verbose=False)
             callbacks_.append(checkpoint_best_only)
@@ -406,129 +296,210 @@ class TextClassificationHelper(object):
             callbacks_.append(lr_scheduler)
         return callbacks_
         
-    def train(self, model, callbacks=None, epochs=None, verbose=True, batch_size=None):
+    def train(self, model, callbacks=None, epochs=None, verbose=True, batch_size=None, evaluate_before_train=True):
         """要求模型设置name属性，用于保存模型。"""
         if epochs is None:
             epochs = self.get_model_param(model.name, 'epochs')
         if callbacks is None:
             callbacks = self.get_callbacks(model, verbose)
-        if batch_size is not None and batch_size != self.data.batch_size:
-            print('Refresh datasets because batch_size is changed to {} from {}'.format(batch_size, self.data.batch_size))
-            self.data.batch_size = batch_size
-            self.data.refresh()
+        if batch_size is not None and batch_size != self.datasets.batch_size:
+            print('Refresh datasets because batch_size is changed to {} from {}'.format(batch_size,
+                                                                                        self.datasets.batch_size))
+            self.datasets.batch_size = batch_size
+            self.datasets.refresh()
 
-        if self.data.val_dataset is None:
-            validation_dataset = self.data.test_dataset
+        if self.datasets.val_dataset is None:
+            validation_dataset = self.datasets.test_dataset
         else:
-            validation_dataset = self.data.val_dataset          
+            validation_dataset = self.datasets.val_dataset
 
-        with TaskTime('training', True) as t:
-            if isinstance(self.data, SimpleTextDataset):
-                history = model.fit(self.data.train_dataset.features,
-                                    self.data.train_dataset.labels,
+        if evaluate_before_train:
+            self.evaluate(model, is_load_best_model=False)
+
+        with util.TaskTime('training', True) as t:
+            use_class_weight = self.params.get_similar_attribute('use_class_weight')
+            class_weight = self.params.get_similar_attribute('class_weight')
+            if use_class_weight is None or not use_class_weight or class_weight is None:
+                class_weight = None
+            else:
+                class_weight = class_weight
+
+            if isinstance(self.datasets, SimpleTextDatasets):
+                history = model.fit(self.datasets.train_dataset.features,
+                                    self.datasets.train_dataset.labels,
                                     validation_data=(validation_dataset.features, validation_dataset.labels),
                                     epochs=epochs, verbose=verbose,
                                     batch_size=self.params.batch_size,
                                     shuffle=True,
+                                    class_weight=class_weight,
                                     callbacks=callbacks)
             else:
-                history = model.fit(self.data.train_dataset, validation_data=validation_dataset,
+                history = model.fit(self.datasets.train_dataset, validation_data=validation_dataset,
                                     epochs=epochs, verbose=verbose,
+                                    class_weight=class_weight,
                                     callbacks=callbacks)
             history.train_time = t.elapsed_time()
-        plot_history(history)
-        return history  
-    
-    def compile(self, model):
-        learning_rate = self.get_model_param(model.name, 'learning_rate')
-        # if len(self.params.classes) == 2:
-        #     loss = losses.BinaryCrossentropy(from_logits=True),
-        # else:
-        loss = losses.SparseCategoricalCrossentropy(from_logits=True),
-        model.compile(optimizer=optimizers.Adam(learning_rate=learning_rate),
+        plot_history(history, key_metric_name=self.get_default_metric_name())
+        return history
+
+    def get_default_metric_name(self):
+        metric = self.params.metrics[0]
+        if isinstance(metric, metrics.Metric):
+            return metric.name
+        else:
+            return metric
+
+    def compile(self, model, clip_value=None, learning_rate=None):
+        if learning_rate is None:
+            learning_rate = self.get_model_param(model.name, 'learning_rate')
+        if clip_value is None:
+            clip_value = self.get_model_param(model.name, 'clip_value')
+        loss = self.params.loss
+        if loss is None:
+            loss = losses.SparseCategoricalCrossentropy(from_logits=True)
+        if clip_value is None:
+            optimizer = optimizers.Adam(learning_rate=learning_rate)
+        else:
+            optimizer = optimizers.Adam(learning_rate=learning_rate, clipvalue=clip_value)
+        model.compile(optimizer,
                       loss=loss,
                       metrics=self.params.metrics)
-
-        dataset_path = './checkpoints/{}'.format(self.params.dataset_name)
-        model.checkpoint_path = '{}/{}/checkpoint'.format(dataset_path, model.name)
+        if self.params.use_savedmodel:
+            model.checkpoint_path = os.path.join(self.params.save_path, model.name)
+        else:
+            model.checkpoint_path = os.path.join(self.params.save_path, model.name+'.h5')
         print('checkpoint_path={}'.format(model.checkpoint_path))
         return model    
                                                          
-    def evaluate(self, model, train_time, train_dataset=None, val_dataset=None, test_dataset=None):
+    def evaluate(self, model, train_time=0, train_dataset=None, val_dataset=None, test_dataset=None, is_load_best_model=True):
         """评估当前模型，并且显示所有模型的信息"""
         def _evaluate(dataset):
-            if isinstance(self.data, SimpleTextDataset):
-                loss, accuracy = model.evaluate(dataset.features, dataset.labels, verbose=True)
+            if isinstance(self.datasets, SimpleTextDatasets):
+                results = model.evaluate(dataset.features, dataset.labels, verbose=True, return_dict=True)
             else:
-                loss, accuracy = model.evaluate(dataset, verbose=True)
-            return loss, accuracy
+                results = model.evaluate(dataset, verbose=True, return_dict=True)
+            return results
+
         model_results = self.model_results
         if train_dataset is None:
-            train_dataset = self.data.train_dataset
+            train_dataset = self.datasets.train_dataset
         if val_dataset is None:
-            val_dataset = self.data.val_dataset
+            val_dataset = self.datasets.val_dataset
         if test_dataset is None:
-            test_dataset = self.data.test_dataset
+            test_dataset = self.datasets.test_dataset
 
-        train_loss, train_accuracy = _evaluate(train_dataset)
+        train_result = _evaluate(train_dataset)
         if val_dataset is not None:
-            val_loss, val_accuracy = _evaluate(val_dataset)
-        test_loss, test_accuracy = _evaluate(test_dataset)
-        if model.name not in model_results or model_results[model.name]['test_accuracy']<test_accuracy:
-            if val_dataset is not None:
-                model_results[model.name] = {'train_loss': round(train_loss, 6),
-                                             'train_accuracy': round(train_accuracy, 4),
-                                             'val_loss': round(val_loss, 6),
-                                             'val_accuracy': round(val_accuracy, 4),
-                                             'test_loss': round(test_loss, 6),
-                                             'test_accuracy': round(test_accuracy, 4),
-                                             'weight_number': get_weight_num(model),
-                                             'model': model,
-                                             'data':self.data,
-                                             'train_time': round(train_time, 0)}
+            val_result = _evaluate(val_dataset)
+        test_result = _evaluate(test_dataset)
+
+        if is_load_best_model:
+            predictor = text_predictor.TfTextPredictor(self.params.classes,
+                                                       model_path=model.checkpoint_path,
+                                                       vectorizer_path=self.datasets.vectorizer_path)
+        else:
+            print('1')
+            predictor = text_predictor.TfTextPredictor(self.params.classes,
+                                                       model_path=model.checkpoint_path,
+                                                       vectorizer_path=self.datasets.vectorizer_path,
+                                                       model=model,
+                                                       vectorizer=self.datasets.vectorizer)
+
+        predictor_path = os.path.abspath(os.path.join(self.params.save_path, model.name + '.predictor'))
+        print('save predictor into {}'.format(predictor_path))
+        util.ObjectPickle.save(predictor_path, predictor)
+
+        model_result = {'weight_number': util.get_weight_num(model),
+                        'model': model,
+                        'datasets': self.datasets,
+                        'train_time': round(train_time, 0),
+                        'predictor_path': predictor_path
+                        }
+        print('-'*80)
+        metrics_name = [metric_name for metric_name in model.metrics_names if metric_name!='auc'] + ['auc']
+        for metric_name in metrics_name:
+            if metric_name == 'sparse_top_k_categorical_accuracy':
+                save_metric_name = 'top2_accuracy'
             else:
-                model_results[model.name] = {'train_loss': round(train_loss, 6),
-                                             'train_accuracy': round(train_accuracy, 4),
-                                             'test_loss': round(test_loss, 6),
-                                             'test_accuracy': round(test_accuracy, 4),
-                                             'weight_number': get_weight_num(model),
-                                             'model': model,
-                                             'data': self.data,
-                                             'train_time': round(train_time, 0)}
-        print('Test loss:{:0.4f}, Test Accuracy:{:0.2%}'.format(test_loss, test_accuracy))
+                save_metric_name = metric_name
+            if metric_name == 'auc':
+                train_result[metric_name] = self.roc_auc_score(model, self.datasets.train_data,
+                                                               self.datasets.train_labels)[0]
+                if val_dataset is not None:
+                    val_result[metric_name] = self.roc_auc_score(model, self.datasets.val_data,
+                                                                   self.datasets.val_labels)[0]
+                test_result[metric_name] = self.roc_auc_score(model, self.datasets.test_data,
+                                                              self.datasets.test_labels)[0]
+
+            model_result['train_' + save_metric_name] = round(train_result[metric_name], 4)
+            if val_dataset is not None:
+                model_result['val_' + save_metric_name] = round(val_result[metric_name], 4)
+            model_result['test_' + save_metric_name] = round(test_result[metric_name], 4)
+            print('test {}:{:0.4f}'.format(save_metric_name, test_result[metric_name]))
+
+        model_results[model.name] = model_result
+
+    def roc_auc_score(self, model, data=None, labels=None):
+        if data is None or labels is None:
+            data = self.datasets.test_data
+            labels = self.datasets.test_labels
+        predictions = model.predict(data)
+        if len(labels.shape) <= 1 :
+            # convert multiple class to one hot
+            new_labels = np.zeros((labels.size, labels.max() + 1))
+            new_labels[np.arange(labels.size), labels] = 1
+            labels = new_labels
+        score = roc_auc_score(labels, predictions)
+        scores = []
+        if len(labels.shape) >= 1:
+            label_count = labels.shape[1]
+            for j in range(label_count):
+                scores.append(roc_auc_score(labels[:, j], predictions[:, j]))
+        else:
+            scores = [score]
+        return score, scores
+
+    def load_model(self, checkpoint_path, compile_fun=None):
+        model = models.load_model(checkpoint_path)
+        if compile_fun is None:
+            self.compile(model)
+        else:
+            compile_fun(model)
+        return model
                     
-    def model_summary(self, model, history):
+    def model_summary(self, model, history, show_error_sample=False, is_show_model_results=True,
+                      is_show_confusion_matrix=True):
         # 加载最佳checkpoint，并评估
         print('-'*40, 'evaluate', '-'*40)
         if self.params.restore_best_checkpoint:
-            model.load_weights(model.checkpoint_path)
-        self.evaluate(model, train_time=history.train_time)
+            checkpoint_path = model.checkpoint_path
+            print('load best checkpoint from {}'.format(checkpoint_path))
+            model = self.load_model(checkpoint_path)
+
+        self.evaluate(model, train_time=history.train_time, is_load_best_model=False)
 
         # 混淆矩阵
-        print('-'*40, 'confusion matrix'  , '-'*40)
-        self.plot_confusion_matrix(model)   
+        if is_show_confusion_matrix:
+            if len(self.datasets.test_labels.shape) <= 1:
+                print('-'*40, 'confusion matrix', '-'*40)
+                self.plot_confusion_matrix(model)
 
-        # # 模型对比
-        # print('-'*40, 'model improvement'.format(model.name), '-'*40)
-        # self.plot_predicted_sample(model, sample_count=5, only_compare_best=True)
-        
-        # 错误比较        
-        if len(self.model_results.keys())>1:
-            print('-'*40, 'error analysis'.format(model.name), '-'*40)
-            self.plot_predicted_sample(model, sample_count=5)
+                # # 模型对比
+                # print('-'*40, 'model improvement'.format(model.name), '-'*40)
+                # self.plot_predicted_sample(model, sample_count=5, only_compare_best=True)
+
+                # 错误比较
+                if show_error_sample and len(self.model_results.keys())>1:
+                    print('-'*40, 'error analysis'.format(model.name), '-'*40)
+                    self.plot_predicted_sample(model, sample_count=5)
 
         # 所有模型结果
-        print('-'*50, 'all models'.format(model.name), '-'*50)
-        self.show_model_results()
+        if is_show_model_results:
+            print('-'*50, 'all models'.format(model.name), '-'*50)
+            self.show_model_results()
 
     def get_model_param(self, model_name, attribute):
         return self.params.get_similar_attribute('model_params.{}.{}'.format(model_name, attribute))
-
-    # def get_learning_rate(self, model_name):
-    #     return self.get_model_param(model_name, 'learning_rate')
-    #
-    # def get_dropout(self, model_name):
-    #     return self.get_model_param(model_name, 'dropout')
     
     def get_best_model(self, exclude_mode_name=''):
         models = [(model_name, model_result['test_accuracy'])
@@ -538,59 +509,61 @@ class TextClassificationHelper(object):
             return None, None
         models = sorted(models, key=lambda item: item[1])
         best_model_name = models[-1][0]
-        return self.model_results[best_model_name]['model'], self.model_results[best_model_name]['data']
+        return self.model_results[best_model_name]['model'], self.model_results[best_model_name]['datasets']
         
     def show_model_results(self):
-        """按照test_accuracy倒序显示所有模型的信息"""
-        model_results = self.model_results
-        models_remove1 = {key:{key1:value1 for key1, value1 in value.items() if key1 != 'model' and key1 != 'data'}
-                          for key, value in model_results.items()}
-        df_models = pd.DataFrame.from_dict(models_remove1, orient='index')
-        df_models = df_models.sort_values('test_accuracy', ascending=False) 
-        display(df_models)       
-        
-    def show_images(self, images, labels, x_num=6, y_num=6, figsize=(8, 8), images_mean=None):
-        """显示图片"""
-        classes = self.data.classes
-        plt.figure(figsize=figsize)
-        channel_count = images.shape[-1]
-        for i in range(x_num*y_num):
-            plt.subplot(x_num, y_num, i+1)
-            if images_mean is not None:
-                image = images[i]+images_mean
+        def get_key_value(key, value):
+            if key == 'model':
+                return 'checkpoint_path', os.path.abspath(value.checkpoint_path)
+            elif key == 'datasets':
+                return 'vectorizer_path', os.path.abspath(value.vectorizer_path) if value.vectorizer_path is not None \
+                    else None
             else:
-                image = images[i]
-            if channel_count==1:
-                plt.imshow(image, cmap='gray')
-            else:
-                plt.imshow(image)
-            label = labels[i] if classes is None else classes[labels[i]]
-            plt.title("{}".format(label))
-            plt.xticks([])
-            plt.yticks([])    
+                return key, value
 
-        plt.tight_layout()
-        plt.subplots_adjust(wspace=0.3, hspace=0.3)      
-        plt.show()
+        model_results = self.model_results
+        models_result_show = {key: {key1: value1 for key1, value1 in value.items()
+                                    if key1 not in ['model', 'datasets', 'text_column', 'predictor_path']}
+                              for key, value in model_results.items()}
+        df_models = pd.DataFrame.from_dict(models_result_show, orient='index')
+        """按照test_accuracy倒序显示所有模型的信息"""
+        df_models = df_models.sort_values('test_' + self.get_default_metric_name(), ascending=False)
+        display(df_models.head(20))
+
+        model_results_save = []
+        for key, value in model_results.items():
+            items = [get_key_value(key1, value1) for key1, value1 in value.items()]
+            metrics = {key1: value1 for key1, value1 in items}
+            metrics['dataset_name'] = self.params.dataset_name
+            metrics['program_name'] = self.params.program_name
+            metrics['model_name'] = key
+            metrics['classes'] = self.params.classes
+            metrics['text_column'] = self.params.text_column
+            model_results_save.append(metrics)
+
+        model_results_path = os.path.join(self.params.save_path, 'model_results.json')
+        util.JsonPickle.save(model_results_path, model_results_save)
 
     def plot_distribution(self, train_labels=None, test_labels=None, classes=None):
         """打印类的分布"""
         if train_labels is None:
-            train_labels = self.data.train_labels
+            train_labels = self.datasets.train_labels
         if test_labels is None:
-            test_labels = self.data.test_labels
+            test_labels = self.datasets.test_labels
         if classes is None:
-            classes = self.data.classes
+            classes = self.datasets.classes
 
         plot_distribution(train_labels, test_labels, classes)
 
-    def plot_confusion_matrix(self, model1, texts=None, labels=None, model2=None, compared=True):
+    def plot_confusion_matrix(self, model1, data=None, labels=None, model2=None, compared=True, k=1):
         """打印混淆矩阵"""
-        def plot_cm(model, texts):
-            # if len(classes) == 2:
-            #     predictions = model.predict(texts) > 0
-            # else:
-            predictions = model.predict(texts, verbose=True).argmax(axis=-1)
+        def plot_cm(model, data):
+            if k == 1:
+                predictions = model.predict(data, verbose=True).argmax(axis=-1)
+            else:
+                predictions = model.predict(data, verbose=True)
+                predictions = [labels[i] if labels[i] in list(predictions[i].argsort()[-k:][::-1]) else predictions[i].argmax() for i in range(len(labels))]
+
             cm = confusion_matrix(labels, predictions)
             bin_count = np.bincount(labels)
 
@@ -605,18 +578,18 @@ class TextClassificationHelper(object):
             df_cm = pd.DataFrame(cm, index=index, columns=columns)
 
             plt.title("{} - Confusion matrix".format(model.name))
-            sns.heatmap(df_cm, annot=True, fmt='g',cmap='coolwarm')
+            sns.heatmap(df_cm, annot=True, fmt='g', cmap='coolwarm')
             if classes is not None: 
                 plt.yticks(rotation=0)
                 plt.xticks(rotation=45)
             plt.xlabel("Predicted")
             plt.ylabel("Actual")
 
-        if texts is None:
-            texts = self.data.test_texts
+        if data is None:
+            data = self.datasets.test_data
         if labels is None:
-            labels = self.data.test_labels
-        classes = self.data.classes
+            labels = self.datasets.test_labels
+        classes = self.datasets.classes
         
         if compared and model2 is None:
             model2, data2 = self.get_best_model(model1.name)
@@ -629,22 +602,22 @@ class TextClassificationHelper(object):
             if len(classes) <= 10:
                 plt.figure(figsize=(height*2+6, height))
                 plt.subplot(1, 2, 1)
-                plot_cm(model2, data2.test_texts)
+                plot_cm(model2, data2.test_data)
                 plt.subplot(1, 2, 2)
-                plot_cm(model1, texts)
+                plot_cm(model1, data)
             else:
                 plt.figure(figsize=(height, height*2))
                 plt.subplot(2, 1, 1)
-                plot_cm(model2, data2.test_texts)
+                plot_cm(model2, data2.test_data)
                 plt.subplot(2, 1, 2)
-                plot_cm(model1, texts)
+                plot_cm(model1, data)
         else:  
             plt.figure(figsize=(height+1, height))
-            plot_cm(model1, texts)
+            plot_cm(model1, data)
 
         plt.show()    
 
-    def plot_predicted_sample(self, model, texts=None, labels=None, sample_count=5, raw_texts=None,
+    def plot_predicted_sample(self, model, data=None, labels=None, sample_count=5, texts=None,
                               show_error=True, only_compare_best=False):
         """查看一些样本的分类情况"""
         def get_class(label):
@@ -653,8 +626,8 @@ class TextClassificationHelper(object):
             else:
                 return classes[label]
 
-        def plot_var(model, text, classes):
-            predict = np.squeeze(tf.nn.softmax(model.predict(text)).numpy())
+        def plot_var(model, data, classes):
+            predict = np.squeeze(tf.nn.softmax(model.predict(data)).numpy())
             max_like = np.argmax(predict)
             max_like_value = predict[max_like]
 
@@ -693,64 +666,63 @@ class TextClassificationHelper(object):
                 plt.yticks(range(len(_classes)), _classes, fontsize=8)
             plt.title('{}: {}'.format(model.name, get_class(max_like)), fontsize=10)
 
-        if texts is None:
-            texts = self.data.test_texts
+        if data is None:
+            data = self.datasets.test_data
         if labels is None:
-            labels = self.data.test_labels
-        if raw_texts is None:
-            raw_texts = self.data.raw_test_texts
-        classes = self.data.classes
+            labels = self.datasets.test_labels
+        if texts is None:
+            texts = self.datasets.test_texts
+        classes = self.datasets.classes
         
         if only_compare_best:
-            best_model, best_data = self.get_best_model(model.name)
+            best_model, best_datasets = self.get_best_model(model.name)
             if best_model is None:
-                models = [(model, texts)]
+                model_data_list = [(model, data)]
             else:
-                models = [(best_model, best_data.test_texts), (model, texts)]
+                model_data_list = [(best_model, best_datasets.test_data), (model, data)]
         else:   
-            models = [(model, texts)] + [(model_result['model'], model_result['data'].test_texts)
-                                         for model_name, model_result in self.model_results.items()
-                                         if model_name!=model.name]
+            model_data_list = [(model, data)] + [(model_result['model'], model_result['datasets'].test_data)
+                                                 for model_name, model_result in self.model_results.items()
+                                                 if model_name != model.name]
 
         bin_count = np.bincount(labels)
         label_count = len(bin_count)
-        column_count = len(models)+1
+        column_count = len(model_data_list)+1
 
         if show_error:
-            # print(models[0][0])
-            # print(texts.shape)
-            base_predictions = model.predict(texts, verbose=True).argmax(axis=-1)
+            base_predictions = model.predict(data, verbose=True).argmax(axis=-1)
             error_indexes = base_predictions != labels
-            error_raw_texts = [raw_text for i, raw_text in enumerate(raw_texts) if base_predictions[i] != labels[i]]
+            error_texts = [raw_text for i, raw_text in enumerate(texts) if base_predictions[i] != labels[i]]
             error_labels = labels[error_indexes]
             sample_indexes = np.random.randint(error_labels.shape[0], size=sample_count)
             sample_labels = error_labels[sample_indexes]
-            sample_raw_texts = [error_raw_texts[index] for index in sample_indexes]
+            sample_texts = [error_texts[index] for index in sample_indexes]
         else:
             sample_indexes = np.random.randint(len(labels), size=sample_count)
             sample_labels = labels[sample_indexes]
-            sample_raw_texts = [raw_texts[index] for index in sample_indexes]
+            sample_texts = [texts[index] for index in sample_indexes]
 
         for i in range(sample_count):
             print('.'*40, classes[sample_labels[i]], '.'*40)
-            if len(sample_raw_texts[i]) <= 3000:
-                print(sample_raw_texts[i])
+            if len(sample_texts[i]) <= 3000:
+                print(sample_texts[i])
             else:
-                print(sample_raw_texts[i][0:3000] + '...')
+                print(sample_texts[i][0:3000] + '...')
             if classes is None:
                 plt.figure(figsize=(2.2 * column_count, 2.2))
             elif len(classes) <= 5:
                 plt.figure(figsize=(2.8 * column_count, 2.2))
             else:
                 plt.figure(figsize=(3.2* column_count, 2.8))
-            for j, (model, _texts) in enumerate(models):
+            for j, (model, _data) in enumerate(model_data_list):
                 plt.subplot(1, column_count, j+1)
                 if show_error:
-                    error_texts = _texts[error_indexes]
-                    sample_texts = error_texts[sample_indexes]
+                    # print(type(_data))
+                    error_data = _data[error_indexes]
+                    sample_data = error_data[sample_indexes]
                 else:
-                    sample_texts = _texts[sample_indexes]
-                plot_var(model, sample_texts[i:i+1], classes)
+                    sample_data = _data[sample_indexes]
+                plot_var(model, sample_data[i:i+1], classes)
 
             plt.subplots_adjust(wspace=0.5, hspace=0.5)
             plt.show()
@@ -762,10 +734,11 @@ class SimpleData(object):
         self.labels = labels
 
 
-class TextDataset(object):
-    def __init__(self, params, train_texts, train_labels, test_texts, test_labels, raw_train_texts, raw_test_texts,
-                 batch_size=None):
+class TextDatasets(object):
+    def __init__(self, params, train_texts, train_labels, test_texts, test_labels, vectorizer=None,
+                 batch_size=None, name='TextDatasets'):
         super().__init__()
+        self.name = name
         self.dataset_name = params.dataset_name
         if batch_size is None:
             self.batch_size = params.batch_size
@@ -773,23 +746,62 @@ class TextDataset(object):
             self.batch_size = batch_size
         self.validation_percent = params.validation_percent
         self.classes = params.classes
-
         self.train_texts = train_texts
         self.train_labels = train_labels
         self.test_texts = test_texts
         self.test_labels = test_labels
-        self.input_shape = self.train_texts.shape[1:]
+        self.vectorizer = vectorizer
 
-        self.raw_train_texts = raw_train_texts
-        self.raw_test_texts = raw_test_texts
-        
+        self.train_data = vectorizer.transform(self.train_texts)
+        self.test_data = vectorizer.transform(self.test_texts)
+        if len(self.train_data.shape) >= 2:
+            self.input_shape = self.train_data.shape[1:]
+        else:
+            self.input_shape = []
+
+        self.vectorizer_path = os.path.join(params.save_path, self.name + '.vectorizer')
+        util.ObjectPickle.save(self.vectorizer_path, self.vectorizer)
+
         print('create train, validation and test dataset')
         self.train_dataset, self.val_dataset, self.test_dataset = self.get_datasets()
 
     def get_datasets(self, random_state=42):
         X_train, X_val, y_train, y_val = self._get_train_val(random_state)
+        train_dataset = SimpleData(X_train, y_train)
+        if X_val is not None:
+            val_dataset = SimpleData(X_train, y_train)
+        else:
+            val_dataset = None
+        test_dataset = SimpleData(self.test_data, self.test_labels)
+        return train_dataset, val_dataset, test_dataset
 
-        test_dataset = tf.data.Dataset.from_tensor_slices((self.test_texts, self.test_labels))
+    def refresh(self):
+        self.train_dataset, self.val_dataset, self.test_dataset = self.get_datasets()
+        return self
+
+    def _get_train_val(self, random_state=42):
+        if self.validation_percent>0:
+            print('split train into train and validation')
+            X_train, X_val, y_train, y_val = train_test_split(self.train_data, self.train_labels,
+                                                              test_size=self.validation_percent,
+                                                              random_state=random_state)
+            print('train:', X_train.shape, y_train.shape)
+            print('validation:', X_val.shape, y_val.shape)
+        else:
+            X_train, X_val, y_train, y_val = self.train_data, None, self.train_labels, None
+        return X_train, X_val, y_train, y_val
+
+
+class RawTextDatasets(TextDatasets):
+    def __init__(self, params, train_texts, train_labels, test_texts, test_labels, vectorizer=util.RawVectorizer(),
+                 batch_size=None, name='RawTextDatasets'):
+        super().__init__(params, train_texts, train_labels, test_texts, test_labels, vectorizer,
+                         batch_size, name)
+
+    def get_datasets(self, random_state=42):
+        X_train, X_val, y_train, y_val = self._get_train_val(random_state)
+
+        test_dataset = tf.data.Dataset.from_tensor_slices((self.test_data, self.test_labels))
         test_dataset = test_dataset.batch(self.batch_size)
 
         train_dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train))
@@ -805,65 +817,87 @@ class TextDataset(object):
 
         return train_dataset, val_dataset, test_dataset
 
-    def refresh(self):
-        self.train_dataset, self.val_dataset, self.test_dataset = self.get_datasets()
-        return self
 
-    def _get_train_val(self, random_state=42):
-        if self.validation_percent>0:
-            print('split train into train and validation')
-            X_train, X_val, y_train, y_val = train_test_split(self.train_texts, self.train_labels,
-                                                              test_size=self.validation_percent,
-                                                              random_state=random_state)
-            print('train:', X_train.shape, y_train.shape)
-            print('validation:', X_val.shape, y_val.shape)
-        else:
-            X_train, X_val, y_train, y_val = self.train_texts, None, self.train_labels, None
-        return X_train, X_val, y_train, y_val
-
-
-class SimpleTextDataset(TextDataset):
+class TransferTextDatasets(TextDatasets):
     def __init__(self, params, train_texts, train_labels, test_texts, test_labels,
-                 raw_train_texts, raw_test_texts, batch_size=None):
-        super().__init__(params, train_texts, train_labels, test_texts, test_labels,
-                                                raw_train_texts, raw_test_texts, batch_size)
+                 vectorizer, batch_size=None, name='TransferTextDatasets'):
+        super().__init__(params, train_texts, train_labels, test_texts, test_labels, vectorizer,
+                         batch_size, name)
+
+    def get_dataset(self, texts, labels):
+        def split(text, label):
+            return tf.strings.split(text), label
+
+        def embedding(text, label):
+            return self.transfer_layer(text), label
+
+        def filter_(text, label):
+            return len(text) <= 250
+
+        def padding(text, label):
+            if len(text) < 250:
+                left_padding = tf.math.maximum(0, 250 - len(text))
+                paddings = [[left_padding, 0], [0, 0]]
+                text = tf.pad(text, paddings, "CONSTANT")
+            else:
+                text = text[0:250]
+            return text, label
+
+        dataset = tf.data.Dataset.from_tensor_slices((texts, labels))
+        dataset = dataset.map(split)
+        dataset = dataset.map(embedding)
+        dataset = dataset.map(padding)
+
+        return dataset
 
     def get_datasets(self, random_state=42):
         X_train, X_val, y_train, y_val = self._get_train_val(random_state)
-        train_data = SimpleData(X_train, y_train)
-        if X_val is not None:
-            val_data = SimpleData(X_train, y_train)
+
+        test_dataset = tf.data.Dataset.from_tensor_slices((self.test_data, self.test_labels))
+        test_dataset = test_dataset.batch(self.batch_size)
+
+        train_dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train))
+        train_dataset = train_dataset.shuffle(len(y_train), reshuffle_each_iteration=True)
+        train_dataset = train_dataset.batch(self.batch_size, drop_remainder=True)
+
+        if self.validation_percent>0:
+            val_dataset = tf.data.Dataset.from_tensor_slices((X_val, y_val))
+            val_dataset = val_dataset.shuffle(len(y_val), reshuffle_each_iteration=True)
+            val_dataset = val_dataset.batch(self.batch_size)
         else:
-            val_data = None
-        test_data = SimpleData(self.test_texts, self.test_labels)
-        return train_data, val_data, test_data
+            val_dataset = None
+
+        return train_dataset, val_dataset, test_dataset
 
 
-class SequenceTextDataset(TextDataset):
-    def __init__(self, params, train_texts, train_labels, test_texts, test_labels,
-                 raw_train_texts, raw_test_texts, tokenizer, batch_size=None):
-        super().__init__(params, train_texts, train_labels, test_texts, test_labels,
-                                                  raw_train_texts, raw_test_texts, batch_size)
-        self.tokenizer = tokenizer
+class SimpleTextDatasets(TextDatasets):
+    def __init__(self, params, train_texts, train_labels, test_texts, test_labels, vectorizer,
+                 batch_size=None, name='SimpleTextDatasets'):
+        super().__init__(params, train_texts, train_labels, test_texts, test_labels, vectorizer,
+                         batch_size, name)
 
 
-class TaskTime:
-    '''用于显示执行时间'''
+class SequenceTextDatasets(TextDatasets):
+    def __init__(self, params, train_texts, train_labels, test_texts, test_labels, vectorizer,
+                 batch_size=None, name='SequenceTextDatasets'):
+        super().__init__(params, train_texts, train_labels, test_texts, test_labels, vectorizer,
+                         batch_size, name)
 
-    def __init__(self, task_name, show_start=False):
-        super(TaskTime, self).__init__()
-        self.show_start = show_start
-        self.task_name = task_name
-        self.start_time = time.time()
+    def get_datasets(self, random_state=42):
+        X_train, X_val, y_train, y_val = self._get_train_val(random_state)
 
-    def elapsed_time(self):
-        return time.time()-self.start_time
+        test_dataset = tf.data.Dataset.from_tensor_slices((self.test_data, self.test_labels))
+        test_dataset = test_dataset.batch(self.batch_size)
 
-    def __enter__(self):
-        if self.show_start:
-            logging.info('start {}'.format(self.task_name))
-        return self;
+        train_dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train))
+        train_dataset = train_dataset.shuffle(len(y_train), reshuffle_each_iteration=True)
+        train_dataset = train_dataset.batch(self.batch_size, drop_remainder=True)
 
-    def __exit__(self, exc_type, exc_value, exc_tb):
-        time.sleep(0.5)
-        logging.info('finish {} [elapsed time: {:.2f} seconds]'.format(self.task_name, self.elapsed_time()))   
+        if self.validation_percent>0:
+            val_dataset = tf.data.Dataset.from_tensor_slices((X_val, y_val))
+            val_dataset = val_dataset.shuffle(len(y_val), reshuffle_each_iteration=True)
+            val_dataset = val_dataset.batch(self.batch_size)
+        else:
+            val_dataset = None
+
+        return train_dataset, val_dataset, test_dataset
