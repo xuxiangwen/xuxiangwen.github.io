@@ -22,7 +22,7 @@ $$
 \sigma(x_n,x_1) & \sigma(x_n,x_2) & \cdots  & \sigma(x_n,x_n)\\
 \end{bmatrix}
 $$
-其中 $x = \left[ \begin{matrix} x_{1}, x_{2},\cdots,x_{n}\end{matrix}\right]^\mathrm{T}$，表示$n$个随机变量，$\sigma(x_i,x_j)$表示协方差，$\sigma(x_i, x_j)=E[(x_i-E(x_i))(y_j-E(y_j))]$。
+其中 $$x = \left[ \begin{matrix} x_{1}, x_{2},\cdots,x_{n}\end{matrix}\right]^\mathrm{T}$$，表示$$n$$个随机变量，$$\sigma(x_i,x_j)$$表示协方差，$$\sigma(x_i, x_j)=E[(x_i-E(x_i))(y_j-E(y_j))]$$。
 
 协方差矩阵还可以用向量的方式来表达，形式如下：
 $$
@@ -47,13 +47,14 @@ $$
 
 ### 多元正态分布
 
-n元正态分布概率密度函数如下：
+$n$元正态分布概率密度函数如下：
 $$
 \begin{align}
 f(x) &= \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  μ)}
 \end{align}
 $$
-其中 $x = \left[ \begin{matrix} x_{1}, x_{2},\cdots,x_{n}\end{matrix}\right]^\mathrm{T}$，表示$n$个随机变量，这些变量都服从正态分布，其均值$u = \left[ \begin{matrix} μ_{1}, μ_{2},\cdots,μ_{n}\end{matrix}\right]^\mathrm{T}$， 方差 $σ = \left[ \begin{matrix} σ_{1}, σ_{2},\cdots,σ_{n}\end{matrix}\right]^\mathrm{T}$，$\Sigma$表示协方差矩阵（Covariance Matrix），$\Sigma^{-1}$表示协方差矩阵的逆矩阵，$\left|\Sigma_{}^{}\right|^\frac{1}{2}$表示协方差矩阵的行列式的平方根。
+
+其中 $$x = \left[ \begin{matrix} x_{1}, x_{2},\cdots,x_{n}\end{matrix}\right]^\mathrm{T}$$，表示$$n$$个随机变量，这些变量都服从正态分布，其均值$$u = \left[ \begin{matrix} \mu_{1}, \mu_{2},\cdots,\mu_{n}\end{matrix}\right]^\mathrm{T}$$， 方差 $$\sigma = \left[ \begin{matrix} \sigma _{1}, \sigma _{2},\cdots,σ_{n}\sigma \end{matrix}\right]^\mathrm{T}$$，$$\Sigma$$表示协方差矩阵（Covariance Matrix），$$\Sigma^{-1}$$表示协方差矩阵的逆矩阵，$$\left|\Sigma_{}^{}\right|^\frac{1}{2}$$表示协方差矩阵的行列式的平方根。
 
 说起来，上面的公式还真的抽象，为了简化，首先看独立的多元正态分布。
 
@@ -67,7 +68,9 @@ f(x) &= p(x_{1},x_{2}....x_{n})
 \\&= \frac{1}{(\sqrt{2π})^nσ_{1}σ_{2}\cdotsσ_{n}}e^{-\frac{(x_{1}-μ_{1})^2}{2σ_{1}^2}-\frac{(x_{2}-μ_{2})^2}{2σ_{2}^2}\cdots-\frac{(x_{n}-μ_{n})^2}{2σ_{n}^2}}
 \end{align}
 $$
-令$z^{2} = \frac{(x_{1}-μ_{1})^2}{σ_{1}^2}+\frac{(x_{2}-μ_{2})^2}{σ_{2}^2}\cdots+\frac{(x_{n}-μ_{n})^2}{σ_{n}^2}$，$σ_{z}= σ_{1}σ_{2}\cdotsσ_{n}$，公式可以简化为：
+
+令$$z^{2} = \frac{(x_{1}-μ_{1})^2}{σ_{1}^2}+\frac{(x_{2}-μ_{2})^2}{σ_{2}^2}\cdots+\frac{(x_{n}-μ_{n})^2}{σ_{n}^2}$$$，$$$σ_{z}= σ_{1}σ_{2}\cdotsσ_{n}$$，公式可以简化为：
+
 $$
 f(x) = \frac{1}{(\sqrt{2π})^nσ_{z}}e^{-\frac{z^2}{2}}  \tag 2
 $$ { }
@@ -141,7 +144,7 @@ $$
 f(x) = \frac{1}{(\sqrt{2π})^{n}\left|\mathbf {\Lambda}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  μ)}  
 \end{align}
 $$
-接着，由于$\mathbf {\Lambda}$是对角矩阵，显然$\left|\mathbf {\Lambda}\right| =  \prod\lambda_i  $ ，可得：
+接着，由于$\mathbf {\Lambda}$是对角矩阵，显然$$\left|\mathbf {\Lambda}\right| =  \prod\lambda_i  $$ ，可得：
 $$
 \begin{align}f(x) = \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  μ)}  \tag 9\end{align}
 $$
@@ -300,10 +303,12 @@ $$
 
 马氏距离（Mahalanobis distance）是由印度统计学家马哈拉诺比斯(P. C. Mahalanobis)提出的，是欧氏距离的一种推广。它通过协方差来计算两点之间距离，是一种有效的计算两个未知样本集的相似度的方法。与欧氏距离不同的是它考虑到各种特性之间的相关性。它的定义如下：
 
-对于一个均值为$\mu =(\mu _{1},\mu _{2},\mu _{3},\dots ,\mu _{n})^{T}$，协方差矩阵为Σ的多变量向量$x=(x_{1},x_{2},x_{3},\dots ,x_{n})^{T}$，其马氏距离为：
+对于一个均值为$$\mu =(\mu _{1},\mu _{2},\mu _{3},\dots ,\mu _{n})^{T}$$，协方差矩阵为Σ的多变量向量$$x=(x_{1},x_{2},x_{3},\dots ,x_{n})^{T}$$，其马氏距离为：
+
 $$
 D_{M}(x)={\sqrt {(x-\mu )^{T}\Sigma ^{-1}(x-\mu )}}
 $$
+
 从形式上看，马氏距离和正态分布公式的其中一部分完全相同。于是，正如上节分析所示，可以把马氏纪录理解为，把样本点缩放（$\frac {x\  -\  μ} {\mathbf {\sqrt \lambda}} $），然后进行线性变换到特征矩阵所在空间$$\mathbf{V^T} \frac {x\  -\  μ} {\mathbf {\sqrt \lambda}} $$，最后求再这个空间的欧氏距离，也就说是马氏距离考虑了样本相关性的欧式距离。
 
 对于下面图中的数据，分别计算点1和点2到中心的距离，它们的欧式距离是相等的。但很明显，根据正态分布公式，点1出现的概率比点2要小，即认为点1距离中心点的距离要更远，马氏距离考虑到了这一点，所以它比欧式距离更合理。
@@ -419,7 +424,7 @@ $$
 
 ## 总结
 
-通过协方差矩阵在正态分布，马氏距离和主成分分析中的应用，我们可以看到方差代表距离的叠加，距离可以转化为概率，协方差矩阵本质上代表了一个线性变化，即特征向量矩阵，这就是它的意义。
+通过协方差矩阵在正态分布，马氏距离和主成分分析中的应用，我们可以看到方差代表距离的叠加，距离可以转化为概率，协方差矩阵本质上代表了一个线性变换，即特征向量矩阵，这就是它的意义。
 
 ## 参考
 
