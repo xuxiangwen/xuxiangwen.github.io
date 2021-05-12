@@ -234,8 +234,8 @@ Digit Recognizer](https://www.kaggle.com/c/digit-recognizer/kernels)为例), wor
         - [YSDA course in Natural Language Processing]() 俄罗斯人的课程，大家都说不错。在coursera上做过一些，的确不错。放在之后来看。   
     - 书籍 
         - [An Introduction to Natural Language Processing, 
-    Computational Linguistics, and Speech Recognition
-    Second Edition](http://www.cs.colorado.edu/~martin/slp2.html) 应该和上面的视频是配套的书。这是[第三版](https://web.stanford.edu/~jurafsky/slp3/ed3book.pdf)。
+        Computational Linguistics, and Speech Recognition
+        Second Edition](http://www.cs.colorado.edu/~martin/slp2.html) 应该和上面的视频是配套的书。这是[第三版](https://web.stanford.edu/~jurafsky/slp3/ed3book.pdf)。
         - [Natural Language Processing](https://github.com/jacobeisenstein/gt-nlp-class/blob/master/notes/eisenstein-nlp-notes.pdf)由Jacob Eisenstein编写，18年底最新release出来的自然语言处理综述教材。这本书也有配套课程的。
         - [Text_Data_Management_and_Analysis](https://github.com/xuxiangwen/ai/blob/master/book/nlpext_Data_Management_and_Analysis-A_Practical_Introduction_to_Information_Retrieval_and_Text_Mining.pdf) 宅成翔教授的书，上面课程的配套书。
     - 工具和api 
@@ -280,3 +280,9 @@ Digit Recognizer](https://www.kaggle.com/c/digit-recognizer/kernels)为例), wor
 
 - leecode
 - 牛客网
+
+
+
+### Top &  Emerging Trends
+
+![image-20210511233000777](images/image-20210511233000777.png)
