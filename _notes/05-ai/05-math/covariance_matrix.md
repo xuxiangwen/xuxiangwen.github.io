@@ -54,7 +54,14 @@ f(x) &= \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac
 \end{align}
 $$
 
-其中 $$x =  \begin{bmatrix} x_{1}, x_{2},\cdots,x_{n}\end{bmatrix}^\mathrm{T}$$，表示$$n$$个随机变量，这些变量都服从正态分布，其均值$$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{n}\end{bmatrix}^\mathrm{T}$$， 方差 $$\sigma =  \begin{bmatrix} \sigma _{1}, \sigma _{2},\cdots,\sigma_{n}\sigma \end{bmatrix}^\mathrm{T}$$，$$\Sigma$$表示协方差矩阵（Covariance Matrix），$$\Sigma^{-1}$$表示协方差矩阵的逆矩阵，$$|\Sigma|^{\frac{1}{2}}$$表示协方差矩阵的行列式的平方根。
+其中
+
+-  $$x =  \begin{bmatrix} x_{1}, x_{2},\cdots,x_{n}\end{bmatrix}^\mathrm{T}$$，表示$$n$$个随机变量，这些变量都服从正态分布。
+- $$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{n}\end{bmatrix}^\mathrm{T}$$，表示随机变量的均值。
+-  $$\sigma =  \begin{bmatrix} \sigma _{1}, \sigma _{2},\cdots,\sigma_{n}\sigma \end{bmatrix}^\mathrm{T}$$，表示随机变量的方差。
+- $$\Sigma$$表示协方差矩阵（Covariance Matrix）。
+- $$\Sigma^{-1}$$表示协方差矩阵的逆矩阵
+- $$|\Sigma|^{\frac{1}{2}}$$表示协方差矩阵的行列式的平方根。
 
 说起来，上面的公式还真的抽象，为了简化，首先看独立的多元正态分布。
 
@@ -144,7 +151,9 @@ $$
 f(x) = \frac{1}{(\sqrt{2π})^{n}\left|\mathbf {\Lambda}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  
 \end{align}
 $$
+
 接着，由于$\mathbf {\Lambda}$是对角矩阵，显然$$|\mathbf {\Lambda}| =  \prod\lambda_i  $$ ，可得：
+
 $$
 \begin{align}f(x) = \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \tag 9\end{align}
 $$
@@ -329,7 +338,7 @@ $$
 
 PCA所使用的线性变换就是协方差矩阵的特征向量矩阵，特征向量矩阵是一个正交变换，正交变换的几何意义是旋转，对数据之间的关系没有改变。
 
-下面来进行证明PCA的数学原理，即特征向量矩阵是方差最大化的线性变换。为了简化，先对协方差矩阵做一些简化。
+下面来证明PCA的数学原理，即特征向量矩阵是方差最大化的线性变换。为了简化，先对协方差矩阵做一些简化。
 
 设$\mathbf X = \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu \end{bmatrix}$ ，即中心化的矩阵，协方差矩阵可以简化为：
 $$
