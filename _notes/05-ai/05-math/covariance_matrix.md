@@ -139,7 +139,7 @@ $$
  \mathbf{\Sigma}^{'} = \frac 1 {m-1} \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_m^{'}-\mu^{'} \end{bmatrix}      \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_m^{'}-\mu^{'} \end{bmatrix}  ^\mathrm{T} &=  \mathbf {\Lambda} \\
 \end{align}
 $$
-观察上面公式，不难发现，$$\mathbf {\Lambda} $$是一个对角矩阵，除了对角线外，其它地方都为0，这说明变量之间相互独立，而这刚好符合独立多元正态分布的条件，于是套用上一章的公式$1.6$，可以得到。
+观察上面公式，不难发现，$$\mathbf {\Lambda} $$是一个对角矩阵，除了对角线外，其它地方都为0，这说明变量之间相互独立，而这刚好符合独立多元正态分布的条件，于是套用上一章的公式$7$，可以得到。
 $$
 \begin{align}
 f(x^{'}) = \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{'}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x^{'}\  -\  \mu^{'})^\mathrm{T}\  {\Sigma^{'}}^{-1}\  (x^{'}\  -\  \mu^{'})}
