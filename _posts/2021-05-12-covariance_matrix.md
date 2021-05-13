@@ -28,7 +28,7 @@ $$
 
 $$
 
-其中 $x = \left[ \begin{matrix} x_{1}, x_{2},\cdots,x_{n}\end{matrix}\right]^\mathrm{T}$，表示$n$个随机变量，$\sigma(x_i,x_j)$表示协方差，$\sigma(x_i, x_j)=E[(x_i-E(x_i))(y_j-E(y_j))]$。
+其中 $$x = \left[ \begin{matrix} x_{1}, x_{2},\cdots,x_{n}\end{matrix}\right]^\mathrm{T}$$，表示$$n$$个随机变量，$$\sigma(x_i,x_j)$$表示协方差，$$\sigma(x_i, x_j)=E[(x_i-E(x_i))(y_j-E(y_j))]$$。
 
 协方差矩阵还可以用向量的方式来表达，形式如下：
 
@@ -52,7 +52,7 @@ $$
 
 $$
 
-f(x) = \frac{1}{\sqrt{2π}σ}e^{-\frac{(x-μ)^2}{2σ^{2}}}
+f(x) = \frac{1}{\sqrt{2π}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^{2}}}
 
 $$
 
@@ -60,17 +60,24 @@ $$
 
 ### 多元正态分布
 
-n元正态分布概率密度函数如下：
+$n$元正态分布概率密度函数如下：
 
 $$
 
 \begin{align}
-f(x) &= \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  μ)}
+f(x) &= \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}
 
 $$
 
-其中 $x = \left[ \begin{matrix} x_{1}, x_{2},\cdots,x_{n}\end{matrix}\right]^\mathrm{T}$，表示$n$个随机变量，这些变量都服从正态分布，其均值$u = \left[ \begin{matrix} μ_{1}, μ_{2},\cdots,μ_{n}\end{matrix}\right]^\mathrm{T}$， 方差 $σ = \left[ \begin{matrix} σ_{1}, σ_{2},\cdots,σ_{n}\end{matrix}\right]^\mathrm{T}$，$\Sigma$表示协方差矩阵（Covariance Matrix），$\Sigma^{-1}$表示协方差矩阵的逆矩阵，$\left|\Sigma_{}^{}\right|^\frac{1}{2}$表示协方差矩阵的行列式的平方根。
+其中
+
+-  $$x =  \begin{bmatrix} x_{1}, x_{2},\cdots,x_{n}\end{bmatrix}^\mathrm{T}$$，表示$$n$$个随机变量，这些变量都服从正态分布。
+- $$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{n}\end{bmatrix}^\mathrm{T}$$，表示随机变量的均值。
+-  $$\sigma =  \begin{bmatrix} \sigma _{1}, \sigma _{2},\cdots,\sigma_{n}\sigma \end{bmatrix}^\mathrm{T}$$，表示随机变量的方差。
+- $$\Sigma$$表示协方差矩阵（Covariance Matrix）。
+- $$\Sigma^{-1}$$表示协方差矩阵的逆矩阵
+- $\mid \Sigma\mid^{\frac{1}{2}}$表示协方差矩阵的行列式的平方根。
 
 说起来，上面的公式还真的抽象，为了简化，首先看独立的多元正态分布。
 
@@ -83,24 +90,25 @@ $$
 \begin{align}
 f(x) &= p(x_{1},x_{2}....x_{n}) 
 \\&= p(x_{1})p(x_{2})....p(x_{n}) 
-\\&= \frac{1}{(\sqrt{2π})^nσ_{1}σ_{2}\cdotsσ_{n}}e^{-\frac{(x_{1}-μ_{1})^2}{2σ_{1}^2}-\frac{(x_{2}-μ_{2})^2}{2σ_{2}^2}\cdots-\frac{(x_{n}-μ_{n})^2}{2σ_{n}^2}}
+\\&= \frac{1}{(\sqrt{2π})^n\sigma_{1}\sigma_{2}\cdots\sigma_{n}}e^{-\frac{(x_{1}-\mu_{1})^2}{2\sigma_{1}^2}-\frac{(x_{2}-\mu_{2})^2}{2\sigma_{2}^2}\cdots-\frac{(x_{n}-\mu_{n})^2}{2\sigma_{n}^2}}
 \end{align}
 
 $$
 
-令$z^{2} = \frac{(x_{1}-μ_{1})^2}{σ_{1}^2}+\frac{(x_{2}-μ_{2})^2}{σ_{2}^2}\cdots+\frac{(x_{n}-μ_{n})^2}{σ_{n}^2}$，$σ_{z}= σ_{1}σ_{2}\cdotsσ_{n}$，公式可以简化为：
+令$$z^{2} = \frac{(x_{1}-\mu_{1})^2}{\sigma_{1}^2}+\frac{(x_{2}-\mu_{2})^2}{\sigma_{2}^2}\cdots+\frac{(x_{n}-\mu_{n})^2}{\sigma_{n}^2}$$，$$\sigma_{z}= \sigma_{1}\sigma_{2}\cdots\sigma_{n}$$，公式可以简化为：
 
 $$
 
-f(x) = \frac{1}{(\sqrt{2π})^nσ_{z}}e^{-\frac{z^2}{2}}  \tag 2
-$$ { }
+f(x) = \frac{1}{(\sqrt{2π})^n\sigma_{z}}e^{-\frac{z^2}{2}}  \tag 2
+
+$$
 
 于是可以把$z^{2}$转换成矩阵的形式。
 
 $$
 
 \begin{align}
-z^2 &=  \left[ \begin{matrix} x_{1} - μ_{1}, x_{2} - μ_{2}, \cdots,x_{n} - μ_{n}\end{matrix}\right] \left[ \begin{matrix} \frac{1}{σ_{1}^2}&0&\cdots&0\\ 0&\frac{1}{σ_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{σ_{n}^2}  \end{matrix}\right]\left[ \begin{matrix} x_{1} - μ_{1}\\x_{2} - μ_{2}\\ \vdots \\x_{n} - μ_{n}\end{matrix}\right]
+z^2 &=  \left[ \begin{matrix} x_{1} - \mu_{1}, x_{2} - \mu_{2}, \cdots,x_{n} - \mu_{n}\end{matrix}\right] \left[ \begin{matrix} \frac{1}{\sigma_{1}^2}&0&\cdots&0\\ 0&\frac{1}{\sigma_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{\sigma_{n}^2}  \end{matrix}\right]\left[ \begin{matrix} x_{1} - \mu_{1}\\x_{2} - \mu_{2}\\ \vdots \\x_{n} - \mu_{n}\end{matrix}\right]
 \end{align}  \tag 3
 
 $$
@@ -109,13 +117,13 @@ $$
 
 $$
 
-\Sigma = \left[ \begin{matrix} σ_{1}^2&0&\cdots&0\\ 0&σ_{2}^2&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&σ_{n}^2  \end{matrix}\right] \tag 4
+\Sigma = \left[ \begin{matrix} \sigma_{1}^2&0&\cdots&0\\ 0&\sigma_{2}^2&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\sigma_{n}^2  \end{matrix}\right] \tag 4
 
 $$
 
 $$
 
-\Sigma{}^{-1} = \left[ \begin{matrix} \frac{1}{σ_{1}^2}&0&\cdots&0\\ 0&\frac{1}{σ_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{σ_{n}^2}  \end{matrix}\right]  \tag 5
+\Sigma{}^{-1} = \left[ \begin{matrix} \frac{1}{\sigma_{1}^2}&0&\cdots&0\\ 0&\frac{1}{\sigma_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{\sigma_{n}^2}  \end{matrix}\right]  \tag 5
 
 $$
 
@@ -123,7 +131,7 @@ $$
 
 $$
 
-σ_{z}= \left|\Sigma_{}^{}\right|^\frac{1}{2} =σ_{1}σ_{2}.....σ_{n}   \tag 6
+\sigma_{z}= \left|\Sigma_{}^{}\right|^\frac{1}{2} =\sigma_{1}\sigma_{2}.....\sigma_{n}   \tag 6
 
 $$
 
@@ -132,8 +140,8 @@ $$
 $$
 
 \begin{align}
-f(x) &= \frac{1}{(\sqrt{2π})^nσ_{z}}e^{-\frac{z^2}{2}} 
-\\&= \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  μ)}
+f(x) &= \frac{1}{(\sqrt{2π})^n\sigma_{z}}e^{-\frac{z^2}{2}} 
+\\&= \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}  \tag 7
 
 $$
@@ -164,7 +172,7 @@ $$
 
 $$
 
-再设$x^{'}_i =\mathbf{V^T} x_i$，$ \mu^{'} = \mathbf{V^T} \mu $，上式可以简化为：
+再设$$x^{'}_i =\mathbf{V^T} x_i，\mu^{'} = \mathbf{V^T} \mu $$，上式可以简化为：
 
 $$
 
@@ -189,26 +197,26 @@ $$
 $$
 
 \begin{align}
-f(x^{'}) = \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{'}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x^{'}\  -\  μ^{'})^\mathrm{T}\  {\Sigma^{'}}^{-1}\  (x^{'}\  -\  μ^{'})}
+f(x^{'}) = \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{'}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x^{'}\  -\  \mu^{'})^\mathrm{T}\  {\Sigma^{'}}^{-1}\  (x^{'}\  -\  \mu^{'})}
 \end{align}
 
 $$
 
-接下来，把$x^{'} =\mathbf{V^T} x$，$ \mu^{'} = \mathbf{V^T} \mu $， $ \mathbf{\Sigma}^{'}=\mathbf {\Lambda}$带入上式。
+接下来，把$$x^{'} =\mathbf{V^T} x， \mu^{'} = \mathbf{V^T} \mu $$， $$ \mathbf{\Sigma}^{'}=\mathbf {\Lambda}$$带入上式。
 
 $$
 
 \begin{align}
-f(x) = \frac{1}{(\sqrt{2π})^{n}\left|\mathbf {\Lambda}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  μ)}  
+f(x) = \frac{1}{(\sqrt{2π})^{n}\left|\mathbf {\Lambda}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  
 \end{align}
 
 $$
 
-接着，由于$\mathbf {\Lambda}$是对角矩阵，显然$\left|\mathbf {\Lambda}\right| =  \prod\lambda_i  $ ，可得：
+接着，由于$\mathbf {\Lambda}$是对角矩阵，显然$$\mid \mathbf {\Lambda} \mid = \prod\lambda_i  $$ ，可得：
 
 $$
 
-\begin{align}f(x) = \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  μ)}  \tag 9\end{align}
+\begin{align}f(x) = \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \tag 9\end{align}
 
 $$
 
@@ -233,7 +241,7 @@ $$
 $$
 
 \begin{align}
-f(x) &=  \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  μ)}
+f(x) &=  \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}
 
 $$
@@ -359,8 +367,8 @@ plt.show()
 $$
 
 \begin{align}
-f(x) &= \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  μ)}  \\
-f(x) &= \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left( {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}(x\  -\  μ) \right)^\mathrm{T}\   {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}\  (x\  -\  μ)}   \frac 1 {\sqrt \lambda_1} \frac 1 {\sqrt \lambda_2} \cdots \frac 1 {\sqrt \lambda_n}  
+f(x) &= \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \\
+f(x) &= \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left( {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}(x\  -\  \mu) \right)^\mathrm{T}\   {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}\  (x\  -\  \mu)}   \frac 1 {\sqrt \lambda_1} \frac 1 {\sqrt \lambda_2} \cdots \frac 1 {\sqrt \lambda_n}  
 \end{align}
 
 $$
@@ -370,23 +378,23 @@ $$
 $$
 
 \begin{align}
-\int \cdots \int f(x)  \mathbf d x_1 \mathbf d x_2  \cdots \mathbf d x_n &= \int \cdots \int \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left( {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}(x\  -\  μ) \right)^\mathrm{T}\   {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}\  (x\  -\  μ)}  \mathbf d \frac {x_1 - \mu_1} {\sqrt \lambda_1}  \mathbf d \frac {x_2- \mu_2}  {\sqrt \lambda_2} \cdots \mathbf d  \frac {x_n- \mu_n}  {\sqrt \lambda_n}  \\
+\int \cdots \int f(x)  \mathbf d x_1 \mathbf d x_2  \cdots \mathbf d x_n &= \int \cdots \int \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left( {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}(x\  -\  \mu) \right)^\mathrm{T}\   {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}\  (x\  -\  \mu)}  \mathbf d \frac {x_1 - \mu_1} {\sqrt \lambda_1}  \mathbf d \frac {x_2- \mu_2}  {\sqrt \lambda_2} \cdots \mathbf d  \frac {x_n- \mu_n}  {\sqrt \lambda_n}  \\
 
-\int \cdots \int f(x)  \mathbf d x_1 \mathbf d x_2  \cdots \mathbf d x_n &= \int \cdots \int \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left(  \mathbf{V^T} \frac {x\  -\  μ} {\mathbf {\sqrt \lambda}} \right)^\mathrm{T}\    \mathbf{V^T} \frac {x\  -\  μ} {\mathbf {\sqrt \lambda}}}  \mathbf d \frac {x_1 - \mu_1} {\sqrt \lambda_1}  \mathbf d \frac {x_2- \mu_2}  {\sqrt \lambda_2} \cdots \mathbf d  \frac {x_n- \mu_n}  {\sqrt \lambda_n}
+\int \cdots \int f(x)  \mathbf d x_1 \mathbf d x_2  \cdots \mathbf d x_n &= \int \cdots \int \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left(  \mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} \right)^\mathrm{T}\    \mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}}}  \mathbf d \frac {x_1 - \mu_1} {\sqrt \lambda_1}  \mathbf d \frac {x_2- \mu_2}  {\sqrt \lambda_2} \cdots \mathbf d  \frac {x_n- \mu_n}  {\sqrt \lambda_n}
 \end{align}
 
 $$
 
 其中${\sqrt \lambda} = \left[ \begin{matrix} \mathbf {\frac 1 {\sqrt \lambda_1}} &\mathbf {\frac 1 {\sqrt \lambda_2}} &  \cdots & \mathbf {\frac 1 {\sqrt \lambda_n}} \end{matrix}\right]^\mathrm{T}$，于是显见。
 
-- $\mathbf{V^T} \frac {x\  -\  μ} {\mathbf {\sqrt \lambda}} $表示对坐标进行缩放，然后进行线性变换，相当于把上面图片中，右图的椭圆变成了左图的圆了。
+- $\mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} $表示对坐标进行缩放，然后进行线性变换，相当于把上面图片中，右图的椭圆变成了左图的圆了。
 - $\left( \prod\lambda_i \right)^\frac{1}{2}$表示微分变换时的系数之积。通俗的理解，既然前方进行了伸缩，要保持平衡的话，就要把缩放的比例反向除回去。
 
 ## 马氏距离
 
 马氏距离（Mahalanobis distance）是由印度统计学家马哈拉诺比斯(P. C. Mahalanobis)提出的，是欧氏距离的一种推广。它通过协方差来计算两点之间距离，是一种有效的计算两个未知样本集的相似度的方法。与欧氏距离不同的是它考虑到各种特性之间的相关性。它的定义如下：
 
-对于一个均值为$\mu =(\mu _{1},\mu _{2},\mu _{3},\dots ,\mu _{n})^{T}$，协方差矩阵为Σ的多变量向量$x=(x_{1},x_{2},x_{3},\dots ,x_{n})^{T}$，其马氏距离为：
+对于一个均值为$$\mu =(\mu _{1},\mu _{2},\mu _{3},\dots ,\mu _{n})^{T}$$，协方差矩阵为Σ的多变量向量$$x=(x_{1},x_{2},x_{3},\dots ,x_{n})^{T}$$，其马氏距离为：
 
 $$
 
@@ -394,7 +402,7 @@ D_{M}(x)={\sqrt {(x-\mu )^{T}\Sigma ^{-1}(x-\mu )}}
 
 $$
 
-从形式上看，马氏距离和正态分布公式的其中一部分完全相同。于是，正如上节分析所示，可以把马氏纪录理解为，把样本点缩放（$\frac {x\  -\  μ} {\mathbf {\sqrt \lambda}} $），然后进行线性变换到特征矩阵所在空间$$\mathbf{V^T} \frac {x\  -\  μ} {\mathbf {\sqrt \lambda}} $$，最后求再这个空间的欧氏距离，也就说是马氏距离考虑了样本相关性的欧式距离。
+从形式上看，马氏距离和正态分布公式的其中一部分完全相同。于是，正如上节分析所示，可以把马氏纪录理解为，把样本点缩放（$\frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} $），然后进行线性变换到特征矩阵所在空间$$\mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} $$，最后求再这个空间的欧氏距离，也就说是马氏距离考虑了样本相关性的欧式距离。
 
 对于下面图中的数据，分别计算点1和点2到中心的距离，它们的欧式距离是相等的。但很明显，根据正态分布公式，点1出现的概率比点2要小，即认为点1距离中心点的距离要更远，马氏距离考虑到了这一点，所以它比欧式距离更合理。
 
@@ -416,7 +424,7 @@ $$
 
 PCA所使用的线性变换就是协方差矩阵的特征向量矩阵，特征向量矩阵是一个正交变换，正交变换的几何意义是旋转，对数据之间的关系没有改变。
 
-下面来进行证明PCA的数学原理，即特征向量矩阵是方差最大化的线性变换。为了简化，先对协方差矩阵做一些简化。
+下面来证明PCA的数学原理，即特征向量矩阵是方差最大化的线性变换。为了简化，先对协方差矩阵做一些简化。
 
 设$\mathbf X = \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu \end{bmatrix}$ ，即中心化的矩阵，协方差矩阵可以简化为：
 
@@ -546,7 +554,7 @@ $$
 
 ## 总结
 
-通过协方差矩阵在正态分布，马氏距离和主成分分析中的应用，我们可以看到方差代表距离的叠加，距离可以转化为概率，协方差矩阵本质上代表了一个线性变化，即特征向量矩阵，这就是它的意义。
+通过协方差矩阵在正态分布，马氏距离和主成分分析中的应用，我们可以看到方差代表距离的叠加，距离可以转化为概率，协方差矩阵本质上代表了一个线性变换，即特征向量矩阵，这就是它的意义。
 
 ## 参考
 
