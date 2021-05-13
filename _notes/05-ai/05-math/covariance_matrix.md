@@ -40,7 +40,7 @@ $$
 
 它的密度函数如下。
 $$
-f(x) = \frac{1}{\sqrt{2π}\sigma}e^{-\frac{(x-μ)^2}{2\sigma^{2}}}
+f(x) = \frac{1}{\sqrt{2π}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^{2}}}
 $$
 
 > 根据[中心极限定理](https://zh.wikipedia.org/zh-hans/%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86)，任何分布的一系列独立同分布的变量，它们的均值呈正态分布。这时高斯分布运用如此广泛的原因之一。
@@ -50,11 +50,11 @@ $$
 $n$元正态分布概率密度函数如下：
 $$
 \begin{align}
-f(x) &= \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  μ)}
+f(x) &= \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}
 $$
 
-其中 $$x =  \begin{bmatrix} x_{1}, x_{2},\cdots,x_{n}\end{bmatrix}^\mathrm{T}$$，表示$$n$$个随机变量，这些变量都服从正态分布，其均值$$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{n}\end{bmatrix}^\mathrm{T}$$， 方差 $$\sigma =  \begin{bmatrix} \sigma _{1}, \sigma _{2},\cdots,\sigma_{n}\sigma \end{bmatrix}^\mathrm{T}$$，$$\Sigma$$表示协方差矩阵（Covariance Matrix），$$\Sigma^{-1}$$表示协方差矩阵的逆矩阵，$$|\Sigma_{}^{}|^\frac{1}{2}$$表示协方差矩阵的行列式的平方根。
+其中 $$x =  \begin{bmatrix} x_{1}, x_{2},\cdots,x_{n}\end{bmatrix}^\mathrm{T}$$，表示$$n$$个随机变量，这些变量都服从正态分布，其均值$$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{n}\end{bmatrix}^\mathrm{T}$$， 方差 $$\sigma =  \begin{bmatrix} \sigma _{1}, \sigma _{2},\cdots,\sigma_{n}\sigma \end{bmatrix}^\mathrm{T}$$，$$\Sigma$$表示协方差矩阵（Covariance Matrix），$$\Sigma^{-1}$$表示协方差矩阵的逆矩阵，$$|\Sigma|^{\frac{1}{2}}$$表示协方差矩阵的行列式的平方根。
 
 说起来，上面的公式还真的抽象，为了简化，首先看独立的多元正态分布。
 
@@ -65,20 +65,20 @@ $$
 \begin{align}
 f(x) &= p(x_{1},x_{2}....x_{n}) 
 \\&= p(x_{1})p(x_{2})....p(x_{n}) 
-\\&= \frac{1}{(\sqrt{2π})^n\sigma_{1}\sigma_{2}\cdots\sigma_{n}}e^{-\frac{(x_{1}-μ_{1})^2}{2\sigma_{1}^2}-\frac{(x_{2}-μ_{2})^2}{2\sigma_{2}^2}\cdots-\frac{(x_{n}-μ_{n})^2}{2\sigma_{n}^2}}
+\\&= \frac{1}{(\sqrt{2π})^n\sigma_{1}\sigma_{2}\cdots\sigma_{n}}e^{-\frac{(x_{1}-\mu_{1})^2}{2\sigma_{1}^2}-\frac{(x_{2}-\mu_{2})^2}{2\sigma_{2}^2}\cdots-\frac{(x_{n}-\mu_{n})^2}{2\sigma_{n}^2}}
 \end{align}
 $$
 
-令$$z^{2} = \frac{(x_{1}-μ_{1})^2}{\sigma_{1}^2}+\frac{(x_{2}-μ_{2})^2}{\sigma_{2}^2}\cdots+\frac{(x_{n}-μ_{n})^2}{\sigma_{n}^2}$$$，$$$\sigma_{z}= \sigma_{1}\sigma_{2}\cdots\sigma_{n}$$，公式可以简化为：
+令$$z^{2} = \frac{(x_{1}-\mu_{1})^2}{\sigma_{1}^2}+\frac{(x_{2}-\mu_{2})^2}{\sigma_{2}^2}\cdots+\frac{(x_{n}-\mu_{n})^2}{\sigma_{n}^2}$$，$$\sigma_{z}= \sigma_{1}\sigma_{2}\cdots\sigma_{n}$$，公式可以简化为：
 
 $$
 f(x) = \frac{1}{(\sqrt{2π})^n\sigma_{z}}e^{-\frac{z^2}{2}}  \tag 2
-$$ { }
+$$
 
 于是可以把$z^{2}$转换成矩阵的形式。
 $$
 \begin{align}
-z^2 &=  \left[ \begin{matrix} x_{1} - μ_{1}, x_{2} - μ_{2}, \cdots,x_{n} - μ_{n}\end{matrix}\right] \left[ \begin{matrix} \frac{1}{\sigma_{1}^2}&0&\cdots&0\\ 0&\frac{1}{\sigma_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{\sigma_{n}^2}  \end{matrix}\right]\left[ \begin{matrix} x_{1} - μ_{1}\\x_{2} - μ_{2}\\ \vdots \\x_{n} - μ_{n}\end{matrix}\right]
+z^2 &=  \left[ \begin{matrix} x_{1} - \mu_{1}, x_{2} - \mu_{2}, \cdots,x_{n} - \mu_{n}\end{matrix}\right] \left[ \begin{matrix} \frac{1}{\sigma_{1}^2}&0&\cdots&0\\ 0&\frac{1}{\sigma_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{\sigma_{n}^2}  \end{matrix}\right]\left[ \begin{matrix} x_{1} - \mu_{1}\\x_{2} - \mu_{2}\\ \vdots \\x_{n} - \mu_{n}\end{matrix}\right]
 \end{align}  \tag 3
 $$
 然后，由于这些变量是相互独立的，不同变量之间的协方差为0，可以得到协方差矩阵和它的逆矩阵。
@@ -98,7 +98,7 @@ $$
 $$
 \begin{align}
 f(x) &= \frac{1}{(\sqrt{2π})^n\sigma_{z}}e^{-\frac{z^2}{2}} 
-\\&= \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  μ)}
+\\&= \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}  \tag 7
 $$
 
@@ -120,7 +120,7 @@ $$
  \frac 1 {m-1} \mathbf{V^T}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu \end{bmatrix}  \left(  \mathbf{V^T}   \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu \end{bmatrix}  \right)^\mathrm{T} &=  \mathbf {\Lambda} \\
 \end{align}
 $$
-再设$x^{'}_i =\mathbf{V^T} x_i$，$ \mu^{'} = \mathbf{V^T} \mu $，上式可以简化为：
+再设$$x^{'}_i =\mathbf{V^T} x_i，\mu^{'} = \mathbf{V^T} \mu $$，上式可以简化为：
 $$
 \begin{align}
  \frac 1 {m-1} \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_m^{'}-\mu^{'} \end{bmatrix}      \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_m^{'}-\mu^{'} \end{bmatrix}  ^\mathrm{T} &=  \mathbf {\Lambda} \\
@@ -135,18 +135,18 @@ $$
 观察上面公式，不难发现，$$\mathbf {\Lambda} $$是一个对角矩阵，除了对角线外，其它地方都为0，这说明变量之间相互独立，而这刚好符合独立多元正态分布的条件，于是套用上一章的公式$1.6$，可以得到。
 $$
 \begin{align}
-f(x^{'}) = \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{'}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x^{'}\  -\  μ^{'})^\mathrm{T}\  {\Sigma^{'}}^{-1}\  (x^{'}\  -\  μ^{'})}
+f(x^{'}) = \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{'}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x^{'}\  -\  \mu^{'})^\mathrm{T}\  {\Sigma^{'}}^{-1}\  (x^{'}\  -\  \mu^{'})}
 \end{align}
 $$
-接下来，把$x^{'} =\mathbf{V^T} x$，$ \mu^{'} = \mathbf{V^T} \mu $， $ \mathbf{\Sigma}^{'}=\mathbf {\Lambda}$带入上式。
+接下来，把$$x^{'} =\mathbf{V^T} x， \mu^{'} = \mathbf{V^T} \mu $$， $$ \mathbf{\Sigma}^{'}=\mathbf {\Lambda}$$带入上式。
 $$
 \begin{align}
-f(x) = \frac{1}{(\sqrt{2π})^{n}\left|\mathbf {\Lambda}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  μ)}  
+f(x) = \frac{1}{(\sqrt{2π})^{n}\left|\mathbf {\Lambda}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  
 \end{align}
 $$
-接着，由于$\mathbf {\Lambda}$是对角矩阵，显然$$\left|\mathbf {\Lambda}\right| =  \prod\lambda_i  $$ ，可得：
+接着，由于$\mathbf {\Lambda}$是对角矩阵，显然$$|\mathbf {\Lambda}| =  \prod\lambda_i  $$ ，可得：
 $$
-\begin{align}f(x) = \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  μ)}  \tag 9\end{align}
+\begin{align}f(x) = \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \tag 9\end{align}
 $$
 然后，根据公式而$8$，很容易计算其协方差矩阵的逆矩阵，即：
 $$
@@ -159,7 +159,7 @@ $$
 最后把公式$10$和$11$带入公式$9$，可得：
 $$
 \begin{align}
-f(x) &=  \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  μ)}
+f(x) &=  \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}
 $$
 证毕。显见，当只有一个变量时，公式会退化到简单的一元正态分布的公式。
@@ -282,21 +282,21 @@ plt.show()
 上一节的证明过程，刚好是上面线性变换的反向操作，从图形上看，就是先把右图旋转为中图，然后再伸缩到左图。再来看分布密度函数公式$9$，还可以进行如下推导。
 $$
 \begin{align}
-f(x) &= \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  μ)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  μ)}  \\
-f(x) &= \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left( {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}(x\  -\  μ) \right)^\mathrm{T}\   {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}\  (x\  -\  μ)}   \frac 1 {\sqrt \lambda_1} \frac 1 {\sqrt \lambda_2} \cdots \frac 1 {\sqrt \lambda_n}  
+f(x) &= \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \\
+f(x) &= \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left( {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}(x\  -\  \mu) \right)^\mathrm{T}\   {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}\  (x\  -\  \mu)}   \frac 1 {\sqrt \lambda_1} \frac 1 {\sqrt \lambda_2} \cdots \frac 1 {\sqrt \lambda_n}  
 \end{align}
 $$
 其中$${\mathbf {\Lambda}}^{-\frac 1 2}  = diag(\mathbf {\frac 1 {\sqrt \lambda_1}},\mathbf {\frac 1 {\sqrt \lambda_2}}, \cdots,  \mathbf {\frac 1 {\sqrt \lambda_n}})$$，然后在两边求积分，可得：
 $$
 \begin{align}
-\int \cdots \int f(x)  \mathbf d x_1 \mathbf d x_2  \cdots \mathbf d x_n &= \int \cdots \int \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left( {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}(x\  -\  μ) \right)^\mathrm{T}\   {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}\  (x\  -\  μ)}  \mathbf d \frac {x_1 - \mu_1} {\sqrt \lambda_1}  \mathbf d \frac {x_2- \mu_2}  {\sqrt \lambda_2} \cdots \mathbf d  \frac {x_n- \mu_n}  {\sqrt \lambda_n}  \\
+\int \cdots \int f(x)  \mathbf d x_1 \mathbf d x_2  \cdots \mathbf d x_n &= \int \cdots \int \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left( {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}(x\  -\  \mu) \right)^\mathrm{T}\   {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}\  (x\  -\  \mu)}  \mathbf d \frac {x_1 - \mu_1} {\sqrt \lambda_1}  \mathbf d \frac {x_2- \mu_2}  {\sqrt \lambda_2} \cdots \mathbf d  \frac {x_n- \mu_n}  {\sqrt \lambda_n}  \\
 
-\int \cdots \int f(x)  \mathbf d x_1 \mathbf d x_2  \cdots \mathbf d x_n &= \int \cdots \int \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left(  \mathbf{V^T} \frac {x\  -\  μ} {\mathbf {\sqrt \lambda}} \right)^\mathrm{T}\    \mathbf{V^T} \frac {x\  -\  μ} {\mathbf {\sqrt \lambda}}}  \mathbf d \frac {x_1 - \mu_1} {\sqrt \lambda_1}  \mathbf d \frac {x_2- \mu_2}  {\sqrt \lambda_2} \cdots \mathbf d  \frac {x_n- \mu_n}  {\sqrt \lambda_n}
+\int \cdots \int f(x)  \mathbf d x_1 \mathbf d x_2  \cdots \mathbf d x_n &= \int \cdots \int \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left(  \mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} \right)^\mathrm{T}\    \mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}}}  \mathbf d \frac {x_1 - \mu_1} {\sqrt \lambda_1}  \mathbf d \frac {x_2- \mu_2}  {\sqrt \lambda_2} \cdots \mathbf d  \frac {x_n- \mu_n}  {\sqrt \lambda_n}
 \end{align}
 $$
 其中${\sqrt \lambda} = \left[ \begin{matrix} \mathbf {\frac 1 {\sqrt \lambda_1}} &\mathbf {\frac 1 {\sqrt \lambda_2}} &  \cdots & \mathbf {\frac 1 {\sqrt \lambda_n}} \end{matrix}\right]^\mathrm{T}$，于是显见。
 
-- $\mathbf{V^T} \frac {x\  -\  μ} {\mathbf {\sqrt \lambda}} $表示对坐标进行缩放，然后进行线性变换，相当于把上面图片中，右图的椭圆变成了左图的圆了。
+- $\mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} $表示对坐标进行缩放，然后进行线性变换，相当于把上面图片中，右图的椭圆变成了左图的圆了。
 - $\left( \prod\lambda_i \right)^\frac{1}{2}$表示微分变换时的系数之积。通俗的理解，既然前方进行了伸缩，要保持平衡的话，就要把缩放的比例反向除回去。
 
 ## 马氏距离
@@ -309,7 +309,7 @@ $$
 D_{M}(x)={\sqrt {(x-\mu )^{T}\Sigma ^{-1}(x-\mu )}}
 $$
 
-从形式上看，马氏距离和正态分布公式的其中一部分完全相同。于是，正如上节分析所示，可以把马氏纪录理解为，把样本点缩放（$\frac {x\  -\  μ} {\mathbf {\sqrt \lambda}} $），然后进行线性变换到特征矩阵所在空间$$\mathbf{V^T} \frac {x\  -\  μ} {\mathbf {\sqrt \lambda}} $$，最后求再这个空间的欧氏距离，也就说是马氏距离考虑了样本相关性的欧式距离。
+从形式上看，马氏距离和正态分布公式的其中一部分完全相同。于是，正如上节分析所示，可以把马氏纪录理解为，把样本点缩放（$\frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} $），然后进行线性变换到特征矩阵所在空间$$\mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} $$，最后求再这个空间的欧氏距离，也就说是马氏距离考虑了样本相关性的欧式距离。
 
 对于下面图中的数据，分别计算点1和点2到中心的距离，它们的欧式距离是相等的。但很明显，根据正态分布公式，点1出现的概率比点2要小，即认为点1距离中心点的距离要更远，马氏距离考虑到了这一点，所以它比欧式距离更合理。
 
