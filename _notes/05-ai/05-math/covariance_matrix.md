@@ -61,7 +61,7 @@ $$
 -  $$\sigma =  \begin{bmatrix} \sigma _{1}, \sigma _{2},\cdots,\sigma_{n}\sigma \end{bmatrix}^\mathrm{T}$$，表示随机变量的方差。
 - $$\Sigma$$表示协方差矩阵（Covariance Matrix）。
 - $$\Sigma^{-1}$$表示协方差矩阵的逆矩阵
-- $\mid \Sigma\mid^{\frac{1}{2}}$$表示协方差矩阵的行列式的平方根。
+- $\mid \Sigma\mid^{\frac{1}{2}}$表示协方差矩阵的行列式的平方根。
 
 说起来，上面的公式还真的抽象，为了简化，首先看独立的多元正态分布。
 
@@ -152,7 +152,7 @@ f(x) = \frac{1}{(\sqrt{2π})^{n}\left|\mathbf {\Lambda}\right|^\frac{1}{2}}e^{-\
 \end{align}
 $$
 
-接着，由于$\mathbf {\Lambda}$是对角矩阵，显然$$\mid\mathbf {\Lambda}\mid =  \prod\lambda_i  $$ ，可得：
+接着，由于$\mathbf {\Lambda}$是对角矩阵，显然$$\mid \mathbf {\Lambda} \mid = \prod\lambda_i  $$ ，可得：
 
 $$
 \begin{align}f(x) = \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \tag 9\end{align}
