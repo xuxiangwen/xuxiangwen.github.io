@@ -16,19 +16,19 @@ date: 2021-05-12
 $$
 \Sigma = 
 \begin{bmatrix}
-\sigma(x_1,x_1) & \sigma(x_1,x_2) & \cdots & \sigma(x_1,x_n) \\
-\sigma(x_2,x_1) & \sigma(x_2,x_2) & \cdots & \sigma(x_2,x_n)  \\
+\sigma(\mathbf {X_1},\mathbf {X_1}) & \sigma(\mathbf {X_1},\mathbf {X_2}) & \cdots & \sigma(\mathbf {X_1},\mathbf {X_d}) \\
+\sigma(\mathbf {X_2},\mathbf {X_1}) & \sigma(\mathbf {X_2},\mathbf {X_2}) & \cdots & \sigma(\mathbf {X_2},\mathbf {X_d})  \\
 \vdots & \vdots & \ddots & \vdots  \\
-\sigma(x_n,x_1) & \sigma(x_n,x_2) & \cdots  & \sigma(x_n,x_n)\\
+\sigma(\mathbf {X_d},\mathbf {X_1}) & \sigma(\mathbf {X_d},\mathbf {X_2}) & \cdots  & \sigma(\mathbf {X_d},\mathbf {X_d})\\
 \end{bmatrix}
 $$
-其中 $$x = \left[ \begin{matrix} x_{1}, x_{2},\cdots,x_{n}\end{matrix}\right]^\mathrm{T}$$，表示$$n$$个随机变量，$$\sigma(x_i,x_j)$$表示协方差，$$\sigma(x_i, x_j)=E[(x_i-E(x_i))(y_j-E(y_j))]$$。
+其中 $$\mathbf X = \left[ \begin{matrix} \mathbf {X_{1}}, \mathbf {X_{2}},\cdots, \mathbf {X_{d}}\end{matrix}\right]^\mathrm{T}$$，表示$$d$$个随机变量，$$\sigma(\mathbf {X_i},\mathbf {X_j})$$表示协方差，$$\sigma(\mathbf {X_i},\mathbf {X_j})=E[(\mathbf{X_i}-E(\mathbf{X_i}))(\mathbf{Y_j}-E(\mathbf{Y_j}))]$$。
 
 协方差矩阵还可以用向量的方式来表达，形式如下：
 $$
-\Sigma = \frac 1 {m-1} \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu \end{bmatrix}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu\end{bmatrix}^\mathrm{T}  \tag{1}
+\Sigma = \frac 1 {n-1} \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu \end{bmatrix}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu\end{bmatrix}^\mathrm{T}  \tag{1}
 $$
-其中$m$表示样本的个数， $x_i$表示一个样本，是一个长度为$n$的向量。
+其中$n$表示样本的个数， $x_i$表示一个样本，是一个长度为$d$的向量。
 
 ## 正态分布
 
@@ -50,15 +50,15 @@ $$
 $n$元正态分布概率密度函数如下：
 $$
 \begin{align}
-f(x) &= \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
+f(x) &= \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}
 $$
 
 其中
 
--  $$x =  \begin{bmatrix} x_{1}, x_{2},\cdots,x_{n}\end{bmatrix}^\mathrm{T}$$，表示$$n$$个随机变量，这些变量都服从正态分布。
-- $$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{n}\end{bmatrix}^\mathrm{T}$$，表示随机变量的均值。
--  $$\sigma =  \begin{bmatrix} \sigma _{1}, \sigma _{2},\cdots,\sigma_{n}\sigma \end{bmatrix}^\mathrm{T}$$，表示随机变量的方差。
+-  $$x =  \begin{bmatrix} x_{1}, x_{2},\cdots,x_{d}\end{bmatrix}^\mathrm{T}$$，表示$$n$$个随机变量，这些变量都服从正态分布。
+- $$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{d}\end{bmatrix}^\mathrm{T}$$，表示随机变量的均值。
+-  $$\sigma =  \begin{bmatrix} \sigma _{1}, \sigma _{2},\cdots,\sigma_{d} \end{bmatrix}^\mathrm{T}$$，表示随机变量的方差。
 - $$\Sigma$$表示协方差矩阵（Covariance Matrix）。
 - $$\Sigma^{-1}$$表示协方差矩阵的逆矩阵
 - $\mid \Sigma\mid^{\frac{1}{2}}$表示协方差矩阵的行列式的平方根。
@@ -70,13 +70,13 @@ $$
 如果$n$个随机变量相互独立，根据联合概率密度公式可以得到：
 $$
 \begin{align}
-f(x) &= p(x_{1},x_{2}....x_{n}) 
-\\&= p(x_{1})p(x_{2})....p(x_{n}) 
-\\&= \frac{1}{(\sqrt{2π})^n\sigma_{1}\sigma_{2}\cdots\sigma_{n}}e^{-\frac{(x_{1}-\mu_{1})^2}{2\sigma_{1}^2}-\frac{(x_{2}-\mu_{2})^2}{2\sigma_{2}^2}\cdots-\frac{(x_{n}-\mu_{n})^2}{2\sigma_{n}^2}}
+f(x) &= p(x_{1},x_{2}....x_{d}) 
+\\&= p(x_{1})p(x_{2})....p(x_{d}) 
+\\&= \frac{1}{(\sqrt{2π})^n\sigma_{1}\sigma_{2}\cdots\sigma_{d}}e^{-\frac{(x_{1}-\mu_{1})^2}{2\sigma_{1}^2}-\frac{(x_{2}-\mu_{2})^2}{2\sigma_{2}^2}\cdots-\frac{(x_{d}-\mu_{d})^2}{2\sigma_{d}^2}}
 \end{align}
 $$
 
-令$$z^{2} = \frac{(x_{1}-\mu_{1})^2}{\sigma_{1}^2}+\frac{(x_{2}-\mu_{2})^2}{\sigma_{2}^2}\cdots+\frac{(x_{n}-\mu_{n})^2}{\sigma_{n}^2}$$，$$\sigma_{z}= \sigma_{1}\sigma_{2}\cdots\sigma_{n}$$，公式可以简化为：
+令$$z^{2} = \frac{(x_{1}-\mu_{1})^2}{\sigma_{1}^2}+\frac{(x_{2}-\mu_{2})^2}{\sigma_{2}^2}\cdots+\frac{(x_{d}-\mu_{d})^2}{\sigma_{d}^2}$$，$$\sigma_{z}= \sigma_{1}\sigma_{2}\cdots\sigma_{d}$$，公式可以简化为：
 
 $$
 f(x) = \frac{1}{(\sqrt{2π})^n\sigma_{z}}e^{-\frac{z^2}{2}}  \tag 2
@@ -85,27 +85,27 @@ $$
 于是可以把$z^{2}$转换成矩阵的形式。
 $$
 \begin{align}
-z^2 &=  \left[ \begin{matrix} x_{1} - \mu_{1}, x_{2} - \mu_{2}, \cdots,x_{n} - \mu_{n}\end{matrix}\right] \left[ \begin{matrix} \frac{1}{\sigma_{1}^2}&0&\cdots&0\\ 0&\frac{1}{\sigma_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{\sigma_{n}^2}  \end{matrix}\right]\left[ \begin{matrix} x_{1} - \mu_{1}\\x_{2} - \mu_{2}\\ \vdots \\x_{n} - \mu_{n}\end{matrix}\right]
+z^2 &=  \left[ \begin{matrix} x_{1} - \mu_{1}, x_{2} - \mu_{2}, \cdots,x_{d} - \mu_{d}\end{matrix}\right] \left[ \begin{matrix} \frac{1}{\sigma_{1}^2}&0&\cdots&0\\ 0&\frac{1}{\sigma_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{\sigma_{d}^2}  \end{matrix}\right]\left[ \begin{matrix} x_{1} - \mu_{1}\\x_{2} - \mu_{2}\\ \vdots \\x_{d} - \mu_{d}\end{matrix}\right]
 \end{align}  \tag 3
 $$
 然后，由于这些变量是相互独立的，不同变量之间的协方差为0，可以得到协方差矩阵和它的逆矩阵。
 $$
-\Sigma = \left[ \begin{matrix} \sigma_{1}^2&0&\cdots&0\\ 0&\sigma_{2}^2&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\sigma_{n}^2  \end{matrix}\right] \tag 4
+\Sigma = \left[ \begin{matrix} \sigma_{1}^2&0&\cdots&0\\ 0&\sigma_{2}^2&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\sigma_{d}^2  \end{matrix}\right] \tag 4
 $$
 
 $$
-\Sigma{}^{-1} = \left[ \begin{matrix} \frac{1}{\sigma_{1}^2}&0&\cdots&0\\ 0&\frac{1}{\sigma_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{\sigma_{n}^2}  \end{matrix}\right]  \tag 5
+\Sigma{}^{-1} = \left[ \begin{matrix} \frac{1}{\sigma_{1}^2}&0&\cdots&0\\ 0&\frac{1}{\sigma_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{\sigma_{d}^2}  \end{matrix}\right]  \tag 5
 $$
 
 由此很容易得到如下公式。
 $$
-\sigma_{z}= \left|\Sigma_{}^{}\right|^\frac{1}{2} =\sigma_{1}\sigma_{2}.....\sigma_{n}   \tag 6
+\sigma_{z}= \left|\Sigma_{}^{}\right|^\frac{1}{2} =\sigma_{1}\sigma_{2}.....\sigma_{d}   \tag 6
 $$
 把公式$3 - 6$代入公式 $ 2$，可以推得：
 $$
 \begin{align}
 f(x) &= \frac{1}{(\sqrt{2π})^n\sigma_{z}}e^{-\frac{z^2}{2}} 
-\\&= \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
+\\&= \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}  \tag 7
 $$
 
@@ -117,7 +117,7 @@ $$
 $$
 \mathbf{\Sigma} =  \mathbf{V} \mathbf {\Lambda} \mathbf{V^T} \tag 8
 $$
-其中$\mathbf V$是正交矩阵，$\mathbf {\Lambda} = diag(\mathbf {\lambda_1}, \mathbf {\lambda_2}, \cdots,  \mathbf {\lambda_n})$，是一个对角矩阵，对角线的值代表特征值。
+其中$\mathbf V$是正交矩阵，$\mathbf {\Lambda} = diag(\mathbf {\lambda_1}, \mathbf {\lambda_2}, \cdots,  \mathbf {\lambda_d})$，是一个对角矩阵，对角线的值代表特征值。
 
 然后，根据正交矩阵的性质$$ \mathbf{V^T} \mathbf V =1$$，可以对上面公式进行分解，可以得到。
 $$
@@ -142,20 +142,20 @@ $$
 观察上面公式，不难发现，$$\mathbf {\Lambda} $$是一个对角矩阵，除了对角线外，其它地方都为0，这说明变量之间相互独立，而这刚好符合独立多元正态分布的条件，于是套用上一章的公式$7$，可以得到。
 $$
 \begin{align}
-f(x^{'}) = \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{'}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x^{'}\  -\  \mu^{'})^\mathrm{T}\  {\Sigma^{'}}^{-1}\  (x^{'}\  -\  \mu^{'})}
+f(x^{'}) = \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{}^{'}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x^{'}\  -\  \mu^{'})^\mathrm{T}\  {\Sigma^{'}}^{-1}\  (x^{'}\  -\  \mu^{'})}
 \end{align}
 $$
 接下来，把$$x^{'} =\mathbf{V^T} x， \mu^{'} = \mathbf{V^T} \mu $$， $$ \mathbf{\Sigma}^{'}=\mathbf {\Lambda}$$带入上式。
 $$
 \begin{align}
-f(x) = \frac{1}{(\sqrt{2π})^{n}\left|\mathbf {\Lambda}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  
+f(x) = \frac{1}{(\sqrt{2π})^{d}\left|\mathbf {\Lambda}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  
 \end{align}
 $$
 
 接着，由于$\mathbf {\Lambda}$是对角矩阵，显然$$\mid \mathbf {\Lambda} \mid = \prod\lambda_i  $$ ，可得：
 
 $$
-\begin{align}f(x) = \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \tag 9\end{align}
+\begin{align}f(x) = \frac{1}{(\sqrt{2π})^{d}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \tag 9\end{align}
 $$
 然后，根据公式而$8$，很容易计算其协方差矩阵的逆矩阵，即：
 $$
@@ -168,7 +168,7 @@ $$
 最后把公式$10$和$11$带入公式$9$，可得：
 $$
 \begin{align}
-f(x) &=  \frac{1}{(\sqrt{2π})^{n}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
+f(x) &=  \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}
 $$
 证毕。显见，当只有一个变量时，公式会退化到简单的一元正态分布的公式。
@@ -291,19 +291,19 @@ plt.show()
 上一节的证明过程，刚好是上面线性变换的反向操作，从图形上看，就是先把右图旋转为中图，然后再伸缩到左图。再来看分布密度函数公式$9$，还可以进行如下推导。
 $$
 \begin{align}
-f(x) &= \frac{1}{(\sqrt{2π})^{n}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \\
-f(x) &= \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left( {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}(x\  -\  \mu) \right)^\mathrm{T}\   {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}\  (x\  -\  \mu)}   \frac 1 {\sqrt \lambda_1} \frac 1 {\sqrt \lambda_2} \cdots \frac 1 {\sqrt \lambda_n}  
+f(x) &= \frac{1}{(\sqrt{2π})^{d}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \\
+f(x) &= \frac{1}{(\sqrt{2π})^{d}  }  e^{-\frac{ 1}{2} \left( {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}(x\  -\  \mu) \right)^\mathrm{T}\   {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}\  (x\  -\  \mu)}   \frac 1 {\sqrt \lambda_1} \frac 1 {\sqrt \lambda_2} \cdots \frac 1 {\sqrt \lambda_d}  
 \end{align}
 $$
-其中$${\mathbf {\Lambda}}^{-\frac 1 2}  = diag(\mathbf {\frac 1 {\sqrt \lambda_1}},\mathbf {\frac 1 {\sqrt \lambda_2}}, \cdots,  \mathbf {\frac 1 {\sqrt \lambda_n}})$$，然后在两边求积分，可得：
+其中$${\mathbf {\Lambda}}^{-\frac 1 2}  = diag(\mathbf {\frac 1 {\sqrt \lambda_1}},\mathbf {\frac 1 {\sqrt \lambda_2}}, \cdots,  \mathbf {\frac 1 {\sqrt \lambda_d}})$$，然后在两边求积分，可得：
 $$
 \begin{align}
-\int \cdots \int f(x)  \mathbf d x_1 \mathbf d x_2  \cdots \mathbf d x_n &= \int \cdots \int \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left( {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}(x\  -\  \mu) \right)^\mathrm{T}\   {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}\  (x\  -\  \mu)}  \mathbf d \frac {x_1 - \mu_1} {\sqrt \lambda_1}  \mathbf d \frac {x_2- \mu_2}  {\sqrt \lambda_2} \cdots \mathbf d  \frac {x_n- \mu_n}  {\sqrt \lambda_n}  \\
+\int \cdots \int f(x)  \mathbf d x_1 \mathbf d x_2  \cdots \mathbf d x_d &= \int \cdots \int \frac{1}{(\sqrt{2π})^{d}  }  e^{-\frac{ 1}{2} \left( {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}(x\  -\  \mu) \right)^\mathrm{T}\   {\mathbf {\Lambda}}^{-\frac 1 2} \mathbf{V^T}\  (x\  -\  \mu)}  \mathbf d \frac {x_1 - \mu_1} {\sqrt \lambda_1}  \mathbf d \frac {x_2- \mu_2}  {\sqrt \lambda_2} \cdots \mathbf d  \frac {x_d- \mu_d}  {\sqrt \lambda_d}  \\
 
-\int \cdots \int f(x)  \mathbf d x_1 \mathbf d x_2  \cdots \mathbf d x_n &= \int \cdots \int \frac{1}{(\sqrt{2π})^{n}  }  e^{-\frac{ 1}{2} \left(  \mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} \right)^\mathrm{T}\    \mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}}}  \mathbf d \frac {x_1 - \mu_1} {\sqrt \lambda_1}  \mathbf d \frac {x_2- \mu_2}  {\sqrt \lambda_2} \cdots \mathbf d  \frac {x_n- \mu_n}  {\sqrt \lambda_n}
+\int \cdots \int f(x)  \mathbf d x_1 \mathbf d x_2  \cdots \mathbf d x_d &= \int \cdots \int \frac{1}{(\sqrt{2π})^{d}  }  e^{-\frac{ 1}{2} \left(  \mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} \right)^\mathrm{T}\    \mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}}}  \mathbf d \frac {x_1 - \mu_1} {\sqrt \lambda_1}  \mathbf d \frac {x_2- \mu_2}  {\sqrt \lambda_2} \cdots \mathbf d  \frac {x_d- \mu_d}  {\sqrt \lambda_d}
 \end{align}
 $$
-其中${\sqrt \lambda} = \left[ \begin{matrix} \mathbf {\frac 1 {\sqrt \lambda_1}} &\mathbf {\frac 1 {\sqrt \lambda_2}} &  \cdots & \mathbf {\frac 1 {\sqrt \lambda_n}} \end{matrix}\right]^\mathrm{T}$，于是显见。
+其中${\sqrt \lambda} = \left[ \begin{matrix} \mathbf {\frac 1 {\sqrt \lambda_1}} &\mathbf {\frac 1 {\sqrt \lambda_2}} &  \cdots & \mathbf {\frac 1 {\sqrt \lambda_d}} \end{matrix}\right]^\mathrm{T}$，于是显见。
 
 - $\mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} $表示对坐标进行缩放，然后进行线性变换，相当于把上面图片中，右图的椭圆变成了左图的圆了。
 - $\left( \prod\lambda_i \right)^\frac{1}{2}$表示微分变换时的系数之积。通俗的理解，既然前方进行了伸缩，要保持平衡的话，就要把缩放的比例反向除回去。
@@ -312,7 +312,7 @@ $$
 
 马氏距离（Mahalanobis distance）是由印度统计学家马哈拉诺比斯(P. C. Mahalanobis)提出的，是欧氏距离的一种推广。它通过协方差来计算两点之间距离，是一种有效的计算两个未知样本集的相似度的方法。与欧氏距离不同的是它考虑到各种特性之间的相关性。它的定义如下：
 
-对于一个均值为$$\mu =(\mu _{1},\mu _{2},\mu _{3},\dots ,\mu _{n})^{T}$$，协方差矩阵为Σ的多变量向量$$x=(x_{1},x_{2},x_{3},\dots ,x_{n})^{T}$$，其马氏距离为：
+对于一个均值为$$\mu =(\mu _{1},\mu _{2},\mu _{3},\dots ,\mu _{d})^{T}$$，协方差矩阵为Σ的多变量向量$$x=(x_{1},x_{2},x_{3},\dots ,x_{d})^{T}$$，其马氏距离为：
 
 $$
 D_{M}(x)={\sqrt {(x-\mu )^{T}\Sigma ^{-1}(x-\mu )}}
@@ -340,21 +340,21 @@ PCA所使用的线性变换就是协方差矩阵的特征向量矩阵，特征�
 
 下面来证明PCA的数学原理，即特征向量矩阵是方差最大化的线性变换。为了简化，先对协方差矩阵做一些简化。
 
-设$\mathbf X = \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu \end{bmatrix}$ ，即中心化的矩阵，协方差矩阵可以简化为：
+设$\mathbf X = \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu \end{bmatrix}$ ，即中心化的矩阵，协方差矩阵可以简化为：
 $$
-\Sigma = \frac 1 {m-1} \mathbf X \cdot \mathbf X^{\mathbf T}
+\Sigma = \frac 1 {n-1} \mathbf X \cdot \mathbf X^{\mathbf T}
 $$
 
-其中$\mathbf X$是$$n\times m$$矩阵，$n$表示随机变量个数，$m$表示样本个数。
+其中$\mathbf X$是$$d\times n$$矩阵，$d$表示随机变量个数，$n$表示样本个数。
 
-设$\mathbf U = \begin{bmatrix} u_1 & u_2 & \cdots & u_n \end{bmatrix} $是要求解的正交矩阵，其中$u_1$是方差最大的维度，$u_2$是第二大的，以此类推。
+设$\mathbf U = \begin{bmatrix} u_1 & u_2 & \cdots & u_d \end{bmatrix} $是要求解的正交矩阵，其中$u_1$是方差最大的维度，$u_2$是第二大的，以此类推。
 
 再设$u$是$\mathbf U$其中任意一个维度向量，则$u^{\mathbf T} \mathbf X$ 表示在样本点在维度$u$中的投影（坐标），于是在这个维度上的方差可以表示如下：
 $$
 \begin{align}
-\sigma &= \frac 1 {m-1} u^{\mathbf T} \mathbf X(u^{\mathbf T} \mathbf X)^{\mathbf T}  \\
- &= \frac 1 {m-1} u^{\mathbf T} \mathbf X\mathbf X^{\mathbf T} u  \\
- &=  u^{\mathbf T}  \left(\frac 1 {m-1} \mathbf  X \mathbf X^{\mathbf T} \right) u  \\
+\sigma &= \frac 1 {n-1} u^{\mathbf T} \mathbf X(u^{\mathbf T} \mathbf X)^{\mathbf T}  \\
+ &= \frac 1 {n-1} u^{\mathbf T} \mathbf X\mathbf X^{\mathbf T} u  \\
+ &=  u^{\mathbf T}  \left(\frac 1 {n-1} \mathbf  X \mathbf X^{\mathbf T} \right) u  \\
  &=  u^{\mathbf T}  \Sigma  u  \\
 \end{align}
 $$
@@ -364,24 +364,24 @@ $$
 \sigma &=  u^{\mathbf T} \mathbf{V} \mathbf {\Lambda} \mathbf{V^T} u  \\
 \end{align}
 $$
-由于协方差矩阵是对称矩阵，其特征值非负，设$\lambda_1\geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0$，$z = \mathbf{V^T} u$，带入上式可得：
+由于协方差矩阵是对称矩阵，其特征值非负，设$\lambda_1\geq \lambda_2 \geq \cdots \geq \lambda_d \geq 0$，$z = \mathbf{V^T} u$，带入上式可得：  
 $$
-\begin{align}
+\begin{align} 
 \sigma &=  z^{\mathbf T}  \mathbf {\Lambda}z  \\
-	   &=  z_1^2\lambda_1 + z_2^2\lambda_2 + \cdots +  z_n^2\lambda_n \tag {12} \\  
-	   & \leq z_1^2\lambda_1 + z_2^2\lambda_1 + \cdots +  z_n^2\lambda_1 \\
-	   & \leq (z_1^2 + z_2^2 + \cdots +  z_n^2)\lambda_1
+	   &=  z_1^2\lambda_1 + z_2^2\lambda_2 + \cdots +  z_d^2\lambda_d \tag {12} \\  
+	   & \leq z_1^2\lambda_1 + z_2^2\lambda_1 + \cdots +  z_d^2\lambda_1 \\
+	   & \leq (z_1^2 + z_2^2 + \cdots +  z_d^2)\lambda_1
 \end{align}
 $$
 
-由于$z^{\mathbf T}z=1$，即$z_1^2 + z_2^2 + \cdots +  z_n^2=1$，可以推得：
+由于$z^{\mathbf T}z=1$，即$z_1^2 + z_2^2 + \cdots +  z_d^2=1 $，可以推得：
 $$
 \begin{align}
 \sigma & \leq   \lambda_1
  
 \end{align}
 $$
-不难看出，上面不等式相等的条件是$z_1=1, \ z_2=z_3= \cdots =z_n=0$，可以推出：
+不难看出，上面不等式相等的条件是$z_1=1, \ z_2=z_3= \cdots =z_d=0 $，可以推出：
 $$
 \begin{align}
 z &= \mathbf{V^T} u \\
@@ -411,15 +411,15 @@ $$
 把上面结果带入公式$12$，当$\ u \neq u_1$，推得：
 $$
 \begin{align}
-\sigma &=  z_1^2\lambda_1 + z_2^2\lambda_2 + \cdots +  z_n^2\lambda_n  \\  
-	   &=   0 + z_2^2\lambda_2 + z_3^2\lambda_3+ \cdots +  z_n^2\lambda_n  \\
+\sigma &=  z_1^2\lambda_1 + z_2^2\lambda_2 + \cdots +  z_n^2\lambda_d  \\  
+	   &=   0 + z_2^2\lambda_2 + z_3^2\lambda_3+ \cdots +  z_n^2\lambda_d  \\
 	   & \leq  z_2^2\lambda_2 + \cdots +  z_n^2\lambda_2 \\
 	   & \leq (0 + z_2^2 + \cdots +  z_n^2)\lambda_2  \\
 	   & \leq (z_1^2 + z_2^2 + \cdots +  z_n^2)\lambda_2  \\
 	   & \leq \lambda_2
 \end{align}
 $$
-要满足等式成立，条件是$z_1=0, \ z_2=1， z_3= z_4= \cdots =z_n=0$，可以推得：
+要满足等式成立，条件是$z_1=0, \ z_2=1， z_3= z_4= \cdots =z_d=0$，可以推得：
 $$
 \begin{align}
 z &= \mathbf{V^T} u \\
