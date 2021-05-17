@@ -56,7 +56,7 @@ $$
 
 其中
 
--  $$x $$表示一个样本，每个样本是一个长度为$d$的向量。
+-  $$x=\begin{bmatrix} x_1 & x_2 & \cdots & x_d \end{bmatrix}^\mathrm{T} $$表示一个样本，它是一个长度为$d$的向量。
 - $$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{d}\end{bmatrix}^\mathrm{T}$$，表示随机变量的均值，也是一个长度为$d$的向量。
 -  $$\sigma =  \begin{bmatrix} \sigma _{1}, \sigma _{2},\cdots,\sigma_{d} \end{bmatrix}^\mathrm{T}$$，表示随机变量的方差。
 - $$\Sigma$$表示协方差矩阵（Covariance Matrix）。
