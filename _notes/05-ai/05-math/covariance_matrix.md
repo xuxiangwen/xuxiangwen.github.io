@@ -47,17 +47,17 @@ $$
 
 ### 多元正态分布
 
-$n$元正态分布概率密度函数如下：
+$d$元正态分布概率密度函数如下：
 $$
 \begin{align}
-f(x) &= \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
+f(x) &= \frac{1}{(\sqrt{2π})^{d}\left|\Sigma\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}
 $$
 
 其中
 
--  $$x =  \begin{bmatrix} x_{1}, x_{2},\cdots,x_{d}\end{bmatrix}^\mathrm{T}$$，表示$$n$$个随机变量，这些变量都服从正态分布。
-- $$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{d}\end{bmatrix}^\mathrm{T}$$，表示随机变量的均值。
+-  $$x $$表示一个样本，每个样本是一个长度为$d$的向量。
+- $$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{d}\end{bmatrix}^\mathrm{T}$$，表示随机变量的均值，也是一个长度为$d$的向量。
 -  $$\sigma =  \begin{bmatrix} \sigma _{1}, \sigma _{2},\cdots,\sigma_{d} \end{bmatrix}^\mathrm{T}$$，表示随机变量的方差。
 - $$\Sigma$$表示协方差矩阵（Covariance Matrix）。
 - $$\Sigma^{-1}$$表示协方差矩阵的逆矩阵
@@ -94,18 +94,18 @@ $$
 $$
 
 $$
-\Sigma{}^{-1} = \left[ \begin{matrix} \frac{1}{\sigma_{1}^2}&0&\cdots&0\\ 0&\frac{1}{\sigma_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{\sigma_{d}^2}  \end{matrix}\right]  \tag 5
+\Sigma^{-1} = \left[ \begin{matrix} \frac{1}{\sigma_{1}^2}&0&\cdots&0\\ 0&\frac{1}{\sigma_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{\sigma_{d}^2}  \end{matrix}\right]  \tag 5
 $$
 
 由此很容易得到如下公式。
 $$
-\sigma_{z}= \left|\Sigma_{}^{}\right|^\frac{1}{2} =\sigma_{1}\sigma_{2}.....\sigma_{d}   \tag 6
+\sigma_{z}= \left|\Sigma\right|^\frac{1}{2} =\sigma_{1}\sigma_{2}.....\sigma_{d}   \tag 6
 $$
 把公式$3 - 6$代入公式 $ 2$，可以推得：
 $$
 \begin{align}
 f(x) &= \frac{1}{(\sqrt{2π})^n\sigma_{z}}e^{-\frac{z^2}{2}} 
-\\&= \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
+\\&= \frac{1}{(\sqrt{2π})^{d}\left|\Sigma\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}  \tag 7
 $$
 
@@ -123,26 +123,26 @@ $$
 $$
 \begin{align}
 \mathbf{V^T}\ \mathbf{\Sigma}\ \mathbf{V}  &=  \mathbf {\Lambda}  \\
- \frac 1 {m-1} \mathbf{V^T}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu \end{bmatrix}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu\end{bmatrix}^\mathrm{T} \mathbf{V } &=  \mathbf {\Lambda} \\
- \frac 1 {m-1} \mathbf{V^T}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu \end{bmatrix}  \left(  \mathbf{V^T}   \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu \end{bmatrix}  \right)^\mathrm{T} &=  \mathbf {\Lambda} \\
+ \frac 1 {n-1} \mathbf{V^T}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu \end{bmatrix}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu\end{bmatrix}^\mathrm{T} \mathbf{V } &=  \mathbf {\Lambda} \\
+ \frac 1 {n-1} \mathbf{V^T}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu \end{bmatrix}  \left(  \mathbf{V^T}   \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu \end{bmatrix}  \right)^\mathrm{T} &=  \mathbf {\Lambda} 
 \end{align}
 $$
 再设$$x^{'}_i =\mathbf{V^T} x_i，\mu^{'} = \mathbf{V^T} \mu $$，上式可以简化为：
 $$
-\begin{align}
- \frac 1 {m-1} \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_m^{'}-\mu^{'} \end{bmatrix}      \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_m^{'}-\mu^{'} \end{bmatrix}  ^\mathrm{T} &=  \mathbf {\Lambda} \\
+\begin{align} 
+ \frac 1 {n-1} \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_n^{'}-\mu^{'} \end{bmatrix}      \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_n^{'}-\mu^{'} \end{bmatrix}  ^\mathrm{T} &=  \mathbf {\Lambda} \\
 \end{align}
 $$
 上面的式子的左边，看起来有点和公式$2.1$非常象，分明它就是对于$x^{'}$的协方差矩阵。即：
 $$
 \begin{align}
- \mathbf{\Sigma}^{'} = \frac 1 {m-1} \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_m^{'}-\mu^{'} \end{bmatrix}      \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_m^{'}-\mu^{'} \end{bmatrix}  ^\mathrm{T} &=  \mathbf {\Lambda} \\
+ \mathbf{\Sigma}^{'} = \frac 1 {n-1} \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_n^{'}-\mu^{'} \end{bmatrix}      \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_n^{'}-\mu^{'} \end{bmatrix}  ^\mathrm{T} &=  \mathbf {\Lambda} \\
 \end{align}
 $$
 观察上面公式，不难发现，$$\mathbf {\Lambda} $$是一个对角矩阵，除了对角线外，其它地方都为0，这说明变量之间相互独立，而这刚好符合独立多元正态分布的条件，于是套用上一章的公式$7$，可以得到。
 $$
 \begin{align}
-f(x^{'}) = \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{}^{'}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x^{'}\  -\  \mu^{'})^\mathrm{T}\  {\Sigma^{'}}^{-1}\  (x^{'}\  -\  \mu^{'})}
+f(x^{'}) = \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{n-1}^{'}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x^{'}\  -\  \mu^{'})^\mathrm{T}\  {\Sigma^{'}}^{-1}\  (x^{'}\  -\  \mu^{'})}
 \end{align}
 $$
 接下来，把$$x^{'} =\mathbf{V^T} x， \mu^{'} = \mathbf{V^T} \mu $$， $$ \mathbf{\Sigma}^{'}=\mathbf {\Lambda}$$带入上式。
@@ -151,9 +151,7 @@ $$
 f(x) = \frac{1}{(\sqrt{2π})^{d}\left|\mathbf {\Lambda}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  
 \end{align}
 $$
-
 接着，由于$\mathbf {\Lambda}$是对角矩阵，显然$$\mid \mathbf {\Lambda} \mid = \prod\lambda_i  $$ ，可得：
-
 $$
 \begin{align}f(x) = \frac{1}{(\sqrt{2π})^{d}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \tag 9\end{align}
 $$
@@ -163,12 +161,12 @@ $$
 $$
 而且，由于[方阵的行列式等于特征值之积](https://eipi10.cn/linear-algebra/2019/12/07/eigenvalue_and_eigenvector/#%E6%96%B9%E9%98%B5%E7%9A%84%E8%BF%B9%E5%92%8C%E8%A1%8C%E5%88%97%E5%BC%8F)，也就是：
 $$
-\left|\Sigma_{}\right| =  \prod\lambda_i  \tag {11}
+\left|\Sigma\right| =  \prod\lambda_i  \tag {11}
 $$
 最后把公式$10$和$11$带入公式$9$，可得：
 $$
 \begin{align}
-f(x) &=  \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
+f(x) &=  \frac{1}{(\sqrt{2π})^{d}\left|\Sigma\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}
 $$
 证毕。显见，当只有一个变量时，公式会退化到简单的一元正态分布的公式。
@@ -242,8 +240,8 @@ def plot_scatter(x, y, color):
     eigenvalue, eigenvector = eig(X)
 
     print('-'*50)
-    print('eigenvalue = {}'.format(eigenvalue))
-    print('eigenvector = \n{}'.format(eigenvector))
+    print('eigenvalue = {n-1}'.format(eigenvalue))
+    print('eigenvector = \n{n-1}'.format(eigenvector))
     center = np.mean(X, axis=0)
     B = eigenvector 
 
@@ -269,7 +267,7 @@ beta2, A2  = rotate(theta, beta1, center=True)
 
 # 得到线性变换的矩阵
 A = A2.dot(A1)
-print('A = \n{}'.format(A))
+print('A = \n{n-1}'.format(A))
 
 # 4. 图形展示
 plt.figure(figsize=(18, 5.5))
@@ -313,11 +311,9 @@ $$
 马氏距离（Mahalanobis distance）是由印度统计学家马哈拉诺比斯(P. C. Mahalanobis)提出的，是欧氏距离的一种推广。它通过协方差来计算两点之间距离，是一种有效的计算两个未知样本集的相似度的方法。与欧氏距离不同的是它考虑到各种特性之间的相关性。它的定义如下：
 
 对于一个均值为$$\mu =(\mu _{1},\mu _{2},\mu _{3},\dots ,\mu _{d})^{T}$$，协方差矩阵为Σ的多变量向量$$x=(x_{1},x_{2},x_{3},\dots ,x_{d})^{T}$$，其马氏距离为：
-
 $$
 D_{M}(x)={\sqrt {(x-\mu )^{T}\Sigma ^{-1}(x-\mu )}}
 $$
-
 从形式上看，马氏距离和正态分布公式的其中一部分完全相同。于是，正如上节分析所示，可以把马氏纪录理解为，把样本点缩放（$\frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} $），然后进行线性变换到特征矩阵所在空间$$\mathbf{V^T} \frac {x\  -\  \mu} {\mathbf {\sqrt \lambda}} $$，最后求再这个空间的欧氏距离，也就说是马氏距离考虑了样本相关性的欧式距离。
 
 对于下面图中的数据，分别计算点1和点2到中心的距离，它们的欧式距离是相等的。但很明显，根据正态分布公式，点1出现的概率比点2要小，即认为点1距离中心点的距离要更远，马氏距离考虑到了这一点，所以它比欧式距离更合理。
@@ -329,7 +325,6 @@ $$
 $$
 d({\vec {x}},{\vec {y}})={\sqrt {({\vec {x}}-{\vec {y}})^{T}\Sigma ^{-1}({\vec {x}}-{\vec {y}})}}
 $$
-
 ## 主成分分析
 
 ![image-20210512145234002](images/image-20210512145234002.png)
@@ -344,7 +339,6 @@ PCA所使用的线性变换就是协方差矩阵的特征向量矩阵，特征�
 $$
 \Sigma = \frac 1 {n-1} \mathbf X \cdot \mathbf X^{\mathbf T}
 $$
-
 其中$\mathbf X$是$$d\times n$$矩阵，$d$表示随机变量个数，$n$表示样本个数。
 
 设$\mathbf U = \begin{bmatrix} u_1 & u_2 & \cdots & u_d \end{bmatrix} $是要求解的正交矩阵，其中$u_1$是方差最大的维度，$u_2$是第二大的，以此类推。
@@ -373,12 +367,11 @@ $$
 	   & \leq (z_1^2 + z_2^2 + \cdots +  z_d^2)\lambda_1
 \end{align}
 $$
-
 由于$z^{\mathbf T}z=1$，即$z_1^2 + z_2^2 + \cdots +  z_d^2=1 $，可以推得：
 $$
 \begin{align}
 \sigma & \leq   \lambda_1
- 
+
 \end{align}
 $$
 不难看出，上面不等式相等的条件是$z_1=1, \ z_2=z_3= \cdots =z_d=0 $，可以推出：
@@ -407,7 +400,6 @@ z_1 = \begin{equation}
 \right.
 \end{equation}
 $$
-
 把上面结果带入公式$12$，当$\ u \neq u_1$，推得：
 $$
 \begin{align}
