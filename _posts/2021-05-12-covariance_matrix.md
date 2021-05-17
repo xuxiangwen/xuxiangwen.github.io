@@ -60,20 +60,20 @@ $$
 
 ### 多元正态分布
 
-$n$元正态分布概率密度函数如下：
+$d$元正态分布概率密度函数如下：
 
 $$
 
 \begin{align}
-f(x) &= \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
+f(x) &= \frac{1}{(\sqrt{2π})^{d}\left|\Sigma\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}
 
 $$
 
 其中
 
--  $$x =  \begin{bmatrix} x_{1}, x_{2},\cdots,x_{d}\end{bmatrix}^\mathrm{T}$$，表示$$n$$个随机变量，这些变量都服从正态分布。
-- $$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{d}\end{bmatrix}^\mathrm{T}$$，表示随机变量的均值。
+-  $$x=\begin{bmatrix} x_1 & x_2 & \cdots & x_d \end{bmatrix}^\mathrm{T} $$表示一个样本，它是一个长度为$d$的向量。
+- $$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{d}\end{bmatrix}^\mathrm{T}$$，表示随机变量的均值，也是一个长度为$d$的向量。
 -  $$\sigma =  \begin{bmatrix} \sigma _{1}, \sigma _{2},\cdots,\sigma_{d} \end{bmatrix}^\mathrm{T}$$，表示随机变量的方差。
 - $$\Sigma$$表示协方差矩阵（Covariance Matrix）。
 - $$\Sigma^{-1}$$表示协方差矩阵的逆矩阵
@@ -83,7 +83,7 @@ $$
 
 #### 独立多元正态分布
 
-如果$n$个随机变量相互独立，根据联合概率密度公式可以得到：
+如果$d$个随机变量相互独立，根据联合概率密度公式可以得到：
 
 $$
 
@@ -123,7 +123,7 @@ $$
 
 $$
 
-\Sigma{}^{-1} = \left[ \begin{matrix} \frac{1}{\sigma_{1}^2}&0&\cdots&0\\ 0&\frac{1}{\sigma_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{\sigma_{d}^2}  \end{matrix}\right]  \tag 5
+\Sigma^{-1} = \left[ \begin{matrix} \frac{1}{\sigma_{1}^2}&0&\cdots&0\\ 0&\frac{1}{\sigma_{2}^2}&\cdots&0\\ \vdots&\vdots&\ddots&\vdots\\ 0&0&\cdots&\frac{1}{\sigma_{d}^2}  \end{matrix}\right]  \tag 5
 
 $$
 
@@ -131,7 +131,7 @@ $$
 
 $$
 
-\sigma_{z}= \left|\Sigma_{}^{}\right|^\frac{1}{2} =\sigma_{1}\sigma_{2}.....\sigma_{d}   \tag 6
+\sigma_{z}= \left|\Sigma\right|^\frac{1}{2} =\sigma_{1}\sigma_{2}.....\sigma_{d}   \tag 6
 
 $$
 
@@ -141,7 +141,7 @@ $$
 
 \begin{align}
 f(x) &= \frac{1}{(\sqrt{2π})^n\sigma_{z}}e^{-\frac{z^2}{2}} 
-\\&= \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
+\\&= \frac{1}{(\sqrt{2π})^{d}\left|\Sigma\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}  \tag 7
 
 $$
@@ -166,8 +166,8 @@ $$
 
 \begin{align}
 \mathbf{V^T}\ \mathbf{\Sigma}\ \mathbf{V}  &=  \mathbf {\Lambda}  \\
- \frac 1 {m-1} \mathbf{V^T}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu \end{bmatrix}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu\end{bmatrix}^\mathrm{T} \mathbf{V } &=  \mathbf {\Lambda} \\
- \frac 1 {m-1} \mathbf{V^T}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu \end{bmatrix}  \left(  \mathbf{V^T}   \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_m-\mu \end{bmatrix}  \right)^\mathrm{T} &=  \mathbf {\Lambda} \\
+ \frac 1 {n-1} \mathbf{V^T}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu \end{bmatrix}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu\end{bmatrix}^\mathrm{T} \mathbf{V } &=  \mathbf {\Lambda} \\
+ \frac 1 {n-1} \mathbf{V^T}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu \end{bmatrix}  \left(  \mathbf{V^T}   \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu \end{bmatrix}  \right)^\mathrm{T} &=  \mathbf {\Lambda} 
 \end{align}
 
 $$
@@ -176,8 +176,8 @@ $$
 
 $$
 
-\begin{align}
- \frac 1 {m-1} \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_m^{'}-\mu^{'} \end{bmatrix}      \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_m^{'}-\mu^{'} \end{bmatrix}  ^\mathrm{T} &=  \mathbf {\Lambda} \\
+\begin{align} 
+ \frac 1 {n-1} \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_n^{'}-\mu^{'} \end{bmatrix}      \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_n^{'}-\mu^{'} \end{bmatrix}  ^\mathrm{T} &=  \mathbf {\Lambda} \\
 \end{align}
 
 $$
@@ -187,7 +187,7 @@ $$
 $$
 
 \begin{align}
- \mathbf{\Sigma}^{'} = \frac 1 {m-1} \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_m^{'}-\mu^{'} \end{bmatrix}      \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_m^{'}-\mu^{'} \end{bmatrix}  ^\mathrm{T} &=  \mathbf {\Lambda} \\
+ \mathbf{\Sigma}^{'} = \frac 1 {n-1} \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_n^{'}-\mu^{'} \end{bmatrix}      \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_n^{'}-\mu^{'} \end{bmatrix}  ^\mathrm{T} &=  \mathbf {\Lambda} \\
 \end{align}
 
 $$
@@ -197,7 +197,7 @@ $$
 $$
 
 \begin{align}
-f(x^{'}) = \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{}^{'}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x^{'}\  -\  \mu^{'})^\mathrm{T}\  {\Sigma^{'}}^{-1}\  (x^{'}\  -\  \mu^{'})}
+f(x^{'}) = \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{n-1}^{'}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x^{'}\  -\  \mu^{'})^\mathrm{T}\  {\Sigma^{'}}^{-1}\  (x^{'}\  -\  \mu^{'})}
 \end{align}
 
 $$
@@ -232,7 +232,7 @@ $$
 
 $$
 
-\left|\Sigma_{}\right| =  \prod\lambda_i  \tag {11}
+\left|\Sigma\right| =  \prod\lambda_i  \tag {11}
 
 $$
 
@@ -241,7 +241,7 @@ $$
 $$
 
 \begin{align}
-f(x) &=  \frac{1}{(\sqrt{2π})^{d}\left|\Sigma_{}^{}\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
+f(x) &=  \frac{1}{(\sqrt{2π})^{d}\left|\Sigma\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
 \end{align}
 
 $$
@@ -316,8 +316,8 @@ def plot_scatter(x, y, color):
     eigenvalue, eigenvector = eig(X)
 
     print('-'*50)
-    print('eigenvalue = {}'.format(eigenvalue))
-    print('eigenvector = \n{}'.format(eigenvector))
+    print('eigenvalue = {n-1}'.format(eigenvalue))
+    print('eigenvector = \n{n-1}'.format(eigenvector))
     center = np.mean(X, axis=0)
     B = eigenvector 
 
@@ -343,7 +343,7 @@ beta2, A2  = rotate(theta, beta1, center=True)
 
 # 得到线性变换的矩阵
 A = A2.dot(A1)
-print('A = \n{}'.format(A))
+print('A = \n{n-1}'.format(A))
 
 # 4. 图形展示
 plt.figure(figsize=(18, 5.5))
@@ -480,7 +480,7 @@ $$
 
 \begin{align}
 \sigma & \leq   \lambda_1
- 
+
 \end{align}
 
 $$
