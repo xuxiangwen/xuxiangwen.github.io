@@ -22,13 +22,15 @@ $$
 \sigma(\mathbf {X_d},\mathbf {X_1}) & \sigma(\mathbf {X_d},\mathbf {X_2}) & \cdots  & \sigma(\mathbf {X_d},\mathbf {X_d})\\
 \end{bmatrix}
 $$
-其中 $$\mathbf X = \left[ \begin{matrix} \mathbf {X_{1}}, \mathbf {X_{2}},\cdots, \mathbf {X_{d}}\end{matrix}\right]^\mathrm{T}$$，表示$$d$$个随机变量，$$\sigma(\mathbf {X_i},\mathbf {X_j})$$表示协方差，$$\sigma(\mathbf {X_i},\mathbf {X_j})=E[(\mathbf{X_i}-E(\mathbf{X_i}))(\mathbf{Y_j}-E(\mathbf{Y_j}))]$$。
+其中 $$\mathbf X = \left[ \begin{matrix} \mathbf {X_{1}}, \mathbf {X_{2}},\cdots, \mathbf {X_{d}}\end{matrix}\right]$$，表示$$d$$个随机变量，$$\sigma(\mathbf {X_i},\mathbf {X_j})$$表示协方差，$$\sigma(\mathbf {X_i},\mathbf {X_j})=E[(\mathbf{X_i}-E(\mathbf{X_i})(\mathbf{Y_j}-E(\mathbf{Y_j})]$$。
 
 协方差矩阵还可以用向量的方式来表达，形式如下：
 $$
 \Sigma = \frac 1 {n-1} \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu \end{bmatrix}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu\end{bmatrix}^\mathrm{T}  \tag{1}
 $$
-其中$n$表示样本的个数， $x_i$表示一个样本，是一个长度为$d$的向量。
+其中$$\mathbf X = \begin{bmatrix} x_1^{\mathbf T} 
+\\ x_2^{\mathbf T} \\ \vdots \\ x_n^{\mathbf T}\end{bmatrix}
+$$，$n$表示样本的个数， $x_i$表示一个样本，是一个长度为$d$的向量。
 
 ## 正态分布
 
@@ -196,53 +198,70 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 import random
+from sklearn.decomposition import PCA 
 
 
-def rotate(theta, alpha, center=True):
-    A = np.array([[math.cos(theta), -math.sin(theta)],
-                  [math.sin(theta), math.cos(theta)]])
-    if center==True:     
-        center = np.mean(alpha, axis=1, keepdims=True)
-        beta = A.dot(alpha - center) + center
-    else:
-        beta = A.dot(alpha)
-    return beta, A
-
-def scale(s, alpha, center=True):
-    A = np.diag(s)
-    if center==True:     
-        center = np.mean(alpha, axis=1, keepdims=True)
-        beta = A.dot(alpha - center) + center
-    else:
-        beta = A.dot(alpha)
-    return beta, A
-
-def circle(center, radius, num=100, seed=2009):
+def normal(center, radius, num=100, seed=2009):
     np.random.seed(seed)
     angles = np.linspace(0, 2*math.pi, num=num)
     x0, y0 = center
     x = np.random.normal(x0, 1, num)
-    y = np.random.normal(y0, 1, num)
-    return x, y
+    y = np.random.normal(y0, 1, num)    
+    return np.array([x, y])
 
-def eig(X):
-    row, col = X.shape
-    X_new = X - np.mean(X, axis=0)
-    cov = 1/row*(X_new).T @ X_new
+def transfer(m, data, center=True):
+    if center==True:     
+        center = np.mean(data, axis=1, keepdims=True)
+        transfer_data = m.dot((data - center)) + center
+    else:
+        transfer_data = m.dot(data)
+    return transfer_data, m    
+
+def rotate(theta, data, center=True):
+    m = np.array([[math.cos(theta), -math.sin(theta)],
+                  [math.sin(theta), math.cos(theta)]])
+    return transfer(m, data, center)
+
+def scale(s, data, center=True):
+    m = np.diag(s)
+    return transfer(m, data, center)
+
+def get_data(num, scale_rate=[2, 0.5], rotate_angle=30, seed=2009):
+    # 1. 生成样本。每个样本坐标来自独立分布的正态分布
+    data = normal([1, 1], 1, num=num, seed=seed) 
+    print('data.shape =', data.shape)
+
+    # 2. 伸缩 
+    scale_data, scale_m = scale(scale_rate, data, center=True)
+
+    # 3. 旋转
+    theta = 30/180*math.pi
+    rotate_data, rotate_m  = rotate(rotate_angle/180*math.pi, scale_data, center=True)   
+    
+    return data, scale_data, rotate_data
+
+def eig(data):
+    d, n = data.shape
+          
+    cov = np.cov(rotate_data)
+    # 也可以使用下面两行来计算协方差矩阵
+    # centered_data = data - np.mean(data, axis=1, keepdims=True)
+    # cov = 1/(n-1)*(centered_data) @ centered_data.T
+    
     eigenvalue, eigenvector = np.linalg.eig(cov)    
     return eigenvalue, eigenvector
     
-def plot_scatter(x, y, color):
-    plt.scatter(x, y, color=color, alpha=0.5, s=1) 
+def plot_scatter(data, color):
+    plt.scatter(data[0, :], data[1, :], color=color, alpha=0.5, s=1) 
+    
+    print('-'*50)
     
     # 计算协方差矩阵的特征向量
-    X = np.array([x, y]).T
-    eigenvalue, eigenvector = eig(X)
-
-    print('-'*50)
-    print('eigenvalue = {n-1}'.format(eigenvalue))
-    print('eigenvector = \n{n-1}'.format(eigenvector))
-    center = np.mean(X, axis=0)
+    eigenvalue, eigenvector = eig(data)
+    
+    print('eigenvalue = {}'.format(eigenvalue))
+    print('eigenvector = \n{}'.format(eigenvector))
+    center = np.mean(data, axis=1)
     B = eigenvector 
 
     plt.quiver([center[0],center[0]], [center[1],center[1]], B[0,:], B[1,:], angles='xy', scale_units='xy',  scale=1)
@@ -253,38 +272,24 @@ def plot_scatter(x, y, color):
     plt.ylim([center[1]-4, center[1]+4])
     plt.grid(linestyle='-.')    
     
+data, scale_data, rotate_data = get_data(1000)
 
-# 1. 构造数据1000个点。这些点来自于一个圆里的点
-x, y = circle([1, 1], 1, num=1000) 
-alpha = np.array([x, y])  
-
-# 2. 伸缩 [2, 0.5]
-beta1, A1 = scale([2, 0.5], alpha, center=True)
-
-# 3. 旋转30度
-theta = 30/180*math.pi
-beta2, A2  = rotate(theta, beta1, center=True)
-
-# 得到线性变换的矩阵
-A = A2.dot(A1)
-print('A = \n{n-1}'.format(A))
-
-# 4. 图形展示
+# 图形展示
 plt.figure(figsize=(18, 5.5))
 
 plt.subplot(131)
-plot_scatter(x, y, color='red')
+plot_scatter(data, color='red')
 
 plt.subplot(132)
-plot_scatter(beta1[0,:], beta1[1,:], color='green')
+plot_scatter(scale_data, color='green')
 
 ax3 = plt.subplot(133)
-plot_scatter(beta2[0,:], beta2[1,:], color='blue')
+plot_scatter(rotate_data, color='blue')
 
 plt.show()
 ~~~
 
-![image-20210508204011657](images/image-20210508204011657.png)
+![image-20210518160753189](images/image-20210518160753189.png)
 
 上一节的证明过程，刚好是上面线性变换的反向操作，从图形上看，就是先把右图旋转为中图，然后再伸缩到左图。再来看分布密度函数公式$9$，还可以进行如下推导。
 $$
@@ -332,6 +337,8 @@ $$
 主成分分析（Principal Component Analysis），简称PCA，是最重要的降维算法之一。PCA的思想是对数据进行线性变换，然后在新的坐标系中，选取那些占据了绝大部分方差的维度，这些维度就称为主成分。PCA常用于用于数据压缩，噪音消除，运用及其广泛。
 
 PCA所使用的线性变换就是协方差矩阵的特征向量矩阵，特征向量矩阵是一个正交变换，正交变换的几何意义是旋转，对数据之间的关系没有改变。
+
+### 证明
 
 下面来证明PCA的数学原理，即特征向量矩阵是方差最大化的线性变换。为了简化，先对协方差矩阵做一些简化。
 
@@ -422,6 +429,77 @@ $$
 由此得证$$u_2=v_2$$。
 
 同理可以证明其它维度依次等于对应的特征向量，即$\mathbf U = \mathbf V $，证毕。
+
+### 应用
+
+我们可以使用`sklearn.decomposition.PCA`直接来进行PCA的操作，下面是一个例子。
+
+~~~python
+def show_pca(pca):
+    print('特征(随机变量)个数：', pca.n_features_) 
+    print('样本数：', pca.n_samples_) 
+    print('主成分(特征向量)：\n{}'.format(np.round(pca.components_, 3)))
+    print('方差(特征值)：', np.round(pca.explained_variance_, 3))
+    print('方差比例：', pca.explained_variance_ratio_)  
+    print('噪音方差：', pca.noise_variance_) 
+    print('噪音方差：', pca.singular_values_)    
+    
+_, _, data = get_data(8)
+center = np.mean(data, axis=1, keepdims=True)
+print('data =\n{}'.format(np.round(data, 3)))
+
+# PCA： 不降维，只是把当前数据变换到特征矩阵所在空间。
+pca=PCA(n_components=2)   
+pca_data=pca.fit_transform(data.T).T
+print('-'*50)
+print('pca_data =\n{}'.format(np.round(pca_data, 3)))
+# 还原到原始数据
+restore_data = pca.components_.T @ pca_data + center
+np.testing.assert_array_almost_equal(data, restore_data)
+print('restore_data =\n{}'.format(np.round(restore_data, 3)))
+
+print('-'*50)
+show_pca(pca)
+~~~
+
+![image-20210519140442142](images/image-20210519140442142.png)
+
+> 在机器学习中，矩阵的第一个维度都是样本个数，所以`sklearn.decomposition.PCA`要求传入一个$n\times d$的矩阵，也就是说每一行是一个样本，而在线性代数中，为了更加体现数学的意义，一般把一个样本当成向量，所以`numpy.cov`中要求的矩阵是$d\times n$。
+
+我们也可以手工来计算。
+
+~~~python
+eigenvalue, eigenvector = eig(data)
+print('eigenvalue = {} {}'.format(np.round(eigenvalue, 3), eigenvalue.shape))
+print('eigenvector = \n{} {}'.format(np.round(eigenvector, 3), eigenvector.shape))
+
+pca_data = eigenvector.T @ (data - center)
+print('pca_data =\n{}'.format(np.round(pca_data, 3)))
+~~~
+
+![image-20210519140554930](images/image-20210519140554930.png)
+
+可以发现，手工求出的特征矩阵，每一列是一个特征向量，而`sklearn.decomposition.PCA`得到的特征矩阵，每一行是一个特征向量。另外，需要注意，它们的特征向量，方向刚好相反。
+
+上面的例子没有降维，看看实际降维的代码。
+
+~~~python
+# PCA： 降维
+pca=PCA(n_components=1)
+pca_data=pca.fit_transform(data.T).T
+print('-'*50)
+print('pca_data =\n{}'.format(np.round(pca_data, 3)))
+
+# 手工进行PCA
+print('-'*50)
+eigenvalue, eigenvector = eig(data)
+
+center = np.mean(data, axis=1, keepdims=True)
+pca_data = eigenvector[:, 0].T @ (data - center)
+print('pca_data =\n{}'.format(np.round(pca_data, 3)))
+~~~
+
+![image-20210519142501277](images/image-20210519142501277.png)
 
 ## 总结
 
