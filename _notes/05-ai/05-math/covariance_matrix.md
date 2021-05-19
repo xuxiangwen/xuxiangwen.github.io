@@ -22,14 +22,14 @@ $$
 \sigma(\mathbf {X_d},\mathbf {X_1}) & \sigma(\mathbf {X_d},\mathbf {X_2}) & \cdots  & \sigma(\mathbf {X_d},\mathbf {X_d})\\
 \end{bmatrix}
 $$
-其中 $$\mathbf X = \left[ \begin{matrix} \mathbf {X_{1}}, \mathbf {X_{2}},\cdots, \mathbf {X_{d}}\end{matrix}\right]$$，表示$$d$$个随机变量，$$\sigma(\mathbf {X_i},\mathbf {X_j})$$表示协方差，$$\sigma(\mathbf {X_i},\mathbf {X_j})=E[(\mathbf{X_i}-E(\mathbf{X_i})(\mathbf{Y_j}-E(\mathbf{Y_j})]$$。
+其中 $$\mathbf X = \left[ \begin{matrix} \mathbf {X_{1}} & \mathbf {X_{2}} &\cdots&\mathbf {X_{d}}\end{matrix}\right]^{\mathbf T}$$，表示$$d$$个随机变量，$$\sigma(\mathbf {X_i},\mathbf {X_j})$$表示协方差，$$\sigma(\mathbf {X_i},\mathbf {X_j})=E[(\mathbf{X_i}-E(\mathbf{X_i})(\mathbf{Y_j}-E(\mathbf{Y_j})]$$。
 
 协方差矩阵还可以用向量的方式来表达，形式如下：
 $$
 \Sigma = \frac 1 {n-1} \begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu \end{bmatrix}\begin{bmatrix} x_1-\mu & x_2-\mu & \cdots & x_n-\mu\end{bmatrix}^\mathrm{T}  \tag{1}
 $$
-其中$$\mathbf X = \begin{bmatrix} x_1^{\mathbf T} 
-\\ x_2^{\mathbf T} \\ \vdots \\ x_n^{\mathbf T}\end{bmatrix}
+其中$$\mathbf X = \begin{bmatrix} x_1 
+& x_2 & \cdots & x_n\end{bmatrix}
 $$，$n$表示样本的个数， $x_i$表示一个样本，是一个长度为$d$的向量。
 
 ## 正态分布
@@ -58,9 +58,9 @@ $$
 
 其中
 
--  $$x=\begin{bmatrix} x_1 & x_2 & \cdots & x_d \end{bmatrix}^\mathrm{T} $$表示一个样本，它是一个长度为$d$的向量。
-- $$u =  \begin{bmatrix} \mu_{1}, \mu_{2},\cdots,\mu_{d}\end{bmatrix}^\mathrm{T}$$，表示随机变量的均值，也是一个长度为$d$的向量。
--  $$\sigma =  \begin{bmatrix} \sigma _{1}, \sigma _{2},\cdots,\sigma_{d} \end{bmatrix}^\mathrm{T}$$，表示随机变量的方差。
+-  $$x=\begin{bmatrix} x_1 & x_2 & \cdots & x_d \end{bmatrix}^\mathrm{T} $$，表示一个样本，它是一个长度为$d$的向量。
+- $$u =  \begin{bmatrix} \mu_{1}& \mu_{2}&\cdots&\mu_{d}\end{bmatrix}^\mathrm{T}$$，表示随机变量的均值，也是一个长度为$d$的向量。
+-  $$\sigma =  \begin{bmatrix} \sigma _{1}& \sigma _{2}&\cdots&\sigma_{d} \end{bmatrix}^\mathrm{T}$$，表示随机变量的方差。
 - $$\Sigma$$表示协方差矩阵（Covariance Matrix）。
 - $$\Sigma^{-1}$$表示协方差矩阵的逆矩阵
 - $\mid \Sigma\mid^{\frac{1}{2}}$表示协方差矩阵的行列式的平方根。
