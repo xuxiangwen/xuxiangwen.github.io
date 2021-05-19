@@ -103,7 +103,7 @@ $$
 $$
 \sigma_{z}= \left|\Sigma\right|^\frac{1}{2} =\sigma_{1}\sigma_{2}.....\sigma_{d}   \tag 6
 $$
-把公式$3 - 6$代入公式 $ 2$，可以推得：
+把公式$(3) - (6)$代入公式 $ （2)$，可以推得：
 $$
 \begin{align}
 f(x) &= \frac{1}{(\sqrt{2π})^n\sigma_{z}}e^{-\frac{z^2}{2}} 
@@ -135,7 +135,7 @@ $$
  \frac 1 {n-1} \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_n^{'}-\mu^{'} \end{bmatrix}      \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_n^{'}-\mu^{'} \end{bmatrix}  ^\mathrm{T} &=  \mathbf {\Lambda} \\
 \end{align}
 $$
-上面的式子的左边，看起来有点和公式$2.1$非常象，分明它就是对于$x^{'}$的协方差矩阵。即：
+上面的式子的左边，看起来有点和公式$(1)$非常象，分明它就是对于$x^{'}$的协方差矩阵。即：
 $$
 \begin{align}
  \mathbf{\Sigma}^{'} = \frac 1 {n-1} \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_n^{'}-\mu^{'} \end{bmatrix}      \begin{bmatrix} x_1^{'}-\mu^{'} & x_2^{'}-\mu^{'} & \cdots & x_n^{'}-\mu^{'} \end{bmatrix}  ^\mathrm{T} &=  \mathbf {\Lambda} \\
@@ -157,7 +157,7 @@ $$
 $$
 \begin{align}f(x) = \frac{1}{(\sqrt{2π})^{d}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \tag 9\end{align}
 $$
-然后，根据公式而$8$，很容易计算其协方差矩阵的逆矩阵，即：
+然后，根据公式$(8)$，很容易计算其协方差矩阵的逆矩阵，即：
 $$
 \mathbf{\Sigma}^{-1} =  \mathbf{V} \mathbf {\Lambda}^{-1} \mathbf{V^T}  \tag {10}
 $$
@@ -165,7 +165,7 @@ $$
 $$
 \left|\Sigma\right| =  \prod\lambda_i  \tag {11}
 $$
-最后把公式$10$和$11$带入公式$9$，可得：
+最后把公式$(10)$和$(11)$带入公式$(9)$，可得：
 $$
 \begin{align}
 f(x) &=  \frac{1}{(\sqrt{2π})^{d}\left|\Sigma\right|^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\  \Sigma^{-1}\  (x\  -\  \mu)}
@@ -291,7 +291,7 @@ plt.show()
 
 ![image-20210518160753189](images/image-20210518160753189.png)
 
-上一节的证明过程，刚好是上面线性变换的反向操作，从图形上看，就是先把右图旋转为中图，然后再伸缩到左图。再来看分布密度函数公式$9$，还可以进行如下推导。
+上一节的证明过程，刚好是上面线性变换的反向操作，从图形上看，就是先把右图旋转为中图，然后再伸缩到左图。再来看分布密度函数公式$(9)$，还可以进行如下推导。
 $$
 \begin{align}
 f(x) &= \frac{1}{(\sqrt{2π})^{d}\left( \prod\lambda_i \right)^\frac{1}{2}}e^{-\frac{ 1}{2} (x\  -\  \mu)^\mathrm{T}\ \mathbf{V}  {\mathbf {\Lambda}}^{-1}  \mathbf{V^T}\  (x\  -\  \mu)}  \\
@@ -407,7 +407,7 @@ z_1 = \begin{equation}
 \right.
 \end{equation}
 $$
-把上面结果带入公式$12$，当$\ u \neq u_1$，推得：
+把上面结果带入公式$(12)$，当$\ u \neq u_1$，推得：
 $$
 \begin{align}
 \sigma &=  z_1^2\lambda_1 + z_2^2\lambda_2 + \cdots +  z_n^2\lambda_d  \\  
