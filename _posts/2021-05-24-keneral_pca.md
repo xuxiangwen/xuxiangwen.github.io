@@ -649,7 +649,7 @@ ax.set_zlim(axes[4:6])
 plt.show()
 ~~~
 
-![image-20210525104103158](/assets/images/image-20210525104103158.png)![image-20210525142042191](/assets/images/image-20210525142042191.png)
+![image-20210525142328865](/assets/images/image-20210525142328865.png)
 
 下面看看KPCA和PCA的处理效果。
 
