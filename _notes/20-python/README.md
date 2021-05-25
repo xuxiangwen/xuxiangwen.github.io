@@ -1,5 +1,69 @@
 ## 技巧
 
+### Jupyter Notebook中3D交互图
+
+~~~python
+import matplotlib
+# matplotlib.use('TKAgg') 如果报错，enableb
+%matplotlib notebook 
+
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from matplotlib.ticker import LinearLocator, FormatStrFormatter
+import numpy as np
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+
+scale = 8
+# Make data.
+X = np.arange(-scale, scale, 0.25)
+Y = np.arange(-scale, scale, 0.25)
+X, Y = np.meshgrid(X, Y)
+Z = X**2 + Y**2
+
+# Plot the surface.
+surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
+                   linewidth=0, antialiased=False)
+
+# Customize the z axis.
+ax.set_zlim(0, 100)
+ax.zaxis.set_major_locator(LinearLocator(10))
+ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+
+# rotate the axes and update
+for angle in range(0, 360):
+   ax.view_init(30, 40)
+
+# Add a color bar which maps values to colors.
+fig.colorbar(surf, shrink=0.5, aspect=5)
+
+plt.show()
+~~~
+
+![image-20210524221927995](images/image-20210524221927995.png)
+
+另外一个例子。
+
+~~~python
+fig = plt.figure() 
+ax = plt.axes(projection ="3d") 
+z_line = np.linspace(0,15,1000) 
+x_line = np.cos(z_line) 
+y_line = np.sin(z_line) 
+ax.plot3D(x_line, y_line, z_line, 'gray') 
+
+z_points = 15 * np.random.random(100) 
+x_points = np.cos(z_points)+ 0.1 * np.random.randn(100) 
+y_points = np.sin(z_points)+ 0.1 * np.random.randn(100) 
+ax.scatter3D(x_points, y_points, z_points, c = z_points, cmap ='hsv'); 
+
+plt.show() 
+~~~
+
+![image-20210524222333843](images/image-20210524222333843.png)
+
 ### 输出打印彩色字体
 
 终端的字符颜色是用转义序列控制的，是文本模式下的系统显示功能，和具体的语言无关。转义序列是以ESC开头,即用\033来完成（ESC的ASCII码用十进制表示是27，用八进制表示就是033）。
