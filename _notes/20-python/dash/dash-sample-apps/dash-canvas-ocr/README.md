@@ -1,3 +1,29 @@
+## 安装
+
+生成python虚拟环境，安装必须软件
+
+~~~shell
+cd dash-
+virtualenv venv 
+source venv/bin/activate
+echo venv > .gitignore
+sudo yum install tesseract -y
+pip install -r requirements.txt
+# deactivate 
+# rm -rf venv
+~~~
+
+启动
+
+~~~python
+source venv/bin/activate
+python app.py
+~~~
+
+
+
+
+
 # Dash Canvas OCR
 
 ## How to Use this app

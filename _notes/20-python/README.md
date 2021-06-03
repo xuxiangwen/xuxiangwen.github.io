@@ -1,5 +1,153 @@
 ## 技巧
 
+### 置信椭圆（Confidence Ellipse）展示
+
+假设二维样本属于二元高斯分布，根据高斯分布画置信椭圆
+
+~~~python
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+import random
+from matplotlib.patches import Ellipse
+import matplotlib.transforms as transforms
+from sklearn.datasets import make_moons, make_circles, make_swiss_roll
+
+def transfer(m, data, center=True):
+    if center==True:     
+        center = np.mean(data, axis=1, keepdims=True)
+        transfer_data = m.dot((data - center)) + center
+    else:
+        transfer_data = m.dot(data)
+    return transfer_data, m    
+
+def rotate(theta, data, center=True):
+    m = np.array([[math.cos(theta), -math.sin(theta)],
+                  [math.sin(theta), math.cos(theta)]])
+    return transfer(m, data, center)
+
+def scale(s, data, center=True):
+    m = np.diag(s)
+    return transfer(m, data, center)
+
+
+def get_circles(n_samples=200, scale_rate=[2, 0.5], angle=15/180*math.pi):
+    X, y = make_circles(n_samples, noise=.1, factor=.2, random_state=123)
+    X = X + np.array([2, 2])
+    # 对X做旋转
+    X, _ = scale(scale_rate, X.T, center=False)
+    X = X.T    
+    X, _ = rotate(angle, X.T, center=False)
+    X = X.T
+    return X, y
+
+
+def confidence_ellipse(x, y, ax, n_std=3.0, facecolor='none', **kwargs):
+    """
+    Create a plot of the covariance confidence ellipse of `x` and `y`
+
+    Parameters
+    ----------
+    x, y : array_like, shape (n, )
+        Input data.
+
+    ax : matplotlib.axes.Axes
+        The axes object to draw the ellipse into.
+
+    n_std : float
+        The number of standard deviations to determine the ellipse's radiuses.
+
+    Returns
+    -------
+    matplotlib.patches.Ellipse
+
+    Other parameters
+    ----------------
+    kwargs : `~matplotlib.patches.Patch` properties
+    """
+    if x.size != y.size:
+        raise ValueError("x and y must be the same size")
+
+    cov = np.cov(x, y)
+    
+    pearson = cov[0, 1]/np.sqrt(cov[0, 0] * cov[1, 1])
+    # Using a special case to obtain the eigenvalues of this
+    # two-dimensionl dataset.
+    ell_radius_x = np.sqrt(1 + pearson)
+    ell_radius_y = np.sqrt(1 - pearson)   
+    
+    ellipse = Ellipse((0, 0),
+        width=ell_radius_x * 2,
+        height=ell_radius_y * 2,
+        facecolor=facecolor,
+        **kwargs)
+
+    # Calculating the stdandard deviation of x from
+    # the squareroot of the variance and multiplying
+    # with the given number of standard deviations.
+    scale_x = np.sqrt(cov[0, 0]) * n_std
+    mean_x = np.mean(x)
+    
+
+    # calculating the stdandard deviation of y ...
+    scale_y = np.sqrt(cov[1, 1]) * n_std
+    mean_y = np.mean(y)
+
+    transf = transforms.Affine2D() \
+        .rotate_deg(45)    \
+        .scale(scale_x, scale_y) \
+        .translate(mean_x, mean_y)
+    
+    ellipse.set_transform(transf + ax.transData)
+    return ax.add_patch(ellipse) 
+~~~
+
+> 函数confidence_ellipse中，椭圆的生成，并没有去求解特征向量，这或许是二维协方差矩阵的特殊方法吧。下面代码使用特征值核特征向量生成椭圆，等价于上面的逻辑。
+>
+> ~~~python
+> #     eigenvalue, eigenvector = np.linalg.eig(cov)      
+> #     ellipse = Ellipse((0, 0),
+> #         width=np.sqrt(eigenvalue[0])*2*n_std,
+> #         height=np.sqrt(eigenvalue[1])*2*n_std,
+> #         facecolor=facecolor,
+> #         **kwargs)
+>              
+> #     degree = math.degrees(math.acos(eigenvector[0, 0]))
+> #     transf = transforms.Affine2D() \
+> #         .rotate_deg(degree)    \
+> #         .translate(mean_x, mean_y)
+> ~~~
+
+下面的例子中，分别画出了两个类别数据，各自的2倍标准方差，3倍标准方差的置信椭圆。
+
+~~~python
+X, y = get_circles(n_samples=1000, angle=14/180*math.pi)
+
+# Plot the samples using columns 1 and 2 of the matrix
+fig, ax = plt.subplots(figsize = (8, 8))
+
+colors = ['red', 'green'] # Define a color palete
+
+ax.scatter(X[:,0], X[:,1], c=[colors[int(k)] for k in y], s = 0.1, marker='*')  # Plot a dot for tweet
+
+X1 = X[y == 1] 
+X0 = X[y == 0]
+
+# # Print confidence ellipses of 2 std
+confidence_ellipse(X1[:, 0], X1[:, 1], ax, n_std=2, edgecolor='black', label=r'$2\sigma$' )
+confidence_ellipse(X0[:, 0], X0[:, 1], ax, n_std=2, edgecolor='orange')
+
+# # Print confidence ellipses of 3 std
+confidence_ellipse(X1[:, 0], X1[:, 1],  ax, n_std=3, edgecolor='black', linestyle=':', label=r'$3\sigma$')
+confidence_ellipse(X0[:, 0], X0[:, 1], ax, n_std=3, edgecolor='orange', linestyle=':')
+ax.legend()
+
+plt.axis('scaled')
+plt.show()
+~~~
+
+![image-20210526163918177](images/image-20210526163918177.png)
+
 ### Jupyter Notebook中3D交互图
 
 ~~~python

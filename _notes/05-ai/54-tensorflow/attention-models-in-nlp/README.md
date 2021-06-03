@@ -1,3 +1,18 @@
-## Week 1: Natural Language Processing with Attention Models
+# [Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp/home/welcome)
+
+## Week 1: Neural Machine Translation
 
 Attention模型原理参见 [attention.md](..\..\20-ml\attention.md) 
+
+Attention中的Key， Value来自Encoder的Hidden States，而Query来自Decoder的Hidden States
+
+![img](images/tVlC8-qdTRWZQvPqnV0VKg_c3fce0ddebb94d8eb15ca2cc19348b8e_Screen-Shot-2020-11-05-at-11.26.53-AM.png)
+
+基本公式如下：
+$$
+Attention = Softmax(\mathbf {QK^T})\mathbf V
+$$
+从下图中，可以看出各个词语之间的权重。
+
+![img](images/luf7KWwaT2Sn-ylsGg9kkA_dbebeeb223ca43b3bb05baad8795230b_Screen-Shot-2020-11-05-at-12.55.01-PM.png)
+

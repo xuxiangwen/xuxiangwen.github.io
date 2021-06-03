@@ -1,6 +1,32 @@
 # 0. Log
 
+### 2021-05-31
+
+next plan:
+
+05:40 ~ 06:10  流利说
+
+06:50 ~ 09:50 Coursera课程
+
+13:00 ~ 16:00 聊天机器人rash
+
+21:00 ~ 22:00  Dash例子
+
 ## 任务
+
+### 5-40-week plan
+
+在5个月（差不多22周）范围内，完成40周课程。
+
+| No.  | Course                              | Week                                            | Start__Date | End__Date  |
+| :--: | :---------------------------------- | :---------------------------------------------- | :---------: | ---------- |
+|  1   | classification-vector-spaces-in-nlp | Week 4: Machine Translation and Document Search | 2021-05-31  | 2021-06-02 |
+|      |                                     |                                                 |             |            |
+|      |                                     |                                                 |             |            |
+|      |                                     |                                                 |             |            |
+|      |                                     |                                                 |             |            |
+
+
 
 ### Todo List
 
@@ -11,8 +37,6 @@
   **在线阅读**：*https://deeplearning-ai.github.io/machine-learning-yearning-cn/docs/home/*
   
   **中文版**：https://github.com/deeplearning-ai/machine-learning-yearning-cn/releases
-  
-- 
   
 - 2021-01-13：有时间好好过一下snowflake。
   
@@ -150,6 +174,8 @@
 ## 感悟
 
 - from_logits=True这个参数的究竟作用是什么，还有点每搞清楚，有时候模型性能非常差
+
+  目的是减少计算误差。
 
 - 当某一个更复杂的模型，收敛的速度比一个简单模型更慢时，考虑有可能是learning_rate过大的原因。比如三个模型中 ， 模型1比模型2慢，当模型3把 learning_rate降低到0.0002，收敛速度大大提高。
 
