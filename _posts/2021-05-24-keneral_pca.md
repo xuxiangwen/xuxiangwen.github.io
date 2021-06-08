@@ -173,7 +173,7 @@ $$
 
   $$
 
-当$\Phi(\mathbf X) = \mathbf X $，也就是对原始数据不做任何的改变，上面的几个定义变成：
+当$\Phi(\mathbf X) = \mathbf X $，也就是对原始数据不做任何的改变，且$D=d$，上面的几个定义变成：
 
 - $\tilde {\mathbf K} = (\mathbf X - \mathbf {\bar X})^{\mathbf T}(\mathbf X - \mathbf {\bar X})$，是一个$n \times n$矩阵。
 - $\tilde {\mathbf {\Lambda}}= (n-1) \mathbf  \Lambda $，是一个$D\times D$对角矩阵，其对角线是$\tilde {\mathbf K} $特征值。
@@ -227,11 +227,57 @@ def get_data(num, scale_rate=[2, 0.5], rotate_angle=30, seed=2009):
     rotate_data, rotate_m  = rotate(rotate_angle/180*math.pi, scale_data, center=True)       
     return data, scale_data, rotate_data
 
+print('-'*20, '数据', '-'*20)
+data, scale_data, rotate_data = get_data(10) 
+k, n = data.shape
+print(f'data = \n{np.round(data,3)}')  
+
+print('-'*20, '协方差矩阵C的特征值分解', '-'*20)
+C = np.cov(data) 
+print(f'C.shape = {C.shape}')
+C_eigenvalue, C_eigenvector = np.linalg.eigh(C) 
+print(f'C.eigenvalue = {np.round(C_eigenvalue, 3)} {C_eigenvalue.shape}')  
+print(f'C.eigenvector = \n{np.round(C_eigenvector, 3)} {C_eigenvector.shape}')  
+
+print('-'*20, '矩阵K的特征值分解', '-'*20)
+centered_data = data - np.mean(data, axis=1, keepdims=True)
+K = centered_data.T @ centered_data
+
+print(f'K.shape = {K.shape}')
+K_eigenvalue, K_eigenvector = np.linalg.eigh(K) 
+
+# 取top 2的特征值和特征矩阵
+index = K_eigenvalue.argsort()[-k:]
+K_eigenvalue = K_eigenvalue[index]
+K_eigenvector = K_eigenvector[:, index]
+print(f'K.eigenvalue = {np.round(K_eigenvalue, 3)} {K_eigenvalue.shape}')  
+print(f'K.eigenvector = \n{np.round(K_eigenvector, 3)} {K_eigenvector.shape}')  
+
+print('-'*20, '验证K和C的特征值公式', '-'*20)
+K_eigenvalue_from_C = (n - 1)*C_eigenvalue
+np.testing.assert_array_almost_equal(K_eigenvalue, K_eigenvalue_from_C)
+print(f'K.eigenvalue = (n - 1)*C.eigenvalue')
+print(f'{K_eigenvalue} = {n - 1}*{C_eigenvalue}')
+
+print('-'*20, '验证K和C的特征向量公式', '-'*20)
+K_eigenvector_from_C = centered_data.T @ C_eigenvector / np.sqrt(K_eigenvalue)  
+print(f'K.eigenvector = \n{np.round(K_eigenvector, 3)} {K_eigenvector.shape}')  
+print(f'K_eigenvector_from_C = \n{np.round(K_eigenvector_from_C, 3)} {K_eigenvector_from_C.shape}')  
+# 向量数值相同，方向可能相反。
+np.testing.assert_array_almost_equal(np.abs(K_eigenvector), np.abs(K_eigenvector_from_C))
+
+print('-'*20, '验证PCA变换后的数据', '-'*20)
+data_pca = C_eigenvector.T @ centered_data
+data_pca_from_K = np.diag(1 / np.sqrt(K_eigenvalue)) @ K_eigenvector.T @ K 
+# 向量数值相同，方向可能相反。
+print(f'data_pca = \n{np.round(data_pca, 3)}')  
+print(f'data_pca_from_K = \n{np.round(data_pca_from_K, 3)}')  
+np.testing.assert_array_almost_equal(np.abs(data_pca), np.abs(data_pca_from_K))
 ~~~
 
-![image-20210524173147207](/assets/images/image-20210524173147207.png)
+![image-20210608103600232](/assets/images/image-20210608103600232.png)
 
-![image-20210524173202428](/assets/images/image-20210524173202428.png)
+![image-20210608103633780](/assets/images/image-20210608103633780.png)
 
 可以看到，协方差矩阵的这种转换的目的在于，把对协方差矩阵$\mathbf C$的特征值求解问题，变成了对$\tilde {\mathbf K} $进行特征值求解。大家或许会好奇，这样还是很复杂啊，别着急，且看下节分解。
 
@@ -685,7 +731,7 @@ compare_pca_kpca_3d(X, y, gamma=0.074)
 
 上图可以看到，PCA无法把数据进行分开， 而KPCA差不多能把数据能够分开，用于一些聚类算法一定效果不错。
 
-KPCA需要指定$\gamma$的大小，上面例子中使用了$0.074$，它来自超参数调优。虽然KPCA是一个无监督犯法，但由于瑞士卷数据中有目标$y$，所以使用网格搜索的方式来找到好的参数。步骤如下：
+KPCA需要指定$\gamma$的大小，上面例子中使用了$0.074$，它来自超参数调优。虽然KPCA是一个无监督算法，但由于瑞士卷数据中有目标$y$，所以使用网格搜索的方式来找到好的参数。步骤如下：
 
 1. 使用GridSearchCV生成参数。
 2. KPCA使用这些参数将数据维度降为2。
