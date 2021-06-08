@@ -162,16 +162,12 @@ $$
 ## 参考
 
 - [Markdown备忘录](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-
 - [MarkDown](https://sourceforge.net/p/ipython/discussion/markdown_syntax)
-
 - [Math IM](http://mathim.com/static/chatprimer.html)
-
 - [LaTex数学公式 ](http://blog.163.com/goldman2000@126/blog/static/167296895201221242646561/)
-
 - [LaTex/Mathematics](https://en.wikibooks.org/wiki/LaTex/Mathematics)
-
 - [LaTex中导数、极限、求和、积分 ](http://blog.csdn.net/foreverdengwei/article/details/7665035)
-
 - [LaTex大括号公式和一般括号总结](https://blog.csdn.net/miao0967020148/article/details/78712811)
+- [$T_EX $ commands available in MathJax](https://www.emath.ac.cn/download/doc/mathTeX.pdf) : 非常详细
+- [MathJax在线](https://kexue.fm/latex.html)
 

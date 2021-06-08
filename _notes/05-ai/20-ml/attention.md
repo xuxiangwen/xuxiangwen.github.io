@@ -135,4 +135,5 @@ Self-Attention:对于输入文本，我们需要对其中的每个字分别增�
 - [Bert时代的创新（应用篇）：Bert在NLP各领域的应用进展](https://zhuanlan.zhihu.com/p/68446772)：2019年文章，张俊林分析了Bert对于NLP各个领域的提升作用。其中说到，Bert对于文本分类的提升效果只有3%-6%。
 - [美团BERT的探索和实践](https://tech.meituan.com/2019/11/14/nlp-bert-practice.html)
 - [attention、self-attention、transformer和bert模型基本原理简述笔记](https://my.oschina.net/u/3851199/blog/3012476)
+- [《Attention is All You Need》浅读（简介+代码）](https://kexue.fm/archives/4765) **苏剑林**（苏神）出品
 
