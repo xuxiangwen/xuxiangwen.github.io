@@ -1,5 +1,5 @@
 ---
-title: CentOS 7下安装CUDA 10.2
+title: CentOS 7下安装CUDA 11.2.2
 categories: deep-learning
 date: 2019-11-28
 ---
@@ -23,7 +23,7 @@ lspci | grep -i nvidia
 本文安装的版本：
 
 - NVidia显卡驱动：460.84
-- CUDA:  11.2 
+- CUDA:  11.2.2
 - cuDNN:  8.2.1
 
 ## 1. [系统要求](https://docs.nvidia.com/cuda/archive/11.2.2/cuda-installation-guide-linux/index.html)
@@ -272,7 +272,7 @@ vncserver :1
 
 - 2021-06-10
   - NVidia显卡驱动：460.84
-  - CUDA:  11.2 
+  - CUDA:  11.2.2
   - cuDNN:  8.2.1
 - 2020-05-19: 安装nvida显卡驱动修改了脚本
   - CUDA:  10.2.89 
