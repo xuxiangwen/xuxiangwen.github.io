@@ -147,7 +147,9 @@ Update Gate: z的范围为0~1，它的值越接近1，代表记忆数据越多�
 
 
 
-### Stacked LSTM
+## Stacked LSTM
+
+ 在TensorFlow的RNN层中，需要设置return_sequences=True。
 
 ![preview](images/v2-e77a5a96718c52a0f890e3bf1a77f731_r.jpg)
 

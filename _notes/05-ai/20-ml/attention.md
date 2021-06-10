@@ -136,4 +136,5 @@ Self-Attention:对于输入文本，我们需要对其中的每个字分别增�
 - [美团BERT的探索和实践](https://tech.meituan.com/2019/11/14/nlp-bert-practice.html)
 - [attention、self-attention、transformer和bert模型基本原理简述笔记](https://my.oschina.net/u/3851199/blog/3012476)
 - [《Attention is All You Need》浅读（简介+代码）](https://kexue.fm/archives/4765) **苏剑林**（苏神）出品
+- [Transformer模型详解](https://terrifyzhao.github.io/2019/01/11/Transformer%E6%A8%A1%E5%9E%8B%E8%AF%A6%E8%A7%A3.html)：非常清晰，里面有大量的图。
 

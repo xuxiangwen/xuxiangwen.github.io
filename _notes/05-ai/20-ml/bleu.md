@@ -55,6 +55,18 @@ $$
     - $Ref\_Count(w)$表示词汇$w$在在reference集合中出现的最大次数
     - $Ref\_Count_j(w)$表示词汇$w$在第$j$个reference中出现的次数
 
+通过BLEU，通常可以用以下的规则来衡量翻译的效果。
+
+| BLEU Score （百分比） | 描述                                                      |
+| :-------------------- | :-------------------------------------------------------- |
+| < 10                  | Almost useless                                            |
+| 10 - 19               | Hard to get the gist                                      |
+| 20 - 29               | The gist is clear, but has significant grammatical errors |
+| 30 - 40               | Understandable to good translations                       |
+| 40 - 50               | High quality translations                                 |
+| 50 - 60               | Very high quality, adequate, and fluent translations      |
+| > 60                  | Quality often better than human                           |
+
 ## BLEU实践
 
 ### NLTK
@@ -274,4 +286,6 @@ print(round(score, 5))
 - [nltk bleu_score](https://github.com/nltk/nltk/blob/develop/nltk/translate/bleu_score.py)
 - [torchtext bleu_score](https://pytorch.org/text/stable/data_metrics.html)
 - [ignite BLEU](https://pytorch.org/ignite/master/generated/ignite.metrics.Bleu.html)
+- [Understanding the BLEU Score](https://cloud.google.com/translate/automl/docs/evaluate#bleu)
+- [Evaluating the Output of Machine Translation Systems](https://www.cs.cmu.edu/~alavie/Presentations/MT-Evaluation-MT-Summit-Tutorial-19Sep11.pdf)
 
