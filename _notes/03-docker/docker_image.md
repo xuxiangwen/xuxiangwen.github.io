@@ -104,6 +104,9 @@ pip install --upgrade pymysql
 pip install --upgrade seaborn
 # pip install --upgrade awscli --user 
 pip install --upgrade torch torchvision 
+pip install --upgrade ipyparams
+pip install --upgrade nltk
+pip install --upgrade f
 echo export PATH=\"\$PATH:/root/.local/bin\" >> /root/.bashrc
 
 ~~~
