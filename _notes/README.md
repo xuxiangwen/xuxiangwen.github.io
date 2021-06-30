@@ -1,5 +1,24 @@
 # 0. Log
 
+### 2021-06-23
+
+- 光刻胶
+
+  ![image-20210623144902964](images/image-20210623144902964.png)
+
+- 靶材
+  - 江丰电子
+
+![image-20210623141451034](images/image-20210623141451034.png)
+
+![image-20210623141416320](images/image-20210623141416320.png)
+
+![image-20210623141401116](images/image-20210623141401116.png)
+
+
+
+![image-20210623141329429](images/image-20210623141329429.png)
+
 ### 2021-05-31
 
 next plan:
@@ -12,19 +31,27 @@ next plan:
 
 21:00 ~ 22:00  Dash例子
 
+
+
+
+
 ## 任务
 
 ### 5-40-week plan
 
-在5个月（差不多22周）范围内，完成40周课程。
+在5个月（差不多22周）范围内，完成20周课程。
 
-| No.  | Course                              | Week                                            | Start__Date | End__Date  |
-| :--: | :---------------------------------- | :---------------------------------------------- | :---------: | ---------- |
-|  1   | classification-vector-spaces-in-nlp | Week 4: Machine Translation and Document Search | 2021-05-31  | 2021-06-02 |
-|      |                                     |                                                 |             |            |
-|      |                                     |                                                 |             |            |
-|      |                                     |                                                 |             |            |
-|      |                                     |                                                 |             |            |
+| No.  | Course                                                       | Week                                                         | Start__Date | End__Date  |
+| :--: | :----------------------------------------------------------- | :----------------------------------------------------------- | :---------: | ---------- |
+|  1   | Natural Language Processing with Classification and Vector Spaces | [Week 4: Machine Translation and Document Search](https://www.coursera.org/learn/classification-vector-spaces-in-nlp/home/week/4) | 2021-05-31  | 2021-06-02 |
+|  2   | Natural Language Processing with Attention Models            | [Week 1: Neural Machine Translation](https://www.coursera.org/learn/attention-models-in-nlp/home/week/1) | 2021-06-03  | 2021-06-14 |
+|  3   | Natural Language Processing with Attention Models            | [Week 2: Text Summarization](https://www.coursera.org/learn/attention-models-in-nlp/home/week/2) | 2021-06-15  | 2021-06-27 |
+|  4   | Natural Language Processing with Attention Models            | [Week 3: Question Answering](https://www.coursera.org/learn/attention-models-in-nlp/home/week/3) | 2021-06-28  |            |
+|  5   | Natural Language Processing with Attention Models            | [Week 3: Chatbot](https://www.coursera.org/learn/attention-models-in-nlp/home/week/4) |             |            |
+|      |                                                              |                                                              |             |            |
+|      |                                                              |                                                              |             |            |
+|      |                                                              |                                                              |             |            |
+|      |                                                              |                                                              |             |            |
 
 
 

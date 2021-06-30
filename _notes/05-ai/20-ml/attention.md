@@ -104,6 +104,14 @@ Self-Attention:对于输入文本，我们需要对其中的每个字分别增�
 
 ![img](images/501df0c0c509184abff646df27fb69b37ee.jpg)
 
+比如我们要翻译如下句子”The animal didn’t cross the street because it was too tired”(这个动物无法穿越马路，因为它太累了)。这里的it到底指代什么呢，是animal还是street？要知道具体的指代，我们需要在理解it的时候同时关注所有的单词，重点是animal、street和tired，然后根据知识(常识)我们知道只有animal才能tired，而street是不能tired的。Self-Attention用Encoder在编码一个词的时候会考虑句子中所有其它的词，从而确定怎么编码当前词。如果把tired换成narrow，那么it就指代的是street了。
+
+而LSTM(即使是双向的)是无法实现上面的逻辑的。为什么呢？比如前向的LSTM，我们在编码it的时候根本没有看到后面是tired还是narrow，所有它无法把it编码成哪个词。而后向的LSTM呢？当然它看到了tired，但是到it的时候它还没有看到animal和street这两个单词，当然就更无法编码it的内容了。
+
+当然多层的LSTM理论上是可以编码这个语义的，它需要下层的LSTM同时编码了animal和street以及tired三个词的语义，然后由更高层的LSTM来把it编码成animal的语义。但是这样模型更加复杂。
+
+![img](images/attention_mechanism.jpg)
+
 ## Multi-head Self-Attention
 
 为了增强Attention的多样性，文章作者进一步利用不同的Self-Attention模块获得文本中每个字在不同语义空间下的增强语义向量，并将每个字的多个增强语义向量进行线性组合，从而获得一个最终的与原始字向量长度相同的增强语义向量，如下图所示。
@@ -137,4 +145,5 @@ Self-Attention:对于输入文本，我们需要对其中的每个字分别增�
 - [attention、self-attention、transformer和bert模型基本原理简述笔记](https://my.oschina.net/u/3851199/blog/3012476)
 - [《Attention is All You Need》浅读（简介+代码）](https://kexue.fm/archives/4765) **苏剑林**（苏神）出品
 - [Transformer模型详解](https://terrifyzhao.github.io/2019/01/11/Transformer%E6%A8%A1%E5%9E%8B%E8%AF%A6%E8%A7%A3.html)：非常清晰，里面有大量的图。
+- [Transformer图解](http://fancyerii.github.io/2019/03/09/transformer-illustrated/)：清晰移动，非常好。对细节的描述很不错
 
