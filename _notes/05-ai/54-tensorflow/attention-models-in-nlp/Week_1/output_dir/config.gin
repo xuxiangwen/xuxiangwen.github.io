@@ -1,0 +1,75 @@
+# Parameters for Adam:
+# ==============================================================================
+Adam.b1 = 0.9
+Adam.b2 = 0.999
+Adam.clip_grad_norm = None
+Adam.eps = 1e-05
+Adam.weight_decay_rate = 1e-05
+
+# Parameters for AddLossWeights:
+# ==============================================================================
+# None.
+
+# Parameters for backend:
+# ==============================================================================
+backend.name = 'jax'
+
+# Parameters for BucketByLength:
+# ==============================================================================
+BucketByLength.length_axis = 0
+BucketByLength.strict_pad_on_len = False
+
+# Parameters for debug_pipeline:
+# ==============================================================================
+debug_pipeline.debug = False
+debug_pipeline.log_prefix = None
+debug_pipeline.method = 'pow'
+
+# Parameters for EvalTask:
+# ==============================================================================
+EvalTask.export_prefix = None
+EvalTask.metric_names = None
+EvalTask.n_eval_batches = 1
+EvalTask.sample_batch = None
+
+# Parameters for FilterByLength:
+# ==============================================================================
+FilterByLength.length_axis = 0
+FilterByLength.min_length = 0
+
+# Parameters for LogSoftmax:
+# ==============================================================================
+LogSoftmax.axis = -1
+
+# Parameters for TFDS:
+# ==============================================================================
+TFDS.host_id = None
+TFDS.n_hosts = None
+TFDS.shuffle_train = True
+TFDS.tfds_preprocess_fn = None
+TFDS.use_alt_eval = False
+
+# Parameters for Tokenize:
+# ==============================================================================
+Tokenize.keys = None
+Tokenize.n_reserved_ids = 0
+Tokenize.vocab_type = 'subword'
+
+# Parameters for TrainTask:
+# ==============================================================================
+TrainTask.export_prefix = None
+TrainTask.loss_name = None
+TrainTask.n_steps_per_permanent_checkpoint = None
+TrainTask.sample_batch = None
+
+# Parameters for warmup_and_rsqrt_decay:
+# ==============================================================================
+# None.
+
+# Parameters for WeightedCategoryAccuracy:
+# ==============================================================================
+# None.
+
+# Parameters for WeightedCategoryCrossEntropy:
+# ==============================================================================
+WeightedCategoryCrossEntropy.label_smoothing = None
