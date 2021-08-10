@@ -4,4 +4,4 @@
 checkpoints/
 logs/
 tmp/
-output/
+**/output
