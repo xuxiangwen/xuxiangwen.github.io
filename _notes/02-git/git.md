@@ -419,6 +419,12 @@ gitkraken --proxy-server=10.200.0.1:8080
 ~~~shell
 wget https://github.com/shiftkey/desktop/releases/download/release-1.6.6-linux2/GitHubDesktop-linux-1.6.6-linux2.rpm
 sudo yum install GitHubDesktop-linux-1.6.6-linux2.rpm
+
+# 下面代码会报错
+#sudo rpm --import https://packagecloud.io/shiftkey/desktop/gpgkey
+#sudo sh -c 'echo -e "[shiftkey]\nname=GitHub #Desktop\nbaseurl=https://packagecloud.io/shiftkey/desktop/el/7/\$basearch\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/shiftkey/desktop/gpgkey" > /etc/yum.repos.d/shiftkey-desktop.repo'
+#sudo yum install github-desktop
+
 ~~~
 
 ## 4. Git Flow

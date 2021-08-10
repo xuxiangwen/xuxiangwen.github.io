@@ -1,5 +1,93 @@
 ## 技巧
 
+### ast包
+
+Abstract Syntax Trees即抽象语法树。Ast是python源码到字节码的一种中间产物，借助ast模块可以从语法树的角度分析源码结构。此外，我们不仅可以修改和执行语法树，还可以将Source生成的语法树unparse成python源码。因此ast给python源码检查、语法分析、修改代码以及代码调试等留下了足够的发挥空间。
+
+Python官方提供的CPython解释器对python源码的处理过程如下：
+~~~mermaid
+    source(0. 源代码解析)-->pgen(1. 语法树);
+    pgen-->ast(2. 抽象语法树 - AST);
+    ast-->compile(3. 控制流程图);
+    compile-->bytecode(4. 字节码);
+~~~
+
+
+1. Parse source code into a parse tree (Parser/pgen.c)
+2. Transform parse tree into an Abstract Syntax Tree (Python/**ast.c**)
+3. Transform AST into a Control Flow Graph (Python/compile.c)
+4. Emit bytecode based on the Control Flow Graph (Python/compile.c)
+
+#### 创建AST
+
+1. compile(source, filename, mode[, flags[, dont_inherit]])
+
+   - source -- 字符串或者AST（Abstract Syntax Trees）对象。一般可将整个py文件内容file.read()传入。
+   - filename -- 代码文件名称，如果不是从文件读取代码则传递一些可辨认的值。
+   - mode -- 指定编译代码的种类。可以指定为 exec, eval, single。
+   - flags -- 变量作用域，局部命名空间，如果被提供，可以是任何映射对象。
+   - flags和dont_inherit是用来控制编译源码时的标志。
+
+   ~~~python
+   import ast
+   import types
+   import astunparse
+   
+   func_def = \
+   """
+   def add(x, y):
+       return x + y
+   print(add(3, 5))
+   """
+   
+   cm = compile(func_def, '<string>', 'exec')
+   assert(isinstance(cm, types.CodeType))
+   
+   exec(cm)
+   ~~~
+
+   ![image-20210702104511287](images/image-20210702104511287.png)
+
+   上面func_def经过compile编译得到字节码，cm即code对象（types.CodeType）。
+
+2. 生成AST。
+
+   ~~~python
+   # 生成AST
+   r_node = ast.parse(func_def)
+   # 也可调用ast.dump(r_node)，但它不能进行缩进输出
+   ast_output = astunparse.dump(r_node)  
+   print(ast_output)
+   ~~~
+
+   ![image-20210702105157064](images/image-20210702105157064.png)
+
+   除了ast.dump，有很多dump ast的第三方库，如astunparse, codegen, unparse等。这些第三方库不仅能够以更好的方式展示出ast结构，还能够将ast反向导出python source代码。
+
+   ~~~python
+   # 从AST得到源代码
+   print('-'*50)
+   print(astunparse.unparse(r_node))
+   ~~~
+
+   ![image-20210702110056944](images/image-20210702110056944.png)
+
+### [numpy.nonzero](https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html)
+
+~~~python
+x = np.array([[3, 0, 0], [0, 4, 0], [5, 6, 0]])
+print(x)
+# 根据数组维度返回一个list，list中每个成员代表了某一个维度上非0元素的坐标
+print(np.nonzero(x))
+# 每个非0元素的坐标
+print(np.transpose(np.nonzero(x)))
+print(x[np.nonzero(x)])
+~~~
+
+![image-20210701093301549](images/image-20210701093301549.png)
+
+> [numpy.where](https://numpy.org/doc/stable/reference/generated/numpy.where.html)只传入一个参数时，相当于np.asarray(condition).nonzero()。
+
 ### 置信椭圆（Confidence Ellipse）展示
 
 假设二维样本属于二元高斯分布，根据高斯分布画置信椭圆
@@ -967,6 +1055,12 @@ add(1, f=4, **dct, b=4, g=4)
  ![img](images/20180619145509799.png) 
 
  ![img](images/20180619145520914.png) 
+
+此外gensim如下的格式，也非常好。
+
+![image-20210708124627270](images/image-20210708124627270.png)
+
+详细见https://github.com/RaRe-Technologies/gensim/blob/develop/gensim/similarities/docsim.py
 
 ### Python项目示范目录结构
 

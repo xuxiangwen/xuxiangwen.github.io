@@ -843,20 +843,26 @@ pre-training
 
 - MLM（Masked Language Model）
 
-  把一篇文章中，15% 的词汇遮盖，让模型根据上下文全向地预测被遮盖的词。假如有 1 万篇文章，每篇文章平均有 100 个词汇，随机遮盖 15% 的词汇，模型的任务是正确地预测这 15 万个被遮盖的词汇。通过全向预测被遮盖住的词汇，来初步训练 Transformer 模型的参数。
+  通过随机掩盖一些词（替换为统一标记符 [MASK]），然后预测这些被遮盖的词来 训练双向语言模型，并且使每个词的表征参考上下文信息。 这样做会产生两个缺点：
+
+  1. 会造成预训练和微调时的不一致，因为在微调时 [MASK] 总是不可见的；
+  2. 由于每个 Batch 中只有 15% 的词会被预测，因此模型 的收敛速度比起单向的语言模型会慢，训练花费的时间会更长。
+
+  可以用如下几个方法解决第一个问题。（还没有完全理解）
+
+  1. 80％的时间：用[MASK]标记替换单词，例如，my dog is hairy → my dog is [MASK]
+  2. 10％的时间：用一个随机的单词替换该单词，例如，my dog is hairy → my dog is apple
+  3. 10％的时间：保持单词不变，例如，my dog is hairy → my dog is hairy. 这样做的目的是将表示偏向于实际观察到的单词。
+
+  对于第二个缺点 目前没有有效的解决办法，但是从提升收益的角度来看，付出的代价是值得的。
 
 - Next sentence prediction 
 
   譬如从上述 1 万篇文章中，挑选 20 万对语句，总共 40 万条语句。挑选语句对的时候，其中 2\*10 万对语句，是连续的两条上下文语句，另外 2\*10 万对语句，不是连续的语句。然后让 Transformer 模型来识别这 20 万对语句，哪些是连续的，哪些不连续。
+  
+  > Google 的论文结果表明，这个简单的任务对问答和自然语言推理任务十分有 益，但是后续一些新的研究 [15] 发现，去掉 NSP 任务之后模型效果没有下降甚至还有 提升。我们在预训练过程中也发现 NSP 任务的准确率经过 1-2 个 Epoch 训练后就 能达到 98%-99%，去掉 NSP 任务之后对模型效果并不会有太大的影响。
 
-实际数据生成中，数据生成规则如下：
-
-- 80％的时间：用[MASK]标记替换单词，例如，my dog is hairy → my dog is [MASK]
-- 10％的时间：用一个随机的单词替换该单词，例如，my dog is hairy → my dog is apple
-- 10％的时间：保持单词不变，例如，my dog is hairy → my dog is hairy. 这样做的目的是将表示偏向于实际观察到的单词。
-
-
-
+参考[美团2019年的文章](https://s3plus.meituan.net/v1/mss_e63d09aec75b41879dcb3069234793ac/file/%E7%AE%97%E6%B3%95%E7%AF%87.pdf)。
 
 #### T5
 
@@ -892,21 +898,9 @@ pre-training
 
 ### [C4_W3_SentencePiece_and_BPE.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_SentencePiece_and_BPE.ipynb)
 
-#### SentencePiece
+- 
 
-a simple and language independent text tokenizer and detokenizer mainly for Neural Network-based text generation systems where the size of vocabulary is predetermined prior to the Neural model training. 
 
-SentencePiece是一个google开源的词切分工具包。SentencePiece实现了两种分词（ subword segmentation）算法。
-
-- byte-pair-encoding (BPE)
-- unigram language model
-
-SentencePiece有四大组件：
-
-- Normalizer
-- Trainer
-- Encoder
-- Decoder
 
 
 

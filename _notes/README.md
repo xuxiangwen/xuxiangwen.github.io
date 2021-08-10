@@ -1,4 +1,34 @@
+# 5-40-week plan
+
+从6月1日到11月30日，差不多6个月（差不多30周）范围内，完成40周课程。
+
+| No.  | Course                                                       | Week                                                         | Start__Date | End__Date  |
+| :--: | :----------------------------------------------------------- | :----------------------------------------------------------- | :---------: | ---------- |
+|  1   | Natural Language Processing with Classification and Vector Spaces | [Week 4: Machine Translation and Document Search](https://www.coursera.org/learn/classification-vector-spaces-in-nlp/home/week/4) | 2021-05-31  | 2021-06-02 |
+|  2   | Natural Language Processing with Attention Models            | [Week 1: Neural Machine Translation](https://www.coursera.org/learn/attention-models-in-nlp/home/week/1) | 2021-06-03  | 2021-06-14 |
+|  3   | Natural Language Processing with Attention Models            | [Week 2: Text Summarization](https://www.coursera.org/learn/attention-models-in-nlp/home/week/2) | 2021-06-15  | 2021-06-27 |
+|  4   | Custom Models, Layers, and Loss Functions with TensorFlow    | [Week 1: Functional APIs](https://www.coursera.org/learn/custom-models-layers-loss-functions-with-tensorflow/home/week/1) | 2021-06-30  | 2021-07-01 |
+|  5   | Custom Models, Layers, and Loss Functions with TensorFlow    | [Week 2: Custom Loss Functions](https://www.coursera.org/learn/custom-models-layers-loss-functions-with-tensorflow/home/week/2) | 2021-07-01  | 2021-07-01 |
+|  6   | Custom Models, Layers, and Loss Functions with TensorFlow    | [Week 3: Custom Layers](https://www.coursera.org/learn/custom-models-layers-loss-functions-with-tensorflow/home/week/3) | 2021-07-02  | 2021-07-02 |
+|  7   | Natural Language Processing with Attention Models            | [Week 3: Question Answering](https://www.coursera.org/learn/attention-models-in-nlp/home/week/3) | 2021-06-28  |            |
+|  8   | Natural Language Processing with Attention Models            | [Week 4: Chatbot](https://www.coursera.org/learn/attention-models-in-nlp/home/week/4) |             |            |
+|      |                                                              |                                                              |             |            |
+|      |                                                              |                                                              |             |            |
+|      |                                                              |                                                              |             |            |
+
+
+
+
+
+
+
 # 0. Log
+
+### 2021-07-06
+
+https://github.com/Keyird/DeepLearning-TensorFlow2 这个网站里有很多Deep Learning模型，尝试自己也实现一遍， 然和在和作者的模型，对比一下，加深理解。
+
+![image-20210706152947545](images/image-20210706152947545.png)
 
 ### 2021-06-23
 
@@ -35,25 +65,7 @@ next plan:
 
 
 
-## 任务
-
-### 5-40-week plan
-
-在5个月（差不多22周）范围内，完成20周课程。
-
-| No.  | Course                                                       | Week                                                         | Start__Date | End__Date  |
-| :--: | :----------------------------------------------------------- | :----------------------------------------------------------- | :---------: | ---------- |
-|  1   | Natural Language Processing with Classification and Vector Spaces | [Week 4: Machine Translation and Document Search](https://www.coursera.org/learn/classification-vector-spaces-in-nlp/home/week/4) | 2021-05-31  | 2021-06-02 |
-|  2   | Natural Language Processing with Attention Models            | [Week 1: Neural Machine Translation](https://www.coursera.org/learn/attention-models-in-nlp/home/week/1) | 2021-06-03  | 2021-06-14 |
-|  3   | Natural Language Processing with Attention Models            | [Week 2: Text Summarization](https://www.coursera.org/learn/attention-models-in-nlp/home/week/2) | 2021-06-15  | 2021-06-27 |
-|  4   | Natural Language Processing with Attention Models            | [Week 3: Question Answering](https://www.coursera.org/learn/attention-models-in-nlp/home/week/3) | 2021-06-28  |            |
-|  5   | Natural Language Processing with Attention Models            | [Week 3: Chatbot](https://www.coursera.org/learn/attention-models-in-nlp/home/week/4) |             |            |
-|      |                                                              |                                                              |             |            |
-|      |                                                              |                                                              |             |            |
-|      |                                                              |                                                              |             |            |
-|      |                                                              |                                                              |             |            |
-
-
+## 1. 任务
 
 ### Todo List
 

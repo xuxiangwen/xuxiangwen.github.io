@@ -87,6 +87,12 @@
 !pip install -U  pyLDAvis --proxy http://web-proxy.rose.hp.com:8080 
 
 !pip install -U  yaml --proxy http://web-proxy.rose.hp.com:8080 
+
+### 安装tf.keras.utils.plot_model的依赖包
+!pip install pydot  
+!yum install -y  graphviz
+#!apt-get update
+#!apt install -y  graphviz
 ```
 
 ```python
@@ -113,6 +119,8 @@ print('nltk.__version__', nltk.__version__)
 print('gensim.__version__', gensim.__version__)
 
 ```
+
+
 
 ## 1.2  git忽略设置（.gitignore）
 

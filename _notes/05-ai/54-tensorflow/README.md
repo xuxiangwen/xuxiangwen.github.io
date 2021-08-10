@@ -1,4 +1,22 @@
-## Accuracy vs. BinaryAccuracy
+### 文本处理的三个步骤
+
+1. Standardization
+
+   文本标准化操作，去除一些不合规范的字符或单词等。比如：去除拼音和HTML标记
+
+2. Tokenization
+
+   把文本字符串拆分成Token。对于英文最常见的拆分方式是根据空格拆分
+
+3. Vectorization
+
+   把Token转化为向量。
+
+Tensorflow的文本处理参见[text.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/text.ipynb)，主要内容如下：
+
+- 
+
+### Accuracy vs. BinaryAccuracy
 
 Multi-Label的分类任务中，一个样本可以属于一个或多个Label。这种情况下，BinaryAccuracy和Accuracy其计算逻辑是不同的。
 
