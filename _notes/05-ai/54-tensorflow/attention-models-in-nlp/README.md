@@ -26,13 +26,15 @@ $$
 
 - input表示为0， target表示为1。
 
-  input和target都被复制了一份（Select([0, 1, 0, 1])）。input的第一份传给input encoder，另外一份传给input encoder。target的一份传给pre-attention decoder，另外一份传给了Select([0, 2])
+  input和target都被复制了一份（Select([0, 1, 0, 1])）。input的第一份传给input encoder，另外一份传给pre-attention input。target的一份传给pre-attention decoder，另外一份传给了Select([0, 2])
 
 - input encoder: 输入input，输出K，V
 
 - pre-attention decoder：输入target，输出Q
 
   采用了[teacher forcing](https://blog.csdn.net/qq_30219017/article/details/89090690)
+  
+  Teacher Forcing每次不使用上一个state的输出作为下一个state的输入，而是直接使用训练数据的标准答案(ground truth)的对应上一项作为下一个state的输入。
 
 ### Sampling and Decoding
 
@@ -48,7 +50,7 @@ $$
 
 - Beam Search
 
-  首先需要确定一个`Beam Size`，这里设置为2，意思是每个`word`后面的分支考虑概率最大的那两个`words`。比如下面的例子，从下往上首先分成A、B两个words，然后继续往上传播，句子变成是AA/AB/BA/BB这四种情况（绿色虚线）。考虑到`Beam Size=2`，选择概率最大的两个，假设是AB/BA（橙色大箭头）。然后以选择的AB/BA继续向上传播，又出现了四种情况ABA/ABB/BBA/BBB，依然是选择综合概率最大的两个ABB/BBB。以此类推，直至句子结束。只要可以调整好`Beam Size`，就能够使用最小的计算量，得到最优的结果。
+  首先需要确定一个`Beam Size`，这里设置为2，意思是每个`word`后面的分支考虑概率最大的那两个`words`。比如下面的例子，从下往上首先分成A、B两个words，然后继续往上传播，句子变成是AA/AB/BA/BB这四种情况（绿色虚线）。考虑到`Beam Size=2`，选择概率最大的两个，假设是AB/BB（橙色大箭头）。然后以选择的AB/BB继续向上传播，又出现了四种情况ABA/ABB/BBA/BBB，依然是选择综合概率最大的两个ABB/BBB。以此类推，直至句子结束。只要可以调整好`Beam Size`，就能够使用较小的计算量，得到最好的结果。
 
   ![img](images/v2-bd114c9037cc4ac7fb8936a18807cc4e_720w.jpg)
 
@@ -66,37 +68,46 @@ $$
 
 ![image-20210604115805268](images/image-20210604115805268.png)
 
-对应代码如下：
+> 栈的好处在于，能够使得在构建Serial模型的时候，处理多Input和多Output的情况。只是采用这种方式，模型理解起来有些费劲。
+
+下面的代码，可以帮助更好的理解stack的机制。
 
 ~~~python
-serial = tl.Serial(
-    tl.Select([0, 1, 0, 1]), Addition(), Multiplication(), Addition(), tl.Residual()
-)
+def show_layer(x, layers):
 
-# Initialization
-x = (np.array([3]), np.array([4]))  # input
+    for i in range(len(layers)):
+        print('-'*50)
+        serial = tl.Serial(
+            *layers[0:(i+1)]
+        )
 
-serial.init(shapes.signature(x))  # initializing serial instance
+        # Initialization        
+        serial.init(shapes.signature(x))  # initializing serial instance
 
-print("-- Serial Model --")
-print(serial, "\n")
-print("-- Properties --")
-print("name :", serial.name)
-print("sublayers :", serial.sublayers)
-print("expected inputs :", serial.n_in)
-print("promised outputs :", serial.n_out, "\n")
 
-# Inputs
-print("-- Inputs --")
-print("x :", x, "\n")
+        print("sublayers :", serial.sublayers)
+    #     print("expected inputs :", serial.n_in, ", promised outputs :", serial.n_out)
 
-# Outputs
-y = serial(x)
-print("-- Outputs --")
-print("y :", y)
+        # Inputs
+        print(f"inputs: {x}")
+
+        # Outputs
+        y = serial(x)
+        print(f"outputs: {y}")
+        
+x = (np.array([3]), np.array([4]), np.array([5]), np.array([6]))  # input        
+layers = [tl.Select([0, 2, 1, 2, 3, 1]), Addition(), tl.Select([0, 1], n_in=3), Multiplication(), tl.Residual(Addition()) ]
+
+show_layer(x, layers)
 ~~~
 
-> 栈的好处在于，能够使得在构建Serial模型的时候，处理多Input和多Output的情况。只是采用这种方式，模型理解起来有些费劲。
+![image-20210812155040049](images/image-20210812155040049.png)
+
+可以看出：
+
+- tuple传入时，开始的元素最后入栈。
+- select参数n_in的意思，表示选择编号n_in之后的元素。
+- 对于Residual，里面有一个add的操作。将会copy一份当前堆栈的value，而不pop
 
 ### [C4_W1_Ungraded_Lab_Bleu_Score.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_1/C4_W1_Ungraded_Lab_Bleu_Score.ipynb)
 
@@ -122,6 +133,8 @@ where:
 * $w^{i}_{t}$, is the total number of i-grams in candidate translation.
 
 在示例中，手工实现了句子层面的BLEU，**只是其中Candidate和Reference好像搞反了**。另外程序调用了`sacrebleu.corpus_bleu`来比较手工实现的结果。
+
+关于BLEU，详见https://eipi10.cn/nlp/2021/06/08/bleu/。
 
 ### [C4_W1_Assignment.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_1/C4_W1_Assignment.ipynb)
 
@@ -297,12 +310,24 @@ tl.Select([0,1,0,1])
 
 - Mask
 
-  
+  Mask是一个[batch size, attention heads, decoder-len, encoder-len]的数组。
+
+  假设inputs长度为5，输出outputs长度也为4
+
+  对于inputs = [12, 31,  1, 0, 0]，其对应mask（忽略batch size, attention heads）是：
+  $$
+  \begin{bmatrix} 
+  1 & 1 & 1 & 0 & 0 \\
+  1 & 1 & 1 & 0 & 0 \\
+  1 & 1 & 1 & 0 & 0 \\
+  1 & 1 & 1 & 0 & 0 \\
+  \end{bmatrix}
+  $$
 
 ##### Residual层 + Attention层  
 
 - Attention层：把PrepareAttentionInput的四个输出作为输入。
-- Residual层：把PrepareAttentionInput的四个输出加上Attention层的输出
+- Residual层：把PrepareAttentionInput的Query输出加上Attention层的输出
 
 下面是Attention层的实现示意：
 
@@ -458,6 +483,12 @@ RNN的问题主要有：
 
 ![img](images/_T76EA5aSX---hAOWvl_JA_97a6f01b7f8b416a8a050ca384104b7c_Screen-Shot-2021-01-04-at-11.14.38-AM.png)
 
+完整的Transformer架构如下。
+
+![png](images/the-annotated-transformer_14_0.png)
+
+在此基础上有很多的变种和扩展。
+
 ### T5
 
 T5是**Transfer Text-to-Text Transformer** 的简写。Transfer 来自 Transfer Learning，预训练模型大体在这范畴，Transformer 也不必多说，那么 Text-to-Text 是什么呢。那就是作者在这提出的一个统一框架，靠着大力出奇迹，**将所有 NLP 任务都转化成 Text-to-Text （文本到文本）任务**。
@@ -547,6 +578,8 @@ $$
 其中$d$指embedding的维度。
 
 ### [C4_W2_lecture_notebook_Transformer....ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_2/C4_W2_lecture_notebook_Transformer_Decoder.ipynb)
+
+![image-20210812215530601](images/image-20210812215530601.png)
 
 实现了Transformer Decoder
 
@@ -898,17 +931,23 @@ pre-training
 
 ### [C4_W3_SentencePiece_and_BPE.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_SentencePiece_and_BPE.ipynb)
 
-- 
-
-
-
-
+SentencePiece是一个google开源的词切分工具包。它被广泛用于多个NLP模型，比如T5, Reformer, XLNet, Albert等。本文将从原理和实践两方法来介绍SentencePiece。
 
 ### [C4_W3_Assignment.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_Assignment.ipynb)
+
+总体上和第二周的assignment非常类似，对于transformer，encoder和decoder的结构非常相似。上周实现的是decoder，而这周是encoder。
 
 ### [C4_W3_Assignment_Ungraded_BERT_Loss.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_Assignment_Ungraded_BERT_Loss.ipynb)
 
 ### [C4_W3_Assignment_Ungraded_T5.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_Assignment_Ungraded_T5.ipynb)
+
+## Week 4: Chatbot
+
+### [C4_W4_Ungraded_Lab_Reformer_LSH.ipynb](http://15.15.166.35:18888/notebooks/eipi10/Natural-Language-Processing-Specialization/Natural Language Processing with Attention Models/Week 4/C4_W4_Ungraded_Lab_Reformer_LSH.ipynb)
+
+### [C4_W4_Ungraded_Lab_Revnet.ipynb](http://15.15.166.35:18888/notebooks/eipi10/Natural-Language-Processing-Specialization/Natural Language Processing with Attention Models/Week 4/C4_W4_Ungraded_Lab_Revnet.ipynb)
+
+### [C4_W4_Assignment.ipynb](http://15.15.166.35:18888/notebooks/eipi10/Natural-Language-Processing-Specialization/Natural Language Processing with Attention Models/Week 4/C4_W4_Assignment.ipynb)
 
 ## 课程资源
 

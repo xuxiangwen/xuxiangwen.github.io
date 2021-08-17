@@ -297,7 +297,7 @@ LSH的基本思路：
 
     - 根据hash向量，生成hash_value
     $$
-    hash_value = \sum_{i=0}^{N-1} \left( 2^{i} \times h_{i} \right)
+    hash{\_}value = \sum_{i=0}^{N-1} \left( 2^{i} \times h_{i} \right)
     $$
 
     - 遍历所有文档，把相同hash_value的文档放到同一个bucket中去。bucket的数量为$2^n$

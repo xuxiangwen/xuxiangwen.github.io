@@ -52,8 +52,8 @@ $$
     其中
 
     - $Count(w)$表示词汇$w$在candidate中出现的次数
-    - $Ref\_Count(w)$表示词汇$w$在在reference集合中出现的最大次数
-    - $Ref\_Count_j(w)$表示词汇$w$在第$j$个reference中出现的次数
+    - $Ref{\_}Count(w)$表示词汇$w$在在reference集合中出现的最大次数
+    - $Ref{\_}Count_j(w)$表示词汇$w$在第$j$个reference中出现的次数
 
 通过BLEU，通常可以用以下的规则来衡量翻译的效果。
 
