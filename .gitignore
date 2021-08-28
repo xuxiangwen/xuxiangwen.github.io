@@ -14,3 +14,4 @@ data
 .project
 Gemfile.lock
 _site
+**/output/
