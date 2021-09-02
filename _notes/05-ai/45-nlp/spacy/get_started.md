@@ -11,6 +11,7 @@ python -m spacy download en_core_web_sm
 python -m spacy download en_core_web_md
 python -m spacy download zh_core_web_sm
 python -m spacy download zh_core_web_md
+python -m spacy download en_core_web_trf
 
 # 支持GPU
 pip install -U spacy[cuda112]  
