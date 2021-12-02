@@ -2,6 +2,8 @@
 
 ## 词语、短语、名字和概念的检索
 
+![The processing pipeline](images/pipeline-fde48da9b43661abcdf62ab70a546d71-16305630369591.svg)
+
 ### Doc， Token和Span
 
 
@@ -474,7 +476,7 @@ for match in re.finditer(expression, doc.text):
         print("Found match:", span.text)
 ~~~
 
-![image-20210821135611005](images/image-20210821135611005.png)
+![image-20210907091615346](images/image-20210907091615346.png)
 
 #### PhraseMatcher
 

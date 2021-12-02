@@ -88,22 +88,40 @@ doc = nlp("This is a sentence.")
 
   Alphabetical listing
 
-  - [ADJ](https://universaldependencies.org/docs/u/pos/ADJ.html): adjective
-  - [ADP](https://universaldependencies.org/docs/u/pos/ADP.html): adposition
-  - [ADV](https://universaldependencies.org/docs/u/pos/ADV.html): adverb
-  - [AUX](https://universaldependencies.org/docs/u/pos/AUX_.html): auxiliary verb
-  - [CONJ](https://universaldependencies.org/docs/u/pos/CONJ.html): coordinating conjunction
+  - [ADJ](https://universaldependencies.org/docs/u/pos/ADJ.html): adjective，形容词的
+
+  - [ADP](https://universaldependencies.org/docs/u/pos/ADP.html): adposition，介词
+
+  - [ADV](https://universaldependencies.org/docs/u/pos/ADV.html): adverb，副词
+
+  - [AUX](https://universaldependencies.org/docs/u/pos/AUX_.html): auxiliary verb，助动词
+
+  - [CONJ](https://universaldependencies.org/docs/u/pos/CONJ.html): coordinating conjunction，并列连接词
+
+    for, and, nor, but, or, yet, so
+
   - [DET](https://universaldependencies.org/docs/u/pos/DET.html): determiner
+
   - [INTJ](https://universaldependencies.org/docs/u/pos/INTJ.html): interjection
+
   - [NOUN](https://universaldependencies.org/docs/u/pos/NOUN.html): noun
+
   - [NUM](https://universaldependencies.org/docs/u/pos/NUM.html): numeral
-  - [PART](https://universaldependencies.org/docs/u/pos/PART.html): particle
-  - [PRON](https://universaldependencies.org/docs/u/pos/PRON.html): pronoun
+
+  - [PART](https://universaldependencies.org/docs/u/pos/PART.html): particle，小品词
+
+  - [PRON](https://universaldependencies.org/docs/u/pos/PRON.html): pronoun，代词
+
   - [PROPN](https://universaldependencies.org/docs/u/pos/PROPN.html): proper noun
+
   - [PUNCT](https://universaldependencies.org/docs/u/pos/PUNCT.html): punctuation
+
   - [SCONJ](https://universaldependencies.org/docs/u/pos/SCONJ.html): subordinating conjunction
+
   - [SYM](https://universaldependencies.org/docs/u/pos/SYM.html): symbol
+
   - [VERB](https://universaldependencies.org/docs/u/pos/VERB.html): verb
+
   - [X](https://universaldependencies.org/docs/u/pos/X.html): other
 
 - dep_: 语法依赖关系（Syntactic dependency relation）.
@@ -212,7 +230,7 @@ print(french_fries, "<->", burgers, sim.round(7))
 
 spaCy中的处理流程如下。
 
-![The processing pipeline](images/pipeline-fde48da9b43661abcdf62ab70a546d71.svg)
+![The processing pipeline](images/pipeline-fde48da9b43661abcdf62ab70a546d71-16305630369591.svg)
 
 | NAME           | COMPONENT                                                    | CREATES                                                   | DESCRIPTION                                      |
 | -------------- | ------------------------------------------------------------ | --------------------------------------------------------- | ------------------------------------------------ |

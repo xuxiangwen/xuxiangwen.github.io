@@ -62,7 +62,7 @@ $$
 
 
 
-### [C4_W1_Ungraded_Lab_Stack_Semantics.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_1/C4_W1_Ungraded_Lab_Stack_Semantics.ipynb)
+### [C4_W1_Ungraded_Lab_Stack_Semantics.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_1/C4_W1_Ungraded_Lab_Stack_Semantics.ipynb)
 
 主要介绍 [Trax](../trax/README.md) 的Stack（栈）的特性。
 
@@ -84,9 +84,8 @@ def show_layer(x, layers):
         # Initialization        
         serial.init(shapes.signature(x))  # initializing serial instance
 
-
         print("sublayers :", serial.sublayers)
-    #     print("expected inputs :", serial.n_in, ", promised outputs :", serial.n_out)
+        # print("expected inputs :", serial.n_in, ", promised outputs :", serial.n_out)
 
         # Inputs
         print(f"inputs: {x}")
@@ -106,10 +105,33 @@ show_layer(x, layers)
 可以看出：
 
 - tuple传入时，开始的元素最后入栈。
-- select参数n_in的意思，表示选择编号n_in之后的元素。
+
+- select参数n_in的意思，有多少个元素将会出栈。
+
+  ![image-20211201142536222](images/image-20211201142536222.png)
+
+  理解代码如下：
+
+  ~~~
+  x = (np.array([1]), np.array([2]), np.array([3]), np.array([4]), np.array([5]))  # input
+  print("x :", x)
+  
+  y = tl.Serial(tl.Select([0, 2]))(x)  # 有三个元素[1, 2, 3]出栈，但选取第一个,第三个重新入栈
+  print("y :", y)
+  
+  y = tl.Serial(tl.Select([0, 2], n_in=4))(x)  # 有三个元素[1, 2, 3, 4]出栈，但选取第一个,第三个重新入栈
+  print("y :", y)
+  ~~~
+
+  ![image-20211201143041799](images/image-20211201143041799.png)
+
 - 对于Residual，里面有一个add的操作。将会copy一份当前堆栈的value，而不pop
 
-### [C4_W1_Ungraded_Lab_Bleu_Score.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_1/C4_W1_Ungraded_Lab_Bleu_Score.ipynb)
+  对于输入：![image-20211201144035746](images/image-20211201144035746.png)
+
+  首先把32读入残差层，但不pop，然后Addition会pop 32和6，得到38， 然后32+38等到70，然后压入栈中。
+
+### [C4_W1_Ungraded_Lab_Bleu_Score.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_1/C4_W1_Ungraded_Lab_Bleu_Score.ipynb)
 
 BLEU的介绍参见 [bleu.md](..\..\20-ml\bleu.md) 
 
@@ -136,7 +158,7 @@ where:
 
 关于BLEU，详见https://eipi10.cn/nlp/2021/06/08/bleu/。
 
-### [C4_W1_Assignment.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_1/C4_W1_Assignment.ipynb)
+### [C4_W1_Assignment.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_1/C4_W1_Assignment.ipynb)
 
 完整的NMT示例。基本内容如下：
 
@@ -356,7 +378,7 @@ def AttentionQKV(d_feature, n_heads=1, dropout=0.0, mode='train'):
   )
 ~~~
 
-> 目前不清除Padding Mask在AttentionQKV是如何被使用的。
+> 目前不清楚Padding Mask在AttentionQKV是如何被使用的。
 
 ##### 移除mask
 
@@ -569,7 +591,7 @@ Transformer 生成摘要。
 - Input中，把文章和摘要内容通过EOS连接成一个完整的sequence。
 - 在计算Loss Weights，仅仅计算第一个EOS后面文本的Loss。
 
-### [C4_W2_lecture_notebook_Attention.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_2/C4_W2_lecture_notebook_Attention.ipynb)
+### [C4_W2_lecture_notebook_Attention.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_2/C4_W2_lecture_notebook_Attention.ipynb)
 
 实现了Dot-Product Attention。基本公式如下
 $$
@@ -577,7 +599,7 @@ $$
 $$
 其中$d$指embedding的维度。
 
-### [C4_W2_lecture_notebook_Transformer....ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_2/C4_W2_lecture_notebook_Transformer_Decoder.ipynb)
+### [C4_W2_lecture_notebook_Transformer....ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_2/C4_W2_lecture_notebook_Transformer_Decoder.ipynb)
 
 ![image-20210812215530601](images/image-20210812215530601.png)
 
@@ -742,7 +764,7 @@ def TransformerLM(vocab_size=33300,
     )
 ~~~
 
-### [C4_W2_Assignment.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_2/C4_W2_Assignment.ipynb)
+### [C4_W2_Assignment.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_2/C4_W2_Assignment.ipynb)
 
 ![image-20210624151312521](images/image-20210624151312521.png)
 
@@ -929,25 +951,25 @@ pre-training
 
 ![image-20210630124812240](images/image-20210630124812240.png)
 
-### [C4_W3_SentencePiece_and_BPE.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_SentencePiece_and_BPE.ipynb)
+### [C4_W3_SentencePiece_and_BPE.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_SentencePiece_and_BPE.ipynb)
 
 SentencePiece是一个google开源的词切分工具包。它被广泛用于多个NLP模型，比如T5, Reformer, XLNet, Albert等。本文将从原理和实践两方法来介绍SentencePiece。
 
-### [C4_W3_Assignment.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_Assignment.ipynb)
+### [C4_W3_Assignment.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_Assignment.ipynb)
 
 总体上和第二周的assignment非常类似，对于transformer，encoder和decoder的结构非常相似。上周实现的是decoder，而这周是encoder。
 
-### [C4_W3_Assignment_Ungraded_BERT_Loss.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_Assignment_Ungraded_BERT_Loss.ipynb)
+### [C4_W3_Assignment_Ungraded_BERT_Loss.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_Assignment_Ungraded_BERT_Loss.ipynb)
 
-### [C4_W3_Assignment_Ungraded_T5.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_Assignment_Ungraded_T5.ipynb)
+### [C4_W3_Assignment_Ungraded_T5.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/attention-models-in-nlp/Week_3/C4_W3_Assignment_Ungraded_T5.ipynb)
 
 ## Week 4: Chatbot
 
-### [C4_W4_Ungraded_Lab_Reformer_LSH.ipynb](http://15.15.166.35:18888/notebooks/eipi10/Natural-Language-Processing-Specialization/Natural Language Processing with Attention Models/Week 4/C4_W4_Ungraded_Lab_Reformer_LSH.ipynb)
+### [C4_W4_Ungraded_Lab_Reformer_LSH.ipynb](http://15.15.175.163:18888/notebooks/eipi10/Natural-Language-Processing-Specialization/Natural Language Processing with Attention Models/Week 4/C4_W4_Ungraded_Lab_Reformer_LSH.ipynb)
 
-### [C4_W4_Ungraded_Lab_Revnet.ipynb](http://15.15.166.35:18888/notebooks/eipi10/Natural-Language-Processing-Specialization/Natural Language Processing with Attention Models/Week 4/C4_W4_Ungraded_Lab_Revnet.ipynb)
+### [C4_W4_Ungraded_Lab_Revnet.ipynb](http://15.15.175.163:18888/notebooks/eipi10/Natural-Language-Processing-Specialization/Natural Language Processing with Attention Models/Week 4/C4_W4_Ungraded_Lab_Revnet.ipynb)
 
-### [C4_W4_Assignment.ipynb](http://15.15.166.35:18888/notebooks/eipi10/Natural-Language-Processing-Specialization/Natural Language Processing with Attention Models/Week 4/C4_W4_Assignment.ipynb)
+### [C4_W4_Assignment.ipynb](http://15.15.175.163:18888/notebooks/eipi10/Natural-Language-Processing-Specialization/Natural Language Processing with Attention Models/Week 4/C4_W4_Assignment.ipynb)
 
 ## 课程资源
 

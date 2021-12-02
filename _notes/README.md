@@ -1,3 +1,31 @@
+
+
+## Safey
+
+可以用这个工具来评估： Planitpoker
+
+![PlanIT Poker is the fun way for teams to accurately estimate Agile projects](images/landing.png)
+
+https://www.planitpoker.com/board/#/room/5f9b7d2e68a8488d83aded3d60189ddf
+
+![image-20210917131739255](images/image-20210917131739255.png)
+
+
+
+![image-20210917143719734](images/image-20210917143719734.png)
+
+
+
+![image-20210917145014527](images/image-20210917145014527.png)
+
+
+
+![image-20210917163727012](images/image-20210917163727012.png)
+
+![image-20210917164352249](images/image-20210917164352249.png)
+
+
+
 # 5-40-week plan
 
 从6月1日到11月30日，差不多6个月（差不多30周）范围内，完成40周课程。
@@ -23,6 +51,73 @@
 
 
 # 0. Log
+
+### 2021-09-06
+
+搬家
+
+[‎2021-‎09-‎06 11:16 AM]  Yao, Emily (HP CS China ASM):  
+Hi, Michael
+你好
+你是CSS的Emily
+
+[‎2021-‎09-‎06 11:16 AM]  
+hi Emily
+你好
+
+[‎2021-‎09-‎06 11:16 AM]  Yao, Emily (HP CS China ASM):  
+行政部安排搬家事宜，你在我们团队这里
+我想咨询你几个问题
+
+[‎2021-‎09-‎06 11:16 AM]  
+哦。 好的
+
+[‎2021-‎09-‎06 11:16 AM]  Yao, Emily (HP CS China ASM):  
+从十一开始，你需要去539办公
+你会经常来office上班吗
+需要固定座位吗
+
+[‎2021-‎09-‎06 11:17 AM]  
+经常来的
+需要
+
+[‎2021-‎09-‎06 11:17 AM]  Yao, Emily (HP CS China ASM):  
+好
+我给你安排一个
+
+[‎2021-‎09-‎06 11:17 AM]  
+我现在在我以前部门的位置上
+需要调整吗
+我在B404-095
+我之前是IT这边的。
+
+[‎2021-‎09-‎06 11:19 AM]  Yao, Emily (HP CS China ASM):  
+给你539-209
+
+[‎2021-‎09-‎06 11:20 AM]  
+okay
+
+[‎2021-‎09-‎06 11:20 AM]  Yao, Emily (HP CS China ASM):  
+我也在404
+我目前
+你如果东西不多的话，自己到时领箱子打包
+行政部会帮你搬上去
+
+[‎2021-‎09-‎06 11:20 AM]  
+十月一日，再搬过去，对吧
+
+[‎2021-‎09-‎06 11:20 AM]  Yao, Emily (HP CS China ASM):  
+我来找你
+
+[‎2021-‎09-‎06 11:21 AM]  
+我自己搬吧，东西挺多的。
+
+[‎2021-‎09-‎06 11:25 AM]  Yao, Emily (HP CS China ASM):  
+我在056
+你有问题可以来找我
+谢谢
+
+We saved this conversation. You'll see it soon in the Conversations tab in Skype for Business and in the Conversation History folder in Outlook. 
 
 ### 2021-07-06
 
