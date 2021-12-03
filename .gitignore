@@ -1,6 +1,8 @@
 *.swp
 *.pyc
 **/.env/
+**/venv/
+**/.rasa/
 **/.idea/
 **/tmp/
 **/__pycache__/

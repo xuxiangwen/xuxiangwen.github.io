@@ -601,8 +601,8 @@ class ImageDataset(object):
         else:
             val_dataset = None
         
-        return train_dataset, val_dataset, test_dataset, train_dataset_aug  
-  
+        return train_dataset, val_dataset, test_dataset, train_dataset_aug
+
     
 class TaskTime:
     '''用于显示执行时间'''
@@ -622,5 +622,5 @@ class TaskTime:
         return self;
 
     def __exit__(self, exc_type, exc_value, exc_tb):
-        time.sleep(0.5)
+        time.sleep(0.2)
         logging.info('finish {} [elapsed time: {:.2f} seconds]'.format(self.task_name, self.elapsed_time()))   
