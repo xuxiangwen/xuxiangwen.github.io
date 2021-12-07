@@ -71,10 +71,30 @@ docker exec -it ts-py3 bash
 既然大多数情况，都会创建gpu的版本，干脆用最简单的名字tf吧。而且TensorFlow 2.1 是支持 Python 2 的最后一个 TF 版本，之后，只支持python3，所以docker tag中也不再需要py3了
 
 ~~~shell
-container_name=tf
+container_name=tf1
+ports="-p 28888:8888 -p 27007:7007 -p 26006-26015:6006-6015"
+version=2.6.1-gpu-jupyter
+
 docker stop $container_name
 docker rm $container_name
-docker run -it -d --gpus all --name $container_name -v /home/grid/eipi10:/tf/eipi10 -p 18888:8888 -p 17007:7007 -p 16006-16015:6006-6015 tensorflow/tensorflow:latest-gpu-jupyter  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
+docker run -it -d --gpus all --name $container_name -v /home/grid/eipi10:/tf/eipi10 $ports tensorflow/tensorflow:$version  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
+docker logs $container_name
+
+# 再次启动
+docker start $container_name
+docker exec -it $container_name bash
+~~~
+
+
+
+~~~shell
+container_name=tf
+ports="-p 18888:8888 -p 17007:7007 -p 16006-16015:6006-6015"
+version=latest-gpu-jupyter
+
+docker stop $container_name
+docker rm $container_name
+docker run -it -d --gpus all --name $container_name -v /home/grid/eipi10:/tf/eipi10 $ports tensorflow/tensorflow:$version  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
 docker logs $container_name
 
 # 再次启动
@@ -89,7 +109,8 @@ docker exec -it $container_name bash
 #http_proxy='http://web-proxy.rose.hp.com:8080' apt install -y openssh-server
 apt-get update 
 apt install -y openssh-server
-scp grid@15.15.166.35:/home/grid/.ssh/id_rs*  /root/.ssh/
+scp grid@15.15.175.163:/home/grid/.ssh/id_rs*  /root/.ssh/
+ll 
 
 # pip install如果有连接错误，可以加上参数 --proxy http://web-proxy.rose.hp.com:8080
 pip install --upgrade pip 
@@ -106,25 +127,29 @@ pip install --upgrade seaborn
 pip install --upgrade torch torchvision 
 pip install --upgrade ipyparams
 pip install --upgrade nltk
-pip install --upgrade f
-echo export PATH=\"\$PATH:/root/.local/bin\" >> /root/.bashrc
+pip install --upgrade spacy[cuda112]
+pip install --upgrade tensorflow_hub
+pip install --upgrade transformers
+pip install --upgrade xlrd==1.2.0  # excle operation
+pip install --upgrade openpyxl
+pip3 install --upgrade Office365-REST-Python-Client==2.3.1
+pip3 install --upgrade Ipython
+pip3 install --upgrade ipykernel
+pip3 install --upgrade flask flask_restful flask_cors
+pip3 install --upgrade dash
 
+pip3 install pydot  
+apt install -y  graphviz
+#echo export PATH=\"\$PATH:/root/.local/bin\" >> /root/.bashrc
 ~~~
 
-**tensoarflow 1.5**
+## RASA
 
-当时阿里nlp比赛时，使用了1.5
-
-~~~shell
-nvidia-docker run -it  --name ts-gpu-py2  -v /home/grid/eipi10:/notebooks/eipi10 -p 48888:8888 -p 37007:7007  tensorflow/tensorflow:1.5.0-gpu /run_jupyter.sh --allow-root --NotebookApp.token='xxw'
-docker exec -it ts-gpu-py2 bash
+~~~
+docker run -v $(pwd):/app rasa/rasa:3.0.0-full init --no-prompt
 ~~~
 
-### Dot net 
 
-~~~shell
-docker run -it --rm -p 28888:28888 -v /home/grid/eipi10:/home/user/local secana/dotnet-interactive:latest
-~~~
 
 ### Ruby开发环境
 

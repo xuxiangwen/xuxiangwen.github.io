@@ -1111,7 +1111,7 @@ flask repository包括以下内容.
 
 ~~~shell
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-sudo python get-pip.py --no-wheel
+sudo python3 get-pip.py --no-wheel
 ~~~
 
 ### 从源代码安装Python
@@ -1119,9 +1119,9 @@ sudo python get-pip.py --no-wheel
 首先从https://www.python.org/downloads/选择一个版本下载
 
 ~~~shell
-wget https://www.python.org/ftp/python/3.6.12/Python-3.6.12.tgz
-tar zvxf Python-3.6.12.tgz
-cd Python-3.6.12
+wget https://www.python.org/ftp/python/3.8.10/Python-3.8.10.tgz
+tar zvxf Python-3.8.10.tgz
+cd Python-3.8.10
 ./configure
 make
 sudo make install
@@ -1135,7 +1135,7 @@ sudo make install
 
 ~~~shell
 sudo yum install sqlite-devel
-cd Python-3.6.12
+cd Python-3.8.10
 ./configure
 make
 sudo make install

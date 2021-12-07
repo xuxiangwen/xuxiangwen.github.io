@@ -1,5 +1,27 @@
 
 
+## 直接删除文件
+
+jupyter notebook默认会把文件放到垃圾箱里，在docker container里面有时回报错*Unable to find or create trash directory*。解决方法是，
+
+1. 通过以下命令创建 `~/.jupyter/jupyter_notebook_config.py`
+
+   ~~~
+   jupyter notebook --generate-config
+   ~~~
+
+2. 修改  `~/.jupyter/jupyter_notebook_config.py`
+
+   ~~~
+   vim ~/.jupyter/jupyter_notebook_config.py
+   ~~~
+
+   找到`c.FileContentsManager.delete_to_trash = False`，把该行注释去掉。即如下样子。
+
+   ![image-20211206175338928](../99-others/images/image-20211206175338928.png)
+
+3. 重启jupyter notebook。对于docker container，重启容器就好。
+
 ## 安装插件管理器
 
 - 安装插件管理包
