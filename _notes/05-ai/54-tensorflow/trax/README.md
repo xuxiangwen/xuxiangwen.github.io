@@ -1,6 +1,6 @@
 Trax是一个极简的开源深度学习框架，它专注于清晰的代码和速度，被Google Brain Team维护。 Trax 代码分为下面几个部分。
 
-## [Trax_Quick_Intro.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/trax/Trax_Quick_Intro.ipynb)
+## [Trax_Quick_Intro.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/trax/Trax_Quick_Intro.ipynb)
 
 介绍了Trax里面的内容。
 
@@ -25,7 +25,7 @@ Trax是一个极简的开源深度学习框架，它专注于清晰的代码和�
 
 - **rl/：**包含谷歌大脑在强化学习上的一些研究工作；
 
-## [layers_intro.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/trax/layers_intro.ipynb)
+## [layers_intro.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/trax/layers_intro.ipynb)
 
-## [Using_Trax_with_Keras.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/trax/Using_Trax_with_Keras.ipynb)
+## [Using_Trax_with_Keras.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/trax/Using_Trax_with_Keras.ipynb)
 

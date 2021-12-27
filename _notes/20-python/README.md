@@ -1,5 +1,39 @@
 ## 技巧
 
+### matplotlib不同的style
+
+~~~
+import matplotlib.pyplot as plt
+import numpy as np 
+
+def plot_styles(styles):
+    for i, style in enumerate(styles):
+        fig, ax = plt.subplots(figsize=(3, 3))  
+
+        plt.style.use(style)
+        # make the data
+        np.random.seed(3)
+        x = 4 + np.random.normal(0, 2, 24)
+        y = 4 + np.random.normal(0, 2, len(x))
+        # size and color:
+        sizes = np.random.uniform(15, 80, len(x))
+        colors = np.random.uniform(15, 80, len(x)) 
+
+        ax.scatter(x, y, s=sizes, c=colors, vmin=0, vmax=100)
+
+        ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
+               ylim=(0, 8), yticks=np.arange(1, 8))
+        ax.set_title(style)
+        
+        fig.tight_layout()
+    
+plt.style.use('seaborn') 
+plot_styles(plt.style.available)
+plt.show()
+~~~
+
+![image-20211209112044806](images/image-20211209112044806.png)![image-20211209112112338](images/image-20211209112112338.png)![image-20211209112130932](images/image-20211209112130932.png)![image-20211209112310344](images/image-20211209112310344.png)![image-20211209112415810](images/image-20211209112415810.png)
+
 ### ast包
 
 Abstract Syntax Trees即抽象语法树。Ast是python源码到字节码的一种中间产物，借助ast模块可以从语法树的角度分析源码结构。此外，我们不仅可以修改和执行语法树，还可以将Source生成的语法树unparse成python源码。因此ast给python源码检查、语法分析、修改代码以及代码调试等留下了足够的发挥空间。
