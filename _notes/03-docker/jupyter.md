@@ -61,6 +61,15 @@ npm install -g ijavascript
 ijsinstall
 ~~~
 
+## 调增Notebook的宽度
+
+~~~python
+from IPython.core.display import display, HTML
+display(HTML("<style>.container { width:70% !important; }</style>"))
+# display(HTML("<style>.container { width:1300px !important; }</style>"))
+# display(HTML("<style>.output_result { max-width:100% !important; }</style>"))
+~~~
+
 ## 下一代notebook: JupyterLab
 
 [JupyterLab，极其强大的下一代notebook！ - 知乎](https://zhuanlan.zhihu.com/p/87403131)

@@ -1,3 +1,87 @@
+### 网上免费的GPU资源
+
+- google colab - https://colab.research.google.com/
+
+  创建一个notebook，选择gpu，然后运`!nvidia-smi `。一般可以申请到K80，有人说多试几次，可以申请到P100。
+
+  ![image-20211229115848852](images/image-20211229115848852.png)
+
+  下图中可以看到P100双精度计算的性能时K80的3倍多。
+
+  ![img](images/google-gpu.png)
+
+- Kaggle https://www.kaggle.com/
+
+  选择GPU，可以获得Tesla P100-PCIE-16GB，每周可以有36个小时的配额，非常不错。
+
+  ![image-20211229144931264](images/image-20211229144931264.png)
+
+-  AI Studio和飞桨（PaddlePaddle） https://aistudio.baidu.com/
+
+  ![image-20211229153911867](images/image-20211229153911867.png)
+
+# GPU处理能力（TFLOPS/TOPS）
+
+FLOPS是Floating-point Operations Per Second的缩写，代表每秒所执行的浮点运算次数。现在衡量计算能力的标准是TFLOPS（每秒万亿次浮点运算）
+
+NVIDIA显卡算力表：https://developer.nvidia.com/cuda-gpus#compute
+
+例如： 以GTX680为例， 单核一个时钟周期单精度计算次数为两次，处理核个数 为1536， 主频为1006MHZ，那他的计算能力的峰值P 为：P = 2 × 1536 × 1006MHZ = 3.09TFLOPS，1T为1兆，也就是说，GTX680每秒可以进行超过3兆次的单精度运算。
+
+#### 各种FLOPS的含义
+
+MFLOPS (megaFLOPS)：每秒一百万 (=10^6) 次的浮点运算
+
+GFLOPS (gigaFLOPS) ：每秒十亿 (=10^9) 次的浮点运算
+
+TFLOPS (teraFLOPS) ：每秒一万亿 (=10^12) 次的浮点运算
+
+PFLOPS (petaFLOPS) ：每秒一千万亿 (=10^15) 次的浮点运算
+
+#### 算力单位
+
+TOPS（Tera Operations Per Second）：1TOPS代表处理器每秒钟可进行一万亿次（10^12）操作。
+
+GOPS（Giga Operations Per Second）：1GOPS代表处理器每秒钟可进行一亿次（10^9）操作。
+
+MOPS（Million Operation Per Second）：1MOPS代表处理器每秒钟可进行一百万次（10^6）操作。
+
+在某些情况下，还使用 TOPS/W 来作为评价处理器运算能力的一个性能指标，TOPS/W 用于度量在1W功耗的情况下，处理器能进行多少万亿次操作。
+
+
+
+### 显卡天梯
+
+http://cdn.malu.me/gpu/
+
+| 排名 |                  GPU | 得分  |
+| ---: | -------------------: | :---- |
+|    1 |  GeForce RTX 3080 Ti | 26658 |
+|    2 |     GeForce RTX 3090 | 26005 |
+|    4 |     GeForce RTX 3080 | 24517 |
+|    8 |  GeForce RTX 3070 Ti | 22659 |
+|    9 |     GeForce RTX 3070 | 21922 |
+|   10 |  GeForce RTX 2080 Ti | 21718 |
+|   15 |  GeForce RTX 3060 Ti | 19709 |
+|   24 |     GeForce RTX 2080 | 18588 |
+|   28 |  GeForce GTX 1080 Ti | 18074 |
+|   39 | Tesla V100-SXM2-16GB | 16235 |
+|   46 |     GeForce GTX 1080 | 15174 |
+|   58 |  GeForce GTX 1070 Ti | 14360 |
+|   72 |     GeForce GTX 1070 | 13414 |
+|   97 |         Quadro P4000 | 11567 |
+|  113 | GeForce GTX 1060 6GB | 10258 |
+|  195 | Tesla P100-PCIE-16GB | 7225  |
+|  196 |         Quadro T2000 | 7157  |
+|  199 |         Quadro P2000 | 6984  |
+|  218 |  GeForce GTX 1050 Ti | 6331  |
+|  262 |     GeForce GTX 1050 | 5131  |
+|  289 |         Quadro P1000 | 4472  |
+
+![image-20211229153010354](images/image-20211229153010354.png)
+
+![img](https://ask.qcloudimg.com/http-save/yehe-1539448/3vljyjwzmb.jpeg?imageView2/2/w/1620)
+
 ### 增加维度（dimension）的几种方法
 
 有三种方法，以`np.expand_dims`最佳。

@@ -461,91 +461,116 @@ def predict(rnn_layer, data):
         print(outputs, outputs.shape)
     
 np.random.seed(2021)
-data = np.random.rand(1, 3, 4)
+data = np.random.rand(2, 3, 4)
 print(data) 
 ~~~
 
-![image-20210226172009755](images/image-20210226172009755.png)
+![image-20211231203859066](images/image-20211231203859066.png)
 
-上面代码创建一个输入序列，这个序列有一个样本，样本中有3个向量（也就是RNN中的timestep），每个向量的维度是4。
+上面代码创建一个输入序列，这个序列有2个样本，样本中有3个向量（也就是RNN中的timestep），每个向量的维度是4。
 
 下面看一看模型默认的输出。为了能够得到稳定的输出结果，下面设置了初始化函数。
 
 ~~~python
-rnn_layer = layers.LSTM(units=2, 
+rnn_layer = layers.SimpleRNN(units=5, 
                         kernel_initializer = initializers.RandomNormal(seed=2021),
                         recurrent_initializer = initializers.RandomNormal(seed=2021)
                        )
 predict(rnn_layer, data)
 
-rnn_layer = layers.GRU(units=2, 
+rnn_layer = layers.LSTM(units=5, 
+                        kernel_initializer = initializers.RandomNormal(seed=2021),
+                        recurrent_initializer = initializers.RandomNormal(seed=2021)
+                       )
+predict(rnn_layer, data)
+
+rnn_layer = layers.GRU(units=5, 
                         kernel_initializer = initializers.RandomNormal(seed=2021),
                         recurrent_initializer = initializers.RandomNormal(seed=2021)
                        )
 predict(rnn_layer, data)
 ~~~
 
-![image-20210414200900677](images/image-20210414200900677.png)
+![image-20211231203941632](images/image-20211231203941632.png)
 
-上面的输出是最后一个timestep的，即$h_t$。
+上面的输出是最后一个timestep的内容，即$h_t$，其维度为$batch  \times units$。
 
 #### 实验二：return_sequences=True
 
 ~~~python
-rnn_layer = layers.LSTM(units=2, 
+rnn_layer = layers.SimpleRNN(units=5, 
                         kernel_initializer = initializers.RandomNormal(seed=2021),
-                        recurrent_initializer = initializers.RandomNormal(seed=2021)
+                        recurrent_initializer = initializers.RandomNormal(seed=2021),
+                        return_sequences = True
                        )
 predict(rnn_layer, data)
 
-rnn_layer = layers.GRU(units=2, 
+rnn_layer = layers.LSTM(units=5, 
                         kernel_initializer = initializers.RandomNormal(seed=2021),
-                        recurrent_initializer = initializers.RandomNormal(seed=2021)
+                        recurrent_initializer = initializers.RandomNormal(seed=2021),
+                        return_sequences = True
+                       )
+predict(rnn_layer, data)
+
+rnn_layer = layers.GRU(units=5, 
+                        kernel_initializer = initializers.RandomNormal(seed=2021),
+                        recurrent_initializer = initializers.RandomNormal(seed=2021),
+                        return_sequences = True
                        )
 predict(rnn_layer, data)
 ~~~
 
-![image-20210414201056106](images/image-20210414201056106.png)
+![image-20211231204043143](images/image-20211231204043143.png)
 
-输出了一个array，长度为timestep，即$\begin{bmatrix} h_1 & h_2 & \cdots &  h_t\end{bmatrix}$。
+输出了一个array，维度是$batch \times timestep \times units$。
 
 #### 实验三：return_state=True
 
 ~~~python
-rnn_layer = layers.LSTM(units=2, 
+rnn_layer = layers.SimpleRNN(units=5, 
                         kernel_initializer = initializers.RandomNormal(seed=2021),
                         recurrent_initializer = initializers.RandomNormal(seed=2021),
                         return_state=True)
 predict(rnn_layer, data)
 
-rnn_layer = layers.GRU(units=2, 
+rnn_layer = layers.LSTM(units=5, 
+                        kernel_initializer = initializers.RandomNormal(seed=2021),
+                        recurrent_initializer = initializers.RandomNormal(seed=2021),
+                        return_state=True)
+predict(rnn_layer, data)
+
+rnn_layer = layers.GRU(units=5, 
                        kernel_initializer = initializers.RandomNormal(seed=2021),
                        recurrent_initializer = initializers.RandomNormal(seed=2021),
                        return_state=True)
 predict(rnn_layer, data)
 ~~~
 
-![image-20210414200933582](images/image-20210414200933582.png)
+![image-20211231204408040](images/image-20211231204408040.png)
 
-输出是一个列表list，分别表示
+输出是一个列表list，对于LSTM分别有三个成员：
 
-- 最后一个time step的hidden state，即$h_t$ 。
-- 最后一个time step的hidden state，即$h_t$ 。和上面相同
-- 最后一个time step的cell state，即$c_t$。注意GRU没有cell state。
-
-如果RNN的layer是SimpleRNN或者GRU，由于它们没有cell state，所以设置return_state是无效的。
+1. 最后一个time step的hidden state，即$h_t$ 。
+2. 最后一个time step的hidden state，即$h_t$ ，和上面相同。对于SimpleRNN或者GRU，由于它们没有cell state，该成员没有返回。
+3. 最后一个time step的cell state，即$c_t$。注意GRU没有cell state。
 
 #### 实验四：return_sequences=True且return_state=True
 
 ~~~python
-rnn_layer = layers.LSTM(units=2, 
+rnn_layer = layers.SimpleRNN(units=5, 
+                        kernel_initializer = initializers.RandomNormal(seed=2021),
+                        recurrent_initializer = initializers.RandomNormal(seed=2021),
+                        return_sequences=True,
+                        return_state=True)
+predict(rnn_layer, data)
+rnn_layer = layers.LSTM(units=5, 
                         kernel_initializer = initializers.RandomNormal(seed=2021),
                         recurrent_initializer = initializers.RandomNormal(seed=2021),
                         return_sequences=True,
                         return_state=True)
 predict(rnn_layer, data)
 
-rnn_layer = layers.GRU(units=2, 
+rnn_layer = layers.GRU(units=5, 
                        kernel_initializer = initializers.RandomNormal(seed=2021),
                        recurrent_initializer = initializers.RandomNormal(seed=2021),
                        return_sequences=True,
@@ -553,12 +578,12 @@ rnn_layer = layers.GRU(units=2,
 predict(rnn_layer, data)
 ~~~
 
-![image-20210414201244584](images/image-20210414201244584.png)
+![image-20211231204855086](images/image-20211231204855086.png)
 
-输出是一个列表list，分别表示
+输出是一个列表list，对于LSTM有三个成员，分别时。
 
-- 所有timestep的hidden state，即$\begin{bmatrix} h_1 & h_2 & \cdots &  h_t\end{bmatrix}$。
-- 最后一个time step的hidden state，即$h_t$ 。
+- 所有timestep的hidden state。
+- 最后一个time step的hidden state，即$h_t$ 。对于SimpleRNN或者GRU，由于它们没有cell state，该成员没有返回。
 - 最后一个time step的cell state，即$c_t$。注意GRU没有cell state。
 
 ## 参考
