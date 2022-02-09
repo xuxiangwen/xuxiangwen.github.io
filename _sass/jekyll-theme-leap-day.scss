@@ -420,20 +420,20 @@ footer {
   line-height: 16px;
 }
 
-@media print, screen and (max-width: 1060px) {
+@media print, screen and (max-width: 1400px) {
 
   div.wrapper {
     width:auto;
     margin:0;
   }
 
-  nav{
+  nav {
     display: none;
   }
     
-  aside{
+  aside {
     display: none;
-  }  
+  } 
 
   header, section, footer {
     float:none;
@@ -466,8 +466,8 @@ footer {
     border:1px solid #e5e5e5;
     border-width:1px 0;
     padding:20px auto;
-    margin: 190px auto 20px;
-    max-width: 600px;
+    margin: 80px auto 20px;
+    max-width: 800px;
   }
 
   footer{
@@ -480,13 +480,21 @@ footer {
     }
 }
 
-@media print, screen and (max-width: 720px) {
+@media print, screen and (max-width: 840px) {
   body {
     word-wrap:break-word;
   }
+    
+  nav {
+    display: none;
+  }
+    
+  aside {
+    display: none;
+  }     
 
   header {
-    padding:20px 20px;
+    padding:10px 10px;
     margin: 0;
 
     h1 {
@@ -515,9 +523,10 @@ footer {
   }
 
   section {
-    margin-top: 130px;
+    margin-top: 80px;
     margin-bottom: 0px;
     width: auto;
+    max-width: 800px;
   }
 
   header ul, header p.view {
@@ -562,6 +571,14 @@ footer {
 }
 
 @media print, screen and (max-height: 680px) {
+    
+  nav {
+    display: none;
+  }
+    
+  aside {
+    display: none;
+  }        
 
   footer {
     text-align: center;
