@@ -1,3 +1,71 @@
+### 视频内容摘要
+
+- https://www.coursera.org/learn/ai-for-everyone/lecture/9n83j/more-examples-of-what-machine-learning-can-and-cannot-do
+
+  - Source：Coursera上课程[AI For Everyone](https://www.coursera.org/learn/ai-for-everyone/home/welcome)。
+
+  - Topic：
+
+    - What machine learning can and cannot do
+
+      ![image-20220315161055128](images/image-20220315161055128.png)
+
+      ![image-20220315161308147](images/image-20220315161308147.png)
+
+      ![image-20220315161654044](images/image-20220315161654044.png)
+
+      
+
+      
+
+- https://www.coursera.org/learn/ai-for-everyone/lecture/rv1fW/what-machine-learning-can-and-cannot-do
+
+  - Source：Coursera上课程[AI For Everyone](https://www.coursera.org/learn/ai-for-everyone/home/welcome)。
+
+  - Topic：
+
+    - What machine learning can and cannot do
+
+      ![image-20220315160215215](images/image-20220315160215215.png)
+
+      ![image-20220315160806950](images/image-20220315160806950.png)
+
+- https://www.coursera.org/learn/ai-for-everyone/lecture/dLSWR/what-is-data
+
+  - Source：Coursera上课程[AI For Everyone](https://www.coursera.org/learn/ai-for-everyone/home/welcome)。
+
+  - Topic：
+
+    - common mis-use of data: 6:21~8:45
+
+      2 Suggestions.
+
+      - Try to get feedback from AI earlier
+
+        Once you have started collecting some data, go ahead and start showing it or feeding it to an AI team. Because often AI team can give feedback to your IT team on what types of data to collect and what types of IT infrastructure to keep on building 
+
+        ![image-20220315152742455](images/image-20220315152742455.png)
+
+      - Don't throw data at an AI team and assume it will be valuable
+
+    - Data is messy: 8:45~
+
+      ![image-20220315153410115](images/image-20220315153410115.png)
+
+- https://www.coursera.org/learn/ai-for-everyone/lecture/5TPFo/machine-learning
+
+  - Source：Coursera上课程[AI For Everyone](https://www.coursera.org/learn/ai-for-everyone/home/welcome)。
+
+  - Topic：
+
+    - Supervised Learning: 0:00~2:45
+
+      ![image-20220315150543667](images/image-20220315150543667.png)
+
+    - Compare Deep Learning with traditional AI： 2:45~
+
+      ![image-20220315151040941](images/image-20220315151040941.png)
+
 ### 网上免费的GPU资源
 
 - google colab - https://colab.research.google.com/
@@ -119,3 +187,63 @@ print(a1, a1.shape)
   n 类样本中，每次挑出 2 种类型，两两结合，一共有 $C_n^2$种二分类情况，使用$C_n^2$ 种模型预测样本类型，有 $C_n^2$个预测结果，种类最多的那种样本类型，就认为是该样本最终的预测类型
 
   ![img](images/1355387-20180730081828969-80068959.png)
+
+### AI Questions
+
+#### AI For Everyone 
+
+https://www.coursera.org/learn/ai-for-everyone
+
+##### week 1: What is AI?
+
+1. Which of these terms best describes the type of AI used in today’s email spam filters, speech recognition, and other specific applications?
+
+![image-20220315164000447](images/image-20220315164000447.png)
+
+2. What do you call the commonly used AI technology for learning input (A) to output (B) mappings?
+
+   ![image-20220315164035856](images/image-20220315164035856.png)
+
+3. You want to use supervised learning to build a speech recognition system. The figure below suggests that in order for a neural network (deep learning) to achieve the best performance, you would ideally use: (Select all that apply)
+
+   ![image-20220315164131663](images/image-20220315164131663.png)
+
+   ![image-20220315164153049](images/image-20220315164153049.png)
+
+4. The only way to acquire data for a supervised learning algorithm is to manually label it. I.e., given the input A, to ask a human to provide B.
+
+   ![image-20220315164238642](images/image-20220315164238642.png)
+
+5. Which of these statements regarding data acquisition do you agree with?
+
+   ![image-20220315164334350](images/image-20220315164334350.png)
+
+6. You run a company that manufactures scooters. Which of the following are examples of unstructured data? (Select all that apply.)
+
+​		![image-20220315164429154](images/image-20220315164429154.png)
+
+​		BC
+
+7. Suppose you run a website that sells cat food. Which of these might be a good result from a Data Science project? (Select all that apply.)
+
+   ![image-20220315164559137](images/image-20220315164559137.png)
+
+   CD
+
+8. Based on the terminology defined in Video 4, which of the following statements do you agree with? (Select all that apply.)
+
+   ![image-20220315164617900](images/image-20220315164617900.png)
+
+   AD
+
+9. Which of these do AI companies do well?
+
+   ![image-20220315165326057](images/image-20220315165326057.png)
+
+   D
+
+10. Say you want to input a picture of a person’s face (A), and output whether or not they are smiling (B). Because this is a task that most humans can do in less than 1 second, supervised learning can probably learn this A-to-B mapping.
+
+    ![image-20220315165339025](images/image-20220315165339025.png)
+
+​		A
