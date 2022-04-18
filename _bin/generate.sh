@@ -42,6 +42,7 @@ generate_one(){
   echo cp $filepath $publish_path
   cp $filepath $publish_path
   sed -i 's/\](images\//\](\/assets\/images\//g'  $publish_path
+  sed -i 's/src="images\//src="\/assets\/images\//g'  $publish_path
    
   # add line break when find $$
   awk '{
