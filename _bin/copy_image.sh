@@ -25,4 +25,17 @@ do
   num=$((num + 1))
 done
 
+for img in `grep -P -o 'src="[^ ]+"' $md_path`
+do
+  img_file=`echo $img | sed 's/src=\"\(.*\)\"/\1/g'`
+  old_image_path=$md_folder/$img_file
+  echo copy $old_image_path to $new_image_folder
+  cp $old_image_path $new_image_folder
+  if [[ "delete_origin" = "Y" ]]; then
+    echo delete $old_image_path
+    rm -rf $old_image_path
+  fi
+  num=$((num + 1))
+done
+
 echo copy $num files to $new_image_folder
