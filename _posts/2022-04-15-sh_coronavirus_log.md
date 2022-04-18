@@ -48,7 +48,7 @@ date: 2022-04-15
 
 - 自测抗原阳性。家人都是阴性，且没有任何异样。
 
-  <img src="images/image-20220404130508281.png" alt="image-20220404130508281" style="zoom: 25%;" />
+  <img src="/assets/images/image-20220404130508281.png" alt="image-20220404130508281" style="zoom: 25%;" />
 
 - 开始被隔离在家里单独房间。
 
@@ -68,7 +68,7 @@ date: 2022-04-15
 
 - 女儿送我千纸鹤。
 
-  <img src="images/image-20220404130154712.png" alt="image-20220404130154712" style="zoom: 50%;" />
+  <img src="/assets/images/image-20220404130154712.png" alt="image-20220404130154712" style="zoom: 50%;" />
 
 ### 2022-04-03 周日 家 
 
@@ -88,11 +88,11 @@ date: 2022-04-15
 
 - 自测抗原阳性。
 
-  <img src="images/image-20220404130036090.png" alt="image-20220404130036090" style="zoom:50%;" />
+  <img src="/assets/images/image-20220404130036090.png" alt="image-20220404130036090" style="zoom:50%;" />
 
 - 女儿送我福袋。
 
-  <img src="images/image-20220404131045005.png" alt="image-20220404131045005" style="zoom: 50%;" />
+  <img src="/assets/images/image-20220404131045005.png" alt="image-20220404131045005" style="zoom: 50%;" />
 
   
 
@@ -120,9 +120,9 @@ date: 2022-04-15
 
   - 分发的东西很齐备。
 
-    <img src="images/image-20220407094630735.png" alt="image-20220407094630735" style="zoom:67%;" />
+    <img src="/assets/images/image-20220407094630735.png" alt="image-20220407094630735" style="zoom:67%;" />
 
-    <img src="images/image-20220407081319000.png" alt="image-20220407081319000" style="zoom:67%;" />
+    <img src="/assets/images/image-20220407081319000.png" alt="image-20220407081319000" style="zoom:67%;" />
   
     
 
@@ -138,7 +138,7 @@ date: 2022-04-15
 
 - 午餐和晚餐。营养丰富。
 
-  <img src="images/image-20220407095630852-16493012940711.png" alt="image-20220407095630852" style="zoom: 80%;" /><img src="images/image-20220407095643519.png" alt="image-20220407095643519" style="zoom: 50%;" />
+  <img src="/assets/images/image-20220407095630852-16493012940711.png" alt="image-20220407095630852" style="zoom: 80%;" /><img src="/assets/images/image-20220407095643519.png" alt="image-20220407095643519" style="zoom: 50%;" />
 
 - 方舱环境一览。可以遛弯，这比家里可好多了。就是没法洗澡，厕所是一排应急的流动厕所仓，数量足够，但很脏。
 
@@ -152,7 +152,7 @@ date: 2022-04-15
 
 - 老婆接到居委电话，家人作为密接，也要被转运至酒店或隔离点隔离，不知道他们会被运到哪里。家里小猫怎么办啊？
 
-  <img src="images/image-20220408075843594.png" alt="image-20220408075843594" style="zoom:50%;" />
+  <img src="/assets/images/image-20220408075843594.png" alt="image-20220408075843594" style="zoom:50%;" />
 
   > 直到我后来出舱，家人也没有被转运走，看来的确是住满了，没地方了啊。
 
@@ -164,17 +164,17 @@ date: 2022-04-15
 
 - 早上散步
 
-  <img src="images/image-20220407081446974.png" alt="image-20220407081446974" style="zoom:50%;" />
+  <img src="/assets/images/image-20220407081446974.png" alt="image-20220407081446974" style="zoom:50%;" />
 
 - 连了wifi，网速也快起来了，嗖嗖的。要来串羊肉串吗？
 
-  <img src="images/image-20220407081541049.png" alt="image-20220407081541049" style="zoom:50%;" />
+  <img src="/assets/images/image-20220407081541049.png" alt="image-20220407081541049" style="zoom:50%;" />
 
 ​		不过上午9点后，就明显慢下来了，看来还是人多。
 
 - 晚上11:00多，开始测核酸了。上海能使用的方舱已经8w+，在建的还有几w，但仍然不够用啊。看到下面这个通知，看来尽快出舱有希望了。
 
-  <img src="images/image-20220408082652346.png" alt="image-20220408082652346" style="zoom: 67%;" />
+  <img src="/assets/images/image-20220408082652346.png" alt="image-20220408082652346" style="zoom: 67%;" />
 
 ### 2022-04-08 周五 方舱
 
@@ -190,7 +190,7 @@ date: 2022-04-15
 
 - 今天有大鸡腿。
 
-  <img src="images/image-20220410145926940.png" alt="image-20220410145926940" style="zoom:50%;" />
+  <img src="/assets/images/image-20220410145926940.png" alt="image-20220410145926940" style="zoom:50%;" />
 
 - 从7号开始一天一次核酸。当了一下志愿者，帮忙大白来维护核酸的队伍。哪一个是我？
 
@@ -212,18 +212,18 @@ date: 2022-04-15
 
 - 今天早上总算能跑起来了。
 
-  <img src="images/image-20220410152434182.png" alt="image-20220410152434182" style="zoom:50%;" />
+  <img src="/assets/images/image-20220410152434182.png" alt="image-20220410152434182" style="zoom:50%;" />
 
 - 闲逛
   ![image-20220410160834287](/assets/images/image-20220410160834287.png)
 
 - 又有百叶卷？好像是上海清明特产。
 
-  <img src="images/image-20220410152659406.png" alt="image-20220410152659406" style="zoom: 33%;" />
+  <img src="/assets/images/image-20220410152659406.png" alt="image-20220410152659406" style="zoom: 33%;" />
 
 - 昨天下午，护士过来通知有一部分人，明天可以回家了。瞄了一眼名单，大概有10%左右。我的对床也被通知了，什么时候才轮到我。
 
-  <img src="images/image-20220411161338993.png" alt="image-20220411161338993" style="zoom:67%;" />
+  <img src="/assets/images/image-20220411161338993.png" alt="image-20220411161338993" style="zoom:67%;" />
 
 - 这几天陆陆续续看到很多负面的消息。上海作为超大城市，物资供应和医疗服务都是极其严峻的考验，现在正是困难时刻，上海坚持住。
 
@@ -233,11 +233,11 @@ date: 2022-04-15
 
 - 今天突破三公里了。以后每天保持这个量啦。估计这样下去，体重可以再降一降。
 
-  <img src="images/image-20220411041257983.png" alt="image-20220411041257983" style="zoom:50%;" />
+  <img src="/assets/images/image-20220411041257983.png" alt="image-20220411041257983" style="zoom:50%;" />
 
 - 今天配了酸奶，加上早上剩下的牛奶，还不错。
 
-  <img src="images/image-20220411041519619.png" alt="image-20220411041519619" style="zoom: 50%;" />
+  <img src="/assets/images/image-20220411041519619.png" alt="image-20220411041519619" style="zoom: 50%;" />
 
   
 
@@ -255,7 +255,7 @@ date: 2022-04-15
 
 - 中午护士通知我明天可以出舱了，非常高兴啊。对床的昨天没有出去，也是明天，明天好多人都可以出舱了。发的贴牌，明天贴衣服上。
 
-  <img src="images/image-20220413180729606.png" alt="image-20220413180729606" style="zoom:50%;" />
+  <img src="/assets/images/image-20220413180729606.png" alt="image-20220413180729606" style="zoom:50%;" />
 
 ### 2022-04-13 周三 方舱
 
@@ -287,7 +287,7 @@ date: 2022-04-15
 
 - 早上6:00护士给我又发了出舱的贴牌。到周围转了一圈，发现也有人被通知不能出舱，看来阴阳互换，还是有不少的。
 
-  <img src="images/image-20220418103930230.png" alt="image-20220418103930230" style="zoom:50%;" />
+  <img src="/assets/images/image-20220418103930230.png" alt="image-20220418103930230" style="zoom:50%;" />
 
   ![image-20220418104337150](/assets/images/image-20220418104337150.png)
 
