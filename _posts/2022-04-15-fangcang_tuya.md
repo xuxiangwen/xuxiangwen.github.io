@@ -126,7 +126,7 @@ date: 2022-04-15
 
 ![image-20220411163048550](/assets/images/image-20220411163048550.png)
 
-<img src="images/image-20220411163103608.png" alt="image-20220411163103608" style="zoom:67%;" />
+<img src="/assets/images/image-20220411163103608.png" alt="image-20220411163103608" style="zoom:67%;" />
 
 ![image-20220411163150312](/assets/images/image-20220411163150312.png)
 
