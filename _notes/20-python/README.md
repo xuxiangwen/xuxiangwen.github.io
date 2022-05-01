@@ -1,126 +1,197 @@
-## 技巧
+## DataFrame
 
-### matplotlib不同的style
+### GroupBy 聚合（Agg）操作
 
-~~~
-import matplotlib.pyplot as plt
+~~~python
+import pandas as pd
 import numpy as np 
+from IPython.core.display import display
 
-def plot_styles(styles):
-    for i, style in enumerate(styles):
-        fig, ax = plt.subplots(figsize=(3, 3))  
+df = pd.DataFrame([['a', 11, 12],
+                   ['b', 2, 3],
+                   ['a', 5, 6],
+                   ['c', 8, 9],
+                   ['c', np.nan, np.nan]],
+                  columns=['A', 'B', 'C']) 
 
-        plt.style.use(style)
-        # make the data
-        np.random.seed(3)
-        x = 4 + np.random.normal(0, 2, 24)
-        y = 4 + np.random.normal(0, 2, len(x))
-        # size and color:
-        sizes = np.random.uniform(15, 80, len(x))
-        colors = np.random.uniform(15, 80, len(x)) 
+display(df)
 
-        ax.scatter(x, y, s=sizes, c=colors, vmin=0, vmax=100)
+df_group = df.groupby(['A']).agg(count=('A','count' ), avg_b=('B', 'mean'), sum_c=('C', 'mean'))
+display(df_group)
 
-        ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
-               ylim=(0, 8), yticks=np.arange(1, 8))
-        ax.set_title(style)
-        
-        fig.tight_layout()
-    
-plt.style.use('seaborn') 
-plot_styles(plt.style.available)
+display(df_group.reset_index()) # 把group dataframe变成普通dataframe
+~~~
+
+![image-20220421175535905](images/image-20220421175535905.png)
+
+![image-20220421180514824](images/image-20220421180514824.png)
+
+### Data Frame 重新排序
+
+~~~python
+import pandas as pd
+df = pd.DataFrame({'num_legs': [2, 4, 8, 0, 6],
+                   'num_wings': [2, 0, 0, 0, 2],
+                   'num_specimen_seen': [10, 2, 1, 8, 6]},
+                  index=['falcon', 'dog', 'spider', 'fish', 'white ant'])
+display(df)
+display(df.sample(frac=1))          # 所有记录完全重新排序
+display(df.sample(frac=0.6))        # 随机获取60%的记录
+display(df.sample(n=2))             # 随机2条记录
+~~~
+
+![image-20210325114558608](images/image-20210325114558608.png)
+
+### dataframe.to_dict
+
+格式`如`有：
+
+- `dict` (default) : dict like {column -> {index -> value}}
+- `list` : dict like {column -> [values]}
+- `series` : dict like {column -> Series(values)}
+- `split` : dict like {index -> [index], columns-> [columns], data -> [values]}
+- `records` : list like [{column -> value}, … , {column -> value}]
+- `index` : dict like {index -> {column -> value}}
+
+~~~python
+import pandas as pd
+
+N = 1
+df = pd.DataFrame({
+    'category': (
+        (['apples'] * 2 * N) +
+        (['oranges'] * 1 * N) 
+    )
+})
+df['x'] = np.random.randn(len(df['category']))
+
+print('-'*50)
+print(df)
+
+for orient in ['dict', 'list', 'series', 'split', 'records', 'index']:    
+    print('-'*30, orient, '-'*30)
+    pprint(df.to_dict(orient))
+~~~
+
+![image-20210112160546485](images/image-20210112160546485.png)
+
+### 给dataframe添加行和列汇总
+
+~~~python
+import numpy as np
+import pandas as pd
+from IPython.display import display
+
+index=['变态', '非变态']
+columns=['不定装', '女装', '男装']
+df_observed = pd.DataFrame([[150, 200, 400], [350, 500, 1500]], index=index, columns=columns)
+display(df_observed)
+
+def show_sum(df):
+    s = df.reset_index().melt('index', var_name=' ')
+    ct = pd.crosstab(index=s['index'], columns=s.iloc[:,1], values=s.value, 
+                     aggfunc='sum', margins=True, margins_name='合计',
+                     rownames=[''], 
+               ) 
+    display(ct)
+
+show_sum(df_observed)
+~~~
+
+![image-20201228084238323](images/image-20201228084238323.png)
+
+
+
+## matplotlib
+
+### matplotlib中文乱码
+
+~~~python
+import matplotlib
+import matplotlib.pyplot as plt 
+
+a = ["一月份","二月份","三月份","四月份","五月份","六月份"]
+b=[56.01,26.94,17.53,16.49,15.45,12.96]
+plt.figure(figsize=(20,8),dpi=80)
+plt.bar(range(len(a)),b)
+plt.xticks(range(len(a)),a)
+plt.xlabel("月份")
+plt.ylabel("数量")
+plt.title("每月数量")
+
 plt.show()
 ~~~
 
-![image-20211209112044806](images/image-20211209112044806.png)![image-20211209112112338](images/image-20211209112112338.png)![image-20211209112130932](images/image-20211209112130932.png)![image-20211209112310344](images/image-20211209112310344.png)![image-20211209112415810](images/image-20211209112415810.png)
+![image-20220421153735389](images/image-20220421153735389.png)
 
-### ast包
+解决方法如下。
 
-Abstract Syntax Trees即抽象语法树。Ast是python源码到字节码的一种中间产物，借助ast模块可以从语法树的角度分析源码结构。此外，我们不仅可以修改和执行语法树，还可以将Source生成的语法树unparse成python源码。因此ast给python源码检查、语法分析、修改代码以及代码调试等留下了足够的发挥空间。
+- 下载SimHei.ttf中文字体。
 
-Python官方提供的CPython解释器对python源码的处理过程如下：
-~~~mermaid
-    source(0. 源代码解析)-->pgen(1. 语法树);
-    pgen-->ast(2. 抽象语法树 - AST);
-    ast-->compile(3. 控制流程图);
-    compile-->bytecode(4. 字节码);
-~~~
+  https://www.fontpalace.com/font-download/simhei/
 
+- 得到matplotlib配置目录
 
-1. Parse source code into a parse tree (Parser/pgen.c)
-2. Transform parse tree into an Abstract Syntax Tree (Python/**ast.c**)
-3. Transform AST into a Control Flow Graph (Python/compile.c)
-4. Emit bytecode based on the Control Flow Graph (Python/compile.c)
+  ~~~python
+  import matplotlib
+  import os
+  font_path = os.path.join(os.path.dirname(matplotlib.matplotlib_fname()), 'fonts/ttf')
+  print(font_path)
+  print('-'*50)
+  print('\n'.join(os.listdir(font_path)[0:5]))
+  ~~~
 
-#### 创建AST
+  ![image-20220421150151200](images/image-20220421150151200.png)
 
-1. compile(source, filename, mode[, flags[, dont_inherit]])
+- 将SimHei.ttf拷贝到上面的目录。
 
-   - source -- 字符串或者AST（Abstract Syntax Trees）对象。一般可将整个py文件内容file.read()传入。
-   - filename -- 代码文件名称，如果不是从文件读取代码则传递一些可辨认的值。
-   - mode -- 指定编译代码的种类。可以指定为 exec, eval, single。
-   - flags -- 变量作用域，局部命名空间，如果被提供，可以是任何映射对象。
-   - flags和dont_inherit是用来控制编译源码时的标志。
+- 更新cache
 
-   ~~~python
-   import ast
-   import types
-   import astunparse
-   
-   func_def = \
-   """
-   def add(x, y):
-       return x + y
-   print(add(3, 5))
-   """
-   
-   cm = compile(func_def, '<string>', 'exec')
-   assert(isinstance(cm, types.CodeType))
-   
-   exec(cm)
-   ~~~
+  ~~~
+  rm -fr ~/.cache/matplotlib 
+  ~~~
 
-   ![image-20210702104511287](images/image-20210702104511287.png)
+- 重启启动程序。
 
-   上面func_def经过compile编译得到字节码，cm即code对象（types.CodeType）。
+  ~~~python
+  import matplotlib
+  import matplotlib.pyplot as plt
+  
+  plt.rcParams["font.family"]=["SimHei"]
+  plt.rcParams["axes.unicode_minus"]=False  #用来正常显示负号
+  
+  a = ["一月份","二月份","三月份","四月份","五月份","六月份"]
+  b=[56.01,26.94,17.53,16.49,15.45,12.96]
+  plt.figure(figsize=(20,8),dpi=80)
+  plt.bar(range(len(a)),b)
+  plt.xticks(range(len(a)),a)
+  plt.xlabel("月份")
+  plt.ylabel("数量")
+  plt.title("每月数量")
+  
+  plt.show()
+  ~~~
 
-2. 生成AST。
+  ![image-20220421153813373](images/image-20220421153813373.png)
 
-   ~~~python
-   # 生成AST
-   r_node = ast.parse(func_def)
-   # 也可调用ast.dump(r_node)，但它不能进行缩进输出
-   ast_output = astunparse.dump(r_node)  
-   print(ast_output)
-   ~~~
+参考：
 
-   ![image-20210702105157064](images/image-20210702105157064.png)
+- [Add custom fonts to Matplotlib](https://scentellegher.github.io/visualization/2018/05/02/custom-fonts-matplotlib.html)
+- [matplotlib图例中文乱码?](
 
-   除了ast.dump，有很多dump ast的第三方库，如astunparse, codegen, unparse等。这些第三方库不仅能够以更好的方式展示出ast结构，还能够将ast反向导出python source代码。
-
-   ~~~python
-   # 从AST得到源代码
-   print('-'*50)
-   print(astunparse.unparse(r_node))
-   ~~~
-
-   ![image-20210702110056944](images/image-20210702110056944.png)
-
-### [numpy.nonzero](https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html)
+### 显示matplotlib支持的所有字体
 
 ~~~python
-x = np.array([[3, 0, 0], [0, 4, 0], [5, 6, 0]])
-print(x)
-# 根据数组维度返回一个list，list中每个成员代表了某一个维度上非0元素的坐标
-print(np.nonzero(x))
-# 每个非0元素的坐标
-print(np.transpose(np.nonzero(x)))
-print(x[np.nonzero(x)])
+from matplotlib.font_manager import FontManager
+mpl_fonts = set(f.name for f in FontManager().ttflist)
+
+for f in sorted(mpl_fonts):
+    print(f)
 ~~~
 
-![image-20210701093301549](images/image-20210701093301549.png)
+![image-20220421154252338](images/image-20220421154252338.png)
 
-> [numpy.where](https://numpy.org/doc/stable/reference/generated/numpy.where.html)只传入一个参数时，相当于np.asarray(condition).nonzero()。
+
 
 ### 置信椭圆（Confidence Ellipse）展示
 
@@ -233,7 +304,7 @@ def confidence_ellipse(x, y, ax, n_std=3.0, facecolor='none', **kwargs):
 > #         height=np.sqrt(eigenvalue[1])*2*n_std,
 > #         facecolor=facecolor,
 > #         **kwargs)
->              
+> 
 > #     degree = math.degrees(math.acos(eigenvector[0, 0]))
 > #     transf = transforms.Affine2D() \
 > #         .rotate_deg(degree)    \
@@ -334,6 +405,134 @@ plt.show()
 
 ![image-20210524222333843](images/image-20210524222333843.png)
 
+### matplotlib不同的style
+
+~~~
+import matplotlib.pyplot as plt
+import numpy as np 
+
+def plot_styles(styles):
+    for i, style in enumerate(styles):
+        fig, ax = plt.subplots(figsize=(3, 3))  
+
+        plt.style.use(style)
+        # make the data
+        np.random.seed(3)
+        x = 4 + np.random.normal(0, 2, 24)
+        y = 4 + np.random.normal(0, 2, len(x))
+        # size and color:
+        sizes = np.random.uniform(15, 80, len(x))
+        colors = np.random.uniform(15, 80, len(x)) 
+
+        ax.scatter(x, y, s=sizes, c=colors, vmin=0, vmax=100)
+
+        ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
+               ylim=(0, 8), yticks=np.arange(1, 8))
+        ax.set_title(style)
+        
+        fig.tight_layout()
+    
+plt.style.use('seaborn') 
+plot_styles(plt.style.available)
+plt.show()
+~~~
+
+![image-20211209112044806](images/image-20211209112044806.png)![image-20211209112112338](images/image-20211209112112338.png)![image-20211209112130932](images/image-20211209112130932.png)![image-20211209112310344](images/image-20211209112310344.png)![image-20211209112415810](images/image-20211209112415810.png)
+
+
+
+## 技巧
+
+- https://www.zhihu.com/question/25404709)
+
+### ast包
+
+Abstract Syntax Trees即抽象语法树。Ast是python源码到字节码的一种中间产物，借助ast模块可以从语法树的角度分析源码结构。此外，我们不仅可以修改和执行语法树，还可以将Source生成的语法树unparse成python源码。因此ast给python源码检查、语法分析、修改代码以及代码调试等留下了足够的发挥空间。
+
+Python官方提供的CPython解释器对python源码的处理过程如下：
+~~~mermaid
+    source(0. 源代码解析)-->pgen(1. 语法树);
+    pgen-->ast(2. 抽象语法树 - AST);
+    ast-->compile(3. 控制流程图);
+    compile-->bytecode(4. 字节码);
+~~~
+
+
+1. Parse source code into a parse tree (Parser/pgen.c)
+2. Transform parse tree into an Abstract Syntax Tree (Python/**ast.c**)
+3. Transform AST into a Control Flow Graph (Python/compile.c)
+4. Emit bytecode based on the Control Flow Graph (Python/compile.c)
+
+#### 创建AST
+
+1. compile(source, filename, mode[, flags[, dont_inherit]])
+
+   - source -- 字符串或者AST（Abstract Syntax Trees）对象。一般可将整个py文件内容file.read()传入。
+   - filename -- 代码文件名称，如果不是从文件读取代码则传递一些可辨认的值。
+   - mode -- 指定编译代码的种类。可以指定为 exec, eval, single。
+   - flags -- 变量作用域，局部命名空间，如果被提供，可以是任何映射对象。
+   - flags和dont_inherit是用来控制编译源码时的标志。
+
+   ~~~python
+   import ast
+   import types
+   import astunparse
+   
+   func_def = \
+   """
+   def add(x, y):
+       return x + y
+   print(add(3, 5))
+   """
+   
+   cm = compile(func_def, '<string>', 'exec')
+   assert(isinstance(cm, types.CodeType))
+   
+   exec(cm)
+   ~~~
+
+   ![image-20210702104511287](images/image-20210702104511287.png)
+
+   上面func_def经过compile编译得到字节码，cm即code对象（types.CodeType）。
+
+2. 生成AST。
+
+   ~~~python
+   # 生成AST
+   r_node = ast.parse(func_def)
+   # 也可调用ast.dump(r_node)，但它不能进行缩进输出
+   ast_output = astunparse.dump(r_node)  
+   print(ast_output)
+   ~~~
+
+   ![image-20210702105157064](images/image-20210702105157064.png)
+
+   除了ast.dump，有很多dump ast的第三方库，如astunparse, codegen, unparse等。这些第三方库不仅能够以更好的方式展示出ast结构，还能够将ast反向导出python source代码。
+
+   ~~~python
+   # 从AST得到源代码
+   print('-'*50)
+   print(astunparse.unparse(r_node))
+   ~~~
+
+   ![image-20210702110056944](images/image-20210702110056944.png)
+
+### [numpy.nonzero](https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html)
+
+~~~python
+x = np.array([[3, 0, 0], [0, 4, 0], [5, 6, 0]])
+print(x)
+# 根据数组维度返回一个list，list中每个成员代表了某一个维度上非0元素的坐标
+print(np.nonzero(x))
+# 每个非0元素的坐标
+print(np.transpose(np.nonzero(x)))
+print(x[np.nonzero(x)])
+~~~
+
+![image-20210701093301549](images/image-20210701093301549.png)
+
+> [numpy.where](https://numpy.org/doc/stable/reference/generated/numpy.where.html)只传入一个参数时，相当于np.asarray(condition).nonzero()。
+
 ### 输出打印彩色字体
 
 终端的字符颜色是用转义序列控制的，是文本模式下的系统显示功能，和具体的语言无关。转义序列是以ESC开头,即用\033来完成（ESC的ASCII码用十进制表示是27，用八进制表示就是033）。
@@ -391,22 +590,6 @@ print("\033[47;1m你好麽，\033[0m我很好。")
 ~~~
 
 ![image-20210429114341976](images/image-20210429114341976.png)
-
-### Data Frame 重新排序
-
-~~~python
-import pandas as pd
-df = pd.DataFrame({'num_legs': [2, 4, 8, 0, 6],
-                   'num_wings': [2, 0, 0, 0, 2],
-                   'num_specimen_seen': [10, 2, 1, 8, 6]},
-                  index=['falcon', 'dog', 'spider', 'fish', 'white ant'])
-display(df)
-display(df.sample(frac=1))          # 所有记录完全重新排序
-display(df.sample(frac=0.6))        # 随机获取60%的记录
-display(df.sample(n=2))             # 随机2条记录
-~~~
-
-![image-20210325114558608](images/image-20210325114558608.png)
 
 ### \x与\u编码
 
@@ -514,39 +697,6 @@ print(np.array(score).T)
 
 ![image-20210325120747459](images/image-20210325120747459.png)
 
-### dataframe.to_dict
-
-格式`如`有：
-
-- `dict` (default) : dict like {column -> {index -> value}}
-- `list` : dict like {column -> [values]}
-- `series` : dict like {column -> Series(values)}
-- `split` : dict like {index -> [index], columns-> [columns], data -> [values]}
-- `records` : list like [{column -> value}, … , {column -> value}]
-- `index` : dict like {index -> {column -> value}}
-
-~~~python
-import pandas as pd
-
-N = 1
-df = pd.DataFrame({
-    'category': (
-        (['apples'] * 2 * N) +
-        (['oranges'] * 1 * N) 
-    )
-})
-df['x'] = np.random.randn(len(df['category']))
-
-print('-'*50)
-print(df)
-
-for orient in ['dict', 'list', 'series', 'split', 'records', 'index']:    
-    print('-'*30, orient, '-'*30)
-    pprint(df.to_dict(orient))
-~~~
-
-![image-20210112160546485](images/image-20210112160546485.png)
-
 ### 稀疏矩阵csr_matrix
 
 Compressed Sparse Row Matrix 压缩稀疏行格式。稀疏矩阵csr_matrix有三种创建方式。其中最后一种有一点难理解，下面将解释。
@@ -613,31 +763,6 @@ plot_pdf(dfs)
 ~~~
 
 ![image-20201230113531124](images/image-20201230113531124.png)
-
-### 给dataframe添加行和列汇总
-
-~~~python
-import numpy as np
-import pandas as pd
-from IPython.display import display
-
-index=['变态', '非变态']
-columns=['不定装', '女装', '男装']
-df_observed = pd.DataFrame([[150, 200, 400], [350, 500, 1500]], index=index, columns=columns)
-display(df_observed)
-
-def show_sum(df):
-    s = df.reset_index().melt('index', var_name=' ')
-    ct = pd.crosstab(index=s['index'], columns=s.iloc[:,1], values=s.value, 
-                     aggfunc='sum', margins=True, margins_name='合计',
-                     rownames=[''], 
-               ) 
-    display(ct)
-
-show_sum(df_observed)
-~~~
-
-![image-20201228084238323](images/image-20201228084238323.png)
 
 ### 显示文件目录树+文件夹和文件删除
 

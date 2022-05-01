@@ -28,7 +28,7 @@ All of the code is organized into folders. For example, Chapter02.
 The code will look like the following:
 ```
 import spacy
-nlp = spacy.load("en_subwords_wiki_lg"
+nlp = spacy.load("en_subwords_wiki_lg")
 ```
 
 **Following is what you need for this book:**
@@ -62,5 +62,4 @@ We also provide a PDF file that has color images of the screenshots/diagrams use
 ## Get to Know the Author
 **Duygu Altınok**
 is a senior Natural Language Processing (NLP) engineer with 12 years of experience in almost all areas of NLP, including search engine technology, speech recognition, text analytics, and conversational AI. She has published several publications in the NLP area at conferences such as LREC and CLNLP. She also enjoys working on open source projects and is a contributor to the spaCy library. Duygu earned her undergraduate degree in computer engineering from METU, Ankara, in 2010 and later earned her master's degree in mathematics from Bilkent University, Ankara, in 2012. She is currently a senior engineer at German Autolabs with a focus on conversational AI for voice assistants. Originally from Istanbul, Duygu currently resides in Berlin, Germany, with her cute dog Adele.
-
 

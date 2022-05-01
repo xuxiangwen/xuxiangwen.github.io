@@ -1,5 +1,15 @@
 
 
+The epidemic in Shanghai is still serious. Shanghai  has been lockdown for 3 weeks.
+
+I had been in Fangcang hospital for 10 days. There are some Fangcang hospitals.  It can provide  more than 100,000 beds. 
+
+In the latest week, there are more than 20,000 positive cases every day.  The number of today positive cases  decreased, but we can't see the obvious  inflection point. 
+
+
+
+
+
 
 
 1. 冠状病毒 coronavirus

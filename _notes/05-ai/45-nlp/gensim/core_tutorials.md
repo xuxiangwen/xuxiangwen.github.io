@@ -1,4 +1,17 @@
+Gemsim主要基于无监督模型来对文本进行分析。
+
+## 安装
+
+~~~shell
+!pip install -U gensim
+~~~
+
 ## 核心概念（Core Concepts）
+
+- 文档（Document）
+- 语料库（Corpus）
+- 向量（Vector）
+- 模型（Model）
 
 ### 文档（Document）
 
