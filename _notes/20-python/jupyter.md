@@ -18,7 +18,7 @@ jupyter notebook默认会把文件放到垃圾箱里，在docker container里面
 
    找到`c.FileContentsManager.delete_to_trash = False`，把该行注释去掉。即如下样子。
 
-   ![image-20211206175338928](../99-others/images/image-20211206175338928.png)
+   ![image-20211206175338928](images/image-20211206175338928.png)
 
 3. 重启jupyter notebook。对于docker container，重启容器就好。
 

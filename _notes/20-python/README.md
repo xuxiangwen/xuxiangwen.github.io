@@ -177,7 +177,7 @@ plt.show()
 参考：
 
 - [Add custom fonts to Matplotlib](https://scentellegher.github.io/visualization/2018/05/02/custom-fonts-matplotlib.html)
-- [matplotlib图例中文乱码?](
+- [matplotlib图例中文乱码?](https://www.zhihu.com/question/25404709)
 
 ### 显示matplotlib支持的所有字体
 
@@ -443,9 +443,29 @@ plt.show()
 
 ## 技巧
 
-- https://www.zhihu.com/question/25404709)
+### 正则表达式group匹配
 
-### ast包
+~~~python
+matches = list(re.finditer(r'name:(?P<name>\w+)|age:(?P<age>\d+)', 'name:a age:12 name:b age:13'))
+
+for match in matches:
+    print('-'*50)
+    print(match) 
+    print(f'match.group()={match.group()}')
+    print(f'match.span()={match.span()}') 
+    print(f'match.groupdict()={match.groupdict()}') 
+    print(f'match.groups()={match.groups()}') 
+    print(f'match.lastgroup={match.lastgroup}')   
+    print(f'match.lastindex={match.lastindex}')  
+    
+    group_name = match.lastgroup
+    group_match_value = match.groupdict()[group_name]
+    print(f'{group_name}:{group_match_value}')
+    
+
+~~~
+
+### ![image-20220510210052146](images/image-20220510210052146.png)ast包
 
 Abstract Syntax Trees即抽象语法树。Ast是python源码到字节码的一种中间产物，借助ast模块可以从语法树的角度分析源码结构。此外，我们不仅可以修改和执行语法树，还可以将Source生成的语法树unparse成python源码。因此ast给python源码检查、语法分析、修改代码以及代码调试等留下了足够的发挥空间。
 
@@ -1188,7 +1208,7 @@ def add(a, b=3, **kwargs):
     print('b', type(a), b)
     print('kwargs', type(kwargs), kwargs)  
 
-
+dct = {'c':21, 'd':22, 'e':}
 add(1, c=21, d=22, e=23)
 add(1, 4, **dct)
 add(1, b=4, **dct)

@@ -1,5 +1,7 @@
 Gemsim主要基于无监督模型来对文本进行分析。
 
+本文的对应jupyter noteboo版本，参见[core_tutorials.ipynb](http://15.15.175.163:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/45-nlp/gensim/core_tutorials.ipynb)。
+
 ## 安装
 
 ~~~shell
@@ -23,7 +25,7 @@ document = "Human machine interface for lab abc computer applications"
 
 ### 语料库（Corpus）
 
-Corpus指一组Document。
+Corpus指一组Document。语料库在Gensim中有两个角色。
 
 #### 原始
 
@@ -41,6 +43,8 @@ text_corpus = [
 ]
 ~~~
 
+以上代码把整个语料库保存在了内存之中。如果语料库非常大，则要考虑采用corpora by *streaming*，参见 [Corpus Streaming – One Document at a Time](https://radimrehurek.com/gensim/auto_examples/core/run_corpora_and_vector_spaces.html#corpus-streaming-tutorial)
+
 #### 基本处理
 
 一般的行为有：
@@ -51,6 +55,7 @@ text_corpus = [
 
 ~~~python
 from pprint import pprint
+from collections import defaultdict
 
 # Create a set of frequent words
 stoplist = set('for a of the and to in'.split(' '))
@@ -59,7 +64,6 @@ texts = [[word for word in document.lower().split() if word not in stoplist]
          for document in text_corpus]
 
 # Count word frequencies
-from collections import defaultdict
 frequency = defaultdict(int)
 for text in texts:
     for token in text:
@@ -67,10 +71,11 @@ for text in texts:
 
 # Only keep words that appear more than once
 processed_corpus = [[token for token in text if frequency[token] > 1] for text in texts]
-pprint(processed_corpus)
+pprint.pprint(frequency)
+pprint.pprint(processed_corpus)
 ~~~
 
-![image-20200609082203231](images/image-20200609082203231.png)-
+![image-20220503213737010](images/image-20220503213737010.png)-
 
 对于中文，可以类似这样处理。其中分词采用了[jieba](https://github.com/fxsjy/jieba)。
 
@@ -384,22 +389,29 @@ gensim可以serialize语料库，支持多种文件格式，比如：[Market Mat
   print('-'*50)
   corpus = corpora.MmCorpus('/tmp/corpus.mm')
   print(corpus)
+  for doc in corpus:
+      print(doc)
+      
   print('-'*50)
-  corpus = corpora.SvmLightCorpus('/tmp/corpus.mm')
+  corpus = corpora.SvmLightCorpus('/tmp/corpus.svmlight')
   print(corpus)
+  for doc in corpus:
+      print(doc)
+      
   print('-'*50)
-  corpus = corpora.BleiCorpus('/tmp/corpus.mm')
+  corpus = corpora.BleiCorpus('/tmp/corpus.lda')
   print(corpus)
+  for doc in corpus:
+      print(doc)
+      
   print('-'*50)
-  corpus = corpora.LowCorpus('/tmp/corpus.mm')
+  corpus = corpora.LowCorpus('/tmp/corpus.low')
   print(corpus)
-  
-  print('-'*50)
   for doc in corpus:
       print(doc)
   ~~~
-
-  ![image-20200609141658160](images/image-20200609141658160.png)
+  
+  ![image-20220503224905155](images/image-20220503224905155.png)
 
 ### 兼容NumPy和SciPy
 

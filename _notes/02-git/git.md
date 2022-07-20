@@ -217,6 +217,9 @@ git config --global user.email "eipi10@qq.com"
 
 git config --global user.email aa00@hp.com
 git config --global user.name aa00
+
+git config --global user.email jian.xu3@hp.com
+git config --global user.name jian.xu
 ~~~
 
 ### 查看设定

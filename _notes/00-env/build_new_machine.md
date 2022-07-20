@@ -21,7 +21,7 @@ passwd $username
 
 ~~~shell
 su root
-username=grid
+username=AUTH\\xu6
 cat /etc/sudoer   # 检查是否已经设定了
 sudo cp /etc/sudoer /etc/sudoer.`date +%Y-%m-%d`
 chmod 640 /etc/sudoers
@@ -39,7 +39,7 @@ ll /etc/sudoers
 ### 修改/etc/hostname
 
 ~~~shell
-host_name=aa00
+host_name=aa02
 cat /etc/hostname   # 检查是否已经设定了
 
 # 当前目录创建新的
@@ -67,12 +67,14 @@ ll /etc/hosts
 cat /etc/hosts 	# 检查是否已经设定了
 
 # 当前目录创建新的
-cp /etc/hosts hosts 
-sudo cat << EOF >> hosts
-15.38.197.93 aa00
-15.38.197.191 aa01
-15.38.197.155 aa02
-15.38.197.241 aa03
+
+sudo cat << EOF > hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+15.15.175.163 aa00
+15.15.174.155 aa01
+15.15.173.21 aa02
+15.15.174.117 aa03
 
 EOF
 

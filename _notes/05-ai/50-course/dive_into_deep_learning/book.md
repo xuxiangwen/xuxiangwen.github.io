@@ -71,7 +71,7 @@ Open https://conda.io/en/latest/miniconda.html, Let's choose the version of Pyth
 6. create the python virtual environment.
 
    ~~~shell
-   #remove python virtual environment 
+   #remove python virtual environment if it exists
    conda env remove -n d2l       
    #create python virtual environment 
    conda create -y -n d2l python=3.8

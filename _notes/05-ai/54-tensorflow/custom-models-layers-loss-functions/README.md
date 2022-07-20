@@ -90,8 +90,8 @@ L_{\sigma}(a)  = \begin{equation}
 $$
 其中：
 
-- 当预测偏差小于 $\sigma $时，它采用平方误差
-- 当预测偏差大于 $\sigma $时，采用的线性误差
+- 当预测偏差小于 $\sigma$时，它采用平方误差
+- 当预测偏差大于 $\sigma$时，采用的线性误差
 
 ### [C1_W2_Lab_2_huber-object-loss.ipynb](http://15.15.166.35:18888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/54-tensorflow/custom-models-layers-loss-functions/Week_2/C1_W2_Lab_2_huber-object-loss.ipynb)
 
