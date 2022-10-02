@@ -47,6 +47,8 @@ print(tf.config.list_physical_devices('GPU'))
 
 ### Tensorflow
 
+更多版本参见https://hub.docker.com/r/tensorflow/tensorflow/
+
 **cpu+docker compose**
 
 ~~~shell
@@ -71,13 +73,44 @@ docker exec -it ts-py3 bash
 既然大多数情况，都会创建gpu的版本，干脆用最简单的名字tf吧。而且TensorFlow 2.1 是支持 Python 2 的最后一个 TF 版本，之后，只支持python3，所以docker tag中也不再需要py3了
 
 ~~~shell
-container_name=tf1
+container_name=tf291
 ports="-p 28888:8888 -p 27007:7007 -p 26006-26015:6006-6015"
-version=2.6.1-gpu-jupyter
+version=2.9.1-gpu-jupyter
 
 docker stop $container_name
 docker rm $container_name
 docker run -it -d --gpus all --name $container_name -v /home/grid/eipi10:/tf/eipi10 $ports tensorflow/tensorflow:$version  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
+docker logs $container_name
+
+# 再次启动
+docker start $container_name
+docker exec -it $container_name bash
+~~~
+
+~~~shell
+container_name=tf251
+ports="-p 38888:8888 -p 37007:7007 -p 36006-36015:6006-6015"
+version=2.5.1-gpu-jupyter
+
+docker stop $container_name
+docker rm $container_name
+docker run -it -d --gpus all --name $container_name -v /home/grid/eipi10:/tf/eipi10 $ports tensorflow/tensorflow:$version  jupyter-notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token='xxw'
+docker logs $container_name
+
+# 再次启动
+docker start $container_name
+docker exec -it $container_name bash
+~~~
+
+~~~python
+container_name=jupyter37
+ports="-p 48888:8888"
+version=python-3.7.6
+
+docker stop $container_name
+docker rm $container_name
+docker run -it -d --name $container_name -v /home/grid/eipi10:/home/jovyan/eipi10 --user root -e GRANT_SUDO=yes $ports jupyter/datascience-notebook:$version  start.sh jupyter notebook --NotebookApp.token='xxw'
+
 docker logs $container_name
 
 # 再次启动
