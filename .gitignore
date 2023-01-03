@@ -17,3 +17,4 @@ data
 Gemfile.lock
 _site
 **/output/
+**/processes/
