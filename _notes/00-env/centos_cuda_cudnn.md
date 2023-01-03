@@ -22,17 +22,15 @@ lspci | grep -i nvidia
 
 本文安装的版本：
 
-- NVidia显卡驱动：460.84
+- NVidia显卡驱动：515.76
 - CUDA:  11.3.1
-- cuDNN:  8.2.1
+- cuDNN:  8.50
 
 ## 1. [系统要求](https://docs.nvidia.com/cuda/archive/11.3.1/cuda-installation-guide-linux/index.html)
 
 首先要保证操作系统符合CUDA 11.3的要求。
 
-![image-20221001095317588](images/image-20221001095317588.png)
-
-![image-20210610225057848](images/image-20210610225057848.png)
+<img src="images/image-20221001095317588.png" alt="image-20221001095317588" style="zoom:67%;" />
 
 在centos7下安装，内核和centos的版本分别需要是3.10和7.7。使用下面命令检查。
 
@@ -81,9 +79,9 @@ sudo yum update
 
 ## 3. 安装NVidia显卡驱动
 
-1.  根据要安装CUDA的版本，找到合适的显卡驱动。本次安装需要满足$\geq 465.19.01$。详见[NVIDIA CUDA Toolkit Release Notes](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#abstract)。
+1.  根据要安装CUDA的版本，找到合适的显卡驱动。本次安装需要满足$\geq 465.19.01$。详见[NVIDIA CUDA Toolkit Release Notes](https://docs.nvidia.com/cuda/archive/11.3.1/cuda-toolkit-release-notes/index.html#abstract)。
 
-   ![image-20221002071950903](images/image-20221002071950903.png)
+   ![image-20221007101225185](images/image-20221007101225185.png)
 
 2. 下载[nvidia驱动](https://www.nvidia.com/Download/index.aspx?lang=en-us)。
 
@@ -165,7 +163,7 @@ sudo yum update
 
 ## 4. 安装CUDA
 
-详见[NVIDIA CUDA Installation Guide for Linux](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#abstract)。
+详见[NVIDIA CUDA Installation Guide for Linux](https://docs.nvidia.com/cuda/archive/11.3.1/cuda-installation-guide-linux/index.html)。
 
 1. 卸载老版本
 
@@ -237,7 +235,7 @@ sudo yum update
    sudo yum install zlib
    ~~~
 
-2. 下载cuDNN。打开[cuDNN](https://developer.nvidia.com/cudnn) ，登录以后，选择最新版本后，点击`cuDNN Library for Linux (X86_64)`链接进行下载。
+2. 下载cuDNN。打开[cuDNN](https://developer.nvidia.com/cudnn) ，登录以后，选择最新版本后，点击如下链接进行下载。
 
    ![image-20221002081552760](images/image-20221002081552760.png)
 

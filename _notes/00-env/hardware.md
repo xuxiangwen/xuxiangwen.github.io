@@ -66,6 +66,46 @@ cat /proc/version        #查看内核
 
 ### my laptop
 
+#### 2022-06-01
+
+|     **Motherboard:**            |                                  |                                                              |
+| ---------------- | -------------------------------- | ------------------------------------------------------------ |
+|                  | CPU Type                         | [OctalCore Intel Core i7-11800H, 4200 MHz (42 x 100)](https://ark.intel.com/content/www/us/en/ark/search.html?q=Intel Core i7-11800H) |
+|                  | Motherboard Name                 | HP ZBook Fury 15.6 inch G8 Mobile Workstation PC             |
+|                  | Motherboard Chipset              | [Intel Tiger Point WM590, Intel Tiger Lake-H](https://www.intel.com/products/chipsets) |
+|                  | System Memory                    | [ TRIAL VERSION ]                                            |
+|                  | DIMM1: SK hynix HMAA2GS6CJR8N-XN | 16 GB DDR4-3200 DDR4 SDRAM  (24-22-22-52 @ 1600 MHz)  (22-22-22-52 @ 1600 MHz)  (21-21-21-49 @ 1527 MHz)  (20-20-20-47 @ 1454 MHz)  (19-19-19-45 @ 1381 MHz)  (18-18-18-42 @ 1309 MHz)  (17-17-17-40 @ 1236 MHz)  (16-16-16-38 @ 1163 MHz)  (15-15-15-35 @ 1090 MHz)  (14-14-14-33 @ 1018 MHz)  (13-13-13-31 @ 945 MHz)  (12-12-12-28 @ 872 MHz)  (11-11-11-26 @ 800 MHz)  (10-10-10-24 @ 727 MHz) |
+|                  | BIOS Type                        | Unknown (07/18/2022)                                         |
+
+| **Display:** |                |                                                              |
+| ------------ | -------------- | ------------------------------------------------------------ |
+|              | Video Adapter  | [Intel(R) UHD Graphics  (1 GB)](https://www.intel.com/products/chipsets) |
+|              | Video Adapter  | [Intel(R) UHD Graphics  (1 GB)](https://www.intel.com/products/chipsets) |
+|              | Video Adapter  | [Intel(R) UHD Graphics  (1 GB)](https://www.intel.com/products/chipsets) |
+|              | Video Adapter  | [Intel(R) UHD Graphics  (1 GB)](https://www.intel.com/products/chipsets) |
+|              | Video Adapter  | [NVIDIA T1200 Laptop GPU  (4 GB)](https://www.nvidia.com/geforce) |
+|              | Video Adapter  | [NVIDIA T1200 Laptop GPU  (4 GB)](https://www.nvidia.com/geforce) |
+|              | Video Adapter  | [NVIDIA T1200 Laptop GPU  (4 GB)](https://www.nvidia.com/geforce) |
+|              | Video Adapter  | [NVIDIA T1200 Laptop GPU  (4 GB)](https://www.nvidia.com/geforce) |
+|              | 3D Accelerator | [nVIDIA T1200 Laptop](https://www.nvidia.com/geforce)        |
+|              | Monitor        | Generic PnP Monitor [NoDB]                                   |
+|              | Monitor        | [HP EliteDisplay E243 (HDMI)  [23.8" IPS LCD\]  (CNK90618L4)](http://www8.hp.com/us/en/products/monitors) |
+
+| **Multimedia:** |               |                                                              |
+| --------------- | ------------- | ------------------------------------------------------------ |
+|                 | Audio Adapter | [Intel Tiger Point PCH - cAVS (Audio, Voice, Speech)](https://www.intel.com/products/chipsets) |
+|                 | Audio Adapter | [nVIDIA TU117 HDMI/DP @ nVIDIA TU117 - High Definition Audio Controller](https://www.nvidia.com/page/mobo.html) |
+
+| **Storage:** |                         |                                                  |
+| ------------ | ----------------------- | ------------------------------------------------ |
+|              | IDE Controller          | Realtek PCIE CardReader                          |
+|              | Storage Controller      | Microsoft Storage Spaces Controller              |
+|              | Storage Controller      | Standard NVM Express Controller                  |
+|              | Disk Drive              | MTFDHBA1T0TDV-1AZ1AABHA  (1024 GB, PCI-E 3.0 x4) |
+|              | SMART Hard Disks Status | OK                                               |
+
+#### before 2022-06-01
+
 电脑型号		惠普HP ZBook 15 G5笔记本
 处理器			Intel(R) Core(TM) i7-8850H CPU @ 2.60GHz
 内存容量			16.0GB
@@ -85,3 +125,8 @@ DIMM1	三星 DDR4 2666MHz 16GB
 型号	CE M471A2K43DB1-CTD
 序列号	411A03E5
 	
+
+
+
+
+

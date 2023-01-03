@@ -1,3 +1,13 @@
+## 替换文件名
+
+~~~shell
+for file in *
+do
+echo $file
+mv "$file" "${file//[&()+ -,]/_}" 
+done
+~~~
+
 ### 统计脚本执行时间
 
 ~~~shell

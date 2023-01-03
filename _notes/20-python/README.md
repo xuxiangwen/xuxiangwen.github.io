@@ -446,7 +446,7 @@ plt.show()
 ### 正则表达式group匹配
 
 ~~~python
-i
+import re
 matches = list(re.finditer(r'name:(?P<name>\w+)|age:(?P<age>\d+)', 'name:a age:12 name:b age:13'))
 
 for match in matches:
@@ -466,7 +466,7 @@ for match in matches:
 
 ~~~
 
-### ![image-20220510210052146](images/image-20220510210052146.png)
+![image-20220510210052146](images/image-20220510210052146.png)
 
 ### ast包
 
