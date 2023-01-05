@@ -5,7 +5,7 @@
 
 ## 1. 网络基本情况
 
-![network](http://d3kbpzbmcynnmx.cloudfront.net/wp-content/uploads/2015/09/nn-from-scratch-3-layer-network.png)
+![img](images/nn-from-scratch-3-layer-network.png)
 
 $n_l$是神经网络的总层数（包括一个输入层，若干个隐藏层和一个输出层，所以至少是两层）, $l$是指网络中的第$l$层，$S_l$是指第$l$层网络中神经元的个数。$ f(x) $是神经元的激活函数。
 

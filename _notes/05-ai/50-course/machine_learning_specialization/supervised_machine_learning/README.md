@@ -77,5 +77,91 @@ P = 预测的准确率
 
 ### Jupyter Notebooks
 
+ [C1_W1_Lab01_Python_Jupyter_Soln.ipynb](notebooks\week_1\C1_W1_Lab01_Python_Jupyter_Soln.ipynb) 
+
+### Regression Model
+
+![image-20230103152146214](images/image-20230103152146214.png)
+
+ [C1_W1_Lab02_Model_Representation_Soln.ipynb](notebooks\week_1\C1_W1_Lab02_Model_Representation_Soln.ipynb) 
+
+创建简单的线性回归模型。
+
+ [C1_W1_Lab03_Cost_function_Soln.ipynb](notebooks\week_1\C1_W1_Lab03_Cost_function_Soln.ipynb) 
+
+计算损失函数，可视化损失函数。
+
+#### 动态显示Cost函数（单变量）
+
+~~~python
+plt_intuition(x_train,y_train)
+~~~
 
 
+
+![image-20230103215615067](images/image-20230103215615067.png)
+
+上图可以上动态调节参数，非常不错。
+
+~~~python
+def plt_intuition(x_train, y_train):
+
+    w_range = np.array([200-200,200+200])
+    tmp_b = 100
+
+    w_array = np.arange(*w_range, 5)
+    cost = np.zeros_like(w_array)
+    for i in range(len(w_array)):
+        tmp_w = w_array[i]
+        cost[i] = compute_cost(x_train, y_train, tmp_w, tmp_b)
+
+    @interact(w=(*w_range,10),continuous_update=False)
+    def func( w=150):
+        f_wb = np.dot(x_train, w) + tmp_b
+
+        fig, ax = plt.subplots(1, 2, constrained_layout=True, figsize=(8,4))
+        fig.canvas.toolbar_position = 'bottom'
+
+        mk_cost_lines(x_train, y_train, w, tmp_b, ax[0])
+        plt_house_x(x_train, y_train, f_wb=f_wb, ax=ax[0])
+
+        ax[1].plot(w_array, cost)
+        cur_cost = compute_cost(x_train, y_train, w, tmp_b)
+        ax[1].scatter(w,cur_cost, s=100, color=dldarkred, zorder= 10, label= f"cost at w={w}")
+        ax[1].hlines(cur_cost, ax[1].get_xlim()[0],w, lw=4, color=dlpurple, ls='dotted')
+        ax[1].vlines(w, ax[1].get_ylim()[0],cur_cost, lw=4, color=dlpurple, ls='dotted')
+        ax[1].set_title("Cost vs. w, (b fixed at 100)")
+        ax[1].set_ylabel('Cost')
+        ax[1].set_xlabel('w')
+        ax[1].legend(loc='upper center')
+        fig.suptitle(f"Minimize Cost: Current Cost = {cur_cost:0.0f}", fontsize=12)
+        plt.show()
+~~~
+
+interact的用法参见[Jupyterlab + Ipywidgets，打造交互式分析平台](https://zhuanlan.zhihu.com/p/263411257)。
+
+#### 动态显示Cost函数（双变量）
+
+~~~python
+plt.close('all') 
+fig, ax, dyn_items = plt_stationary(x_train, y_train)
+updater = plt_update_onclick(fig, ax, x_train, y_train, dyn_items)
+~~~
+
+![image-20230103221342313](images/image-20230103221342313.png)
+
+#### 显示Cost函数3D图
+
+~~~python
+soup_bowl()
+~~~
+
+
+
+![image-20230103221720691](images/image-20230103221720691.png)
+
+### Gradient Descent
+
+Andrew Ng讲的太好了，他能够边讲边画边讲，太厉害了 
+
+[C1_W1_Lab04_Gradient_Descent_Soln.ipynb](notebooks\week_1\C1_W1_Lab04_Gradient_Descent_Soln.ipynb) 
