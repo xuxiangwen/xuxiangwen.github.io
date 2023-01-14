@@ -33,6 +33,6 @@ $ \frac {\mathrm{d} J(W)} {\mathrm{d} b^{(l)}}
 
 经过这个调整，其实计算方式和流程没有根本的变化，和之前的公式是完全等价的。但唯一的变化是更加的直观了。对于第$l$层layer来说，正向传播时，输入是$a^{(l-1)}$, 输出是$a^{(l)}$，而反向传播时， 输出是$\frac {\mathrm{d} J} {\mathrm{d} a^{(l-1)}} $，输入是 $\frac {\mathrm{d} J} {\mathrm{d} a^{(l)}} $。输入输出的方向相反，但一一对应，维度完全相同（$a^{(l-1)} $和 $\frac {\mathrm{d} J} {\mathrm{d} a^{(l-1)}}$， $a^{(l)} $和 $\frac {\mathrm{d} J} {\mathrm{d} a^{(l)}}$的维度完全相同），这样整个过程更加的直观，更好理解。
 
-```python
+```1\python
 
 ```

@@ -1,4 +1,78 @@
+## Tasks
 
+- 机器学习培训课程
+
+  - Machine Learning Introduction： 30 hours
+  - Deep Learning Introduction： 90 hours
+    - Neural Network： 30 hours
+    - Nature Learning Introduction： 30 hours
+    - Computer Vision Introduction： 30 hours
+
+- 在线考试系统： 30 hours
+
+- [Reinforcement Learning Specialization](https://www.coursera.org/specializations/reinforcement-learning)
+
+  - [Fundamentals of Reinforcement Learning](https://www.coursera.org/learn/fundamentals-of-reinforcement-learning?specialization=reinforcement-learning) ： 30 hours
+
+    1/30,2023-1-8; 
+
+  - [Sample-based Learning Methods](https://www.coursera.org/learn/sample-based-learning-methods?specialization=reinforcement-learning)： 30 hours
+
+  - [Prediction and Control with Function Approximation](https://www.coursera.org/learn/prediction-control-function-approximation?specialization=reinforcement-learning)： 30 hours
+
+  - [A Complete Reinforcement Learning System (Capstone)](https://www.coursera.org/learn/complete-reinforcement-learning-system?specialization=reinforcement-learning)： 30 hours
+
+- [Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning-introduction)
+
+  - [Advanced Learning Algorithms](https://www.coursera.org/learn/advanced-learning-algorithms?specialization=machine-learning-introduction)： 30 hours
+
+    1/30,2023-1-8; 3/30,2023-1-14; 
+
+  - [Unsupervised Learning, Recommenders, Reinforcement Learning](https://www.coursera.org/learn/unsupervised-learning-recommenders-reinforcement-learning)： 30 hours
+
+
+
+
+
+## 2023-01-08
+
+最近的计划：
+
+- 构建在线考试系统：使用power apps来实现
+
+​        第一个月： 估计要30个小时
+
+- 完成机器学习培训课程： 4个月
+
+  - 创建机器学习课程
+    - Machine Learning Introduction： 第一个月
+      - 估计30个小时
+    - Deep Learning Introduction： 第二个月
+      - 估计40个小时
+    - Nature Learning Introduction： 第三个月
+      - 估计40个小时
+    - Computer Vision Introduction: 第四个月
+      - 估计40个小时
+  
+  - 时间： 每天投入两个小时在这个上面。
+    - 第一个月：
+      - 在线考试系统：1个小时
+      - Machine Learning Introduction：1个小时
+  
+- 强化学习： https://www.coursera.org/specializations/reinforcement-learning#courses: 2个月
+
+  总共四个课程，每个课程都需要4周时间
+
+  - 时间： 每天1个小时
+
+- Machine Learning Specialization: 2个月
+
+  - Course:
+    - [Advanced Learning Algorithms](https://www.coursera.org/learn/advanced-learning-algorithms?specialization=machine-learning-introduction)
+      - 30 hours
+    - [Unsupervised Learning, Recommenders, Reinforcement Learning](https://www.coursera.org/learn/unsupervised-learning-recommenders-reinforcement-learning)
+      - 30 hours
+  - 时间： 每天1个小时
 
 ## 2022-02-22
 

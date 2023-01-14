@@ -1212,7 +1212,7 @@ From a hierarchy perspective, folders are subdivisions of tenants.
 
   ![CZqzn2VLUUQheIkU-webhook.gif](images/B7s_kMrmRAj71cNa_FaOdu2eLyilZr3oQ.gif)
 
-#### **Folder entities*
+#### **Folder entities**
 
 有两种Folder
 
@@ -1286,24 +1286,399 @@ Logs are time-stamped files that contain informational events, errors, and warni
 
 ## **Robot Provisioning and License Distribution**
 
-~~~shell
-C:\Users\xu6\AppData\Local\Programs\UiPath\Studio>UiRobot.exe --connect  --url https://cloud.uipath.com/eipi10/eipi10Default  --key b5ae4aaa-2386-47eb-b30b-518f36145430   
-~~~
+示例中，展示了如何创建一个Unattended Robot。
 
-![image-20230104221714264](images/image-20230104221714264.png)
+1. 创建Robot account.   https://cloud.uipath.com/abciuasyzo/default
+
+   ![image-20230108181135747](images/image-20230108181135747.png)
+
+2. 给Robot account分配Role。
+
+   - 选择Role
+
+     ![image-20230108183308618](images/image-20230108183308618.png)
+
+   - 输入机器人所在Windows的账号信息。
+
+     ![image-20230108183429271](images/image-20230108183429271.png)
+
+   - 创建。
+
+     ![image-20230108183503184](images/image-20230108183503184.png)
+
+   
+
+   
+
+3. 创建Machine Template
+
+   ![image-20230108183821136](images/image-20230108183821136.png)
+
+   ![image-20230108184133566](images/image-20230108184133566.png)
+
+4. 将机器人连接到 Orchestrator
+
+   ~~~shell
+   cd C:\Users\xu6\AppData\Local\Programs\UiPath\Studio
+   UiRobot.exe connect  --url https://cloud.uipath.com/abciuasyzo/default  --key b9e81125-3383-41ff-bbad-e18406085280
+   ~~~
+
+   - --url: Orchestrator url
+
+   - --key: 来自Machine Template的Machine key。
+
+     ![image-20230108184348013](images/image-20230108184348013.png)
+
+   
+
+   **机器人命令行接口** (UiRobot.exe) 是一个控制台应用程序，可用于请求启动作业并等待作业输出。`UiRobot.exe connect`用于用于将机器人连接到 Orchestrator。详细用法参见https://docs.uipath.com/robot/lang-zh_CN/docs/arguments-description/。
+
+   断开连接：
+
+   ~~~shell
+   UiRobot.exe disconnect
+   ~~~
+
+5. 在Orchestrator上检查Robot连接情况
+
+   ![image-20230108190121546](images/image-20230108190121546.png)
+
+ 6. 创建“DemoFolder” Folder。
+
+    ![image-20230108190659085](images/image-20230108190659085.png)
+
+ 7. Assign Accout/Group。
+
+    ![image-20230108190852376](images/image-20230108190852376.png)
+
+    ![image-20230108190942904](images/image-20230108190942904.png)
+
+ 8. 分配Machine。
+
+    ![image-20230108191041062](images/image-20230108191041062.png)
+
+    ![image-20230108191102547](images/image-20230108191102547.png)
+
+ 9. ​	Folder中添加Process。
+
+    ![image-20230108191256281](images/image-20230108191256281.png)
+
+    ![image-20230108191902027](images/image-20230108191902027.png)
+
+ 10. 运行Job
+
+     ![image-20230108191957763](images/image-20230108191957763.png)
 
 ## Unattended Automation With Folders
 
-# Questions
+Process的种类：
 
-1. why do we use Seleumium? 
+- Background process
 
-   It seems that the Uipath modern experience is very powerful.
+  可以并行运行多个Process。
 
-   - Anchor + Target
-   - Unified  Target
-     - **Selectors**
-     - **Fuzzy Selectors**
-     - **Images**
+- Foreground process
+  一个时间只能运行一个Process
 
-2. 
+不太理解
+
+![image-20230108194733368](images/image-20230108194733368.png)
+
+# [Working with Orchestrator Resources](https://academy.uipath.com/courses/working-with-orchestrator-resources)
+
+## **Orchestrator Resources in Studio**
+
+项目位置：C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\WorkingWithOrchestratorResources
+
+- 登录https://acme-test.uipath.com
+- 从Asset中获取用户名密码
+- 输入用户名密码登录
+- 点击Work Item
+- 读取数据到DataTable
+- 把DataTable数据插入到Queue中
+
+## **Libraries and Templates in Orchestrator**
+
+- 创建一个Library，并publish到Orchestrator
+
+  项目位置：C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\ACMELogin
+
+- 创建一个Template，调用Orchestrator上的Library
+
+  项目位置：C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\ACMETemplate
+
+## Storage Buckets
+
+### What are Storage Buckets?
+
+Storage buckets are Orchestrator entities used for storing files which can be used in automation projects.
+
+Storage buckets can be created using the Orchestrator database or some external providers, such as Azure, Amazon, or MinIO. Each storage buckets is a folder-scoped entity, allowing fine-grained control over storage and content access.
+
+项目位置：C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\StorageBuckets
+
+## **Queues**
+
+构建了一个Queue的Demo
+
+1. Dispatcher： 插入数据到Queue
+
+   - 项目位置：	C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\HTWWQ_Demo_Dispathcer
+
+2. Performer: 消费Queue
+
+   - 项目位置：	C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\HTWWQ_Demo_Performer
+
+   ![image-20230109171636408](images/image-20230109171636408.png)
+
+### **Populating and consuming queues**
+
+这里谈到的hierarchical manner是啥意思？
+
+Within any given queue the transactions are processed in a hierarchical manner, according to this order: 
+
+- Items that **have a Deadline**, as follows: 
+  1. in order of **Priority**—**and**
+  2. according to the set **Deadline** for items with the **same Priority.**
+- Items with **no Deadline**, in order of **Priority—**and
+  1. according to the rule **First In**, **First Out** for items with the **same Priority.**
+
+For example, a **queue item** that's **due today at** **7:00 pm** and has a **Medium priority** is **processed first**, **before another item that has no due date and a High priority.**
+
+### **Queue item statuses**
+
+- New
+
+  - The item was just added to the queue with Add Queue Item, or
+  - the item was postponed, or
+  - a deadline was added to it, or
+  - the item was added after an attempt and failure of a previous queue item with auto-retry enabled.
+
+- In Progress
+
+  The item was processed with the Get Transaction Item or the Add Transaction Item activity.
+
+  When an item has this status, the custom progress status is also displayed, in the Progress column.
+
+- Failed
+
+  The item did not meet a business or application requirement within the project.
+
+  It was therefore sent to a Set Transaction Status activity, which changed its status to Failed 
+
+- Successful
+
+  The item was processed and sent to a Set Transaction Status activity, which changed its status to Successful.
+
+- Abandoned
+
+  The item remained in the In Progress status for a long period of time (approx. 24 hours) without being processed.
+
+- Retried
+
+  The item failed with an application exception and was retried (at the end of the process retried, the status will be updated to a final one - Successful or Failed.
+
+- Deleted
+
+  The item has been manually deleted from the Transactions page.
+
+![Queues_v2_NOPROCESS_.png](images/M7jzRZgSdi1jFQW__YY_aNe-jjRSAdg3L-Queues_v2_NOPROCESS_.png)
+
+## Transactions and Types of Processes
+
+ we can divide business processes into three categories: linear, iterative, and transactional.
+
+- **Linear**
+
+  ![simple_v2_NOPROCESS_.png](images/icfQDyw0h4JKESIX_-0V_qfOh3Cu9-OPG-simple_v2_NOPROCESS_.png)
+
+- **Iterative**
+
+  ![iterativ_v2_NOPROCESS_.png](images/37QEJsSC8CmwaKdq_kEFa-r12Rv7dqaJ7-iterativ_v2_NOPROCESS_.png)
+
+- **Transactional**
+
+  ![Transactional_NOPROCESS_.png](images/Fo-W4DwwgzI5UAyX_PRpofyoAnckuY7gX-Transactional_NOPROCESS_.png)
+
+# [Email Automation with Studio](https://academy.uipath.com/courses/email-automation-with-studio)
+
+## **Email Automation Overview**
+
+有三种读取邮箱的方法。
+
+### Retrieving Email with Gmail and Outlook Integration
+
+- 项目位置：C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\EmailAutomationWithIMAPAndGmail
+
+  - 从https://acme-test.uipath.com/first-automation发送邮件到Gmail
+
+  - 在Gmail中  Enabling POP3/IMAP from Gmail
+
+    https://docs.uipath.com/installation-and-upgrade/docs/studio-enabling-gmail-for-email-activities
+
+  - Enable Google App  Password
+
+    https://www.getmailbird.com/gmail-app-password/
+
+  > 但是这个例子还是失败。
+
+### Retrieving Email with Outlook
+
+- 项目位置：C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\RetrievingEmailWithOutlook
+  - 从outlook读取邮件
+  - 根据邮件名，把邮件放到指定的目录
+
+### Retrieving Email with Gmail and Outlook Integration
+
+- 项目位置：C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\RetrieveingEmailWithGmailAndOutllokIntegration
+
+  有两个功能
+
+  - 访问Gmail邮箱，删除所有Spam目录的邮件
+  - 访问Outlook邮箱，下载附件到指定目录
+
+## Filtering Emails
+
+项目位置：C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\EmailAutomationTraining
+
+以下两节内容都来自该项目。
+
+过滤有两种方式：
+
+- 在获取邮件的时候过滤
+- 在获取全部邮件后再进行过滤
+
+### Filtering Emails with Outlook
+
+Filtering email IMAP and Outlook.xaml
+
+- 在获取邮件的时候过滤
+
+  ![image-20230111093938028](images/image-20230111093938028.png)
+
+- 在获取全部邮件后再进行过滤
+
+  ~~~vb
+  convert.ToDateTime(RetrievedEmail.Headers("Date")) >convert.ToDateTime(DateTime.Now.AddDays(-1).tostring("d"))
+  ~~~
+
+### Filtering Emails with IMAP
+
+Filtering email IMAP and Outlook.xaml
+
+不过IMAP还是报错。
+
+- 在获取邮件的时候过滤
+
+  ![image-20230111094352333](images/image-20230111094352333.png)
+
+- 在获取全部邮件后再进行过滤
+
+  ~~~vb
+  convert.ToDateTime(RetrievedEmail.Headers("Date")) >convert.ToDateTime(DateTime.Now.AddDays(-1).tostring("d"))
+  ~~~
+
+## **Sending Emails**
+
+项目位置：C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\EmailAutomationTraining
+
+以下三节内容都来自该项目。
+
+### **Sending emails SMTP**
+
+Sending Emails via SMTP.xaml
+
+无法通过SMTP发送邮件给Gmail
+
+### Sending emails Outlook
+
+Sending emails via Outlook.xaml
+
+无法通过OUTLOOK发送邮件给Gmail邮箱
+
+### **Sending a Calendar Invite with Outlook Integration**
+
+Sending meeting invite via Integration with Outlook.xaml
+
+编译错误
+
+![image-20230111103720863](images/image-20230111103720863.png)
+
+# [PDF Automation with Studio](https://academy.uipath.com/courses/pdf-automation-with-studio)
+
+## Extracting Data from PDF
+
+两种PDF文件：
+
+- Native PDF
+
+- Scanned  PDF
+
+  A PDF file that is made up of scanned images of a given document. With scanned PDFs you will not be able to select text or use the search function because the PDF is a collection of images. 
+
+有两个Activity可以从PDF中抽取数据：
+
+- Extract data using Read PDF Text activity.
+- Extract data using Read PDF with OCR activity.
+
+这两个Activity的公共属性有：
+
+- **Range** - The range of pages that you want to read. If the range isn't specified, the whole file is read. You can specify a single page (e.g. "7"), a range of pages (e.g. "7-12"), or a complex range, (e.g. "2-5, 7, 15-End" or "All"). Only string variables and strings are supported. The default value is "All".
+
+项目位置：C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\ExtractingDataFromPDF
+
+另外，如果使用Classic Experience，可以使用Screen Scrapping。项目位置：C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\Demo - Extracting Data From PDF Files
+
+![image-20230112111948205](images/image-20230112111948205.png)
+
+![image-20230112111842894](images/image-20230112111842894.png)
+
+## Extracting a Single Piece of Data From PDF
+
+需要安装Adobe Acrobat Reader，而且需要设置一下Reading Order，并去掉Accessibility里面的两个选项。
+
+![image-20230112141619227](images/image-20230112141619227.png)
+
+![image-20230112141749650](images/image-20230112141749650.png)
+
+里面介绍了使用UI Exploror来获取内容的一些技巧。
+
+> 然而，Uipath无法获取PDF里面的内容，只可以获取整个文档
+
+## Extracting Data Using Anchor Base
+
+本节里面介绍了Classic下的Anchor Base和Modern下的Get Text来获取内容。
+
+Anchor Base非常强大，可以用element作为Anchor，也可以用图片。
+
+项目位置：C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\Demo - Using the Anchor Base Activity to Extract Data
+
+> 然而，Uipath无法获取PDF里面的内容，只可以获取整个文档
+
+# [Version Control Systems Integration in Studio](https://academy.uipath.com/courses/version-control-systems-integration-in-studio-)
+
+略。
+
+# [RPA Testing with Studio](https://academy.uipath.com/courses/rpa-testing-with-studio)
+
+## **Introduction to RPA Testing**
+
+总体方针：
+
+- proactive maintenance is what we need to do
+- reactive maintenance is whate we must avoid
+
+3种Issue：
+
+![image-20230113115100930](images/image-20230113115100930.png)
+
+![image-20230113115233753](images/image-20230113115233753.png)
+
+- Application  Issues: 比如UI的变化。
+- Environment Issues：比如安全补丁
+- Automation Issues
+
+
+
+
+

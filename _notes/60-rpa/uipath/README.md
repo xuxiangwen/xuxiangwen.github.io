@@ -105,6 +105,59 @@ An environment links together multiple robots that are running the same process.
 
 ## RPA Tools, C# mentoring program
 
+### 2023-01-13
+
+- Common Functionality
+  - Application: C# Project
+    - DB
+    - Complex Business Logic
+    - cdax
+  - UI: UiPath preferred
+
+- Enterprise Template
+
+  - UiPath version update frequently
+
+  - .Net Frame Version
+
+  - Compatibility with  old projects
+
+  - Many operations with DB
+
+    - It seems that Queue is better， but is it robust?
+
+      AE: RabbitMQ has some issues.
+
+- Test Suite
+
+### 2023-01-10
+
+- why do we use Seleumium? 
+
+  It seems that the Uipath modern experience is very powerful.
+
+  - Anchor + Target
+  - Unified  Target
+    - **Selectors**
+    - **Fuzzy Selectors**
+    - **Images**
+
+- GetTransactionData.xaml的参数比起默认多了个四个。
+
+  ![image-20230110125837809](images/image-20230110125837809.png)
+
+- Process.xmal增加两个参数
+
+  ![image-20230110130858435](images/image-20230110130858435.png)
+
+- 从Get Transaction Data到Initialization增加了一个Relaunch
+
+![image-20230110130636674](images/image-20230110130636674.png)
+
+- 如何添加Executor到Uipath
+- System.Activities.CodeActivity是微软开发的吗
+- 目前采用数据库的方式如何并发呢？
+
 ### 2022-12-15
 
 As we discussed on the Kick-off meeting, this will be the plan.

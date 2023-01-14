@@ -57,7 +57,7 @@
 
 - 是否理解环境
 
-  ![强化学习方法汇总 (Reinforcement Learning)](https://morvanzhou.github.io/static/results/ML-intro/RLmtd1.png)
+  ![img](images/RLmtd1-1673155127942-1.png)
 
   - 不理解（Model-Free RL）
 
@@ -77,7 +77,7 @@
 
 - 基于概率还是价值
 
-  ![强化学习方法汇总 (Reinforcement Learning)](https://morvanzhou.github.io/static/results/ML-intro/RLmtd2.png)
+  ![img](images/RLmtd2-1673155146409-4.png)
 
   - 基于概率：根据概率采取行动, 所以每种动作都有可能被选中, 只是可能性不同. 
 
@@ -96,7 +96,7 @@
 
 - 策略更新
 
-  ![强化学习方法汇总 (Reinforcement Learning)](https://morvanzhou.github.io/static/results/ML-intro/RLmtd3.png)
+  ![img](images/RLmtd3-1673155181490-7.png)
 
   想象强化学习就是在玩游戏, 游戏回合有开始和结束. 回合更新指的是游戏开始后, 我们要等待游戏结束, 然后再总结这一回合中的所有转折点, 再更新我们的行为准则. 而单步更新则是在游戏进行中每一步都在更新, 不用等待游戏的结束, 这样我们就能边玩边学习了.
 
@@ -108,7 +108,7 @@
 
 - 是否在线
 
-  ![强化学习方法汇总 (Reinforcement Learning)](https://morvanzhou.github.io/static/results/ML-intro/RLmtd4.png)
+  ![img](images/RLmtd4-1673155200875-10.png)
 
   - 在线学习（On-Policy）
 
@@ -169,9 +169,8 @@
   - 卡内基梅隆大学: [Deep RL and Control](https://link.zhihu.com/?target=https%3A//katefvision.github.io/)
 
   - 全面的机器学习视频教程：[莫烦Python](https://link.zhihu.com/?target=https%3A//morvanzhou.github.io/tutorials/machine-learning/reinforcement-learning/)
-
-  - - 莫烦python是一个很全面的机器学习教学视频网站，包括python学习、机器学习、强化学习、深度学习和相关实践教程。作者是一位博士，**周沫凡**，而且人很亲切友善，听他的课是一种享受。
-
+    - 莫烦python是一个很全面的机器学习教学视频网站，包括python学习、机器学习、强化学习、深度学习和相关实践教程。作者是一位博士，**周沫凡**，而且人很亲切友善，听他的课是一种享受。
+  
 - 实践代码
   - [莫烦python强化学习教程全部代码](https://link.zhihu.com/?target=https%3A//github.com/MorvanZhou/Reinforcement-learning-with-tensorflow)
   - [github上强化学习star数最多的代码](https://link.zhihu.com/?target=https%3A//github.com/dennybritz/reinforcement-learning)
