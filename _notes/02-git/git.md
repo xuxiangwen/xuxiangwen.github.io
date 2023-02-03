@@ -331,8 +331,8 @@ git diff head       # 比较工作区和版本库(当前)
 
 ~~~shell
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-git lg -p 5         # 显示最近5次的提交结果
-git log --oneline --decorate --graph --all -p 5    # 上面的命令，内容和颜色都很丰富，下面的更简明
+git lg -5         # 显示最近5次的提交结果
+git log --oneline --decorate --graph --all  5    # 上面的命令，内容和颜色都很丰富，下面的更简明
 ~~~
 
 ### [Git怎样撤销一次分支的合并Merge](https://segmentfault.com/q/1010000000140446)
