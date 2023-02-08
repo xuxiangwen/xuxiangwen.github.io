@@ -443,6 +443,212 @@ plt.show()
 
 ## 技巧
 
+### abc（Abstract Base Classes）
+
+abc代表Abstract Base Classes。`abc`模块提供了一个抽象基类元类（`ABCMeta`），用来定义抽象类。同时提供了一个工具类`ABC`，可以用它以继承的方式定义抽象基类。由下图的`abc`模块的组成结构图，可以看出`ABCMeta`类的数据类型为`type`类型，可以用来生成`ABC`类（其类型为`ABCMeta`类型）。
+
+![在这里插入图片描述](images/44448cbe79b24a4f94888541c469e418.png)
+
+抽象基类通过metaclass，强制检查所有的abstractmethod是否在子类中重现（可惜看在pycharm中看不到具体的实现），应该说非常巧妙。由于python没有在编译器上是抽象类的方法，采用abc，可以在程序层面实现这个功能。下面例子中，可以看到：
+
+- 无法实例化抽象类Dog。
+- 子类必须重写抽象方法bark。
+
+~~~python
+from abc import ABCMeta, abstractmethod
+
+class Dog(object, metaclass=ABCMeta):
+    
+    def __init__(self, nickname):
+        self._nickname = nickname    
+    
+    @abstractmethod
+    def bark(self):
+        print('wang wang')
+
+class AlaskaDog(Dog):
+
+    def bark(self):
+        print('{}:汪汪汪～～～'.format(self._nickname))
+        
+class SamoyedDog(Dog):
+    pass 
+    
+
+dog1 = AlaskaDog('lala')
+dog1.bark()
+
+try: 
+    dog1  = Dog('lala') 
+except TypeError as e:
+    print(e)
+
+try: 
+    dog2 = SamoyedDog('lala')
+    dog2.bark()
+except TypeError as e:
+    print(e)
+
+~~~
+
+### [鸭子类型（duck typing）](https://zh.wikipedia.org/wiki/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B#:~:text=%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B%EF%BC%88%E8%8B%B1%E8%AA%9E%EF%BC%9Aduck%20typing,%E5%92%8C%E5%B1%9E%E6%80%A7%E7%9A%84%E9%9B%86%E5%90%88%E3%80%8D%E5%86%B3%E5%AE%9A%E3%80%82)
+
+鸭子类型就是动态类型语言（比如：python，javascript）的一种设计风格。在这种风格中，一个对象的特征不是由父类决定，而是通过对象的方法决定的。
+
+> 鸭子测试：如果走起路来像鸭子，叫起来也像鸭子，那么它就是鸭子（If it walks like a duck and quacks like a duck, it must be a duck）。
+>
+> 怎么这么像图灵测试？:)
+
+~~~python
+class Duck:
+    def quack(self):
+        print("这鸭子正在嘎嘎叫")
+
+    def feathers(self):
+        print("这鸭子拥有白色和灰色的羽毛")
+
+class Person:
+    def quack(self):
+        print("这人正在模仿鸭子")
+
+    def feathers(self):
+        print("这人在地上拿起1根羽毛然后给其他人看")
+
+def in_the_forest(duck):
+    duck.quack()
+    duck.feathers()
+
+def game():
+    donald = Duck()
+    john = Person()
+    in_the_forest(donald)
+    in_the_forest(john)
+
+game()
+~~~
+
+![image-20230205093737901](images/image-20230205093737901.png)
+
+### 元类（metaclass）
+
+详见[使用元类](https://www.liaoxuefeng.com/wiki/1016959663602400/1017592449371072)。
+
+一种用于创建类的类。
+
+创建一个类的时候，当我们传入关键字参数`metaclass`时，魔术就生效了，它指示Python解释器在创建`MyList`时，要通过`ListMetaclass.__new__()`来创建，在此，我们可以修改类的定义，比如，加上新的方法，然后，返回修改后的定义。
+
+`__new__()`方法接收到的参数依次是：
+
+1. 当前准备创建的类的对象；
+2. 类的名字；
+3. 类继承的父类集合；
+4. 类的方法集合。
+
+~~~
+# metaclass是类的模板，所以必须从`type`类型派生：
+class ListMetaclass(type):
+    def __new__(cls, name, bases, attrs):
+        attrs['add'] = lambda self, value: self.append(value)
+        return type.__new__(cls, name, bases, attrs)
+        
+class MyList(list, metaclass=ListMetaclass):
+    pass
+
+L = MyList()
+L.add(1)
+print(f'L={L}')
+
+print(f'type(ListMetaclass)={type(ListMetaclass)}')
+print(f'type(MyList)={type(MyList)}')
+print(f'type(MySubList)={type(MySubList)}')
+~~~
+
+![image-20230205091322242](images/image-20230205091322242.png)
+
+动态修改有什么意义？直接在`MyList`定义中写上`add()`方法不是更简单吗？正常情况下，确实应该直接写，通过metaclass修改纯属变态。
+
+但是，总会遇到需要通过metaclass修改类定义的。ORM就是一个典型的例子。
+
+- 采用metaclass的方法，可以控制class属性和方法集合。由于ORM中具体的Field类型和Field的实际值可以用metaclass技巧，巧妙处理，区分开来，但总体感觉还是比较复杂的。
+
+~~~python
+class Field(object):
+
+    def __init__(self, name, column_type):
+        self.name = name
+        self.column_type = column_type
+
+    def __str__(self):
+        return '<%s:%s>' % (self.__class__.__name__, self.name)
+    
+class StringField(Field):
+
+    def __init__(self, name):
+        super(StringField, self).__init__(name, 'varchar(100)')
+
+class IntegerField(Field):
+
+    def __init__(self, name):
+        super(IntegerField, self).__init__(name, 'bigint')   
+        
+class ModelMetaclass(type):
+
+    def __new__(cls, name, bases, attrs):
+        if name=='Model':
+            return type.__new__(cls, name, bases, attrs)
+        print('Found model: %s' % name)
+        mappings = dict()
+        for k, v in attrs.items():
+            if isinstance(v, Field):
+                print('Found mapping: %s ==> %s' % (k, v))
+                mappings[k] = v
+        for k in mappings.keys():
+            attrs.pop(k)
+        attrs['__mappings__'] = mappings # 保存属性和列的映射关系
+        attrs['__table__'] = name # 假设表名和类名一致
+        return type.__new__(cls, name, bases, attrs)    
+    
+class Model(dict, metaclass=ModelMetaclass):
+
+    def __init__(self, **kw):
+        super(Model, self).__init__(**kw)
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(r"'Model' object has no attribute '%s'" % key)
+
+    def __setattr__(self, key, value):
+        self[key] = value
+
+    def save(self):
+        fields = []
+        params = []
+        args = []
+        for k, v in self.__mappings__.items():
+            fields.append(v.name)
+            params.append('?')
+            args.append(getattr(self, k, None))
+        sql = 'insert into %s (%s) values (%s)' % (self.__table__, ','.join(fields), ','.join(params))
+        print('SQL: %s' % sql)
+        print('ARGS: %s' % str(args))    
+    
+class User(Model):
+    # 定义类的属性到列的映射：
+    id = IntegerField('id')
+    name = StringField('username')
+    email = StringField('email')
+    password = StringField('password')
+
+# 创建一个实例：
+u = User(id=12345, name='Michael', email='test@orm.org', password='my-pwd')
+# 保存到数据库：
+u.save()    
+~~~
+
+![image-20230204164219043](images/image-20230204164219043.png)
+
 ### 正则表达式group匹配
 
 ~~~python
@@ -1225,6 +1431,23 @@ add(1, f=4, **dct, b=4, g=4)
 ~~~
 
 ![image-20201117095850599](images/image-20201117095850599.png)
+
+##### 混合
+
+~~~python
+def add(a, b=2, *args, **kwargs):
+    print('='*50)
+    print('a', type(a), a)  
+    print('b', type(b), b)  
+    print('args', type(args), args)  
+    print('kwargs', type(kwargs), kwargs) 
+    return 
+    
+add(1, 2, 3, 4) 
+add(1, 2, 3, c=4, d=5)  
+~~~
+
+![image-20230204161132387](images/image-20230204161132387.png)
 
 ### 类和函数注释规范
 
