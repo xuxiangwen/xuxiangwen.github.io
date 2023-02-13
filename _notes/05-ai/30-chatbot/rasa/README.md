@@ -1,6 +1,24 @@
+https://rasa.com/docs/rasa/
+
 ## 介绍
 
 Rasa是一个自动文本和语音对话的开源机器学习框架。
+
+![image](images/introduction.png)
+
+三大产品：
+
+- ## Rasa Open Source
+
+- ## Rasa Pro
+
+  Rasa Pro is a conversational AI framework powered by Rasa Open Source, and includes additional features, APIs, and services that serve enterprise specific needs around **security, observability, and scale**.
+
+  需要花钱。
+
+-  [Rasa X/Enterprise](https://rasa.com/docs/rasa-enterprise)
+
+  It is our **low-code user interface** that supports conversational AI Teams reviewing and improving AI Assistants at scale. It must be used with Rasa Pro. 
 
 ### 架构
 
