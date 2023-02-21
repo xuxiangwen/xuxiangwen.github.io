@@ -1,6 +1,4 @@
-https://rasa.com/docs/rasa/
-
-## 介绍
+# [介绍](https://rasa.com/docs/rasa/)
 
 Rasa是一个自动文本和语音对话的开源机器学习框架。
 
@@ -8,9 +6,9 @@ Rasa是一个自动文本和语音对话的开源机器学习框架。
 
 三大产品：
 
-- ## Rasa Open Source
+- Rasa Open Source
 
-- ## Rasa Pro
+- Rasa Pro
 
   Rasa Pro is a conversational AI framework powered by Rasa Open Source, and includes additional features, APIs, and services that serve enterprise specific needs around **security, observability, and scale**.
 
@@ -20,7 +18,7 @@ Rasa是一个自动文本和语音对话的开源机器学习框架。
 
   It is our **low-code user interface** that supports conversational AI Teams reviewing and improving AI Assistants at scale. It must be used with Rasa Pro. 
 
-### 架构
+## 架构
 
 - Rasa NLU ：
 
@@ -32,7 +30,7 @@ Rasa是一个自动文本和语音对话的开源机器学习框架。
 
 当一条用户的表达到达chatbot时，由NLU对封装后的Message进行文本分析，得到意图和实体信息，然后由对话管理核心模块接受原始的用户消息和NLU的分析结果，根据一些策略，生成某个回复。
 
-### 产品
+## 产品
 
 - Rasa Open Source
 
@@ -48,40 +46,76 @@ Rasa是一个自动文本和语音对话的开源机器学习框架。
 
   是一个整合了Rasa Open Source, Rasa X以及其它的一些特性的平台。
 
-## 安装
+# 安装
 
-### Local
+## 本地安装
 
-#### Rasa
+### [环境设置](https://rasa.com/docs/rasa/installation/environment-set-up)
+
+#### Python环境安装
 
 ~~~shell
+python3 --version
+pip3 --version
+~~~
+
+- ubuntu
+
+  ~~~shell
+  sudo apt update
+  sudo apt install python3-dev python3-pip
+  ~~~
+
+- centos
+
+  ~~~shell
+  sudo yum update -y
+  sudo yum install python3-devel python3-pip
+  ~~~
+
+#### 虚拟环境安装
+
+~~~shell
+cd /home/grid/eipi10/rasa
 python3 -m venv ./venv
 source ./venv/bin/activate
-
-# 对于rasa 2.6来说，要求的tensorflow版本是2.3.*
-pip install tensorflow-gpu==2.3.2  
-pip install rasa
-deactivate 
 ~~~
 
-安装tensorflow，对于rasa 2.6来说，它
+退出虚拟环境
 
 ~~~shell
-
+deactivate
 ~~~
 
-#### Rasa X
-
-安装了Rasa X，默认也安装了Rasa
+#### 安装 Rasa Open Source
 
 ~~~shell
-python3 -m venv ./venv
-source ./venv/bin/activate
-pip install rasa-x --extra-index-url https://pypi.rasa.com/simple
-rasa x   
+pip3 install -U pip
+pip3 install rasa
 ~~~
 
-然后打开http://localhost:5002
+##### 其他依赖
+
+- 安装spaCy依赖
+
+  ~~~shell
+  pip3 install rasa[spacy]
+  python3 -m spacy download en_core_web_md
+  ~~~
+
+- 安装 MITIE
+
+  [MITIE](https://github.com/mit-nlp/MITIE)是在[dlib](http://dlib.net/)机器学习库之上开发的NLP工具包，支持分布式词嵌入和结构化SVM。提供英语，西班牙语，德语的预训练[语言模型](https://so.csdn.net/so/search?q=语言模型&spm=1001.2101.3001.7020)。MITIT核心代码使用C++编写，支持Python，R，Java,C,MATLAB的集成。
+
+  ~~~shell
+  pip3 install git+https://github.com/mit-nlp/MITIE.git
+  pip3 install rasa[mitie]
+  ~~~
+
+
+
+
+
 
 ### [Docker](https://rasa.com/docs/rasa-x/installation-and-setup/install/docker-compose)
 
@@ -107,26 +141,6 @@ rasa x
   ~~~
 
   
-
-
-
-#### Rasa X
-
-- Docker Compose Install Script
-
-  ~~~shell
-  curl -sSL -o install.sh https://storage.googleapis.com/rasa-x-releases/0.40.1/install.sh
-  sudo bash ./install.sh
-  cd /etc/rasa
-  sudo docker-compose up -d
-  
-  # create admin password
-  sudo python3 rasa_x_commands.py create --update admin me <PASSWORD>
-  ~~~
-
-- Docker Compose Manual Install
-
-  详见https://rasa.com/docs/rasa-x/installation-and-setup/install/docker-compose#docker-compose-manual-install
 
 
 

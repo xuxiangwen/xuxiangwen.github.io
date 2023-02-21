@@ -443,6 +443,41 @@ plt.show()
 
 ## 技巧
 
+### 并行计算 - joblib
+
+~~~python
+from joblib import Parallel, delayed
+import numpy as np
+import time
+
+def single(a):
+    wait_seconds = round(0.5 + 0.5 * abs(np.random.randn()), 2)
+    time.sleep(wait_seconds) 
+    return a, wait_seconds
+    
+def singles():
+    nums = []
+    for i in range(10):  
+        nums.append(single(i))
+    return nums
+        
+def parallels():
+    nums = Parallel(n_jobs=5)(delayed(single)(i) for i in range(10)) 
+    return nums
+        
+def run(fun):    
+    print('-'*20, 'run', fun.__name__, '-'*20) 
+    start = time.time()  
+    print(fun())
+    elapsed = time.time() - start  
+    print(f'{elapsed:0.2f} seconds')       
+
+run(singles)
+run(parallels)
+~~~
+
+![image-20230215232444922](images/image-20230215232444922.png)
+
 ### abc（Abstract Base Classes）
 
 abc代表Abstract Base Classes。`abc`模块提供了一个抽象基类元类（`ABCMeta`），用来定义抽象类。同时提供了一个工具类`ABC`，可以用它以继承的方式定义抽象基类。由下图的`abc`模块的组成结构图，可以看出`ABCMeta`类的数据类型为`type`类型，可以用来生成`ABC`类（其类型为`ABCMeta`类型）。
