@@ -18,9 +18,16 @@
 
 ## 课后练习
 
-- https://github.com/brynhayder/reinforcement_learning_an_introduction/blob/master/exercises/exercises.pdf
-  - local： [exercises.pdf](exercise\exercises.pdf) 
 - https://github.com/vojtamolda/reinforcement-learning-an-introduction
+
+  质量最高。
+
+  - local：[exercies](http://15.15.174.138:28888/tree/eipi10/tmp/reinforcement_exercises/reinforcement-learning-an-introduction)
+
+- https://github.com/brynhayder/reinforcement_learning_an_introduction/blob/master/exercises/exercises.pdf
+  
+  - local： [exercises.pdf](exercise\exercises.pdf) 
+  
 - http://tianlinliu.com/files/notes_exercise_RL.pdf
 
 
@@ -1359,25 +1366,208 @@ $$
 
 - 练习3.20 对于高尔夫球示例，绘制或描述最佳状态价值函数。
 
+  答：是图3.3 上下图的一个合成。用上图中绿色部分覆盖下图相同区域便可。根据公式：
+  $$
+  v_*(s) = \max_{a\in\mathcal{A}(s)} q_{\pi_*}(s,a)
+  $$
+
+  - 当球处于下图中$-3，-2$轮廓线之间时，$q_{*}(s, driver) \geq q_{*}(s, putter)$，则 $v_*(s) = q_{*}(s, driver) = -3$。
+  - 当球处于下图中$-2，-1$轮廓线之间时，$q_{*}(s, driver) \geq q_{*}(s, putter)$，则 $v_*(s) = q_{*}(s, driver)=-2$。
+  - 当球处于下图中$-1$轮廓线内时，$q_{*}(s, driver) \leq q_{*}(s, putter)$，则 $v_*(s) = q_{*}(s, putter)=-1$。
+
+  ![figure-3.3-0.png (1016×516)](images/figure-3.3-0.png)
+
+  
+
 - 练习3.21 对于高尔夫球示例，绘制或描述 $q_*(s,putter)$ 最佳行为价值的轮廓线。
+
+  答：根据公式（3.20），可得：
+  $$
+  \begin{split}\begin{aligned}
+  q_*(s,a) &= \mathbb{E}\left[R_{t+1}+\gamma\sum_{a^\prime}q_*(S_{t+1,a^\prime})|S_t=s,A_t=a\right] \\
+  &=\sum_{s^\prime,r}p(s^\prime,r|s,a)[r+\gamma \max_{a^\prime}q_*(s^\prime,a^\prime)] \\
+  &=\sum_{s^\prime,r}p(s^\prime,r|s,a)[r+\gamma v_*(s^\prime)] 
+  \end{aligned}\end{split}
+  $$
+  于是，对于 $$q_*(s,putter)$$，可以进行如下推导。
+  $$
+  \begin{split}\begin{aligned}
+  q_*(s,putter) &= 
+  \sum_{s^\prime,r}p(s^\prime,r|s,putter)[r+\gamma v_*(s^\prime)]  & (by\ \gamma=1, \  r=-1) \\
+  &=  \sum_{s^\prime}p(s^\prime|s,putter)[-1+v_*(s^\prime)]
+  \end{aligned}\end{split}
+  $$
+  下面结合下图 $V_{putt}$和上一题的 $v_*(s)$ 进行分析。
+
+  ![figure-3.3-1.png (1016×1148)](images/figure-3.3-1.png)
+
+  - 当球处于图中上半部分$-6，-5$轮廓线之间时，一次推杆后，球必然会进入 $-5，-4$ 轮廓线之间，观察可得，该区域 $v_*(s^\prime)=-3$，于是可得： 
+    $$
+    \begin{split}\begin{aligned}
+    q_*(s,putter) 
+    &=  \sum_{s^\prime}p(s^\prime|s,putter)[-1-3] \\
+    &= -4 \sum_{s^\prime}p(s^\prime|s,putter) \\
+    &= -4
+    \end{aligned}\end{split}
+    $$
+
+  - 当球处于图中上半部分$-5，-4$轮廓线之间时，一次推杆后，球必然会进入 $-4，-3$ 轮廓线之间，观察可得，该区域一部分 $v_*(s^\prime)=-3$， 另外一部分 $v_*(s^{\prime\prime})=-2$，，于是可得： 
+    $$
+    \begin{split}\begin{aligned}
+    q_*(s,putter) 
+    &=  \sum_{s^\prime}p(s^\prime|s,putter)[-1-3] + \sum_{s^{\prime\prime}}p(s^{\prime\prime}|s,putter)[-1-2] \\
+    &= -4 \sum_{s^\prime}p(s^\prime|s,putter) -3\sum_{s^{\prime\prime}}p(s^{\prime\prime}|s,putter) \\
+     &= -3 - \sum_{s^\prime}p(s^\prime|s,putter) 
+    \end{aligned}\end{split}
+    $$
+    其中 $s^\prime$ 表示上半部分轮廓线 $-4$ 和下半部分轮廓线 $-2$ 之间的区域。 $s^{\prime\prime}$ 表示下半部分轮廓线 $-2$ 和上半部分轮廓线 $-3$ 之间的区域。
+
+  - 当球处于图中上半部分$-4，-3$轮廓线之间时，一次推杆后，球必然会进入 $-3，-2$ 轮廓线之间，观察可得，该区域一部分 $v_*(s^\prime)=-3$， 另外一部分 $v_*(s^{\prime\prime})=-2，，于是可得： 
+    $$
+    \begin{split}\begin{aligned}
+    q_*(s,putter) 
+    &=  \sum_{s^\prime}p(s^\prime|s,putter)[-1-3] + \sum_{s^{\prime\prime}}p(s^{\prime\prime}|s,putter)[-1-2] \\
+    &= -4 \sum_{s^\prime}p(s^\prime|s,putter)  -3\sum_{s^{\prime\prime}}p(s^{\prime\prime}|s,putter) \\
+     &= -3 - \sum_{s^\prime}p(s^\prime|s,putter) 
+    \end{aligned}\end{split}
+    $$
+    其中 $s^\prime$ 表示上半部分轮廓线 $-3$ 和下半部分轮廓线 $-2$ 之间的区域。 $s^{\prime\prime}$ 表示下半部分轮廓线 $-2$ 和上半部分轮廓线 $-2$ 之间的区域。
+
+  - 当球处于图中上半部分$-3，-2$轮廓线之间时，一次推杆后，球必然会进入 $-2，-1$ 轮廓线之间，观察可得，该区域 $v_*(s^\prime)=-2$，于是可得：
+    $$
+    \begin{split}\begin{aligned}
+    q_*(s,putter) 
+    &=  \sum_{s^\prime}p(s^\prime|s,putter)[-1-2] \\
+    &= -3 \sum_{s^\prime}p(s^\prime|s,putter) \\
+    &= -3
+    \end{aligned}\end{split}
+    $$
+
+  - 当球处于图中上半部分$-2，-1$轮廓线之间时，一次推杆后，球必然会进入 $ -1$ 轮廓线之内（即绿色区域），该区域 $v_*(s^\prime)=-1$，于是可得：
+    $$
+    \begin{split}\begin{aligned}
+    q_*(s,putter) 
+    &=  \sum_{s^\prime}p(s^\prime|s,putter)[-1-1] \\
+    &= -2 \sum_{s^\prime}p(s^\prime|s,putter) \\
+    &= -2
+    \end{aligned}\end{split}
+    $$
+
+  - 当球处于图中上半部分$-1$轮廓线之内（即绿色区域），一次推杆后，球必然会进入进洞， $v_*(s^\prime)=0$，于是可得：
+    $$
+    \begin{split}\begin{aligned}
+    q_*(s,putter) 
+    &=  \sum_{s^\prime}p(s^\prime|s,putter)[-1-1] \\
+    &= -1 \sum_{s^\prime}p(s^\prime|s,putter) \\
+    &= -1
+    \end{aligned}\end{split}
+    $$
 
 - 练习3.22 考虑下图显示的持续MDP。唯一的决策是在顶点状态，有左，右两个行为可以选择。每次行为收到确定的奖励。有两个确定性的策略：$\pi_{left}$ 和 $\pi_{right}$。如果 $\gamma  = 0$，哪一个策略更好？如果 $\gamma  = 0.9$？如果 $\gamma = 0.5$？ 
 
   ![../../_images/exercise-3.22.png](images/exercise-3.22.png)
 
+  答：对于确定性的策略，且每个行为奖励固定， 则状态价值函数 $v_\pi(s) = r +  \gamma v_\pi(s^\prime) $，可得：
+  $$
+  v_{\pi_{left}}(top) = 1+\gamma^2 + \gamma^4 + \cdots +  = \frac 1 {1- \gamma^2} \\
+  v_{\pi_{right}}(top) = 2\gamma + 2\gamma^3 + 2\gamma^5  + \cdots +  = \frac {2\gamma} {1- \gamma^2}
+  $$
+
+  - 如果 $\gamma=0$，则 $v_{\pi_{left}}(top)  = 1,v_{\pi_{right}}(top) = 0  $，$\pi_{left}$ 更好。
+  - 如果 $\gamma=0.9$，则  $v_{\pi_{left}}(top)  = \frac {100} {19},v_{\pi_{right}}(top) = \frac {180} {19}  $，$\pi_{right}$ 更好。
+  - 如果 $\gamma=0.5$，则  $v_{\pi_{left}}(top)  = \frac 4 3,v_{\pi_{right}}(top) = \frac 4 3  $，两个策略表现相同。
+
 - 练习3.23 给出回收机器人的 $q_*$ 贝尔曼方程。
+
+  ![../../_images/table_figure.png](images/table_figure-1677389561374-6.png)
+
+  答：根据公式（3.20），可得：
+  $$
+  \begin{split}\begin{aligned}
+  & q_*(h,s) = r_s +\gamma [\alpha \max_{a} q_{*}(h,a)+ (1-\alpha)\max_{a} q_{*}(l,a)]  \\
+  &q_*(h,w) =  r_w +\gamma \max_{a} q_{*}(h,a) \\
+  &q_*(l,s)=  r_s - 3(1-\beta)+\gamma[(1-\beta)\max_{a} q_{*}(h,a)+\beta \max_{a} q_{*}(l,a))]\\
+  &q_*(l,w)=  r_w +\gamma \max_{a} q_{*}(l,a) \\
+  &q_*(l,re) =  \gamma \max_{a} q_{*}(h,a)
+  \end{aligned}\end{split}
+  $$
 
 - 练习3.24 图3.5给出了网格世界的最佳状态的价值为 $24.4$。基于最优策略，使用公式（3.8）表示并计算（保留三位小数）。
 
+  ![figure-3.5](images/figure-3.5.png)
+
+  答：根据最佳策略，从$A$ 出发，只有一条路径，经过5步完成，又返回A。根据公式（3.8），可得：
+  $$
+  \begin{split}\begin{aligned}
+  G_{t} &= \sum_{k=0}^{\infty}\gamma^k R_{t+k+1} \\
+   &=0.9^0 \times 10 + 0.9^1 \times 0 + 0.9^2\times 0 + 0.9^3 \times 0+ 0.9^4  \times 0 + 0.9^5 \times  10 + \cdots \\
+   &= 10+ 0.9^5 \times  10+ 0.9^{10}\times  10 + \cdots\\
+   &= \frac {10} {1-0.9^5} \\ &= 24.419
+  \end{aligned}\end{split}
+  $$
+
 - 练习3.25 使用 $q_*$ 表示 $v_*$。
+
+  答：
+  $$
+  v_*(s) &= \max_{a} q_{*}(s,a) \\
+  $$
 
 - 练习3.26 使用 $v_*$ 和四参数 $p$ 表示 $q_*$。
 
+  答：
+  $$
+  \begin{split}\begin{aligned}
+  q_*(s,a) &= \mathbb{E}\left[R_{t+1}+\gamma\sum_{a^\prime}q_*(S_{t+1,a^\prime})|S_t=s,A_t=a\right] \\
+  &=\sum_{s^\prime,r}p(s^\prime,r|s,a)[r+\gamma \max_{a^\prime}q_*(s^\prime,a^\prime)] \\
+  &=\sum_{s^\prime,r}p(s^\prime,r|s,a)[r+\gamma v_*(s^\prime)] 
+  \end{aligned}\end{split}
+  $$
+
 - 练习3.27 使用 $q_*$ 表示 $\pi_*$。
+
+  答：
+  $$
+  \pi_*(a|s)=
+  \begin{equation}  
+  \left\{  
+  \begin{array}{lcl}  
+   1        &  & if \ a = argmax_{a^{\prime}} q_*(s, a^{\prime}) \\  
+   0 &  & otherelse 
+  \end{array}  
+  \right.  
+  \end{equation}
+  $$
+  
 
 - 练习3.28 使用 $v_*$ 和四参数 $p$ 表示 $\pi_*$。
 
+  答：
+  $$
+  \pi_*(a|s)=
+  \begin{equation}  
+  \left\{  
+  \begin{array}{lcl}  
+   1        &  & if \ a = argmax_{a^{\prime}} \sum_{s^\prime,r}p(s^\prime,r|s,a^\prime)[r+\gamma v_*(s^\prime)]  \\  
+   0 &  & otherelse 
+  \end{array}  
+  \right.  
+  \end{equation}
+  $$
+  
+
 - 练习3.29 使用公式（3.4）和公式（3.5）表示四个贝尔曼方程的价值函数：$v_\pi, \ v_*, \ q_\pi, \  q_*$。
+
+  答：从定义出发，可得：
+  $$
+  \begin{split}\begin{aligned}
+  &v_\pi(s) 
+  =\sum_a\pi(a|s) [r(s, a)+ \gamma \sum_{s^\prime}p(s^\prime|s,a) v_\pi(s^\prime)] \\
+  &v_*(s)  =\max _a [r(s, a)+ \gamma\sum_{s^\prime}p(s^\prime|s,a) v_\pi(s^\prime)] \\
+  &q_\pi(s, a) = r(s, a)+ \gamma \sum_{s^\prime}p(s^\prime|s,a)  \_{a^\prime}\pi(a^{\prime}|s^\prime) q_\pi(s^\prime, a^{\prime})\\
+  &q_*(s, a) = r(s, a)+ \gamma \sum_{s^\prime}p(s^\prime|s,a)  \max_{a^\prime}\pi(a^{\prime}|s^\prime) q_\pi(s^\prime, a^{\prime})
+  \end{aligned}\end{split}
+  $$
 
 ### 3.7 优化和近似
 
