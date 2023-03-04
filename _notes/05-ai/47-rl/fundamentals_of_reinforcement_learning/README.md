@@ -1,13 +1,5 @@
 # Week 1
 
-## 学习目标（Learning Objectives）
+课程作业
 
-本课程的学习目标，即内容参见 [Fundamentals-of-Reinforcement-Learning_-Learning-Objectives-.pdf](Fundamentals-of-Reinforcement-Learning_-Learning-Objectives-.pdf) 
-
-## The K-Armed Bandit Problem
-
-### **The K-Armed Bandit Problem**
-
-### **What to Learn? Estimating Action Values**
-
-### 
+http://15.15.174.138:28888/notebooks/eipi10/xuxiangwen.github.io/_notes/05-ai/47-rl/fundamentals_of_reinforcement_learning/week1/code/C1M1-Assignment1-v9-solution-michael.ipynb

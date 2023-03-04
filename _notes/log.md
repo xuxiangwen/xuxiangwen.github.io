@@ -32,6 +32,12 @@
 
   - [Unsupervised Learning, Recommenders, Reinforcement Learning](https://www.coursera.org/learn/unsupervised-learning-recommenders-reinforcement-learning): 30 hours
 
+- TensorFlow Book
+
+  
+
+- RASA Book
+
 ## 时间安排
 
 ### 2023-02-23

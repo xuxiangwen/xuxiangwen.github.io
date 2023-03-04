@@ -30,6 +30,11 @@
   
 - http://tianlinliu.com/files/notes_exercise_RL.pdf
 
+## 课程
+
+- [Reinforcement Learning Specialization](https://www.coursera.org/specializations/reinforcement-learning#courses) from coursera
+  - 练习：http://15.15.174.138:28888/tree/eipi10/tmp/Reinforcement-Learning-Specialization1
+
 
 # 1 简介
 
@@ -364,7 +369,7 @@ Tracking a Nonstationary Problem
 $$
 Q_{n+1} \doteq Q_n + \alpha(R_n - Q_n)  \tag {2.5}
 $$
- StepSize 参数 $\alpha \in (0, 1]$ 是常数。这导致 $Q_{n+1}$ 是所有过去奖励（包括初始估计 $Q_1$）的加权平均值。
+ StepSize 参数 $\alpha \in (0, 1]$ 是常数。$Q_{n+1}$ 是所有过去奖励（包括初始估计 $Q_1$）的加权平均值。
 $$
 \begin{split}\begin{aligned}
 Q_{n+1} &= Q_n + \alpha(R_n - Q_n) \\
@@ -992,7 +997,7 @@ Returns and Episodes
 $$
 G_{t} \doteq R_{t+1} +R_{t+2} + R_{t+3} + \dots + R_{T}， \tag {3.7}
 $$
-其中 $T$ 是最后一步。这种方法适用于有最终时间步概念的应用。也就是说，个体和环境的交互可以分解为子序列，我们称之为*情节（Episodes）*。例如玩游戏，走迷宫，或任何形式的重复互动。每个情节都结束与 *终点（terminal state）* 状态，然后重置到标准的初始状态（或者初始状态的所属分布的一个抽样）。下一情节的开始也与上一情节的结束无关。即使情节以不同的方式结束，比如输或赢，下一个情节的开始和上一个情节的结束无关。 因此，这些情节都可以被认为是以相同的终点状态结束，只是不同的结果有不同的奖励而已。具有这种情节的任务被称为 *情节任务（episodic tasks）*。在情节任务中，所有的非终点节的集合表示为 $\mathcal{S}$ , 这个集合加上终点节点表示为  $\mathcal{S^+}$。终止时间 $T$ 是一个随机变量，随着情节的不同而变化。
+其中 $T$ 是最后一步。这种方法适用于有最终时间步概念的应用。也就是说，个体和环境的交互可以分解为子序列，我们称之为*情节（Episodes）*。例如玩游戏，走迷宫，或任何形式的重复互动。每个情节都结束于 *终止（terminal state）* 状态，然后重置到标准的初始状态（或者初始状态的所属分布的一个抽样）。下一情节的开始也与上一情节的结束无关。即使情节以不同的方式结束，比如输或赢，下一个情节的开始和上一个情节的结束无关。 因此，这些情节都可以被认为是以相同的终止状态结束，只是不同的结果有不同的奖励而已。具有这种情节的任务被称为 *情节任务（episodic tasks）*。在情节任务中，所有的非终止节的集合表示为 $\mathcal{S}$ , 这个集合加上终止节点表示为  $\mathcal{S^+}$。终止时间 $T$ 是一个随机变量，随着情节的不同而变化。
 
 另外一方面，许多情况下，个体和环境的交互并不是可以自然地分解为可识别的情节，而是持续不断的进行的。例如：一个持续的过程控制任务或者一个长寿命的机器人应用。我们把这些称之为*持续任务（continuing tasks）* 。公式 （3.7）并不适用于持续任务，因为这时最终时间步 $T= \infin$，这样预期收益也很可能是无穷的（比如，假设每个时间步的奖励都为1）。
 
@@ -1121,13 +1126,13 @@ $$
 
 公式（3.14）称之为 $v_\pi$ 的贝尔曼方程（Bellman equation）。它表达了状态价值与下一个状态价值之间的关系。如下图所示，每个空心圆表示状态，每个实心圆表示状态-动作对（state–action pair）。
 
-![../../_images/backup_diagram_for_v_pi.png](images/backup_diagram_for_v_pi.png)
+<img src="images/backup_diagram_for_v_pi.png" alt="../../_images/backup_diagram_for_v_pi.png" style="zoom:50%;" />
 $$
 v_\pi \text {的备份图（Backup diagram）}
 $$
 值函数 $v_\pi$  是其贝尔曼方程的唯一解。在后面的章节中，我们将介绍基于贝尔曼方程，计算，近似和学习 $v_\pi$ 的几种方法。
 
-**例3.5：网格世界（Gridworld）** 图3.2的左边显示了一个简单的有限MDP的矩阵网格世界。每一个单元格代表了环境的状态。每个单元格，可以有四个行为：北，南，东，西。每个行为使个体在相应方向上移动一个格子。如果行为使个体离开网格，则是无效的（即个体位置保持不变），但奖励为-1。除了从特殊状态A，B移出的行为，其他行为奖励为0。在状态 $A$，所有四个行为都产生+10的奖励，并将个体送到 $A^\prime$。在状态 $B$，所有四个行为都产生+5的奖励，并将个体送到 $B^\prime$。
+**例3.5：网格世界（Gridworld）** 图3.2的左边显示了一个简单的有限MDP的矩阵网格世界。每一个单元格代表了环境的状态。每个单元格，可以有四个行为：north，south，east，west。每个行为使个体在相应方向上移动一个格子。如果行为使个体离开网格，则是无效的（即个体位置保持不变），但奖励为-1。除了从特殊状态A，B移出的行为，其他行为奖励为0。在状态 $A$，所有四个行为都产生+10的奖励，并将个体送到 $A^\prime$。在状态 $B$，所有四个行为都产生+5的奖励，并将个体送到 $B^\prime$。
 
 ![figure-3.2](images/figure-3.2.png)
 $$
@@ -1539,7 +1544,6 @@ $$
   \end{equation}
   $$
   
-
 - 练习3.28 使用 $v_*$ 和四参数 $p$ 表示 $\pi_*$。
 
   答：
@@ -1555,7 +1559,6 @@ $$
   \end{equation}
   $$
   
-
 - 练习3.29 使用公式（3.4）和公式（3.5）表示四个贝尔曼方程的价值函数：$v_\pi, \ v_*, \ q_\pi, \  q_*$。
 
   答：从定义出发，可得：
@@ -1564,10 +1567,32 @@ $$
   &v_\pi(s) 
   =\sum_a\pi(a|s) [r(s, a)+ \gamma \sum_{s^\prime}p(s^\prime|s,a) v_\pi(s^\prime)] \\
   &v_*(s)  =\max _a [r(s, a)+ \gamma\sum_{s^\prime}p(s^\prime|s,a) v_\pi(s^\prime)] \\
-  &q_\pi(s, a) = r(s, a)+ \gamma \sum_{s^\prime}p(s^\prime|s,a)  \_{a^\prime}\pi(a^{\prime}|s^\prime) q_\pi(s^\prime, a^{\prime})\\
+  &q_\pi(s, a) = r(s, a)+ \gamma \sum_{s^\prime}p(s^\prime|s,a)  \sum_{a^\prime}\pi(a^{\prime}|s^\prime) q_\pi(s^\prime, a^{\prime})\\
   &q_*(s, a) = r(s, a)+ \gamma \sum_{s^\prime}p(s^\prime|s,a)  \max_{a^\prime}\pi(a^{\prime}|s^\prime) q_\pi(s^\prime, a^{\prime})
   \end{aligned}\end{split}
   $$
+
+#### 练习：网格世界
+
+![image-20230302064738904](images/image-20230302064738904.png)
+
+例3.5和例3.8 分别显示了价值函数和最优价值函数。求解 $v_\pi$ 和 $v_*$，需要和上面的数值接近。
+
+答：根据网格世界的特性，可以得出 $$ p(s^\prime,r|s,a)=1 $$，即状态 $s$ 下 执行$ a$， 会进入确定性的状态 $s^\prime $ ，且奖励 $r$也是确定的。由此可以得到： 
+$$
+\begin{split}\begin{aligned}
+v_\pi(s) &\doteq \sum_a\pi(a|s) \sum_{s^\prime,r}p(s^\prime,r|s,a)[r+\gamma v_\pi(s^\prime)] \\
+&= \sum_a \pi(a|s)  [r+\gamma v_\pi(s^a)]
+\end{aligned}\end{split}
+$$
+
+$$
+\begin{split}\begin{aligned}
+v_\pi(s) &= \sum_a \pi(a|s)  [r+\gamma v_\pi(s^a)] \\
+\sum_a \pi(a|s)  \gamma v_\pi(s^a) - v_\pi(s) &= -\sum_a \pi(a|s) r \\
+\begin{bmatrix} \pi(south|s)\gamma & \pi(north|s)\gamma & \pi(east|s)\gamma & \pi(west|s)\gamma & -1 \end{bmatrix} \begin{bmatrix} v_\pi(s^{north}) \\ v_\pi(s^{south}) \\ v_\pi(s^{east}) \\ v_\pi(s^{west}) \\ v_\pi(s) \end{bmatrix} &= -\sum_a \pi(a|s) r
+\end{aligned}\end{split}
+$$
 
 ### 3.7 优化和近似
 
@@ -1607,3 +1632,299 @@ Optimality and Approximation
 
 略
 
+## 4 动态规划
+
+Dynamic Programming
+
+动态规划（Dynamic Programming，简称 DP）这个术语是指：给定的完美的环境模型作为马尔可夫决策过程（MDP）的情况下，计算最优策略的算法集合。传统的 DP 算法在强化学习上应用有限，不仅因为其完美模型的假设，也因为其巨大的计算成本，但是在理论方面，它们依然非常重要。 DP 算法为本书后面章节的理解提供了必要的基础。事实上，所有这些章节中方法都可以被看成一种尝试，它们尝试获取与 DP 算法相同的效果， 所不同的是这些方法需要较少的计算量，并且不用假设完美的环境模型。
+
+从本章开始，我们通常环境是一个有限 MDP。也就是说，我们假定：
+
+- 状态集合 $\cal{S}$，行为集合 $\cal{A(s)}$ 和奖励集合 $\cal{R}$ 都是有限的，
+- 环境所有的动态由一组概率 $p(s^\prime,r|s,a)$ 给出。其中 $\cal{s}\in\cal{S},\ a\in\cal{A(s)},\  \cal{s}'\in\mathcal{S}^+$ （$\mathcal{S}^+$是指对于情节任务，即 $\mathcal{S}$ 加上终止状态)。
+
+虽然 DP 思想可以被用到连续状态和行为空间的问题中，但是只有少数特殊的案例能得到精确地求解。对于连续状态和行为空间，获取近似解得通常做法是首先对它们进行分层处理（笔者：使得它们变成有限的集合），然后再使用有限状态的 DP 方法。本书第二部分中讨论的方法也适用于这些连续问题，它们是通常做法的非常重要的扩展。
+
+通常，DP 和强化学习的核心思想是使用价值函数去搜索好的策略。本章中，我们将展示使用 DP 如何计算第三章中定义的价值函数。如前文所述，一旦找到如下的最优价值函数  $v_*$ 或者 $q_*$ ，最优策略便很容易获得。
+$$
+\begin{split}\begin{aligned}
+v_*(s) &= \max_a\mathbb{E}[R_{t+1}+\gamma v_*(S_{t+1}) | S_t=s,A_t=a] \\
+&= \max_a\sum_{s',r}p(s',r|s,a)[r+\gamma v_*(s')]
+\end{aligned}\end{split}   \tag {4.1}
+$$
+或
+$$
+\begin{split}\begin{aligned}
+q_*(s,a)& = \mathbb{E}[R_{t+1}+\gamma \max_{a'} q_*(S_{t+1},a') | S_t=s,A_t=a]\\
+&=\sum_{s',r}p(s',r|s,a)[r+\gamma\max_{a'} q_*(s',a')],
+\end{aligned}\end{split} \tag {4.2}
+$$
+其中 $\cal{s}\in\cal{S},\ a\in\cal{A(s)},\  \cal{s}'\in\mathcal{S}^+$ 。我们将看到，DP算法其实是将贝尔曼方程转换为一种更新规则，该规则可以逐步提升价值函数的近似效果。
+
+### 4.1 策略评估（预测）
+
+ Policy Evaluation (Prediction)
+
+首先，我们给任意策略 $\pi$ 计算状态价值函数 $v_\pi$。这在DP文献中被称作 *策略评估（policy evaluation）*，而我们把它称作为 *预测问题（prediction problem）*。下面回忆一下第三章的公式，对于所有的 $s\in\mathcal{S}$。
+$$
+\begin{split}\begin{aligned}
+v_\pi(s) & \doteq \mathbb{E_\pi}[G_t | S_t=s] \\
+&= \mathbb{E_\pi}[R_{t+1} + \gamma G_{t+1} | S_t=s]  &(from\ (3.9)) \\
+&= \mathbb{E_\pi}[R_{t+1}+\gamma v_\pi(S_{t+1}) | S_t=s] & (4.3) \\
+&= \sum_a\pi(a|s)\sum_{s',r}p(s',r|s,a)[r+\gamma v_\pi(s')]，& (4.4)
+\end{aligned}\end{split}
+$$
+如果环境动力学模型（ $p(s',r|s,a)$ 和 $\pi(a|s)$ ）完全已知，公式 $4.4$ 就是一组线性方程组，它的个数是 $|\mathcal{S}|$ 个，未知数（$v_\pi(s),s\in\mathcal{S}$）也是 $|\mathcal{S}|$ 个。用迭代法来求解最合适了。考虑一系列的近似值函数 $v_0,v_1,v_2,...$，初始的近似值 $v_0$ 可以是任意值（除了终止状态，它的值必须为0），然后使用公式（4.4）作为更新规则进行逐步求解。
+$$
+\begin{split}\begin{aligned}
+v_{k+1}(s)& \overset{\cdot}{=}\mathbb{E}[R_{t+1}+\gamma v_k(S_{t+1}) | S_t=s] \\
+&= \sum_{a}\pi(a|s)\sum_{s',r}p(s',r|s,a)[r+\gamma{v_k(s')}],
+\end{aligned}\end{split} \tag {4.5}
+$$
+以上这种算法称之为*迭代策略评估（iterative policy evaluation）*。
+
+> 笔者：为了更加简洁，公式（4.5）没有标记 $\pi$，而标记了$k$ ，它表示迭代求解的一个顺序。
+
+在执行每次迭代近似过程中，根据 $v_k$ 计算 $v_{k+1}$。迭代策略评估对每个状态 $s$ 采取了相同的操作：在每次策略评估时进行一步转换（one-step transitions），即用状态 $s$ 新的价值替换旧值，新的价值来自于 $s$ 的后续状态的价值以及预期即时奖励。我们把这种操作称之为 *expected update*。DP算法中有几种 *expected update* 方法，它们的区别在于：
+
+- 基于状态还是状态行为对进行更新。
+- 后续状态价值合并计算的方式不同。
+
+*expected update* 可以用上面的方程表示，也可以用第三章中介绍的 Backup 图表示。
+
+迭代策略评估的完整版本以伪代码显示如下。需要注意控制算法的终止。理论上，迭代策略评估可以收敛于极限，但是实际上，必须在此之前停止。下面的伪代码中，在每一次迭代后，计算 $\max_{s\in\mathcal{S}}|v_{k+1}(s)-v_k(s)|$，当其值足够小的时候，循环终止。
+
+> **迭代策略评估，用于估算 $V \approx v_\pi$**
+>
+> 输入：
+>
+> - $\pi$: 要被评估的策略。
+>
+> - $\theta$: 算法参数：一个小的阈值 $\theta > 0$， 它用于控制估计的准确性。
+> - $V(s)$：进行初始化，当 $s\in\mathcal{S}^+$，可以是任意值，当是终止节点，$V(terminal) = 0$。
+>
+> Loop：
+>
+> ​		$\Delta \leftarrow 0$
+>
+> ​		Loop for each $s \in \mathcal S$:
+>
+> ​				$v \leftarrow V(s)$
+>
+> ​				$V(s) \leftarrow \sum_{a}\pi(a|s)\sum_{s',r}p(s',r|s,a)[r+\gamma V(s')]$
+>
+> ​				$\Delta \leftarrow \max(\Delta,|v-V(s)|)$
+>
+> until $\Delta < \theta$
+
+例4.1 下面有一个 $4 \times 4$ 的网格世界。
+
+![RL](images/figure-4.0.png)
+
+- 非终止状态 $ \mathcal S=\{1,2,...14\}$  
+
+- 每个非终止状态有四个可能的行为 $\mathcal A = \{up, down, right, left\}$
+
+  - 每个行为发生概率相同。
+  - 试图把个体移出网格的行为将会被忽略，也就是状态不会发生任何变化。
+  - 其他行为都会明确使得状态发生转换。
+
+  可以得到：$p(6,-1|5, right)=1$，$p(7,-1|7, right)=1$， $p(10,r|5,right)=0$
+
+- 每一次行为的奖励为 -1 ，即 $r(s,a,s')=-1$。
+
+- 没有衰减因子，阴影的格子是终止状态。
+
+- 图4.1 左列显示的是每次代策略评估后的价值函数 $v_k$。
+
+![figure-4.1](images/figure-4.1.png)
+
+$$
+\text {图4.1：迭代策略评估在一个小的棋盘格游戏上收敛。}
+$$
+上图左边一列是对于随机策略（所有的行为概率相等）下的状态价值函数。 右边一列是基于左边价值函数的 Greedy 策略。 经过三次迭代后，最优策略已经产生。
+
+#### 练习4.1-4.3
+
+- 练习4.1 在例4.1中，如果 $\pi$ 是等概率随机策略， 求 $q_\pi(11,down)$ 和 $q_\pi(7,down)$？
+
+  答：
+  $$
+  \begin{aligned}
+  q_\pi(11,down) &= -1 + v_\pi(terminal) = -1 \\
+  q_\pi(7,down) &= -1 + v_\pi(11) = -15
+  \end{aligned}
+  $$
+  
+- 练习4.2 在例4.2中，增加一个状态 $15$，它位于状态 $13$ 的下面，它的四个行为 left，up，right 和 down 对应的变换状态分别为 12，13，14，15。
+
+  - 如果状态 $13$ 下执行 down 行为后，状态不变（还是 $13$），求 $v_\pi(15)$？
+  - 如果状态 $13$ 下执行 down 行为后，状态变成 $15$，求 $v_\pi(15)$？
+
+  答：
+
+  - 第一问
+
+  $$
+  \begin{aligned}
+  v_\pi(15) &= \frac 1 4 [(-1-22)+(-1-20)+(-1-14)+(-1+v_\pi(15))] \\
+  v_\pi(15) &= -20    
+  \end{aligned}
+  $$
+
+  - 第二问
+
+    首先更新 $v_\pi(13)$：
+    $$
+    \begin{aligned}
+    v_\pi(13) &= \frac 1 4 [(-1-22)+(-1-20)+(-1-14)+(-1+v_\pi(20))] \\
+    v_\pi(13) &= -20    
+    \end{aligned}
+    $$
+    再次更新 $v_\pi(20)$：
+    $$
+    v_\pi(15) = -20
+    $$
+    发现状态 $13$ 和 $15$ 的状态价值已经收敛了，不再改变了， 即 $v_\pi(15) = -20$ 。 
+
+- 练习4.3 对于行为价值函数，求类似于（4.3）,（4.4）,（4.5）的公式。
+
+  答：
+  $$
+  \begin{split}\begin{aligned}
+  q_\pi(s, a) &\doteq \mathbb{E}_\pi[G_t|S_t=s,A_t=a] \\
+  &= \mathbb{E}_\pi[R_{t+1} + \gamma G_{t+1}|S_t=s,A_t=a]  \\
+  &= \sum_{s^\prime}\sum_r p(s^\prime,r|s,a)   \left[r+\gamma\mathbb{E}_\pi[G_{t+1}|S_{t+1}=s^\prime, A_{t+1}=a^\prime]\right] \\
+  &= \sum_{s^\prime,r}p(s^\prime,r|s,a)  [r+\gamma \sum_{a^\prime}\pi(a^\prime|s^\prime)q_\pi(s^\prime, a^\prime)]  \\
+  
+  q_{k+1}(s, a) &\doteq  \mathbb{E}_\pi[R_{t+1} + \gamma G_{t+1}|S_t=s,A_t=a]  \\
+  &= \sum_{s^\prime,r}p(s^\prime,r|s,a)  [r+\gamma \sum_{a^\prime}\pi(a^\prime|s^\prime)q_k(s^\prime, a^\prime)]
+  \end{aligned}\end{split}
+  $$
+
+### 4.2 策略提升
+
+Policy Improvement
+
+计算某个策略价值函数的目的是找到一个更好的策略。假设对于任意一个确定性策略，我们得到了其对应的价值函数 $v_\pi$。 对于某个状态 $s$，我们可能很想知道是否应改变策略选择其它动作，即 $a\not=\pi(s)$。我们知道遵循当前策略有多好（即$v_\pi(s)$），但是如果改变策略，是会变得更好，还是更坏呢？解决这个问题的方法之一是，基于当前状态 $s$ 选择一个行为 $a$ （笔者：并没有根据策略 $\pi$ 来选择），此后再遵循策略 $\pi$，这种方式的价值是：
+$$
+\begin{split}\begin{aligned}
+q_\pi(s,a)& \doteq \mathbb{E}[R_{t+1}+\gamma v_\pi(S_{t+1}) | S_t=s,A_t=a] \\
+&= \sum_{s',r}p(s',r|s,a)[r+\gamma v_\pi(s')]
+\end{aligned}\end{split}   \tag {4.6}
+$$
+上面的价值大于还是小于 $v_\pi(s)$ ，成为判断（改变策略好坏）的关键标准。也就是说，我们有如下两个策略：
+
+1.  在状态 $s$，选择行为 $a$，  此后遵循策略 $\pi$ 
+2. 一直遵循 $\pi$ 
+
+如果 $q_\pi(s,a) \geq v_\pi(s)$，我们便认为第一种策略比第二种更好。这就是*策略提升原理（policy improvement theorem）*的一种特殊情况。更通用的表示是：有两个确定性的策略 $\pi $ 和 $\pi^\prime $，对于所有 $s \in \mathcal S$ ，如果满足：
+$$
+q_\pi(s,\pi'(s)) \geq v_\pi(s) \tag {4.7}
+$$
+那么策略 $\pi^\prime$ 必定和策略 $\pi $ 相当或者更好。也就是说，策略 $\pi^\prime$ 能够取得更大的预期收益：
+$$
+v_\pi'(s) \geq v_\pi(s)  \tag {4.8}
+$$
+策略提升理论的证明过程很容易理解。
+$$
+\begin{split}\begin{aligned}
+v_\pi(s)& \leq q_\pi(s,\pi'(s))\\
+&= \mathbb{E}[R_{t+1}+\gamma v_\pi(S_{t+1}) | S_t=s,A_t=\pi'(s)]  & (by\ (4.6))\\
+&= \mathbb{E}_{\pi'}[R_{t+1}+\gamma v_\pi(S_{t+1}) | S_t=s]  \\
+& \leq\mathbb{E}_{\pi'}[R_{t+1}+\gamma q_\pi(S_{t+1},\pi'(S_{t+1})) | S_t=s] & (by\ (4.7))\\
+&= \mathbb{E}_{\pi'}[R_{t+1}+\gamma \mathbb{E}_{\pi'}[R_{t+2}+\gamma v_\pi(S_{t+2})| S_{t+1},A_t=\pi'(s+1) ] | S_t=s] \\
+&= \mathbb{E}_{\pi'}[R_{t+1}+\gamma R_{t+2}+\gamma^2 v_\pi(S_{t+2}) | S_t=s] \\
+& \leq\mathbb{E}_{\pi'}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\gamma^3 v_\pi(S_{t+3}) | S_t=s] \\
+&  \vdots \\
+& \leq \mathbb{E}_{\pi'}[R_{t+1}+\gamma R_{t+2}+\gamma^2R_{t+3}+\gamma^3R_{t+4}+\cdots | S_t=s]  \\
+&=v_{\pi'}(s)
+\end{aligned}\end{split}
+$$
+目前为止，我们已经看到，当给定策略和其价值函数后，很容易评估单个状态下改变策略的效果。很自然，我们可以推广到所有的状态，对于每个状态，选择 $q_\pi(s, a)$ 最大的那个行为。即Greedy 策略 $\pi^\prime$ ，其表示如下：
+$$
+\begin{split}\begin{aligned}
+\pi'(s)& \doteq \arg\max_a q_\pi(s,a) \\
+& =\arg \max_a\mathbb{E}[R_{t+1}+\gamma v_\pi(S_{t+1}) | S_t=s,A_t=a]\\
+&=\arg\max_a\sum_{s',r}p(s',r|s,a)[r+\gamma v_\pi(s')],
+\end{aligned}\end{split} \tag {4.9}
+$$
+Greedy 策略根据 $v_\pi$，向前展望一步，选择短期内看起来最好的行为。结构上，可以看到Greedy 满足策略提升原理（4.7） 的条件，所以它和初始的策略一样或者更好。根据初始策略的价值函数，通过 Greedy 的方式来改善它，从而获得新策略的过程，叫做 *策略提升（policy improvement）*。
+
+假定新的 Greedy 策略 $\pi^\prime$ 和老的的策略 $\pi$ 一样好，即 $v_\pi = v_{\pi^\prime}$，根据（4.9），对于所有的 $s \in \mathcal S$ ，满足如下公式：
+$$
+\begin{split}\begin{aligned}
+v_{\pi'}(s)& =\max_a\mathbb{E}[R_{t+1}+\gamma v_{\pi'}(S_{t+1}) | S_t=s,A_t=a]\\
+&=\max_a\sum_{s',r}p(s',r|s,a)[r+\gamma v_{\pi'}(s')].
+\end{aligned}\end{split}
+$$
+这与贝尔曼最优方程（4.1）一致，所以，$v_{\pi'}$ 必须是 $v_*$， $\pi$ 和 $\pi^\prime$′ 必须都是最优策略。因此策略提升一定会得到一个更好的策略除非初始的策略就是最优的。
+
+图4.1是策略提升的一个例子。初始策略 $\pi$ 是等概率随机策略，而新的策略 $\pi^\prime$ 是基于 $v_\pi$ 下的 Greedy 策略。图的左下角是是价值函数 $v_\pi$ ，右下角是策略 $\pi^\prime$。可以看到一个状态可以有多个箭头，表明这些行为都能取得公式（4.9）中的最大值。对于这些行为，任何的概率分配方式都是可以的。选择任意一个，$v_{\pi'}(s)$ 或许可能是 $-1$，$-2$或 $-3$，但一定满足 $v_{\pi'}(s)\geq v_\pi(s)$ 。在本例中，碰巧 $\pi^\prime$ 就是最优策略，但通常，它只能保证策略提升，但不能保证一定是全局最优的。
+
+### 4.3 策略迭代
+
+Policy Iteration
+
+一旦策略 $\pi$ 通过计算 $v_\pi$ 提升为更好的策略 $\pi^\prime$，可以再计算 $v_{\pi^\prime}$ 再次提升到更好的策略  $\pi^{\prime\prime}$。如此循环，我们可以得到一个单调提升的策略和价值函数：
+$$
+\pi_0 \overset{E}{\rightarrow} v_{\pi_0} \overset{I}{\rightarrow} \pi_1 \overset{E}{\rightarrow} v_{\pi_1} \overset{I}{\rightarrow} \pi_2 \overset{E}{\rightarrow} \cdots \overset{I}{\rightarrow} \pi_* \overset{E}{\rightarrow} v_{*}
+$$
+其中，$\overset{E}{\rightarrow}$ 表示策略评估，$\overset{I}{\rightarrow}$ 表示策略提升。每个策略都能保证在原先策略的基础上严格提升（除非该策略已经是最优）。 因为有限MDP只有有限数量的策略，这个过程一定会在有限次的迭代后收敛到最优策略和最优价值函数。
+
+这种发现一个最优策略的方法叫做 *策略迭代（policy iteration）*。完整的算法如下表所示。注意每一次策略评估本身的迭代计算开始于前一次策略的价值函数。这使得价值评估的收敛速度大幅提高（可能是由于策略的更替使得价值函数轻微的变化）。
+
+> **策略迭代（使用迭代策略评估）估计 $\pi \approx \pi_*$**
+>
+> 1. 初始化
+>
+>    对于所有的 $s\in\mathcal{S}$，$V(s)\in\mathbb{R}$， $\pi(s)\in\cal{A}(s)$；且 $V(terminal) = 0$
+>
+> 2. 策略评估
+>
+>    Loop:
+>
+>    ​	$\Delta{\leftarrow}0$
+>
+>    ​	Loop for each $s\in{S}$:
+>
+>    ​		$v\leftarrow{V(s)}$
+>
+>    ​		$V(s){\leftarrow}\sum_{s',r}p(s',r|s,\pi(s))[r+\gamma{V(s')}]$
+>
+>    ​		$\Delta{\leftarrow}{\max(\Delta,|v-V(s)|)}$
+>
+>    ​	Until $\Delta<\theta$ （一个小的正数，决定了估计准确性的）
+>
+> 3. 策略提升
+>
+>    $\text {policy-stable} \leftarrow \text {true}$''
+>
+>    For each $s\in{S}$:
+>    ​	$\text {old-action}  \leftarrow {\pi(s)} $
+>    
+>    ​	$\pi(s)\leftarrow{\arg\max_a\sum_{s',r}p(s',r|s,a)[r+\gamma V(s')]}$
+>    
+>    ​	$\text {If old-action} \not=\pi(s) \text  {, then policy-stable} \leftarrow \text {false} $
+>    
+>    $\text {if policy-stable, then stop and return } V \approx{v_*}  \text { and } \pi \approx{\pi_*} ; \text {else go to 2}  $
+
+**例4.2: 杰克汽车出租** 杰克为一个全国性的汽车租赁公司管理两个网点。每天，一些顾客会到网点租车。每租一辆车，杰克可以从租赁公司得到 10 美元报酬。但如果租车时，该网点没车，这次生意就泡汤了。汽车返回来后，还可以再次出租。为了保证网点有车，杰克可以在晚上把车在两个网点转移，每次转移的成本是 2 美元。为了简化问题，我们进行如下假定：
+
+- 每个网点汽车需要的数量和返回的数量是泊松随机变量（Poisson random variables），也就是数量是 n 的概率为 $\frac{\lambda^n}{n!}e^{-\lambda}$。两个网点的租车需求 $\lambda $ 分别是 $3$ 和 $4$，而返回的数量的 $\lambda$ 分别是 $3$ 和 $2$。
+- 每个网点的车辆不会超过20辆（任何多余的车都将会被送回租赁公司，从问题中消失）
+- 一个晚上，最多五辆车可以进行转移。 
+- 衰减因子 $\gamma=0.9$。
+
+这个问题可以看做连续有限MDP，时间步骤是天数， 状态是每天结束时网点剩余车子的数量，动作是每晚车子在两个网点之间转移的净数量。 图4.2展示的是：从不转移任何车子的策略开始，到通过策略迭代找到的一系列策略。
+
+![../../_images/figure-4.2.png](images/figure-4.2.png)
+$$
+\text {图4.2，为杰克汽车出租问题，通过策略迭代找到一系列策略}，以及最终的状态价值函数。
+$$
+前五个图表示，每天结束时每个网点的汽车数量，以及需要从第一个网点转移到第二个网点的汽车数量（负数表示从第二个网点转移到第一个网点）。每一个后继的策略都是在之前策略基础上严格的提升， 并且最终的策略是最优的。
+
+策略迭代经常出人意料地几次迭代就收敛了，杰克汽车出租问题和图4.1中的例子的便是证明。
+
+- 在图4.1中，左下角展示了等概率随机策略的价值函数，右下角则展示了此价值函数的贪婪策略。策略提升原理保证了这些策略比初始的策略要好。这些策略不仅仅是比较好，而且最优的，即达到终止状态所需步数最少。 
+- 在本例中，经过一次策略迭代便能找到最优策略。（笔者：怎么感觉不像呢？）
