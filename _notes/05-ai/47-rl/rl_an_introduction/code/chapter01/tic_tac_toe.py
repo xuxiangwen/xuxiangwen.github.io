@@ -151,7 +151,7 @@ class Judger:
             yield self.p2
 
     # @print_state: if True, print each board during the game
-    def play(self, print_state=False):
+    def play(self, print_state=False, print_values=False):
         alternator = self.alternate()
         self.reset()
         current_state = State()
@@ -161,9 +161,11 @@ class Judger:
             current_state.print_state()
         while True:
             player = next(alternator)
+            if print_values and isinstance(player, Player):
+                player.print_values()
             i, j, symbol = player.act()
             if i<0 or j<0:
-                return current_state.winner
+                return current_state.winner            
             next_state_hash = current_state.next_state(i, j, symbol).hash()
             current_state, is_end = all_states[next_state_hash]
             self.p1.set_state(current_state)
@@ -171,8 +173,7 @@ class Judger:
             if print_state:
                 current_state.print_state()
             if is_end:
-                return current_state.winner
-
+                return current_state.winner                        
 
 # AI player
 class Player:
@@ -210,18 +211,18 @@ class Player:
                 self.estimations[hash_val] = 0.5
 
     # update value estimation
-    def backup(self):
+    def backup(self, always_update_value=False):
         states = [state.hash() for state in self.states]
 
         for i in reversed(range(len(states) - 1)):
             state = states[i]
-            td_error = self.greedy[i] * (
+            greedy = self.greedy[i] if not always_update_value else True
+            td_error = greedy * (
                 self.estimations[states[i + 1]] - self.estimations[state]
             )
             self.estimations[state] += self.step_size * td_error
-
-    # choose an action based on the state
-    def act(self):
+            
+    def get_next_states_positions(self):
         state = self.states[-1]
         next_states = []
         next_positions = []
@@ -230,7 +231,13 @@ class Player:
                 if state.data[i, j] == 0:
                     next_positions.append([i, j])
                     next_states.append(state.next_state(
-                        i, j, self.symbol).hash())
+                        i, j, self.symbol).hash()) 
+        return next_states, next_positions      
+        
+
+    # choose an action based on the state
+    def act(self):
+        next_states, next_positions = self.get_next_states_positions()
 
         if np.random.rand() < self.epsilon:
             action = next_positions[np.random.randint(len(next_positions))]
@@ -241,19 +248,49 @@ class Player:
         values = []
         for hash_val, pos in zip(next_states, next_positions):
             values.append((self.estimations[hash_val], pos))
-        # to select one of the actions of equal value at random due to Python's sort is stable
+        # to select one of the actions of equal value at random due to Python's sort is stable            
         np.random.shuffle(values)
         values.sort(key=lambda x: x[0], reverse=True)
         action = values[0][1]
         action.append(self.symbol)
         return action
+    
+    def print_values(self):
+        next_states, next_positions = self.get_next_states_positions()
+        
+        state = self.states[-1]
+        values = {tuple(pos):self.estimations[hash_val] for hash_val, pos in zip(next_states, next_positions)}
+        max_value = np.max([self.estimations[hash_val] for hash_val in next_states])
+        
+        print(f'value of player {1 if self.symbol == 1 else 2}:')
+        for i in range(BOARD_ROWS):
+            print('-------------------------')
+            out = '| '
+            for j in range(BOARD_COLS):
+                if state.data[i, j] == 1:
+                    token = '  *  '
+                elif state.data[i, j] == -1:
+                    token = '  x  '
+                else:
+                    value = values[(i, j)]
+                    token = f'{value:.4f}' 
+                    if max_value == values[(i, j)]:
+                        token = "\033[31m%s\033[0m" % token 
+                                          
+                out += token + ' | '
+            print(out)
+        print('-------------------------')    
 
-    def save_policy(self):
-        with open('policy_%s.bin' % ('first' if self.symbol == 1 else 'second'), 'wb') as f:
+    def save_policy(self, policy_prefix=""):        
+        file_name = '%s_policy_%s.bin' % (policy_prefix, 'first' if self.symbol == 1 else 'second')
+        print(f'save policy to {file_name}')
+        with open(file_name, 'wb') as f:
             pickle.dump(self.estimations, f)
 
-    def load_policy(self):
-        with open('policy_%s.bin' % ('first' if self.symbol == 1 else 'second'), 'rb') as f:
+    def load_policy(self, policy_prefix=""):
+        file_name = '%s_policy_%s.bin' % (policy_prefix, 'first' if self.symbol == 1 else 'second')
+        print(f'load policy from {file_name}')        
+        with open(file_name, 'rb') as f:
             self.estimations = pickle.load(f)
 
 
@@ -288,54 +325,65 @@ class HumanPlayer:
         return i, j, self.symbol
 
 
-def train(epochs, print_every_n=500):
+def train(epochs, print_every_n=1000, always_update_value=False, policy_prefix=""):
     player1 = Player(epsilon=0.01)
     player2 = Player(epsilon=0.01)
     judger = Judger(player1, player2)
     player1_win = 0.0
     player2_win = 0.0
+    tie = 0.0
     for i in range(1, epochs + 1):
         winner = judger.play(print_state=False)
         if winner == 1:
             player1_win += 1
-        if winner == -1:
+        elif winner == -1:
             player2_win += 1
+        else:
+            tie += 1
         if i % print_every_n == 0:
-            print('Epoch %d, player 1 winrate: %.02f, player 2 winrate: %.02f' % (i, player1_win / i, player2_win / i))
-        player1.backup()
-        player2.backup()
+            print('Epoch %d, player 1 winrate: %.02f, player 2 winrate: %.02f, tie_rate: %.02f' % 
+                  (i, player1_win / i, player2_win / i, tie/i))
+        player1.backup(always_update_value)
+        player2.backup(always_update_value)
         judger.reset()
-    player1.save_policy()
-    player2.save_policy()
+    player1.save_policy(policy_prefix)
+    player2.save_policy(policy_prefix)
 
 
-def compete(turns):
+def compete(turns, player1_policy_prefix='', player2_policy_prefix=''):
     player1 = Player(epsilon=0)
     player2 = Player(epsilon=0)
     judger = Judger(player1, player2)
-    player1.load_policy()
-    player2.load_policy()
+    player1.load_policy(player1_policy_prefix)
+    player2.load_policy(player2_policy_prefix)
     player1_win = 0.0
     player2_win = 0.0
+    tie = 0.0
+    
+    print_values = turns == 1
     for _ in range(turns):
-        winner = judger.play()
+        winner = judger.play(print_values=print_values)
         if winner == 1:
             player1_win += 1
-        if winner == -1:
+        elif winner == -1:
             player2_win += 1
+        else:
+            tie += 1            
         judger.reset()
-    print('%d turns, player 1 win %.02f, player 2 win %.02f' % (turns, player1_win / turns, player2_win / turns))
+    print('%d turns, player 1 win %.02f, player 2 win %.02f, tie_rate: %.02f' % 
+          (turns, player1_win / turns, player2_win / turns, tie/turns))
 
 
 # The game is a zero sum game. If both players are playing with an optimal strategy, every game will end in a tie.
 # So we test whether the AI can guarantee at least a tie if it goes second.
-def play():
+def play(print_values=False, policy_prefix=""):
     while True:
         player1 = HumanPlayer()
         player2 = Player(epsilon=0)
         judger = Judger(player1, player2)
-        player2.load_policy()
-        winner = judger.play()
+        player2.load_policy(policy_prefix)
+        winner = judger.play(print_values=print_values)
+        player1.state.print_state()        
         if winner == player2.symbol:
             print("You lose!")
         elif winner == player1.symbol:

@@ -11,7 +11,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.table import Table
 
-matplotlib.use('Agg')
+# Agg 渲染器是非交互式的后端，没有GUI界面，所以不显示图片，它是用来生成图像文件。
+# matplotlib.use('Agg')
 
 WORLD_SIZE = 5
 A_POS = [0, 1]
@@ -124,10 +125,12 @@ def draw_policy(optimal_values):
     ax.add_table(tb)
 
 
-def figure_3_2():
+def figure_3_2(show=False):
     value = np.zeros((WORLD_SIZE, WORLD_SIZE))
+    i = 0    
     while True:
         # keep iteration until convergence
+        i = i + 1
         new_value = np.zeros_like(value)
         for i in range(WORLD_SIZE):
             for j in range(WORLD_SIZE):
@@ -138,11 +141,19 @@ def figure_3_2():
         if np.sum(np.abs(value - new_value)) < 1e-4:
             draw_image(np.round(new_value, decimals=2))
             plt.savefig('../images/figure_3_2.png')
+            if show:
+                plt.show()            
+            plt.close()
+            draw_policy(new_value)            
+            if show:
+                plt.show()              
+            plt.savefig('../images/figure_3_5_policy.png')
             plt.close()
             break
         value = new_value
+    print(f'after {i} iteration the status value function converges')
 
-def figure_3_2_linear_system():
+def figure_3_2_linear_system(show=False):
     '''
     Here we solve the linear system of equations to find the exact solution.
     We do this by filling the coefficients for each of the states with their respective right side constant.
@@ -161,14 +172,24 @@ def figure_3_2_linear_system():
                 b[index_s] -= ACTION_PROB * r
 
     x = np.linalg.solve(A, b)
-    draw_image(np.round(x.reshape(WORLD_SIZE, WORLD_SIZE), decimals=2))
+    new_value = x.reshape(WORLD_SIZE, WORLD_SIZE)
+    draw_image(np.round(new_value, decimals=2))
     plt.savefig('../images/figure_3_2_linear_system.png')
+    if show:
+        plt.show()            
     plt.close()
+    draw_policy(new_value)            
+    if show:
+        plt.show()              
+    plt.savefig('../images/figure_3_5_policy.png')
+    plt.close()    
 
-def figure_3_5():
+def figure_3_5(show=False):
     value = np.zeros((WORLD_SIZE, WORLD_SIZE))
+    i = 0
     while True:
         # keep iteration until convergence
+        i = i + 1
         new_value = np.zeros_like(value)
         for i in range(WORLD_SIZE):
             for j in range(WORLD_SIZE):
@@ -181,12 +202,17 @@ def figure_3_5():
         if np.sum(np.abs(new_value - value)) < 1e-4:
             draw_image(np.round(new_value, decimals=2))
             plt.savefig('../images/figure_3_5.png')
+            if show:
+                plt.show()                    
             plt.close()
             draw_policy(new_value)
+            if show:
+                plt.show()              
             plt.savefig('../images/figure_3_5_policy.png')
             plt.close()
             break
         value = new_value
+    print(f'after {i} iteration the status value function converges')
 
 
 if __name__ == '__main__':
