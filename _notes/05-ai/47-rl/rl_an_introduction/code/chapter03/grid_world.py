@@ -127,10 +127,10 @@ def draw_policy(optimal_values):
 
 def figure_3_2(show=False):
     value = np.zeros((WORLD_SIZE, WORLD_SIZE))
-    i = 0    
+    k = 0    
     while True:
         # keep iteration until convergence
-        i = i + 1
+        k = k + 1
         new_value = np.zeros_like(value)
         for i in range(WORLD_SIZE):
             for j in range(WORLD_SIZE):
@@ -151,7 +151,7 @@ def figure_3_2(show=False):
             plt.close()
             break
         value = new_value
-    print(f'after {i} iteration the status value function converges')
+    print(f'after {k} iteration the status value function converges')
 
 def figure_3_2_linear_system(show=False):
     '''
@@ -186,10 +186,10 @@ def figure_3_2_linear_system(show=False):
 
 def figure_3_5(show=False):
     value = np.zeros((WORLD_SIZE, WORLD_SIZE))
-    i = 0
+    k = 0
     while True:
         # keep iteration until convergence
-        i = i + 1
+        k = k + 1
         new_value = np.zeros_like(value)
         for i in range(WORLD_SIZE):
             for j in range(WORLD_SIZE):
@@ -212,7 +212,7 @@ def figure_3_5(show=False):
             plt.close()
             break
         value = new_value
-    print(f'after {i} iteration the status value function converges')
+    print(f'after {k} iteration the status value function converges')
 
 
 if __name__ == '__main__':

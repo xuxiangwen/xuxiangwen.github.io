@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.table import Table
 
-matplotlib.use('Agg')
+# matplotlib.use('Agg')
 
 WORLD_SIZE = 4
 # left, up, right, down
@@ -90,17 +90,69 @@ def compute_state_value(in_place=True, discount=1.0):
     return new_state_values, iteration
 
 
-def figure_4_1():
+def compute_state_value1(in_place=True, discount=1.0):
+    new_state_values = np.zeros((WORLD_SIZE, WORLD_SIZE))
+    iteration = 0
+    while True:
+        if in_place:
+            state_values = new_state_values
+        else:
+            state_values = new_state_values.copy()
+        old_state_values = state_values.copy()
+
+        for i in range(WORLD_SIZE):
+            for j in range(WORLD_SIZE):
+                values = []
+                for action in ACTIONS:
+                    (next_i, next_j), reward = step([i, j], action)
+                    values.append(reward + discount * state_values[next_i, next_j])
+                new_state_values[i, j] = np.max(values)
+
+        max_delta_value = abs(old_state_values - new_state_values).max()
+        if max_delta_value < 1e-4:
+            break
+
+        iteration += 1
+
+    return new_state_values, iteration
+
+
+def figure_4_1(show=False):
     # While the author suggests using in-place iterative policy evaluation,
     # Figure 4.1 actually uses out-of-place version.
-    _, asycn_iteration = compute_state_value(in_place=True)
-    values, sync_iteration = compute_state_value(in_place=False)
-    draw_image(np.round(values, decimals=2))
+    values, asycn_iteration = compute_state_value(in_place=True)
     print('In-place: {} iterations'.format(asycn_iteration))
-    print('Synchronous: {} iterations'.format(sync_iteration))
-
+    draw_image(np.round(values, decimals=2))
     plt.savefig('../images/figure_4_1.png')
+    if show:
+        plt.show()      
+    
+    values, sync_iteration = compute_state_value(in_place=False)
+    print('Synchronous: {} iterations'.format(sync_iteration))
+    draw_image(np.round(values, decimals=2))    
+    plt.savefig('../images/figure_4_1.png')
+    if show:
+        plt.show()    
     plt.close()
+    
+def figure_4_11(show=False):
+    # While the author suggests using in-place iterative policy evaluation,
+    # Figure 4.1 actually uses out-of-place version.
+    values, asycn_iteration = compute_state_value1(in_place=True)
+    print('In-place: {} iterations'.format(asycn_iteration))
+    draw_image(np.round(values, decimals=2))
+    plt.savefig('../images/figure_4_1.png')
+    if show:
+        plt.show()      
+    
+    values, sync_iteration = compute_state_value1(in_place=False)
+    print('Synchronous: {} iterations'.format(sync_iteration))
+    draw_image(np.round(values, decimals=2))    
+    plt.savefig('../images/figure_4_1.png')
+    if show:
+        plt.show()    
+    plt.close()
+    
 
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-matplotlib.use('Agg')
+# matplotlib.use('Agg')
 
 # goal
 GOAL = 100
