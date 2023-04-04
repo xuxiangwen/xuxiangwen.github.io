@@ -1,9 +1,3 @@
-$$
-v_\pi
-$$
-
-
-
 ## MAB
 
 Multi-armed Bandit
