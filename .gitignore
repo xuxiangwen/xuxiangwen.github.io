@@ -17,4 +17,4 @@ data
 Gemfile.lock
 _site
 **/output/
-
+**/*.bin
