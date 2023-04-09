@@ -22,6 +22,7 @@ import itertools
 import logging
 from joblib import Parallel, delayed
 from scipy.stats import poisson
+import seaborn as sns
 
 ############# PROBLEM SPECIFIC CONSTANTS #######################
 MAX_CARS = 20
@@ -270,8 +271,7 @@ class PolicyIteration:
         fig.set_yticks(list(reversed(range(MAX_CARS + 1))))
         fig.set_xlabel('# cars at second location', fontsize=30)
         fig.set_title('optimal value', fontsize=30)    
-        if save_name is not None:
-            plt.savefig(f'../images/{save_name}.png')
+
         plt.show()        
 
 

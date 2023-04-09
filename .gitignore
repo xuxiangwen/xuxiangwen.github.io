@@ -17,4 +17,5 @@ data
 Gemfile.lock
 _site
 **/output/
-
+**/*.bin
+_notes/05-ai/55-pytorch/detectron2/notebooks/detectron2/
