@@ -22,15 +22,15 @@ lspci | grep -i nvidia
 
 本文安装的版本：
 
-- NVidia显卡驱动：515.76
-- CUDA:  11.3.1
-- cuDNN:  8.50
+- NVidia显卡驱动：525.105.17
+- CUDA:  11.8
+- cuDNN:  8.8.0
 
-## 1. [系统要求](https://docs.nvidia.com/cuda/archive/11.3.1/cuda-installation-guide-linux/index.html)
+## 1. [系统要求](https://docs.nvidia.com/cuda/archive/11.8.0/cuda-installation-guide-linux/index.html)
 
-首先要保证操作系统符合CUDA 11.3的要求。
+首先要保证操作系统符合CUDA 11.8的要求。
 
-<img src="images/image-20221001095317588.png" alt="image-20221001095317588" style="zoom:67%;" />
+![image-20230407105350587](images/image-20230407105350587.png)
 
 在centos7下安装，内核和centos的版本分别需要是3.10和7.7。使用下面命令检查。
 
@@ -65,7 +65,7 @@ sudo yum update
    gcc --version
    ~~~
 
-   由于CUDA 11.3要求GCC的版本是6以上，下面是安装GCC7的脚本。
+   由于CUDA 11.8要求GCC的版本是6以上，下面是安装GCC7的脚本。
 
    ~~~
    sudo yum install centos-release-scl
@@ -79,9 +79,9 @@ sudo yum update
 
 ## 3. 安装NVidia显卡驱动
 
-1.  根据要安装CUDA的版本，找到合适的显卡驱动。本次安装需要满足$\geq 465.19.01$。详见[NVIDIA CUDA Toolkit Release Notes](https://docs.nvidia.com/cuda/archive/11.3.1/cuda-toolkit-release-notes/index.html#abstract)。
+1.  根据要安装CUDA的版本，找到合适的显卡驱动。本次安装需要满足$\geq 520.61.05$。详见[NVIDIA CUDA Toolkit Release Notes](https://docs.nvidia.com/cuda/archive/11.8.0/cuda-toolkit-release-notes/index.html#abstract)。
 
-   ![image-20221007101225185](images/image-20221007101225185.png)
+   ![image-20230407123506571](images/image-20230407123506571.png)
 
 2. 下载[nvidia驱动](https://www.nvidia.com/Download/index.aspx?lang=en-us)。
 
@@ -138,7 +138,7 @@ sudo yum update
 
    ~~~shell
    lsmod | grep nouveau                            #查看nouveau是否已经禁用, 应该没有返回内容
-   nvidia_run=NVIDIA-Linux-x86_64-515.76.run
+   nvidia_run=NVIDIA-Linux-x86_64-525.105.17.run
    chmod 755 $nvidia_run
    sudo  ./$nvidia_run
    sudo systemctl set-default graphical.target     #设置运行级别回图形模式
@@ -163,7 +163,7 @@ sudo yum update
 
 ## 4. 安装CUDA
 
-详见[NVIDIA CUDA Installation Guide for Linux](https://docs.nvidia.com/cuda/archive/11.3.1/cuda-installation-guide-linux/index.html)。
+详见[NVIDIA CUDA Installation Guide for Linux](https://docs.nvidia.com/cuda/archive/11.8.0/cuda-installation-guide-linux/index.html)。
 
 1. 卸载老版本
 
@@ -176,7 +176,7 @@ sudo yum update
 
 2. 安装
 
-   在 [CUDA Download](https://developer.nvidia.com/cuda-11-3-1-download-archive) 选择合适的CUDA版本，选择了runfile（local），将会出现如下安装代码。
+   在 [CUDA Download](https://developer.nvidia.com/cuda-11-8-0-download-archive) 选择合适的CUDA版本，选择了runfile（local），将会出现如下安装代码。
 
    ![image-20210610201659667](images/image-20210610201659667.png)
 
@@ -184,8 +184,8 @@ sudo yum update
    scl enable devtoolset-7 bash
    gcc --version
    
-   wget https://developer.download.nvidia.com/compute/cuda/11.3.1/local_installers/cuda_11.3.1_465.19.01_linux.run
-   sudo sh cuda_11.3.1_465.19.01_linux.run
+   wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run
+   sudo sh cuda_11.8.0_520.61.05_linux.run
    ~~~
 
    当出现如下窗口时，按照下图勾选要安装的内容（不要勾选Driver，因为上节已经安装了需要新的版本），然后选择`install`。
@@ -194,7 +194,7 @@ sudo yum update
 
    下面是安装完后的信息。
 
-   ![image-20221002075451858](images/image-20221002075451858.png)
+   ![image-20230407113547714](images/image-20230407113547714.png)
 
 3. 在.bashrc中添加参数。
 
@@ -216,7 +216,7 @@ sudo yum update
    nvcc -V
    ~~~
 
-   ![image-20221002075554647](images/image-20221002075554647.png)
+   ![image-20230407125956080](images/image-20230407125956080.png)
 
 5. 再次检查NVidia。如果出现报错，请返回`3. 安装nvida显卡驱动`中第5步，再次安装显卡驱动。
 
@@ -237,16 +237,18 @@ sudo yum update
 
 2. 下载cuDNN。打开[cuDNN](https://developer.nvidia.com/cudnn) ，登录以后，选择最新版本后，点击如下链接进行下载。
 
-   ![image-20221002081552760](images/image-20221002081552760.png)
+   ![image-20230407111203129](images/image-20230407111203129.png)
+
+   
 
 3. 安装
 
    ~~~shell
-   tar -xf cudnn-linux-x86_64-8.5.0.96_cuda11-archive.tar.xz
-   cd cudnn-linux-x86_64-8.5.0.96_cuda11-archive
+   tar -xf cudnn-linux-x86_64-8.8.1.3_cuda11-archive.tar.xz
+   cd cudnn-linux-x86_64-8.8.1.3_cuda11-archive
    sudo cp ./include/cudnn*.h /usr/local/cuda/include 
    sudo cp -P ./lib/libcudnn* /usr/local/cuda/lib64 
-   $ sudo chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
+   sudo chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
    ~~~
 
 4. 安装验证
@@ -287,6 +289,10 @@ vncserver :1
 
 ## 更新历史
 
+- 2023-04-07
+  - NVidia显卡驱动：525.105.17
+  - CUDA:  11.8
+  - cuDNN:  8.8.0
 - 2022-10-02
   - NVidia显卡驱动：515.76
   - CUDA:  11.3.1
