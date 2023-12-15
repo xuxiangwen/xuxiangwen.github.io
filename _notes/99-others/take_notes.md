@@ -259,6 +259,44 @@ pandoc -t F -s take_notes_ppt.md \
 
   ![image-20200915104152686](images/image-20200915104152686.png)
 
+- [Gravizo](https://g.gravizo.com/#howto)：采用[Graphviz](http://graphviz.org/)生成图形，功能非常强大，只是左上角显示Gravizo，觉得很丑。
+
+  ```
+  ![Alt text](https://g.gravizo.com/svg?
+    digraph G {
+      size ="4,4";
+      main [shape=box];
+      main -> parse [weight=8];
+      parse -> execute;
+      main -> init [style=dotted];
+      main -> cleanup;
+      execute -> { make_string; printf}
+      init -> make_string;
+      edge [color=red];
+      main -> printf [style=bold,label="100 times"];
+      make_string [label="make a string"];
+      node [shape=box,style=filled,color=".7 .3 1.0"];
+      execute -> compare;
+    }
+  )
+  ```
+  ![Alt text](https://g.gravizo.com/svg?
+    digraph G {
+      size ="4,4";
+      main [shape=box];
+      main -> parse [weight=8];
+      parse -> execute;
+      main -> init [style=dotted];
+      main -> cleanup;
+      execute -> { make_string; printf}
+      init -> make_string;
+      edge [color=red];
+      main -> printf [style=bold,label="100 times"];
+      make_string [label="make a string"];
+      node [shape=box,style=filled,color=".7 .3 1.0"];
+      execute -> compare;
+    }
+  )
 - [Diagram.codes](https://www.diagram.codes/)：可以生成更多图，特别是思维导图。可以在其官网生成输入代码，生成图形，目前并不能直接在typora或者VS code中生成。
 
   ~~~

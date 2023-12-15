@@ -139,6 +139,7 @@ plt.show()
   print(font_path)
   print('-'*50)
   print('\n'.join(os.listdir(font_path)[0:5]))
+  !cp /tf/eipi10/SimHei.ttf  {font_path}
   ~~~
 
   ![image-20220421150151200](images/image-20220421150151200.png)
@@ -441,7 +442,135 @@ plt.show()
 
 
 
+## PDF
+
+### pdfplumber
+
+参考 https://zhuanlan.zhihu.com/p/344384506
+
+~~~shell
+pip install pdfplumber
+~~~
+
+~~~shell
+!curl "https://arxiv.org/pdf/2304.12210.pdf" > a_cookbook_of_self-supervised_learning.pdf
+!pdfplumber < a_cookbook_of_self-supervised_learning.pdf> a_cookbook_of_self-supervised_learning.csv
+~~~
+
+~~~python
+import pdfplumber
+import os 
+
+def load_pdf(pdf_filepath):
+    with pdfplumber.open(pdf_filepath) as pdf:
+        for i, page in enumerate(pdf.pages):
+            print('-'*25,  f'page {i+1}', '-'*25 )
+            # 打印页面宽高
+            print(f'page.width={page.width}')
+            print(f'page.height={page.height}')            
+
+            print('~'*20,  f'text', '~'*20 )
+            # 打印页面文本
+            print(page.extract_text()[0:1000])
+
+            # 获取页面图像
+            images = page.images
+            print('~'*20,  f'find {len(images)} images', '~'*20 )   
+
+
+#             # 打印图像 URLs 和矩形框， 目前没找到方法来输出
+            for image in images:
+                image_bbox = (image['x0'], page.height - image['y1'], image['x1'], page.height - image['y0'])
+#                 cropped_page = page.crop(image_bbox)
+#                 image_obj = page.to_image(resolution=400)
+#                 print(type(image_obj))
+
+            # 获取页面表格
+            tables = page.extract_tables()
+            print('~'*20,  f'find {len(tables)} tables', '~'*20 )
+
+            # 打印表格内容
+            for table in tables:
+                print('- '*20)
+                for row in table:
+                    print(row)
+
+#             # 获取页面图形(比如矩形,椭圆等)， 目前没找到方法来输出
+#             figures = page.figures
+#             print('~'*20,  f'find {len(figures)} figures', '~'*20 )
+
+#             # 打印图形边界框
+#             for figure in figures:    
+#                 print(figure.bbox)
+                
+#             annotations = page.annotations 
+#             print('~'*20,  f'find {len(annotations)} annotations', '~'*20 )
+        
+pdf_filepath = "./a_cookbook_of_self-supervised_learning.pdf"
+load_pdf(pdf_filepath)
+~~~
+
 ## 技巧
+
+### 进度条
+
+~~~
+from tqdm import tqdm
+from time import sleep
+
+for i in tqdm(range(1000)):
+     sleep(0.1)
+~~~
+
+![image-20230421143821462](images/image-20230421143821462.png)
+
+### matplotlib的样式风格
+
+~~~
+import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib.cbook as cbook
+
+def plot():
+    # Load a numpy record array from yahoo csv data with fields date, open, high,
+    # low, close, volume, adj_close from the mpl-data/sample_data directory. The
+    # record array stores the date as an np.datetime64 with a day unit ('D') in
+    # the date column.
+    price_data = (cbook.get_sample_data('goog.npz', np_load=True)['price_data']
+                  .view(np.recarray))
+    price_data = price_data[-250:]  # get the most recent 250 trading days
+
+    delta1 = np.diff(price_data.adj_close) / price_data.adj_close[:-1]
+
+    # Marker size in units of points^2
+    volume = (15 * price_data.volume[:-2] / price_data.volume[0])**2
+    close = 0.003 * price_data.close[:-2] / 0.003 * price_data.open[:-2]
+
+    fig, ax = plt.subplots()
+    ax.scatter(delta1[:-1], delta1[1:], c=close, s=volume, alpha=0.5)
+
+    ax.set_xlabel(r'$\Delta_i$', fontsize=15)
+    ax.set_ylabel(r'$\Delta_{i+1}$', fontsize=15)
+    ax.set_title('Volume and percent change')
+
+    #ax.grid(True)
+    fig.tight_layout()
+    plt.show() 
+
+plt.figure(figsize=(8, 4))
+styles = ['Solarize_Light2', 'fivethirtyeight', 'ggplot', 'grayscale', 'seaborn', 'seaborn-whitegrid']
+for style in styles: #plt.style.available:
+    if style.find('_mpl')>=0: continue
+    print('-'*25, style, '-'*25) 
+    plt.style.use(style)
+    plot() 
+~~~
+
+<img src="images/image-20230410105941680.png" alt="image-20230410105941680" style="zoom: 67%;" /><img src="images/image-20230410110009489.png" alt="image-20230410110009489" style="zoom:67%;" />
+
+<img src="images/image-20230410110029337.png" alt="image-20230410110029337" style="zoom:67%;" /><img src="images/image-20230410110100069.png" alt="image-20230410110100069" style="zoom:67%;" />
+
+<img src="images/image-20230410110113282.png" alt="image-20230410110113282" style="zoom:67%;" /><img src="images/image-20230410110129019.png" alt="image-20230410110129019" style="zoom:67%;" />
 
 ### 并行计算 - joblib
 

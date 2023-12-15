@@ -24,6 +24,16 @@ jupyter notebook默认会把文件放到垃圾箱里，在docker container里面
 
 ## 安装插件管理器
 
+注意notebook的版本要小于6.5.2，参见https://stackoverflow.com/questions/75466215/jupyter-notebook-extensions-tab-not-showing-up-using-poetry-as-dependency-manage
+
+~~~shell
+pip install notebook==6.4.8
+~~~
+
+
+
+![image-20230428175549576](images/image-20230428175549576.png)
+
 - 安装插件管理包
 
   ~~~shell

@@ -31,4 +31,4 @@ PyTorch内置的数据集参见： [Image Datasets](https://pytorch.org/vision/s
 
 # [自动微分](https://pytorch.org/tutorials/beginner/basics/autogradqs_tutorial.html)
 
-![img](images/comp-graph.png)
+<img src="images/comp-graph.png" alt="img" style="zoom:150%;" />

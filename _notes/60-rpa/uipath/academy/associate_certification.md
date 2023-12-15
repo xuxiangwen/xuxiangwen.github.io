@@ -1,12 +1,73 @@
 # [UiPath RPA Associate Certification Training](https://academy.uipath.com/learning-plans/uipath-rpa-associate-certification-training)
 
+# UiPath Platform概览
+
+参见[The UiPath Platform](https://html.cdn.contentraven.com/crcloud/crscorm/uploads/uipath_lms_11218/encryptedfile/507141/v3.0/scormcontent/assets/x3OCuNT8nnPjqtw7_PM9SEODDLsvHIwYz-The-UiPath-Platform.pdf)。
+
+
+
+## UiPath产品概述
+
+![image-20230426111414814](images/image-20230426111414814.png)
+
+### UiPath Automation Hub
+
+UiPath Automation Hub 是一款协作式流程识别、自动化管道管理和流程存储库工具。其目标是通过构建 RPA 感兴趣社区，加快在整个组织中采用 RPA。
+
+### UiPath Task Capture
+
+![image-20230426105121604](images/image-20230426105121604.png)
+
+Task Capture是一个流程发现工具，可帮助您深入了解自动化概念，让您能够通过共享工作详情快速捕获、增强和加速自动化。
+
+Task Capture 为您提供 2 个用于创建文档的选项：
+
+- 通过从头开始构建流程图，然后捕获流程各部分的操作；
+- 通过在执行操作时记录操作，并自动生成全面的工作流图表，包括每个步骤的详细信息。
+
+请记住，该工具会在用户每次点击鼠标和使用键盘输入时截取屏幕截图，并收集有关流程统计信息（执行时间、操作次数、文本输入等）的智能数据。您可以编辑每个屏幕截图并为其添加注释，还可以添加每个步骤的信息。
+
+可以使用这个参见 https://docs.uipath.com/zh-CN/task-capture/standalone/2021.10/user-guide/introduction，里面有Demo。
+
+其他产品以后再添加。
+
+## Robot类型
+
+其中Attended Robot一般用于需要人机互动的流程，手动触发；Unattended Robot则常装于VM上，在Orchestrator上设置固定启动时间定点触发。
+
+| Attended Robots                                  | Unattended Robots                                    |
+| ------------------------------------------------ | ---------------------------------------------------- |
+| 帮助个人用户完成小型的重复性任务                 | 无需人工干预即可运行漫长流程或自动化                 |
+| 流程由用户或特定用户事件触发（例如收到调用请求） | 不依赖用户触发流程，因为它们由 Orchestrator 控制     |
+| 在用户执行日常任务的同一台计算机上               | 连接到 Orchestrator 的任何计算机，通常使用专用计算机 |
+
+### Attended Robots
+
+![image-20230426101616801](images/image-20230426101616801.png)
+
+### Unattended Robots
+
+![image-20230426101712306](images/image-20230426101712306.png)
+
+### **Automation Cloud Robots**
+
+Automation Cloud Robots (ACRs) are SaaS robots hosted in the UiPath Automation Cloud that let you quickly run automations without building or managing your own unattended Robot infrastructure. 
+
+- **VM Automation Cloud Robots**. 
+
+  Access to a fully customizable Windows virtual machine and set up UiPath Robots to run any job in a matter of minutes.  
+
+- **Serverless Automation Cloud Robots (Linux based cloud robots)**.
+
+  Run background, cross-platform projects easily without worrying about infrastructure setup. So, you're able to provision, manage and scale these robots from Automation Cloud. In other words, UiPath takes care of everything—infrastructure, and robots. 
+
 # [第一个Process](https://academy.uipath.com/learningpath-viewer/8279/1/507609/2)
 
 Process功能如下：
 
 1. 读取Excel文件中的Company Code。
 
-2. 在一个页面上查询该Company Code对应Discount。
+2. 在一个页面（https://acme-test.uipath.com/first-automation）上查询该Company Code对应Discount。
 
    如果折扣没有获取到，有异常处理程序。
 
@@ -14,7 +75,63 @@ Process功能如下：
 
 4. 把更新后的Excel文件发出。
 
-项目详见C:\Users\xu6\Documents\UiPath\Build Your First Process With Studio Part_3\BuildYourFirstProcess
+项目详见C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\BuildYourFirstProcess\BuildYourFirstProcess
+
+## 选择Compatibility
+
+> 创建Process的时候，可以选择不同的Compatibility
+>
+> ![image-20231021182328742](images/image-20231021182328742.png)
+>
+> - WIndows
+>
+>   Uses .NET 6 (in [Studio](https://docs.uipath.com/studio/docs/introduction) 2021.10.6 and later versions) or .NET 5 (in [Studio](https://docs.uipath.com/studio/docs/introduction) 2021.10 versions prior to 2021.10.6) with Windows support.
+>
+> - Cross-platform
+>
+>   Uses .NET 6 (in [Studio](https://docs.uipath.com/studio/docs/introduction) 2021.10.6 and later versions) or .NET 5 (in [Studio](https://docs.uipath.com/studio/docs/introduction) 2021.10 versions prior to 2021.10.6) with cross-platform support. You can execute in Linux or Mac with the chrome based automation.
+>
+> - Windows - Legacy 
+>
+>   Uses .NET Framework 4.6.1. the compatibility used in releases prior to 2021.10
+
+## Automation实现的一般步骤
+
+- Capturing the 'as-is' and 'to-be' process step
+
+  Usually, in an automation project implementation, the **Business Analyst** is the one who captures all the '**as-is**' and '**to-be**' process steps and any other documented details from the subject matter experts (**SME**) and the business team.
+
+- Documenting the process steps
+
+  Afterwards, the process steps are thoroughly documented within the Process Definition Document (PDD) and validated with the Solution Architect. 
+
+- Signing-off the PDD
+
+  It is the **Project Manager**'s responsibility to **obtain sign-off on the documented PDD** from the business team.
+
+- Designing the solution
+
+  Once the business requirements of a process are finalized, the Solution Design stage of the implementation process begins. During this stage, the Solution Architect designs a future state flow and maps out the various modules to be developed to complete the automation.
+
+- Developing the solution
+
+  ext, the **Automation Developers** create the modules outlined in the design whiteboard using the PDD and Solution Design Document (SDD) as references.
+
+### [UiPath Automation Best Practice Guide](https://html.cdn.contentraven.com/crcloud/crscorm/uploads/uipath_lms_11218/encryptedfile/558197/v2.0/scormcontent/assets/Dy7ExfmVOR_xzs_z_yFZ-35QSs1kHhXgm-UiPath_AutomationBestPractice_Guide.pdf)
+
+- Sequence
+  - containing no more than 15 (maximum 20) activities.
+- If Activity
+  - More than 3 imbricated IFs must be avoided
+
+- Flow Decision
+  - Flowcharts should not be nested in sequences.
+- Selectors
+  -  Replace attributes with volatile values with attributes that look steady and meaningful;
+  - Replace variable parts of an attribute value with wildcards (*);
+  -  If an attribute’s value is all wildcard (e.g. name=’*’) then attribute should be removed, since it would not contribute to restricting the search for the element;
+  - If editing attributes doesn’t help, try adding more intermediary containers (e.g., Attach Browser and Attach Window) to help restricting the search for the element (only for classic exprience);
+  - Avoid using idx attribute unless it is a very small number like 1 or 2.
 
 # [RPA Developer的一天](https://academy.uipath.com/learningpath-viewer/8256/1/507151/2)
 
@@ -1663,10 +1780,22 @@ Anchor Base非常强大，可以用element作为Anchor，也可以用图片。
 
 ## **Introduction to RPA Testing**
 
+ 参见 [Introduction-to-RPA-Testing.pdf](https://html.cdn.contentraven.com/crcloud/crscorm/uploads/uipath_lms_11218/encryptedfile/507041/v2.0/scormcontent/assets/nLA41WAX-eFyg9ZH_ICoEhkPBfRhNtxPf-Introduction-to-RPA-Testing.pdf)
+
 总体方针：
 
 - proactive maintenance is what we need to do
 - reactive maintenance is whate we must avoid
+
+### Why do we have to test RPA
+
+The time to repair the roof is when the sun is shining.
+
+![image-20230425112107711](images/image-20230425112107711.png)
+
+Here's what causes the phenomenon of breaking robots.
+
+![image-20230425112153140](images/image-20230425112153140.png)
 
 3种Issue：
 
@@ -1674,11 +1803,46 @@ Anchor Base非常强大，可以用element作为Anchor，也可以用图片。
 
 ![image-20230113115233753](images/image-20230113115233753.png)
 
-- Application  Issues: 比如UI的变化。
-- Environment Issues：比如安全补丁
+- Application  Issues: 比如application新的版本导致的UI的变化。
+- Environment Issues：比如安全补丁，浏览器升级等等
 - Automation Issues
+  - Poor object recognition
+  - Missing recovery handling
 
+![image-20230425112244288](images/image-20230425112244288.png)
 
+Proactive maintenance, not reactive maintenance.
 
+![image-20230425113121642](images/image-20230425113121642.png)
 
+![image-20230425113159136](images/image-20230425113159136.png)
 
+![image-20230425113340311](images/image-20230425113340311.png)
+
+![image-20230425113309857](images/image-20230425113309857.png)
+
+### What features contribute to automation resilence?
+
+- Work Flow Analyzer
+- Activity Converage
+- Selector Testing 
+- Mock Testing 
+
+### What are tangible benefits of Uipath Test Suite?
+
+![image-20230425114915522](images/image-20230425114915522.png)
+
+## Basic and Data-driven RPA Test Cases
+
+有两种测试case
+
+- Basic Test Cases
+- Data-driven RPA Test Cases
+
+## Mock Testing
+
+感觉非常有意思，对于如何同步更新原始workflow的改变，感觉很有意思。
+
+## Practice - RPA Testing
+
+C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\associate_certification\Practice - RPA Testing (solution)

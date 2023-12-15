@@ -2,6 +2,32 @@
 
 ##  Skills
 
+
+### UiPath Enterprise trial
+
+**Let's Get Started:**   
+
+1. [Download UiPath Orchestrator](https://protect-us.mimecast.com/s/LKjhCADo5oTGNrxjLT8tfsC?domain=link.uipath.com) by following the [Orchestrator guide](https://protect-us.mimecast.com/s/WmStCBBp5puz7PxvpfNRO41?domain=link.uipath.com). 
+2. Activate using trial code: **6498-2082-7119-9450**. 
+3. [Install UiPath Studio 64-bit](https://protect-us.mimecast.com/s/Ti55CDkr5rfD5j7XNuZB_0s?domain=link.uipath.com) or [32-bit](https://protect-us.mimecast.com/s/oBKnCERv5vsk31wBVuZK5UK?domain=link.uipath.com). 
+4. See how to build and publish your first automation with [Studio](https://protect-us.mimecast.com/s/DXOnCG6xjxh21WrwKU0dpb9?domain=link.uipath.com) or [StudioX](https://protect-us.mimecast.com/s/clbKCJ6AmAhgqpkx3Fp7pea?domain=link.uipath.com) and create [automated tests](https://protect-us.mimecast.com/s/txYfCKrBnBFZ28QLzIn4lXz?domain=link.uipath.com). If you are interested in communicating between a remote application or desktop such as Citrix Virtual Apps and the dedicated UiPath extension, Remote Runtime installer is also available [here](https://protect-us.mimecast.com/s/Pyt_CL9DoDClRN0Lyt1flXj?domain=link.uipath.com). [Learn more](https://protect-us.mimecast.com/s/O5gPCM8gpgIvqxpjMIRqLni?domain=link.uipath.com). 
+5. [Install UiPath Action Center](https://protect-us.mimecast.com/s/gD4zCNkjqjfw0VYoDs94urR?domain=link.uipath.com) and follow the [setup instructions](https://protect-us.mimecast.com/s/BP_WCOYkrkiEp5D3zIJRKFx?domain=link.uipath.com). 
+6. [Install UiPath Insights](https://protect-us.mimecast.com/s/QQ4xCPNlvlcJKvBQ8cVJs0Q?domain=link.uipath.com) by following the [user guide](https://protect-us.mimecast.com/s/81nqCQWmwmFJkBn7McKJU8X?domain=link.uipath.com). 
+7. Install [UiPath Test Manager](https://protect-us.mimecast.com/s/9UAzCR6nxnhyvnwNjI4TSpk?domain=link.uipath.com) and follow the [user guide](https://protect-us.mimecast.com/s/YFdlCVOrBrczx0VMNfA2xrp?domain=link.uipath.com) to leverage the full [Test Suite capabilities](https://protect-us.mimecast.com/s/CsejCW6vDvhN5z10RHP3sX4?domain=link.uipath.com). 
+8. [Download the AI Center license file](https://protect-us.mimecast.com/s/mp_vCXDwEwTkXBlmVu8NUGm?domain=link.uipath.com) and follow the [user guide](https://protect-us.mimecast.com/s/4FtcCYExGxujLkK5EuWGM1k?domain=link.uipath.com) to proceed with the installation. 
+
+### Activity: Add Log Fields
+
+![image-20230522224347806](images/image-20230522224347806.png)
+
+1. 在Execute Log文件增加字段。
+
+   ![image-20230522224532048](images/image-20230522224532048.png)
+
+2. 增加的字段的有效范围在当前Workflow（及其调用的子Workflow）范围内生效。
+
+顺便提一句，Write Line和Log Message的区别在于，前者是Track级别的，后者默认是Log级别的。
+
 ### RPA vs. Selenium
 
 **RPA:** Business automation technology that helps in automating the respective tasks, which are time consuming and boring. They are capable to automates the processes without human intervention. It automates the processes without human intervention. Software and bots are used to mimic human activities and perform the desired task. Commonly it is used to automate the backend processes. 

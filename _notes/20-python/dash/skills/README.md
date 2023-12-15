@@ -191,7 +191,7 @@ def display_page(pathname):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, port='8051', host='0.0.0.0')
 
 
 EOF
@@ -204,7 +204,7 @@ python3 $python_file
 下面的例子中，增加了真正不同的页面。
 
 ~~~python
-python_file=multi_page_simple1.py.py
+python_file=multi_page_simple1.py
 
 cat << EOF > $python_file
 import dash
@@ -284,7 +284,7 @@ def display_page(pathname):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, port='8051', host='0.0.0.0')
 
 
 EOF
@@ -394,7 +394,7 @@ def display_value(value):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True, host='0.0.0.0')
+    app.run_server(debug=True, port='8051', host='0.0.0.0')
 
 
 EOF

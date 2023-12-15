@@ -71,8 +71,8 @@ for text in texts:
 
 # Only keep words that appear more than once
 processed_corpus = [[token for token in text if frequency[token] > 1] for text in texts]
-pprint.pprint(frequency)
-pprint.pprint(processed_corpus)
+pprint(frequency)
+pprint(processed_corpus)
 ~~~
 
 ![image-20220503213737010](images/image-20220503213737010.png)-
