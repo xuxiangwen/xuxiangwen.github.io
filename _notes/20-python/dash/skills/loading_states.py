@@ -26,7 +26,6 @@ app.layout = html.Div(
     ],
 )
 
-
 @app.callback(Output("loading-output-1", "children"), Input("input-1", "value"))
 def input_triggers_spinner(value):
     time.sleep(5)

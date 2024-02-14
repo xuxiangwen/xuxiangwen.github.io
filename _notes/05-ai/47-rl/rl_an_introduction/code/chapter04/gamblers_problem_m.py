@@ -8,7 +8,7 @@ from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter
 from IPython.display import display
 
 class Gambler:
-    def __init__(self, max_num=100, discount=1.00, head_prob=0.4, theta=1e-9, show_iteration_count=1):
+    def __init__(self, max_num=100, discount=1.00, head_prob=0.4, theta=1e-9, show_iteration_count=1, random_max=False):
         self.max_num = max_num 
         self.discount = discount
         self.head_prob = head_prob
@@ -16,6 +16,7 @@ class Gambler:
         self.policies = []
         self.values = []    
         self.show_iteration_count = show_iteration_count
+        self.random_max = random_max
 
     def expected_return(self, state, value, verbose=False):
 #         actions = list(range(1, state + 1 ))
@@ -32,10 +33,14 @@ class Gambler:
         
         # 为了数值稳定性
 #         i = np.argmax(np.round(action_returns, 9))
-        i = np.argmax(np.round(action_returns, 9))
-    
+        if self.random_max:
+            a = np.round(action_returns, 9)
+            i = np.random.choice(np.argwhere(a==np.max(a)).flatten())
+        else:
+            i = np.argmax(np.round(action_returns, 9))
+            
         policy_action = actions[i]
-        action_return = np.max(action_returns)
+        action_return = action_returns[i]
         
         if verbose:
             print('-'*25, f'state={state}, best_action={actions[i]}', '-'*25)
@@ -50,6 +55,7 @@ class Gambler:
 
 
     def value_iteration(self):
+        np.random.seed(43)
         value = np.zeros(self.max_num+1)
         policy = np.zeros(self.max_num+1)
         value[self.max_num] = 1

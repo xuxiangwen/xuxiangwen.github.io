@@ -22,7 +22,8 @@ STATES = np.arange(GOAL + 1)
 HEAD_PROB = 0.4
 
 
-def figure_4_3():
+def figure_4_3(random_max=False):
+    np.random.seed(42)
     # state value
     state_value = np.zeros(GOAL + 1)
     policy = np.zeros(GOAL + 1)
@@ -45,14 +46,21 @@ def figure_4_3():
                 action_returns.append(
                     HEAD_PROB * state_value[state + action] + (1 - HEAD_PROB) * state_value[state - action])
             
-            new_value = np.max(action_returns)
-            policy[state] = actions[np.argmax(np.round(action_returns, 7)) ]
+            
+            if random_max:
+                a = np.round(action_returns, 9)
+                i = np.random.choice(np.argwhere(a==np.max(a)).flatten())
+            else:
+                i = np.argmax(np.round(action_returns, 9))
+                
+            new_value = action_returns[i]
+            policy[state] = actions[i]
 #             policy[state] = actions[np.argmax(action_returns) ]
             state_value[state] = new_value
         delta = abs(state_value - old_state_value).max()
         if iteration % 1 == 0: 
             print(f'after {iteration} iteration: max value change {np.round(delta, 10)}')        
-        if delta < 1e-9:
+        if delta < 1e-11:
             sweeps_history.append(state_value)
             break
 

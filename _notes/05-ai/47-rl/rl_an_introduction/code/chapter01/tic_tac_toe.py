@@ -159,6 +159,7 @@ class Judger:
         self.p2.set_state(current_state)
         if print_state:
             current_state.print_state()
+        
         while True:
             player = next(alternator)
             if print_values and isinstance(player, Player):
@@ -304,6 +305,19 @@ class HumanPlayer:
         self.symbol = None
         self.keys = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c']
         self.state = None
+        self.print_keyboard()
+        
+    def print_keyboard(self):                
+        print(f'please input one of the following keys for human players when playing.')
+        for i in range(BOARD_ROWS):
+            print('-------------------------')
+            out = '| '
+            for j in range(BOARD_COLS):
+                token =  self.keys[i*BOARD_COLS+j]                                          
+                out += token + ' | '
+            print(out)
+        print('-------------------------') 
+        print('if you want to exit the game, press f.') 
 
     def reset(self):
         pass
@@ -316,13 +330,20 @@ class HumanPlayer:
 
     def act(self):
         self.state.print_state()
-        key = input("Input your position:")
-        if key not in self.keys:
-            return -1, -1, 0
+        print('-'*50)
+        while True:            
+            key = input("Input your position:").lower()
+            if key not in self.keys:
+                if key == 'f':
+                    return -1, -1, 0
+                else:
+                    self.print_keyboard()
+            else:
+                break
         data = self.keys.index(key)
         i = data // BOARD_COLS
         j = data % BOARD_COLS
-        return i, j, self.symbol
+        return i, j, self.symbol    
 
 
 def train(epochs, print_every_n=1000, always_update_value=False, policy_prefix=""):
@@ -376,17 +397,21 @@ def compete(turns, player1_policy_prefix='', player2_policy_prefix=''):
 
 # The game is a zero sum game. If both players are playing with an optimal strategy, every game will end in a tie.
 # So we test whether the AI can guarantee at least a tie if it goes second.
-def play(print_values=False, policy_prefix=""):
+def play(human_first=True, print_values=False, policy_prefix=""):
     while True:
-        player1 = HumanPlayer()
-        player2 = Player(epsilon=0)
-        judger = Judger(player1, player2)
-        player2.load_policy(policy_prefix)
+        human = HumanPlayer()
+        ai = Player(epsilon=0)
+          
+        if human_first:
+            judger = Judger(human, ai)
+        else:
+            judger = Judger(ai, human)
+        ai.load_policy(policy_prefix)
         winner = judger.play(print_values=print_values)
-        player1.state.print_state()        
-        if winner == player2.symbol:
+        human.state.print_state()        
+        if winner == ai.symbol:
             print("You lose!")
-        elif winner == player1.symbol:
+        elif winner == human.symbol:
             print("You win!")
         else:
             print("It is a tie!")

@@ -41,8 +41,11 @@ def step(state, action):
     return next_state, reward
 
 
-def draw_image(image):
+def draw_image(image, title=None):
     fig, ax = plt.subplots()
+    if title is not None:
+        fig.suptitle(title)
+    
     ax.set_axis_off()
     tb = Table(ax, bbox=[0, 0, 1, 1])
 
@@ -80,12 +83,14 @@ def compute_state_value(in_place=True, discount=1.0):
                     (next_i, next_j), reward = step([i, j], action)
                     value += ACTION_PROB * (reward + discount * state_values[next_i, next_j])
                 new_state_values[i, j] = value
-
+        
         max_delta_value = abs(old_state_values - new_state_values).max()
         if max_delta_value < 1e-4:
             break
 
         iteration += 1
+        if iteration<4:
+            draw_image(np.round(new_state_values, decimals=2) , f'iteration: {iteration}')
 
     return new_state_values, iteration
 

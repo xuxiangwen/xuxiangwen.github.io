@@ -1,51 +1,46 @@
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import Dash, html, dcc, Input, Output
 import pandas as pd
 import plotly.express as px
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 df = pd.read_csv('https://plotly.github.io/datasets/country_indicators.csv')
 
-available_indicators = df['Indicator Name'].unique()
 
 app.layout = html.Div([
     html.Div([
 
         html.Div([
             dcc.Dropdown(
+                df['Indicator Name'].unique(),
+                'Fertility rate, total (births per woman)',
                 id='crossfilter-xaxis-column',
-                options=[{'label': i, 'value': i} for i in available_indicators],
-                value='Fertility rate, total (births per woman)'
             ),
             dcc.RadioItems(
+                ['Linear', 'Log'],
+                'Linear',
                 id='crossfilter-xaxis-type',
-                options=[{'label': i, 'value': i} for i in ['Linear', 'Log']],
-                value='Linear',
-                labelStyle={'display': 'inline-block'}
+                labelStyle={'display': 'inline-block', 'marginTop': '5px'}
             )
         ],
         style={'width': '49%', 'display': 'inline-block'}),
 
         html.Div([
             dcc.Dropdown(
-                id='crossfilter-yaxis-column',
-                options=[{'label': i, 'value': i} for i in available_indicators],
-                value='Life expectancy at birth, total (years)'
+                df['Indicator Name'].unique(),
+                'Life expectancy at birth, total (years)',
+                id='crossfilter-yaxis-column'
             ),
             dcc.RadioItems(
+                ['Linear', 'Log'],
+                'Linear',
                 id='crossfilter-yaxis-type',
-                options=[{'label': i, 'value': i} for i in ['Linear', 'Log']],
-                value='Linear',
-                labelStyle={'display': 'inline-block'}
+                labelStyle={'display': 'inline-block', 'marginTop': '5px'}
             )
         ], style={'width': '49%', 'float': 'right', 'display': 'inline-block'})
     ], style={
-        'borderBottom': 'thin lightgrey solid',
-        'backgroundColor': 'rgb(250, 250, 250)',
         'padding': '10px 5px'
     }),
 
@@ -61,23 +56,23 @@ app.layout = html.Div([
     ], style={'display': 'inline-block', 'width': '49%'}),
 
     html.Div(dcc.Slider(
+        df['Year'].min(),
+        df['Year'].max(),
+        step=None,
         id='crossfilter-year--slider',
-        min=df['Year'].min(),
-        max=df['Year'].max(),
         value=df['Year'].max(),
-        marks={str(year): str(year) for year in df['Year'].unique()},
-        step=None
+        marks={str(year): str(year) for year in df['Year'].unique()}
     ), style={'width': '49%', 'padding': '0px 20px 20px 20px'})
 ])
 
 
 @app.callback(
-    dash.dependencies.Output('crossfilter-indicator-scatter', 'figure'),
-    [dash.dependencies.Input('crossfilter-xaxis-column', 'value'),
-     dash.dependencies.Input('crossfilter-yaxis-column', 'value'),
-     dash.dependencies.Input('crossfilter-xaxis-type', 'value'),
-     dash.dependencies.Input('crossfilter-yaxis-type', 'value'),
-     dash.dependencies.Input('crossfilter-year--slider', 'value')])
+    Output('crossfilter-indicator-scatter', 'figure'),
+    Input('crossfilter-xaxis-column', 'value'),
+    Input('crossfilter-yaxis-column', 'value'),
+    Input('crossfilter-xaxis-type', 'value'),
+    Input('crossfilter-yaxis-type', 'value'),
+    Input('crossfilter-year--slider', 'value'))
 def update_graph(xaxis_column_name, yaxis_column_name,
                  xaxis_type, yaxis_type,
                  year_value):
@@ -111,7 +106,7 @@ def create_time_series(dff, axis_type, title):
 
     fig.add_annotation(x=0, y=0.85, xanchor='left', yanchor='bottom',
                        xref='paper', yref='paper', showarrow=False, align='left',
-                       bgcolor='rgba(255, 255, 255, 0.5)', text=title)
+                       text=title)
 
     fig.update_layout(height=225, margin={'l': 20, 'b': 30, 'r': 10, 't': 10})
 
@@ -119,10 +114,10 @@ def create_time_series(dff, axis_type, title):
 
 
 @app.callback(
-    dash.dependencies.Output('x-time-series', 'figure'),
-    [dash.dependencies.Input('crossfilter-indicator-scatter', 'hoverData'),
-     dash.dependencies.Input('crossfilter-xaxis-column', 'value'),
-     dash.dependencies.Input('crossfilter-xaxis-type', 'value')])
+    Output('x-time-series', 'figure'),
+    Input('crossfilter-indicator-scatter', 'hoverData'),
+    Input('crossfilter-xaxis-column', 'value'),
+    Input('crossfilter-xaxis-type', 'value'))
 def update_y_timeseries(hoverData, xaxis_column_name, axis_type):
     country_name = hoverData['points'][0]['customdata']
     dff = df[df['Country Name'] == country_name]
@@ -132,17 +127,15 @@ def update_y_timeseries(hoverData, xaxis_column_name, axis_type):
 
 
 @app.callback(
-    dash.dependencies.Output('y-time-series', 'figure'),
-    [dash.dependencies.Input('crossfilter-indicator-scatter', 'hoverData'),
-     dash.dependencies.Input('crossfilter-yaxis-column', 'value'),
-     dash.dependencies.Input('crossfilter-yaxis-type', 'value')])
-def update_x_timeseries(hoverData, yaxis_column_name, axis_type):
-    dff = df[df['Country Name'] == hoverData['points'][0]['customdata']]
-    dff = dff[dff['Indicator Name'] == yaxis_column_name]
-    return create_time_series(dff, axis_type, yaxis_column_name)
+    Output('y-time-series', 'figure'),
+    Inpu
 
 
-if __name__ == '__main__':
-    app.run_server(debug=True, host='0.0.0.0')
+def update_x_timeseries
+    dff = df[d
 
+    return create_
+
+if __name__ == '__main__
+    app.run_server(debug=True, host='0.0.0.0',
 
