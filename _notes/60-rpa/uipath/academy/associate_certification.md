@@ -315,13 +315,33 @@ C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\ass
 
 - Hardware Events
 
-  获取鼠标，键盘的事件。
+  在UiPath中使用Hardware Events输入方法时，它会直接与硬件设备（鼠标或键盘）交互，通过向操作系统发送消息进行操作。
+
+  - 不能在后台工作
 
 - SendWindowMessages 
 
+  UiPath会向应用程序发送与用户使用键盘或鼠标进行交互时应用程序收到的相同消息。这意味着UiPath基本上是以与用户相同的方式控制应用程序。
+
+  - 可以在后台工作。
+  - 准确性高，速度快。
+
 - Simulate
 
-- ChromiumAPI： It is 100% compatible with Chromium-based browsers, like Chrome or Edge. 
+  模仿（mimic）我们与应用程序交互的方式，Simulate 可以直接与 UI 元素进行交互。
+
+  - 准确性高。
+  - 比Hardware Events和Simulate更快
+  - 可以后台运行。可以同时运行其他任务的执行。
+  - 并非所有应用程序都与 Simulate 兼容。
+
+- ChromiumAPI
+
+  ChromiumAPI 是用于浏览器自动化的输入方法，基于 Devtools 协议。它与所有基于 Chromium 的浏览器兼容，如 Chrome 或 Edge。
+
+  -  支持多种活动，包括使用应用程序/浏览器、点击、输入、悬停和键盘快捷键。
+  - 与浏览器的直接通信，这意味着通信通道更少，自动化可靠性更高。
+  - 可以后台运行。
 
 - Background 
 
@@ -335,7 +355,7 @@ C:\xujian\eipi10\xuxiangwen.github.io\_notes\60-rpa\uipath\academy\processes\ass
 
 - Picture-in-Picture (PIP).
 
-  The Picture-in-Picture feature allows you to run attended processes in collaboration with the Robot. A process started in the Picture-in-Picture mode runs in an isolated Windows session, thus allowing you to use the machine while the process is runnin
+  The Picture-in-Picture feature allows you to run attended processes in collaboration with the Robot. A process started in the Picture-in-Picture mode runs in an isolated Windows session, thus allowing you to use the machine while the process is running.
 
   不是很理解
 

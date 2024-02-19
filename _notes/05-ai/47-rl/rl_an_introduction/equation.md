@@ -1,4 +1,4 @@
-## MAB
+## 2. MAB
 
 Multi-armed Bandit
 
@@ -12,6 +12,20 @@ $$
 
 虽然不知道 $q_*(a)$ 的真实值，但可以进行估计，在时间步 $t$ 选择的行为 $a$ 的价值估计表示为 $Q_t(a)$，我们希望$Q_t(a)$ 接近 $q_*(a)$ 。
 
+#### 行为价值方法 - 均值
+
+计算行为价值的最简单的方法便是取平均值。
+$$
+Q_t(a) \doteq \frac{在t之前采取a动作的奖励总和}{在t之前采取a动作的次数}
+= \frac{\sum_{i=1}^{t-1}R_i \cdot \mathbb{1}_{A_i=a}}{\sum_{i=1}^{t-1}\mathbb{1}_{A_i=a}} \tag {2.1}
+$$
+根据大数定理（the law of large numbers），当分母趋近于无穷大，$Q_t(a)$ 将收敛于 $q_{*}(a) $。
+
+由此，我们可以把 Greedy 行为的选择方法表示为：
+$$
+A_t \doteq  \mathop{argmax} \limits_{a} \ Q_t(a)  \tag {2.2}
+$$
+
 #### 估计的奖励 $Q_t(a)$ 
 
 - 样本平均
@@ -21,10 +35,19 @@ $$
           &= Q_n + \frac{1}{n}(R_n - Q_n)    
   \end{aligned} \tag {2.3}
   $$
-
+  采用上述公式，仅仅需要保存 $Q_n$ 和 $n$，计算量也非常小。这个公式的更新规则是本书中经常出现的一种形式。更一般的形式如下：
+  $$
+  新估计 \leftarrow 旧估计 + 步长 [目标 - 旧估计] \tag {2.4}
+  $$
+  表达式 $[目标 - 旧估计] $ 是估计中的误差，这个误差以一定比例更新目标。
+  
 - 固定 $\alpha $
 
-  又称指数新近加权平均（exponential recency-weighted average）。
+  对于非平稳（effectively nonstationary）的强化学习问题，最通常的方法之一是使用一个固定的步长（StepSize）参数。
+  $$
+  Q_{n+1} \doteq Q_n + \alpha(R_n - Q_n)  \tag {2.5}
+  $$
+  StepSize 参数 $\alpha \in (0, 1]$ 是常数。 $Q_{n+1}$ 是所有过去奖励（包括初始估计 $Q_1$）的加权平均值。
   $$
   \begin{split}\begin{aligned}
   Q_{n+1} &= Q_n + \alpha(R_n - Q_n) \\
@@ -35,7 +58,7 @@ $$
   &= (1-\alpha)^nQ_1 + \sum_{i=1}^{n}\alpha(1-\alpha)^{n-i}R_i
   \end{aligned}\end{split}  \tag {2.6}
   $$
-  StepSize 参数 $\alpha \in (0, 1]$ 是常数。 $Q_{n+1}$ 是所有过去奖励（包括初始估计 $Q_1$）的加权平均值。
+  上述公式被又称指数新近加权平均（exponential recency-weighted average）。
   
 - 非固定 $\alpha$
   $$
@@ -46,7 +69,7 @@ $$
   &= \alpha_{n} R_n + (1-\alpha_{n})\alpha_{n-1} R_{n-1} + (1-\alpha_{n})(1-\alpha_{n-1})\alpha_{n-2} R_{n-2} + \\
   & \qquad \qquad \qquad \dots + 	\prod\limits_{i=2}^n  (1-\alpha_{i})\alpha_{1} R_1 + 	\prod\limits_{i=1}^n(1-\alpha_{i})Q_1 \\
   &= \left( \prod\limits_{i=1}^n(1-\alpha_{i})\right)Q_1 + \sum_{i=1}^n \left(\alpha_i  \prod\limits_{k=i+1}^n(1-\alpha_{k}) \right)R_i
-  \end{aligned}\end{split}
+  \end{aligned}\end{split} \tag {2.7}
   $$
   其中 $\prod\limits_{k=n+1}^n(1-\alpha_{k}) = 1 $
 
@@ -114,12 +137,36 @@ H_{t+1}(a) &\doteq H_t(a) - \alpha(R_t-\overline{R}_t)\pi_t(a)，&for \ a \ne A_
 $$
 其中 $\alpha>0$ 是 Step-Size 参数。 $\overline{R}_t$ 表示到时间步 t 为止奖励的平均值。 $\overline{R}_t$ 作为奖励的基线（baseline）。 如果奖励高于基线，那么将来获取 $A_t$ 的概率增加; 反之，如果奖励低于基线，则概率降低。对于那些非$A_t$ 的行为，其概率的变化方向和 $A_t$ 相反。
 
-## MDP
+#### 随机梯度上升的 Bandit 梯度算法
+
+通过理解梯度上升的随机近似（a stochastic approximation to gradient ascent），可以让我们更深的领悟 Bandit 梯度算法。准确的来说，每个行为的偏好度 $H_t(a)$ 与性能的增量成正比。
+$$
+H_{t+1}(a) \doteq H_t(a) + \alpha\frac{\partial \mathbb{E}[R_t]}{\partial H_t(a)} \tag {2.13}
+$$
+其中性能衡量指标是预期的奖励：
+$$
+\mathbb{E}[R_t] = \sum_{x}\pi_t(x)q_*(x)
+$$
+由于我们不知道 $ q_∗(x)$，所以不可能实现精确的梯度上升。但是实际上，公式（2.12）等价于公式（2.13），下面进行仔细的研究。
+$$
+\begin{split}\begin{aligned}
+\frac{\partial \mathbb{E}[R_t]}{\partial H_t(a)} &= \frac{\partial}{\partial H_t(a)}\left[\sum_{x}\pi_t(x)q_*(x)\right] \\
+&= \sum_{x}q_*(x)\frac{\partial \pi_t(x)}{\partial H_t(a)} \\
+&= \sum_{x}(q_*(x)-B_t)\frac{\partial \pi_t(x)}{\partial H_t(a)}
+\end{aligned}\end{split}
+$$
+其中 $B_t$ 称为 *基线（baseline）*，是一个不依赖于 $x$ 的标量（scalar）。上面公式中加入了 $B_t$ ，但由于 $\sum_{x}\frac{\partial \pi_t(x)}{\partial H_t(a)} = 0$，等式依然成立。
+
+## 3. MDP
 
 Markov Decision Process
 
 ### 动力学函数
 
+环境和个体一起产生了如下的序列或轨迹。
+$$
+S_0,A_0,R_1,S_1,A_1,R_2,S_2,A_2,R_3,\dots \tag {3.1}
+$$
 函数 $p $ 定义了MDP的动力学函数（dynamics function），即 $$p: \mathcal{S} \times \mathcal{R} \times \mathcal{S} \times \mathcal{A} \to [0, 1]$$。
 $$
 p(s^\prime,r|s,a) \doteq Pr\{S_t=s^\prime,R_t=r|S_{t-1}=s,A_{t-1}=a\}  \tag {3.2}
@@ -143,14 +190,16 @@ $$
 
 ### 情节任务
 
+在最简单的情况下，*预期收益（expected return）*$G_t$ 可以表示如下。
 $$
 G_{t} \doteq R_{t+1} +R_{t+2} + R_{t+3} + \dots + R_{T}  \tag {3.7}
 $$
 
 ### 持续任务
 
+*预期收益（expected return）*$G_t$ 可以表示如下。
 $$
-G_{t} \doteq R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots = \sum_{k=0}^{\infty}\gamma^k R_{t+k+1}
+G_{t} \doteq R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots = \sum_{k=0}^{\infty}\gamma^k R_{t+k+1} \tag {3.8}
 $$
 
 $$
@@ -158,10 +207,15 @@ $$
 G_{t} &\doteq R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \gamma^3 R_{t+4} + \dots \\
 &= R_{t+1} + \gamma(R_{t+2} + \gamma R_{t+3} + \gamma^2 R_{t+4} + \dots) \\
 &= R_{t+1} + \gamma G_{t+1}
-\end{aligned}\end{split}
+\end{aligned}\end{split} \tag {3.9}
 $$
 
-满足 $0 \leq\gamma \leq 1$。
+其中 $\gamma $ 称之为 *衰减率（discount rate）*，满足 $0 \leq\gamma \leq 1$。当$R_t$是常数1时，可得：
+$$
+G_t = \sum_{k=0}^{\infty}\gamma^k = \frac{1}{1-\gamma} \tag {3.10}
+$$
+
+
 
 ### 情节和持续任务的统一符号
 
@@ -205,7 +259,7 @@ $$
 
 ### 行为价值函数
 
-在策略 $\pi$ 下，状态 $s$ 下采用行为 $a$ 的 *动作价值函数（action-value function）* 表示为 $q_\pi(s, a)$，是从 $s$ 开始， 遵循策略 $\pi$ 采用行为 $a$,的预期收益。定义如下：
+在策略 $\pi$ 下，状态 $s$ 下采用行为 $a$ 的 *行为价值函数（action-value function）* 表示为 $q_\pi(s, a)$，是从 $s$ 开始， 遵循策略 $\pi$ 采用行为 $a$,的预期收益。定义如下：
 $$
 q_\pi(s,a) \doteq \mathbb{E}_\pi\left[G_t|S_t=s,A_t=a\right]
 = \mathbb{E}_\pi\left[\sum^{\infty}_{k=0}\gamma^kR_{t+k+1}|S_t=s,A_t=a\right]  \tag {3.13}
@@ -237,6 +291,7 @@ $$
 
 ### 最优状态价值函数
 
+*最优状态价值函数optimal state-value function*，表示为 $v_*$。
 $$
 v_*(s) \doteq \max_\pi v_\pi(s)，  \ \ \ \ for \ all \ s\in \mathcal{S}  \tag {3.15}
 $$
@@ -262,8 +317,14 @@ $$
 
 ### 最优行为价值函数
 
+*最优行为价值函数（optimal action-value function）*，表示为 $q_*$。
 $$
 q_*(s,a) \doteq \max_\pi q_\pi(s,a) \ \ \ \ for \ all \ s\in \mathcal{S}  \  and  \ a\in \mathcal{A} \tag {3.16}
+$$
+
+对于状态价值对 $(s, a)$，这个函数给出了在状态 $s$ 执行 $a$ 行为，并在此后遵循最优策略的预期收益。因此我们用 $q_*$ 来表示 $v_*$， 定义如下：
+$$
+q_*(s,a) = \mathbb{E}\left[R_{t+1}+\gamma v_* (S_{t+1})|S_t=s,A_t=a\right] \tag {3.17}
 $$
 
 ####  $q_*(s, a) $ 和 $v_*(s^\prime)$ 
@@ -285,3 +346,138 @@ q_*(s,a) &= \mathbb{E}\left[R_{t+1}+\gamma\sum_{a^\prime}q_*(S_{t+1,a^\prime})|S
 &=\sum_{s^\prime,r}p(s^\prime,r|s,a)[r+\gamma \max_{a^\prime}q_*(s^\prime,a^\prime)]
 \end{aligned}\end{split} \tag {3.20}
 $$
+
+## 4. DP
+
+如前文所述，一旦找到如下的最优价值函数  $v_*$ 或者 $q_*$ ，最优策略便很容易获得。
+$$
+\begin{split}\begin{aligned}
+v_*(s) &= \max_a\mathbb{E}[R_{t+1}+\gamma v_*(S_{t+1}) | S_t=s,A_t=a] \\
+&= \max_a\sum_{s',r}p(s',r|s,a)[r+\gamma v_*(s')]
+\end{aligned}\end{split}   \tag {4.1}
+$$
+或
+$$
+\begin{split}\begin{aligned}
+q_*(s,a)& = \mathbb{E}[R_{t+1}+\gamma \max_{a'} q_*(S_{t+1},a') | S_t=s,A_t=a]\\
+&=\sum_{s',r}p(s',r|s,a)[r+\gamma\max_{a'} q_*(s',a')],
+\end{aligned}\end{split} \tag {4.2}
+$$
+其中 $\cal{s}\in\cal{S},\ a\in\cal{A(s)},\  \cal{s}'\in\mathcal{S}^+$ 。
+
+### 策略评估
+
+迭代策略评估（iterative policy evaluation）公式如下：
+$$
+\begin{split}\begin{aligned}
+v_{k+1}(s)& \overset{\cdot}{=}\mathbb{E}[R_{t+1}+\gamma v_k(S_{t+1}) | S_t=s] \\
+&= \sum_{a}\pi(a|s)\sum_{s',r}p(s',r|s,a)[r+\gamma{v_k(s')}],
+\end{aligned}\end{split} \tag {4.5}
+$$
+
+> **迭代策略评估，用于估算 $V \approx v_\pi$**
+>
+> 输入：
+>
+> - $\pi$: 要被评估的策略。
+>
+> - $\theta$: 算法参数：一个小的阈值 $\theta > 0$， 它用于控制估计的准确性。
+> - $V(s)$：进行初始化，当 $s\in\mathcal{S}^+$，可以是任意值，当是终止节点，$V(terminal) = 0$。
+>
+> $$
+> \begin{align}
+> & \text {Loop} \\
+> & \quad \Delta \leftarrow 0  \\
+> & \quad \text {Loop for each } s \in \mathcal S:\\
+> & \quad \quad v \leftarrow V(s)\\
+> & \quad \quad V(s) \leftarrow \sum_{a}\pi(a|s)\sum_{s',r}p(s',r|s,a)[r+\gamma V(s')]\\
+> & \quad \quad \Delta \leftarrow \max(\Delta,|v-V(s)|)\\
+> & \quad \text {until } \Delta < \theta
+> \end{align}
+> $$
+
+
+
+### 策略提升
+
+基于当前状态 $s$ 选择一个行为 $a$ （笔者：并没有根据策略 $\pi$ 来选择），此后再遵循策略 $\pi$，这种方式的价值是：
+$$
+\begin{split}\begin{aligned}
+q_\pi(s,a)& \doteq \mathbb{E}[R_{t+1}+\gamma v_\pi(S_{t+1}) | S_t=s,A_t=a] \\
+&= \sum_{s',r}p(s',r|s,a)[r+\gamma v_\pi(s')]
+\end{aligned}\end{split}   \tag {4.6}
+$$
+对于每个状态，选择 $q_\pi(s, a)$ 最大的那个行为。即Greedy 策略 $\pi^\prime$ ，其表示如下：
+$$
+\begin{split}\begin{aligned}
+\pi'(s)& \doteq \arg\max_a q_\pi(s,a) \\
+& =\arg \max_a\mathbb{E}[R_{t+1}+\gamma v_\pi(S_{t+1}) | S_t=s,A_t=a]\\
+&=\arg\max_a\sum_{s',r}p(s',r|s,a)[r+\gamma v_\pi(s')],
+\end{aligned}\end{split} \tag {4.9}
+$$
+Greedy 策略根据 $v_\pi$，向前展望一步，选择短期内看起来最好的行为。
+
+### 策略迭代
+
+> **策略迭代（使用迭代策略评估）估计 $\pi \approx \pi_*$**
+>
+> 1. 初始化（Initialization）
+>
+>    对于所有的 $s\in\mathcal{S}$，$V(s)\in\mathbb{R}$， $\pi(s)\in\cal{A}(s)$；且 $V(terminal) = 0$
+>
+> 2. 策略评估（Policy Evaluation）
+>    $$
+>    \begin{flalign}
+>    & \text {Loop:}  \\
+>    & \quad  Delta \ \leftarrow \ 0\\
+>    & \quad \text{Loop for each } s\in{S}: \\
+>    & \quad \quad v\leftarrow{V(s)}\\
+>    & \quad \quad V(s) \ {\leftarrow} \ \sum_{s',r}p(s',r|s,\pi(s))[r+\gamma{V(s')}] \\
+>    & \quad \quad \Delta \ {\leftarrow} \ {\max(\Delta,|v-V(s)|)} \\
+>    & \text {Until }  \Delta<\theta \text {（一个小的正数，其决定了估计准确性的）} \\
+>    \end{flalign}
+>    $$
+>
+> 3. 策略提升（Policy Improvement）
+>
+> $$
+> \begin{flalign}
+> &  {policy\text -stable} \leftarrow true\\
+>    &  \text {For each } s\in{S} : \\
+>    &  \quad {old \text - action}  \leftarrow {\pi(s)} \\
+> &  \quad \pi(s)\leftarrow{\arg\max_a\sum_{s',r}p(s',r|s,a)[r+\gamma V(s')]}\\
+>    &  \quad \text {If } old\text -action \not=\pi(s) \text  {, then } policy\text -stable \leftarrow \text {false} \\
+> &  \text {If } policy\text -stable \text{, then stop and return } V \approx{v_*}  \text { and } \pi \approx{\pi_*} ; \text {else go to 2}  \\
+>    \end{flalign}
+> $$
+
+### 价值迭代
+
+$$
+\begin{split}\begin{aligned}
+v_{k+1}(s)&\doteq \max_a\mathbb{E}[R_{t+1}+\gamma v_{k}(S_{t+1}) | S_t=s,A_t=a] \\
+&= \max_a\sum_{s',r}p(s',r|s,a)[r+\gamma v_{k}(s')],
+\end{aligned}\end{split} \tag {4.10}
+$$
+
+其中 $s\in\mathcal{S}$。
+
+**价值迭代，用于估算 $\pi \approx \pi_*$**
+$$
+\begin{flalign}
+& \text {算法参数： 小的阈值} \theta > 0 \text {，用于确定评估的准确性。}   \\
+& \text {对于所有的 } s\in\mathcal{S} ，V(s) \text {可以初始化任何值；} V(terminal) = 0   \\
+& \text {Loop:}       \\
+& \quad  \Delta \leftarrow 0       \\
+& \quad  \text {Loop for each} s \in \cal S \\
+& \quad \quad v\leftarrow{V(s)}        \\  
+& \quad \quad V(s){\leftarrow}\max_a\sum_{s',r}p(s',r|s,a)[r+\gamma{V(s')}] \\
+& \quad \quad \Delta{\leftarrow}{\max(\Delta,|v-V(s)|)}  \\
+& \text {until } \Delta<\theta  \\
+& \text 输出一个确定性的策略， \pi \approx \pi_*, 即 \\
+& \pi(s)=\arg\max_a\sum_{s',r}p(s',r|s,a)[r+\gamma{V(s')}]
+\end {flalign}
+$$
+
+## 5. MC Methods
+

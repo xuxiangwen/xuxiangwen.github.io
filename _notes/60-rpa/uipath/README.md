@@ -2,6 +2,40 @@
 
 ##  Skills
 
+### 初始化字典
+
+- vb
+
+  ~~~vb
+  New Dictionary(Of String, object)() From {{"ChromeDriverPath", "C:\ChromedriverPath"}, {"CDAX_URL", "https://hpcdax.crm.dynamics.com/main.aspx?appid=c4ac64fc-8e58-e911-a83c-000d3a3b7d47&forceUCI=1&pagetype=webresource&webresourceName=hpi_CustomeSearchPage.html"}}
+  ~~~
+
+- c#
+
+  ~~~c#
+  new Dictionary<string, object>()  
+  {  
+      {"ChromeDriverPath", @"C:\ChromedriverPath"},  
+      {"CDAX_URL", "https://hpcdax.crm.dynamics.com/main.aspx?appid=c4ac64fc-8e58-e911-a83c-000d3a3b7d47&forceUCI=1&pagetype=webresource&webresourceName=hpi_CustomeSearchPage.html"}  
+  }
+  ~~~
+
+  
+
+### 数组转字符串
+
+- vb
+
+  ~~~vb
+   String.Join("; ", out_SheetDt.Columns.Cast(Of DataColumn)().Select(Function(x) x.ColumnName).ToArray())
+  ~~~
+
+- c#
+
+  ~~~c#
+  string.Join("; ", out_SheetDt.Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray());
+  ~~~
+
 
 ### UiPath Enterprise trial
 
