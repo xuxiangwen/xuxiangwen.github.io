@@ -75,25 +75,35 @@ class ParkingWorld:
     def transitions(self, s, a):
         return np.array([[r, self.p(s_, r, s, a)] for s_, r in self.support(s, a)])
 
+    '''
+    Reward仅仅和车位的占用数量有关系。也就是说，价格用来调节车位占用的情况，而不是用于Reward。
+    '''
     def support(self, s, a):
         return [(s_, self.reward(s, s_)) for s_ in self.__S]
 
+    '''
+    见Assignment2中的分析
+    '''
     def p(self, s_, r, s, a):
         if r != self.reward(s, s_):
             return 0
         else:
-            center = (1 - self.__price_factor
-                      ) * s + self.__price_factor * self.__num_spaces * (
-                          1 - a / self.__num_prices)
+            center = (1 - self.__price_factor) * s + self.__price_factor * self.__num_spaces * (1 - a / self.__num_prices)
             emphasis = np.exp(
                 -abs(np.arange(2 * self.__num_spaces) - center) / 5)
             if s_ == self.__num_spaces:
                 return sum(emphasis[s_:]) / sum(emphasis)
             return emphasis[s_] / sum(emphasis)
 
+    '''
+    为何下面这样设定？
+    '''
     def reward(self, s, s_):
         return self.state_reward(s) + self.state_reward(s_)
 
+    '''
+    基本规则：车位越满，回报越高
+    '''
     def state_reward(self, s):
         if s == self.__num_spaces:
             return self.__null_factor * s * self.__occupants_factor
@@ -119,7 +129,7 @@ class ParkingWorld:
 
     @property
     def num_prices(self):
-        return self.num_prices
+        return self.__num_prices
 
     @property
     def S(self):

@@ -402,4 +402,24 @@
 
     D. Acts as a performer for upstream jobs and as a dispatcher for downstream jobs.
 
-51. =
+51. **What is the minimum number of sample documents required for retraining a UiPath out-of-the-box ML model?**
+
+    A. 30	B. 10	C. 100	D. At least one 
+
+55. **Which (2) of the following statements about pre-labeling are true?**
+
+    A. Pre-labeling consume AI units
+
+    B. Pre-labeling doesn't consume AI units, unless it involves a hybrid environment.
+
+    C. Pre-labeling is an optional step, while labeling is mandatory
+
+    D. Pre-labeling and labeling are both mandatory
+
+## 56-60
+
+56. **Which of the following activities are optional when setting up Document Manager?**
+
+    A. Selecting an ML model for pre-labeling	B. Configuring the OCR engine
+    
+    C. Specifying the fields for extraction	D. Using a predefined schema

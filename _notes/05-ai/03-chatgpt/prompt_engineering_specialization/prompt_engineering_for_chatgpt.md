@@ -6,11 +6,9 @@ https://www.coursera.org/learn/prompt-engineering
 
 ##  Application
 
-- GPT-4： https://oai.azure.com/portal/f6454d0e7d1d45f295c83e66078d54ee/chat
-- Bard：https://bard.google.com/chat
-- Claude2： https://claude.ai/
-- 文心一言3.5： https://yiyan.baidu.com/
-- 文心一言4.0： https://yiyan.baidu.com/
+- GPT-4： 
+  - https://oai.azure.com/portal/f6454d0e7d1d45f295c83e66078d54ee/chat
+
 
 # Week 1: Course Introduction
 
@@ -697,7 +695,7 @@ How much money do I need to live comfortably in retirement?
 ## Sample 英中互译 - 2020
 
 ~~~
-Starting from below, If I say a Chinese sentence, you translate it into English; if I say an English sentence, you translate it into Chinese.
+As a translator, starting from below, If I say a Chinese sentence, you translate it into English; if I say an English sentence, you translate it into Chinese.
 ~~~
 
 
