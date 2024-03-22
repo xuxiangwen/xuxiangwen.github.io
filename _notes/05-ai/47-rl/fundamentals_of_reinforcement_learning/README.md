@@ -60,5 +60,5 @@ Ideas of MDP:
 
 课程作业
 
-- [Assignment2.ipynb](C:\xujian\eipi10\xuxiangwen.github.io\_notes\05-ai\47-rl\fundamentals_of_reinforcement_learning\week4\DynamicProgramming\Assignment2.ipynb)
+- [Assignment2.ipynb](C:\Users\xu6\OneDrive - HP Inc\xujian\eipi10\xuxiangwen.github.io\_notes\05-ai\47-rl\fundamentals_of_reinforcement_learning\week4\DynamicProgramming\Assignment2.ipynb)
 
