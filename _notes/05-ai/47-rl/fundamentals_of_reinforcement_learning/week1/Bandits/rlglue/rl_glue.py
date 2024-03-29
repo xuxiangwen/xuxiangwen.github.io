@@ -210,6 +210,5 @@ class RLGlue:
 
         Returns
             Int: the total number of episodes
-
         """
         return self.num_episodes

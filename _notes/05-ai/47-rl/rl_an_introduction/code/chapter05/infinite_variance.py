@@ -54,6 +54,7 @@ def figure_5_4():
     plt.xscale('log')
 
     plt.savefig('../images/figure_5_4.png')
+    plt.show()
     plt.close()
 
 if __name__ == '__main__':

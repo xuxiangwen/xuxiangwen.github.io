@@ -66,6 +66,22 @@ Virtual environments are a common and effective technique used in Python develop
 
    ![image-20240229165930013](images/image-20240229165930013.png)
 
+## Install Python Libraries
+
+~~~powershell
+conda activate dev
+pip install numpy   	# 多维数组
+pip install pandas		# 数据处理
+pip install tqdm  		# 进度条
+pip install joblib 		# 并行处理
+pip install matplotlib	# 图形绘制
+pip install seaborn 	# 图形绘制
+pip install scipy		# 科学计算
+pip install scikit-image	#图像处理
+~~~
+
+
+
 ## Install JupyterLab
 
 [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/)  is the latest web-based interactive development environment for notebooks, code, and data. Here is an introduction. 
@@ -90,8 +106,9 @@ Virtual environments are a common and effective technique used in Python develop
    jupyter lab
    ~~~
    
+
 ![image-20240229172213391](images/image-20240229172213391.png)
-   
+
 > The JupyterLab website is accessed via token which is highlighted in the picture above. 
 
 4. After a while, it will open a local web site in your browser as below. You can start to write your notebook now.
