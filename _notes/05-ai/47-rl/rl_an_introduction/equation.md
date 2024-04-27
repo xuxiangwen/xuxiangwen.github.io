@@ -395,15 +395,15 @@ $$
 > - $V(s)$：进行初始化，当 $s\in\mathcal{S}^+$，可以是任意值，当是终止节点，$V(terminal) = 0$。
 >
 > $$
-> \begin{align}
-> & \text {Loop} \\
+> \begin{flalign}
+> & \text {Loop} &\\
 > & \quad \Delta \leftarrow 0  \\
 > & \quad \text {Loop for each } s \in \mathcal S:\\
 > & \quad \quad v \leftarrow V(s)\\
 > & \quad \quad V(s) \leftarrow \sum_{a}\pi(a|s)\sum_{s',r}p(s',r|s,a)[r+\gamma V(s')]\\
 > & \quad \quad \Delta \leftarrow \max(\Delta,|v-V(s)|)\\
 > & \quad \text {until } \Delta < \theta
-> \end{align}
+> \end{flalign}
 > $$
 
 
@@ -438,7 +438,7 @@ Greedy 策略根据 $v_\pi$，向前展望一步，选择短期内看起来最�
 > 2. 策略评估（Policy Evaluation）
 >    $$
 >    \begin{flalign}
->    & \text {Loop:}  \\
+>    & \text {Loop:} & \\
 >    & \quad  Delta \ \leftarrow \ 0\\
 >    & \quad \text{Loop for each } s\in{S}: \\
 >    & \quad \quad v\leftarrow{V(s)}\\
@@ -475,7 +475,7 @@ $$
 **价值迭代，用于估算 $\pi \approx \pi_*$**
 $$
 \begin{flalign}
-& \text {算法参数： 小的阈值} \theta > 0 \text {，用于确定评估的准确性。}   \\
+& \text {算法参数： 小的阈值} \theta > 0 \text {，用于确定评估的准确性。}   & \\
 & \text {对于所有的 } s\in\mathcal{S} ，V(s) \text {可以初始化任何值；} V(terminal) = 0   \\
 & \text {Loop:}       \\
 & \quad  \Delta \leftarrow 0       \\
@@ -489,14 +489,14 @@ $$
 \end {flalign}
 $$
 
-## 5. MC Methods
+## 5. MC
 
 ### 首次访问 MC 预测
 
 > **首次访问 MC 预测，估计 $V \approx v_\pi$,**
 > $$
 > \begin{flalign}
-> &\text {输入（Input）：用来评估的策略} \pi   \\
+> &\text {输入（Input）：用来评估的策略} \pi  & \\
 > &\text {初始化（Initialize）：}   \\
 > & \quad V(s)\in\mathbb{R} \\
 > & \quad   Returns(s) \leftarrow \text {一个空的列表（List）}    \\
@@ -511,13 +511,32 @@ $$
 > \end{flalign}
 > $$
 
-### 探索开端的蒙特卡洛
+增量更新实现。
+
+> $$
+> \begin{flalign}
+> &\text {输入（Input）：用来评估的策略} \pi  & \\
+> &\text {初始化（Initialize）：}   \\
+> & \quad V(s)\leftarrow 0   ,  \quad \text {for all } s \in \mathcal S \\
+> & \quad   N(s) \leftarrow 0   ,  \quad \text {for all } s \in \mathcal S  \\
+> &  \text {Loop forever (for each episode): }   \\
+> &  \quad  \text {根据 } \pi \text { 生成情节：}  S_0, A_0, R_1, S_1, A_1, R_2, \dots , S_{T-1}, A_{T-1}, R_{T}  \\
+> &   \quad G \leftarrow 0    \\
+> &   \quad \text {Loop for each step of episode, }  t = T-1, T-2, \dots, 0 :  \\
+> &   \quad \quad G \leftarrow \gamma{G} + R_{t+1}  \\
+> &   \quad \quad \text {Unless } S_t \text { appears in }S_0, S_1,...,S_{t-1}:   \\
+> &  \quad \quad  \quad \text N(s) = N(s) + 1    \\
+> &   \quad \quad  \quad V(s) \leftarrow  V(s) + \frac 1 {N(s)}(G-V(s))   \\
+> \end{flalign}
+> $$
+
+### 探索开端的 MC
 
 > **Monte Carlo ES (Exploring Starts)**， 用于估算 $\pi \approx \pi_*$
 > $$
 > \begin{flalign}
 > & \text {Initialize}:
-> \\ &  \quad  \pi(s) \in  \mathcal A(s) \text { (arbitrarily), } \text {for all } s \in \mathcal S
+> &\\ &  \quad  \pi(s) \in  \mathcal A(s) \text { (arbitrarily), } \text {for all } s \in \mathcal S
 > \\ &  \quad Q(s, a) \in  \mathcal  R  \text { (arbitrarily), for all } s \in  \mathcal S, a \in  \mathcal A(s)
 > \\ &  \quad Returns(s, a) \leftarrow \text {empty list, for all } s \in  \mathcal S, a \in  \mathcal A(s)
 > \\ &   \text {Loop forever (for each episode): }
@@ -533,13 +552,34 @@ $$
 > \end{flalign}
 > $$
 
-### **On-policy首次访问MC控制**
+增量更新实现。
+
+  > $$
+  > \begin{flalign}
+  > & \text {Initialize}:
+  > \\ &  \quad  \pi(s) \in  \mathcal A(s) \text { (arbitrarily), } \text {for all } s \in \mathcal S
+  > &\\ &  \quad Q(s, a) \leftarrow 0,  \text { (arbitrarily), for all } s \in  \mathcal S, a \in  \mathcal A(s)
+  > \\ &  \quad N(s, a) \leftarrow \text {0, for all } s \in  \mathcal S, a \in  \mathcal A(s)
+  > \\ &   \text {Loop forever (for each episode): }
+  > \\ &  \quad \text {Choose } S_0 \in  \mathcal S, A_0 \in  \mathcal A(S_0)  \text  { randomly such that all pairs have probability > 0}
+  > \\ &  \quad \text {Generate an episode from } S_0, A_0, \text {following } \pi: S_0, A_0, R_1,...,S_{T-1}, A_{T-1}, R_T
+  > \\ &  \quad G \leftarrow 0
+  > \\ &   \quad\text {Loop for each step of episode, } t = T -1, T -2, \cdots, 0:
+  > \\ &  \quad \quad  G \leftarrow \gamma G + R_{t+1}
+  > \\ &  \quad \quad \text {Unless the pair } S_t, A_t \text { appears in }S_0, A_0, S_1, A_1 ...,S_{t-1}, A_{t-1}:
+  > \\ &  \quad \quad \quad N(s, a) \leftarrow N(s, a) +1
+  > \\ &  \quad \quad \quad Q(S_t, A_t) \leftarrow  Q(S_t, A_t) + \frac 1 {N(s, a)} (G - Q(S_t, A_t))
+  > \\ &  \quad \quad \quad \pi(S_t) \leftarrow \arg\max_a Q(S_t, a)
+  > \end{flalign}
+  > $$
+
+### **On-policy 首次访问MC控制**
 
 > **On-policy first-visit MC control （对于** **$\epsilon-soft$** **策略），用于估算** **$V \approx v_\pi$**
 > $$
 > \begin{flalign}
 > &  \text {Algorithm parameter:：small } \epsilon > 0
-> \\ & \text {Initialize}:
+> &\\ & \text {Initialize}:
 > \\ &  \quad  \pi(s)  \leftarrow \text { an arbitrary } \varepsilon\text -soft \text { policy}
 > \\ &  \quad Q(s, a) \in  \mathcal  R  \text { (arbitrarily), for all } s \in  \mathcal S, a \in  \mathcal A(s)
 > \\ &  \quad Returns(s, a) \leftarrow \text {empty list, for all } s \in  \mathcal S, a \in  \mathcal A(s)
@@ -580,7 +620,7 @@ $$
 $$
 由此，根据应用策略提升理论，可得 $\pi^{'} \geq \pi$ （即对所有 $s \in \mathcal S，v_{\pi^{'}}(s) \geq v_\pi(s)$​）。
 
-### 重要性采样的离策略预测
+### 重要性采样 Off-policy 预测
 
 几乎所有的离策略方法都使用重要性采样（importance sampling,，这是一种使用另外一个样本分布来估计原分布下的期望值的通用技术。我们通过根据目标策略和行为策略下轨迹发生的相对概率（称为重要性采样比率（importance-sampling ratio））对回报进行加权，将重要性采样应用于离策略学习。给定一个开始状态$S_t$，后续状态-动作轨迹，$A_t, S_{t+1},A_{t+1},\cdots ,S_{T}$，在策略$\pi$下发生的概率是：
 $$
@@ -616,3 +656,230 @@ $$
 V(s) \doteq \frac{\sum_{t \in \cal{T}(s)} \rho_{t:T(t)-1} G_t}{\sum_{t \in \cal{T}(s)} \rho_{t:T(t)-1}} \tag {5.6}
 $$
 若分母为零，加权重要性采样也为零。 
+
+### 重要性采样 Off-policy MC 预测
+
+>**Off-policy MC 预测（策略评估），估计 $Q \approx q_\pi$,**
+>$$
+>\begin{flalign}
+>&\text {Input: an arbitrary target policy} \pi &  \\
+>&\text {Initialize, for all } s \in \mathcal S,a\in \mathcal A(\mathcal s)   \\
+>& \quad Q(s, a)\in\mathbb{R} \text { (arbitrarily)}\\
+>& \quad   C(s,a) \leftarrow 0   \\
+>&  \text {Loop forever (for each episode): }   \\
+>&   \quad b  \leftarrow \text {any policy with coverage of } \pi \\
+>&   \quad \text {Generate an episode following } b:  S_0, A_0, R_1, S_1, A_1, R_2, \dots , S_{T-1}, A_{T-1}, R_{T}  \\
+>&   \quad G \leftarrow 0    \\
+>&   \quad W \leftarrow 1    \\
+>&   \quad \text {Loop for each step of episode, }  t = T-1, T-2, \dots, 0, \text { while } W \neq 0  \\
+>&   \quad \quad G \leftarrow \gamma{G} + R_{t+1}  \\
+>&   \quad \quad C(S_t,A_t) \leftarrow C(S_t,A_t) +W  \\
+>&   \quad \quad Q(S_t,A_t) \leftarrow Q(S_t,A_t) + \frac{W}{C(S_t,A_t)}[G - Q(S_t,A_t)]\\
+>&   \quad \quad W \leftarrow W \frac{\pi(A_t|S_t)}{b(A_t|S_t)} \\
+>\end{flalign}
+>$$
+
+### 重要性采样 Off-policy MC 控制
+
+>**Off-policy MC control，for estimating $\pi \approx \pi_*$**
+>$$
+>\begin{flalign}
+>&\text {Initialize, for all } s \in \mathcal S,a\in \mathcal A(\mathcal s)   & \\
+>& \quad Q(s, a)\in\mathbb{R} \text { (arbitrarily)}\\
+>& \quad   C(s,a) \leftarrow 0   \\
+>& \quad   \pi(s) \leftarrow argmax_a Q(s,a)  \quad \text { (with ties broken consistently)} \\
+>&  \text {Loop forever (for each episode): }   \\
+>&   \quad b  \leftarrow \text {any soft policy}  \\
+>&   \quad \text {Generate an episode following } b:  S_0, A_0, R_1, S_1, A_1, R_2, \dots , S_{T-1}, A_{T-1}, R_{T}  \\
+>&   \quad G \leftarrow 0    \\
+>&   \quad W \leftarrow 1    \\
+>&   \quad \text {Loop for each step of episode, }  t = T-1, T-2, \dots, 0, \text { while } W \neq 0  \\
+>&   \quad \quad G \leftarrow \gamma{G} + R_{t+1}  \\
+>&   \quad \quad C(S_t,A_t) \leftarrow C(S_t,A_t) +W  \\
+>&   \quad \quad Q(S_t,A_t) \leftarrow Q(S_t,A_t) + \frac{W}{C(S_t,A_t)}[G - Q(S_t,A_t)]\\
+>&   \quad \quad \pi(S_t) \leftarrow argmax_a Q(S_t,a)  \quad \text { (with ties broken consistently)} \\
+>&   \quad \quad\text {if } A_t \ne \pi(S_t) \text { then exit inner Loop (proceed to next episode)}\\
+>&   \quad \quad W  \leftarrow W \frac{1}{b(A_t|S_t)} \\
+>\end{flalign}
+>$$
+
+## 6 TD
+
+### TD预测
+
+> **Tabular  TD(0) 估计** **$v_\pi$**
+> $$
+> \begin{flalign}
+> &\text {Input: the policy } \pi \text { to be evaluated}   & \\
+> &\text {Algorithm parameter: step size } \alpha \in {(0,1]} \\
+> &\text {Initialize V (s), for all } s \in \mathbb{S}^{+} \text {, arbitrarily except that } V(terminal)=0 \\
+> &\text {Loop for each episode:} \\
+> &  \quad \text {Initialize } S \\
+> &  \quad \text {Loop for each step of episode: } \\
+> &  \quad \quad \text {A action given by } \pi \text  { for }  S \\
+> &  \quad \quad \text {Take action } A \text {, observe } R, S^{\prime} \\
+> &  \quad \quad V(S) \leftarrow V(S)+\alpha\left[R+\gamma V(S^{\prime})-V(S)\right] \\
+> &  \quad \quad S \leftarrow S^{\prime} \\ 
+> &  \quad \text {until }S \text { is terminal} \\
+> \end{flalign}
+> $$
+
+在TD(0)更新中，括号中的数量是一种误差， 衡量 $S_t$ 的估计值与更好的估计 $R_{t+1} + \gamma V(S_{t+1})$ 之间的差异。 这个数量称为 *TD误差*。
+$$
+\delta_{t} \doteq R_{t+1}+\gamma V\left(S_{t+1}\right)-V\left(S_{t}\right) \tag {6.5}
+$$
+如果 $V$​ 在回合期间没有改变（在蒙特卡洛方法中确实如此），那么蒙特卡洛误差可以写成TD误差的和：
+$$
+\begin{split}\begin{aligned} G_{t}-V\left(S_{t}\right) &=R_{t+1}+\gamma G_{t+1}-V\left(S_{t}\right)+\gamma V\left(S_{t+1}\right)-\gamma V\left(S_{t+1}\right) & (from\ (3.9)) \\ &=\delta_{t}+\gamma\left(G_{t+1}-V\left(S_{t+1}\right)\right) \\ &=\delta_{t}+\gamma \delta_{t+1}+\gamma^{2}\left(G_{t+2}-V\left(S_{t+2}\right)\right) \\ &=\delta_{t}+\gamma \delta_{t+1}+\gamma^{2} \delta_{t+2}+\cdots+\gamma^{T-t-1} \delta_{T-1}+\gamma^{T-t}\left(G_{T}-V\left(S_{T}\right)\right) \\ &=\delta_{t}+\gamma \delta_{t+1}+\gamma^{2} \delta_{t+2}+\cdots+\gamma^{T-t-1} \delta_{T-1}+\gamma^{T-t}(0-0) \\ &=\sum_{k=t}^{T-1} \gamma^{k-t} \delta_{k}  \end{aligned}\end{split} \tag {6.6}
+$$
+如果 $V$ 在回合中发生变化，那么（6.6）只能近似成立。
+$$
+\begin{split}\begin{aligned}
+G_t - V_t(S_t) 
+&=  \delta_t + \gamma (\mathbf{1}( S_{t+1} = S_t ) (\alpha \delta_t)) + \gamma(G_{t+1} - V_{t+1}(S_{t+1}))\\
+&= (1 + \alpha\gamma \mathbf{1}( S_{t+1} = S_t )) \delta_t + \gamma (G_{t+1} - V_{t+1}(S_{t+1}))\\
+&= (1 + \alpha\gamma \mathbf{1}( S_{t+1} = S_t )) \delta_t
++ \gamma (1 + \alpha\gamma \mathbf{1}(S_{t+2} = S_{t+1}))\delta_{t+1} + \gamma^2 (G_{t+2} - V_{t+2}(S_{t+2}))\\
+&= (1 + \alpha \gamma\mathbf{1}( S_{t+2} = S_t )) \delta_t +
+\gamma (1+ \alpha \gamma\mathbf{1}( S_{t+2} = S_{t+1}))\delta_{t+1} + \cdots +
+\gamma^{T-t-1}(1 + \alpha \gamma \mathbf{1}( S_T = S_{T-1} ))\delta_{T-1}\\
+&= \sum_{k=t}^{T-1} \gamma^{k-t} (1 + \alpha \gamma \mathbf{1}( S_{k+1} = S_k))\delta_k
+\end{aligned}\end{split}
+$$
+
+### Sarsa：On-policy TD 控制
+
+> Sarsa (on-policy TD control) for estimating  $Q \approx q_{*}$
+> $$
+> \begin{flalign}
+> &\text {Algorithm parameters: step size } \alpha \in (0,1] \text {, small }  \varepsilon > 0 &\\
+> &\text {Initialize } Q(s, a) \text{, for all } s \in \mathbb{S}^{+},a \in \mathcal(A)(s) \text {, arbitrarily except that } Q(terminal, \cdot)=0 \\
+> &\text {Loop for each episode:} \\
+> &  \quad \text {Initialize } S \\
+> &  \quad \text {Choose } A \text { from } S \text { using policy derived from }  Q  \text{ (e.g., } \varepsilon\text -greedy \text {)} \\
+> &  \quad \text {Loop for each step of episode: } \\
+> &  \quad \quad \text {Take action } A \text {, observe } R, S^{\prime} \\
+> &  \quad \quad \text {Choose } A^{\prime} \text { from } S^{\prime} \text { using policy derived from } Q \text  { (e.g., } \varepsilon\text -greedy \text {)}  \\
+> &  \quad \quad Q(S, A) \leftarrow Q(S, A)+\alpha\left[R+\gamma Q\left(S^{\prime}, A^{\prime}\right)-Q(S, A)\right] \\
+> &  \quad \quad S \leftarrow S^{\prime}；A \leftarrow A^{\prime} \\ 
+> &  \quad \text {until }S \text { is terminal} \\
+> \end{flalign}
+> $$
+
+状态-动作价值的TD误差：
+$$
+\delta_{t}=R_{t+1}+\gamma Q\left(S_{t+1}, A_{t+1}\right)-Q\left(S_{t}, A_{t}\right)
+$$
+假设动作价值在步骤之间不会不变，蒙特卡洛误差可以写成TD误差的和：
+$$
+\begin{split}\begin{aligned} G_{t}-Q\left(S_{t}, A_t \right) &=R_{t+1}+\gamma G_{t+1}-Q\left(S_{t}, A_t \right)+\gamma Q\left(S_{t+1}, A_{t+1} \right)-\gamma Q\left(S_{t+1}, A_{t+1} \right) & (from\ (3.9)) \\ &=\delta_{t}+\gamma\left(G_{t+1}-Q\left(S_{t+1}, A_{t+1} \right)\right) \\ &=\delta_{t}+\gamma \delta_{t+1}+\gamma^{2}\left(G_{t+2}-Q\left(S_{t+2}\right)\right) \\ &=\delta_{t}+\gamma \delta_{t+1}+\gamma^{2} \delta_{t+2}+\cdots+\gamma^{T-t-1} \delta_{T-1}+\gamma^{T-t}\left(G_{T}-Q\left(S_{t}, A_t \right)\right) \\ &=\delta_{t}+\gamma \delta_{t+1}+\gamma^{2} \delta_{t+2}+\cdots+\gamma^{T-t-1} \delta_{T-1}+\gamma^{T-t}(0-0) \\ &=\sum_{k=t}^{T-1} \gamma^{k-t} \delta_{k}  \end{aligned}\end{split}
+$$
+
+### Q-learning: Off-policy TD 控制
+
+> Sarsa (on-policy TD control) for estimating  $Q \approx q_{*}$
+> $$
+> \begin{flalign}
+> &\text {Algorithm parameters: step size } \alpha \in (0,1] \text {, small }  \varepsilon > 0 &\\
+> &\text {Initialize } Q(s, a) \text{, for all } s \in \mathbb{S}^{+},a \in \mathcal(A)(s) \text {, arbitrarily except that } Q(terminal, \cdot)=0 \\
+> &\text {Loop for each episode:} \\
+> &  \quad \text {Initialize } S \\
+> &  \quad \text {Loop for each step of episode: } \\
+> &  \quad \quad \text {Choose } A \text { from } S \text { using policy derived from }  Q  \text{ (e.g., } \varepsilon\text -greedy \text {)} \\
+> &  \quad \quad \text {Take action } A \text {, observe } R, S^{\prime} \\
+> &  \quad \quad Q(S, A) \leftarrow Q(S, A)+\alpha\left[R+\gamma \max_a Q\left(S^{\prime}, a\right)-Q(S, A)\right] \\
+> &  \quad \quad S \leftarrow S^{\prime} \\ 
+> &  \quad \text {until }S \text { is terminal} \\
+> \end{flalign}
+> $$
+
+### Double Q-learning: Off-policy TD 控制
+
+> Double Q-learning, for estimatingg  $Q_1 \approx Q_2 \approx q_*$
+> $$
+> \begin{flalign}
+> &\text {Algorithm parameters: step size } \alpha \in (0,1] \text {, small }  \varepsilon > 0 &\\
+> &\text {Initialize } Q_1(s, a) \text { and } Q_1(s, a) \text{, for all } s \in \mathbb{S}^{+},a \in \mathcal(A)(s) \text {, arbitrarily except that } Q(terminal, \cdot)=0 \\
+> &\text {Loop for each episode:} \\
+> &  \quad \text {Initialize } S \\
+> &  \quad \text {Loop for each step of episode: } \\
+> &  \quad \quad \text {Choose } A \text { from } S \text { using policy } \varepsilon\text -greedy \text { in }  Q_1 + Q_2  \\
+> &  \quad \quad \text {Take action } A \text {, observe } R, S^{\prime} \\
+> &  \quad \quad \text {With } 0.5 \text { probability:} \\
+> &  \quad \quad \quad Q_{1}(S, A) \leftarrow Q_{1}(S, A)+\alpha\left(R+\gamma Q_{2}\left(S^{\prime}, \arg \max _{a} Q_{1}\left(S^{\prime}, a\right)\right)-Q_{1}(S, A)\right) \\
+> &  \quad \quad \text {else:}  \\
+> &  \quad \quad \quad Q_{2}(S, A) \leftarrow Q_{2}(S, A)+\alpha\left(R+\gamma Q_{1}\left(S^{\prime}, \arg \max _{a} Q_{2}\left(S^{\prime}, a\right)\right)-Q_{2}(S, A)\right) \\
+> &  \quad \quad S \leftarrow S^{\prime} \\ 
+> &  \quad \text {until }S \text { is terminal} \\
+> \end{flalign}
+> $$
+
+
+
+## 7 n-step Bootstrapping
+
+### n-step TD 预测
+
+>n-step TD for estimating $V \approx v_\pi$
+>$$
+>\begin{flalign}
+>&\text {Input: a policy } \pi    & \\
+>&\text {Algorithm parameter: step size } \alpha \in {(0,1]} \text {, a positive integer } n\\
+>&\text {Initialize } V(s) \text { arbitrarily, for all } s \in \mathbb{S}^{+} \\
+>&\text {All store and access operations (for }S_t \text { and } R_t \text{) can take their index mod } n + 1 \\
+>&\text {Loop for each episode:} \\
+>&  \quad \text {Initialize amd store } S_0 \neq \text {terminal} \\
+>&  \quad T \leftarrow \infty \\
+>&  \quad \text {Loop for } t = 0,1,2,\cdots \text {:} \\
+>&  \quad \quad \text {If } t<T \text  { then:}  \\
+>&  \quad \quad \quad \text {Take a action according to } \pi(\cdot|S_t) \\
+>&  \quad \quad \quad \text {Observe and store the next reward as } R_{t+1} \text { and the next state as } S_{t+1}  \\
+>&  \quad \quad \quad \text {If } S_{t+1}  \text  { is terminal, then }  T \leftarrow t+1 \\
+>&  \quad \quad \tau \leftarrow t - n + 1  \quad \text {(} \tau \text { is the time whose state’s estimate is being updated)} \\
+>&  \quad \quad \text {If } \tau \ge 0 \text  { :}  \\
+>&  \quad \quad \quad G \leftarrow \sum_{i=\tau+1}^{\min (\tau+n, T)} \gamma^{i-\tau-1} R_{i} \\
+>&  \quad \quad \quad \text {If } \tau + n < T \text {, then:} G \leftarrow G+\gamma^{n} 
+>V\left(S_{\tau+n}\right)  \\
+>&  \quad \quad \quad V\left(S_{\tau}\right) \leftarrow V\left(S_{\tau}\right)+\alpha\left[G-V\left(S_{\tau}\right)\right] \quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad \left(G_{\tau : \tau+n}\right) \\
+>&  \quad \text {Until }\tau = T - 1
+>\end{flalign}
+>$$
+>
+
+### n-step Sarsa TD 控制
+
+>n-step Sarsa for estimating **$Q \approx q_*$** **或者** **$q_\pi$**
+>$$
+>\begin{flalign}
+>&\text {Initialize } Q(s,a) \text { arbitrarily, for all } s\in\mathcal(S), a\in\mathcal(A)  & \\
+>&\text {Initialize } \pi  \text { to be } \varepsilon \text - greedy \text { with respect to } Q \text {, or to a fixed given policy} \\
+>&\text {Algorithm parameter: step size } \alpha \in {(0,1]} \text {, small } \varepsilon>0 \text {, a positive integer } n\\
+>&\text {Initialize } V(s) \text { arbitrarily, for all } s \in \mathbb{S}^{+} \\
+>&\text {All store and access operations (for }S_t, A_t \text { and } R_t \text{) can take their index mod } n + 1 \\
+>&\text {Loop for each episode:} \\
+>&  \quad \text {Initialize amd store } S_0 \neq \text {terminal} \\
+>&  \quad \text {Select and store an action } A_{0} \sim \pi\left(\cdot | S_{0}\right) \\
+>&  \quad T \leftarrow \infty \\
+>&  \quad \text {Loop for } t = 0,1,2,\cdots \text {:} \\
+>&  \quad \quad \text {If } t<T \text  { then:}  \\
+>&  \quad \quad \quad \text {Take action  }A_t \\
+>&  \quad \quad \quad \text {Observe and store the next reward as } R_{t+1} \text { and the next state as } S_{t+1}  \\
+>&  \quad \quad \quad \text {If } S_{t+1}  \text  { is terminal, then }   \\
+>&  \quad \quad \quad \quad T \leftarrow t+1 \\
+>&  \quad \quad \quad else: \\
+>&  \quad \quad \quad \quad \text {Select and store an action } A_{t+1} \sim \pi\left(\cdot | S_{t+1}\right) \\
+>&  \quad \quad \tau \leftarrow t - n + 1  \quad \text {(} \tau \text { is the time whose state’s estimate is being updated)} \\
+>&  \quad \quad \text {If } \tau \ge 0 \text  { :}  \\
+>&  \quad \quad \quad G \leftarrow \sum_{i=\tau+1}^{\min (\tau+n, T)} \gamma^{i-\tau-1} R_{i} \\
+>&  \quad \quad \quad \text {If } \tau + n < T \text {, then: } G \leftarrow G+\gamma^{n} 
+>Q\left(S_{\tau+n}, A_{\tau+n}\right)   \quad\quad\quad\quad\quad\quad\quad\quad\quad \left(G_{\tau : \tau+n}\right)\\
+>&  \quad \quad \quad Q\left(S_{\tau}, A_{\tau}\right) \leftarrow Q\left(S_{\tau}, A_{\tau}\right)+\alpha\left[G-Q\left(S_{\tau}, A_{\tau}\right)\right] \\
+>& \quad \quad \quad \text {If } \pi \text { is being learned, then ensure that } \pi\left(\cdot | S_{\tau}\right) \text { is } \varepsilon \text - greedy \text { wrt }Q  \\
+>&  \quad \text {Until }\tau = T - 1
+>\end{flalign}
+>$$
+
+
+
+
+

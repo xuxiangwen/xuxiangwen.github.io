@@ -1,4 +1,4 @@
-
+## Chinese
 
 ~~~
 用c#写一段outlook收取邮件的代码，具体要求如下：
@@ -76,5 +76,16 @@ Microsoft.Office.Interop.Outlook 对应的library是哪一个，如何加到c#�
 
 ~~~
 
+~~~
+
+## English
+
+~~~
+Write a piece of C# code to fetch emails from Outlook, with the following requirements:
+
+1. Filter emails based on their titles.
+2. Read the latest email from the filtered list.
+3. Extract a certain segment of content using regular expressions.
+4. Delete the email.
 ~~~
 

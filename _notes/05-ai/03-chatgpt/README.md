@@ -1,3 +1,28 @@
+## LLM Platform 
+
+### Jupyter AI 
+
+- Document: [Users — Jupyter AI documentation (jupyter-ai.readthedocs.io)](https://jupyter-ai.readthedocs.io/en/latest/users/index.html)
+
+- Model providers
+
+  | Provider         | Provider ID          | Environment variable(s)    | Python package(s)                         |
+  | ---------------- | -------------------- | -------------------------- | ----------------------------------------- |
+  | AI21             | `ai21`               | `AI21_API_KEY`             | `ai21`                                    |
+  | Anthropic        | `anthropic`          | `ANTHROPIC_API_KEY`        | `langchain-anthropic`                     |
+  | Anthropic (chat) | `anthropic-chat`     | `ANTHROPIC_API_KEY`        | `langchain-anthropic`                     |
+  | Bedrock          | `bedrock`            | N/A                        | `boto3`                                   |
+  | Bedrock (chat)   | `bedrock-chat`       | N/A                        | `boto3`                                   |
+  | Cohere           | `cohere`             | `COHERE_API_KEY`           | `cohere`                                  |
+  | ERNIE-Bot        | `qianfan`            | `QIANFAN_AK`, `QIANFAN_SK` | `qianfan`                                 |
+  | Gemini           | `gemini`             | `GOOGLE_API_KEY`           | `langchain-google-genai`                  |
+  | GPT4All          | `gpt4all`            | N/A                        | `gpt4all`                                 |
+  | Hugging Face Hub | `huggingface_hub`    | `HUGGINGFACEHUB_API_TOKEN` | `huggingface_hub`, `ipywidgets`, `pillow` |
+  | NVIDIA           | `nvidia-chat`        | `NVIDIA_API_KEY`           | `langchain_nvidia_ai_endpoints`           |
+  | OpenAI           | `openai`             | `OPENAI_API_KEY`           | `langchain-openai`                        |
+  | OpenAI (chat)    | `openai-chat`        | `OPENAI_API_KEY`           | `langchain-openai`                        |
+  | SageMaker        | `sagemaker-endpoint` | N/A                        | `boto3`                                   |
+
 ## Skills
 
 ### 如何注册和充值sms-activate教程,全球第一大虚拟号码接收验证码平台!
@@ -88,4 +113,4 @@ DINOv2是MetaAI开源的一个计算机视觉领域的预训练模型，也是�
 
   为了提高模型性能，来自斯坦福的研究者帮助其完成了指令微调的工作，训练了一个名为 （羊驼）的 70 亿参数新模型（基于 LLaMA 7B）。具体来说，他们让 OpenAI 的 text-davinci-003 模型以 self-instruct 方式生成 52K 指令遵循（instruction-following）样本，以此作为 Alpaca 的训练数据。实验结果表明，Alpaca 的很多行为都与 text-davinci-003 类似。也就是说，只有 7B 参数的轻量级模型 Alpaca 性能可媲美 GPT-3.5 这样的超大规模语言模型。
 
-- [使用 Docker 和 Alpaca LoRA 对 LLaMA 65B 大模型进行 Fine-Tune](https://soulteary.com/2023/03/25/model-finetuning-on-llama-65b-large-model-using-docker-and-alpaca-lora.html)
+- [使用 Docker 和 Alpaca LoRA 对 LLaMA 65B 大模型进行 Fine-Tune](https://soulteary.com/2023/03/25/model-finetuning-on-llama-65b-large-model-using-docker-and-alpaca-lora.html)it

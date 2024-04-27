@@ -8,7 +8,7 @@
 
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')
+#matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import copy
@@ -100,7 +100,7 @@ def q_learning(q1, q2=None):
     return left_count
 
 # Figure 6.7, 1,000 runs may be enough, # of actions in state B will also affect the curves
-def figure_6_7():
+def example_6_7():
     # each independent run has 300 episodes
     episodes = 300
     runs = 1000
@@ -124,7 +124,8 @@ def figure_6_7():
     plt.legend()
 
     plt.savefig('../images/figure_6_7.png')
+    plt.show()
     plt.close()
 
 if __name__ == '__main__':
-    figure_6_7()
+    example_6_7()

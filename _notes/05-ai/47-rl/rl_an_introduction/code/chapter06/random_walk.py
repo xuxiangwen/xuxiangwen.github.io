@@ -8,7 +8,7 @@
 
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')
+#matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
@@ -95,14 +95,20 @@ def compute_state_value():
     plt.xlabel('State')
     plt.ylabel('Estimated Value')
     plt.legend()
+    plt.show()
+    return current_values
 
 # Example 6.2 right
-def rms_error():
+def rms_error(td_alphas=None, mc_alphas=None, episodes = 100, figsize=(6.4, 4.8)):
     # Same alpha value can appear in both arrays
-    td_alphas = [0.15, 0.1, 0.05]
-    mc_alphas = [0.01, 0.02, 0.03, 0.04]
-    episodes = 100 + 1
+    if td_alphas is None:
+        td_alphas = [0.15, 0.1, 0.05]
+    if mc_alphas is None:
+        mc_alphas = [0.01, 0.02, 0.03, 0.04]
+    if episodes is None:
+        episodes = 100 + 1
     runs = 100
+    plt.figure(figsize=figsize)
     for i, alpha in enumerate(td_alphas + mc_alphas):
         total_errors = np.zeros(episodes)
         if i < len(td_alphas):
@@ -122,10 +128,11 @@ def rms_error():
                     monte_carlo(current_values, alpha=alpha)
             total_errors += np.asarray(errors)
         total_errors /= runs
-        plt.plot(total_errors, linestyle=linestyle, label=method + ', $\\alpha$ = %.02f' % (alpha))
+        plt.plot(total_errors, linestyle=linestyle, label=method + ', $\\alpha$ = %.03f' % (alpha))
     plt.xlabel('Walks/Episodes')
     plt.ylabel('Empirical RMS error, averaged over states')
     plt.legend()
+    plt.show()
 
 # Figure 6.2
 # @method: 'TD' or 'MC'
@@ -177,6 +184,7 @@ def example_6_2():
     plt.tight_layout()
 
     plt.savefig('../images/example_6_2.png')
+    plt.show()
     plt.close()
 
 def figure_6_2():
@@ -194,6 +202,7 @@ def figure_6_2():
     plt.legend()
 
     plt.savefig('../images/figure_6_2.png')
+    plt.show()
     plt.close()
 
 if __name__ == '__main__':

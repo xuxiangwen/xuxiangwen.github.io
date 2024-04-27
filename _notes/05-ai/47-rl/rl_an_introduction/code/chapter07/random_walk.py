@@ -8,7 +8,7 @@
 
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')
+# matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
@@ -130,6 +130,7 @@ def figure7_2():
     plt.legend()
 
     plt.savefig('../images/figure_7_2.png')
+    plt.show()
     plt.close()
 
 if __name__ == '__main__':

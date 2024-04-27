@@ -8,7 +8,7 @@
 
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')
+#matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
@@ -164,7 +164,7 @@ def print_optimal_policy(q_value):
 # With a single run I failed to present a smooth curve
 # However the optimal policy converges well with a single run
 # Sarsa converges to the safe path, while Q-Learning converges to the optimal path
-def figure_6_4():
+def example_6_6():
     # episodes of each run
     episodes = 500
 
@@ -196,6 +196,7 @@ def figure_6_4():
     plt.legend()
 
     plt.savefig('../images/figure_6_4.png')
+    plt.show()
     plt.close()
 
     # display optimal policy
@@ -207,7 +208,7 @@ def figure_6_4():
 # Due to limited capacity of calculation of my machine, I can't complete this experiment
 # with 100,000 episodes and 50,000 runs to get the fully averaged performance
 # However even I only play for 1,000 episodes and 10 runs, the curves looks still good.
-def figure_6_6():
+def figure_6_3():
     step_sizes = np.arange(0.1, 1.1, 0.1)
     episodes = 1000
     runs = 10
@@ -251,8 +252,9 @@ def figure_6_6():
     plt.legend()
 
     plt.savefig('../images/figure_6_6.png')
+    plt.show()
     plt.close()
 
 if __name__ == '__main__':
-    figure_6_4()
-    figure_6_6()
+    example_6_6()
+    figure_6_3()

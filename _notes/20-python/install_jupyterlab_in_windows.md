@@ -1,4 +1,4 @@
-Here is the guide to install machine learning development environment in your laptop.  We will install the following software.
+Here is the guide to install python machine learning development environment in your laptop.  You will install the following software.
 
 - Conda
 - Python Virtual Environment
@@ -8,15 +8,17 @@ Here is the guide to install machine learning development environment in your la
 
 [Conda](https://docs.conda.io/projects/conda/en/latest/) is an open source package management system and environment management system. Here are installation steps.
 
-1. Open https://conda.io/en/latest/miniconda.html. 
+1. Open [Latest Miniconda installer links by Python version — Anaconda documentation](https://docs.anaconda.com/free/miniconda/miniconda-other-installer-links/)
 
-2. choose [Miniconda3 Windows 64-bit](https://repo.anaconda.com/miniconda/Miniconda3-py38_4.11.0-Windows-x86_64.exe) to download. Let's choose the version of Python 3.8.
+2. Choose Python 3.10 to download as below.
 
-<img src="images/image-20220314101545334.png" alt="image-20220314101545334" style="zoom:80%;" />
+   ![image-20240416172856854](images/image-20240416172856854.png)
+
+
 
 3. install as the default options.
 
-4. type "Git Bash" in Windows Start and open "Anaconda PowerShell Prompt (Miniconda3)".
+4. Open "**Anaconda PowerShell Prompt (Miniconda3)**" in Windows Start .
 
    ![image-20240229164807559](images/image-20240229164807559.png)
 
@@ -24,23 +26,28 @@ Here is the guide to install machine learning development environment in your la
 
    ![image-20240229164939802](images/image-20240229164939802.png)
 
-6. (optional) If you want to enable Conda in PowerShell, run the following command. 
+6. (Optional) Run the following code to initialize Conda for the PowerShell environment. 
 
-   ~~~
+   ~~~powershell
    conda init powershell
    ~~~
+
+   Close "Anaconda PowerShell Prompt (Miniconda3)" and open PowerShell. Conda is activated now.
+
+   ![image-20240416184836661](images/image-20240416184836661.png)
+
 
 ## Install Python Virtual Environment
 
 Virtual environments are a common and effective technique used in Python development. Each environment can use different versions of package dependencies and Python. It can avoid the library conflicts among your projects. Here are installation steps.
 
-1. open "Anaconda PowerShell Prompt (Miniconda3)".
+1. open "**Anaconda PowerShell Prompt (Miniconda3)**".
 
 2. create the python virtual environment called dev. We suggest to create a virtual environment for each project.
 
    ~~~powershell
    #create python virtual environment 
-   conda create -y -n dev python=3.8
+   conda create -y -n dev python=3.10
    # check environment list
    conda env list   # you will see dev in the output       
    ~~~
@@ -64,31 +71,31 @@ Virtual environments are a common and effective technique used in Python develop
    python --version
    ~~~
 
-   ![image-20240229165930013](images/image-20240229165930013.png)
+   ![image-20240416174745658](images/image-20240416174745658.png)
 
 ## Install Python Libraries
 
+The libraries are used commonly.
+
 ~~~powershell
 conda activate dev
-pip install numpy   	# 多维数组
-pip install pandas		# 数据处理
-pip install tqdm  		# 进度条
-pip install joblib 		# 并行处理
-pip install matplotlib	# 图形绘制
-pip install seaborn 	# 图形绘制
-pip install scipy		# 科学计算
-pip install scikit-image	#图像处理
+pip install numpy               # Multidimensional arrays  
+pip install pandas              # Data processing  
+pip install tqdm                # Progress bar  
+pip install joblib              # Parallel processing  
+pip install matplotlib          # Graph plotting  
+pip install seaborn             # Graph plotting  
+pip install scipy               # Scientific computing  
+pip install scikit-image        # Image processing
 ~~~
-
-
 
 ## Install JupyterLab
 
-[JupyterLab](https://jupyterlab.readthedocs.io/en/stable/)  is the latest web-based interactive development environment for notebooks, code, and data. Here is an introduction. 
+[JupyterLab](https://jupyterlab.readthedocs.io/en/stable/)  is the latest web-based interactive development environment for notebooks, code, and data. 
 
-### Installation Steps
+### Install Steps
 
-1. open "Anaconda PowerShell Prompt (Miniconda3)" and activate the virtual environment if it is not active.
+1. open "**Anaconda PowerShell Prompt (Miniconda3)**" and activate the virtual environment.
 
    ~~~powershell
    conda activate dev
@@ -106,30 +113,43 @@ pip install scikit-image	#图像处理
    jupyter lab
    ~~~
    
-
-![image-20240229172213391](images/image-20240229172213391.png)
-
-> The JupyterLab website is accessed via token which is highlighted in the picture above. 
-
-4. After a while, it will open a local web site in your browser as below. You can start to write your notebook now.
+   
+    ![image-20240229172213391](images/image-20240229172213391.png)
+   
+    > The JupyterLab website is accessed via token which is highlighted in the picture above. 
+   
+4. After a while, it will open a web site in your browser as below. You can start to write your notebook .
 
 <img src="images/image-20220615145710738.png" alt="image-20220615145710738" style="zoom:80%;" />
 
-### Start JupyterLab 
+5. Create and run you first notebook. 
+   - Click "Python 3(ipykernel)" to create a new notebook .
 
-If you close JupyterLab or restart your computer, you can start JupyterLab in "Anaconda PowerShell Prompt (Miniconda3)".
+      ![image-20240416182455168](images/image-20240416182455168.png)
 
-~~~powershell
-conda activate dev  #activate the virutal environment
-cd c:\
-jupyter lab
-~~~
+	- Copy the code below and paste it into the first cell in the notebook:
+
+     ~~~python
+      import datetime  
+     
+      today = datetime.date.today()  
+      day_of_week = today.weekday()  
+      days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]  
+      print("Today is", days[day_of_week]) 
+     ~~~
+
+	- Click Run button in the toolbar or Press "Ctrl+Enter" to run the cell.
+
+      ![image-20240416182108907](images/image-20240416182108907.png)
+
+
+ Congratulations, you have installed JupyterLab and run your first notebook successfully.
 
 ### Config JupyterLab
 
-It's an optional step. We can add some configurations on JupyterLab.  
+It's **optional** . To enhance its functionality, you can add some configurations and install some extensions. .  
 
-#### Password
+#### Use Password
 
 If you want to login JupyterLab via password instead of token,  you can run the following commands.
 
@@ -140,9 +160,9 @@ cat $HOME\.jupyter\jupyter_server_config.json
 
 ![image-20240229171433890](images/image-20240229171433890.png)
 
-#### Others 
+#### Other Configurations 
 
-we can add other configurations via the commands.  
+You can add other configurations via the commands.  
 
 ~~~PowerShell
 @"
@@ -161,3 +181,35 @@ if you want to generate a default config file before you run the preceding comma
 jupyter-lab --generate-config 
 ~~~
 
+#### Extensions
+
+~~~shell
+pip list | Select-String "jupyterlab"
+pip install jupyterlab-recents          # View and access recently opened directories and files under the File menu  
+pip install jupyterlab-execute-time     # Execution time for each cell  
+pip install jupyterlab_git              # Functionality integrated with the Git version control system  
+pip install jupyterlab_pygments         # Adds support for code syntax highlighting  
+#pip install jupyterlab-unfold          # File directory tree, but it is slow, so it is disabled  
+~~~
+
+after install extensions, stop JupyterLab and start it again.
+
+## Start JupyterLab 
+
+If you close JupyterLab or restart your computer, you can start JupyterLab in "Anaconda PowerShell Prompt (Miniconda3)" or "PowerShell".
+
+~~~powershell
+conda activate dev  #activate the virutal environment
+jupyter lab
+~~~
+
+## Stop JupyterLab 
+
+Press Ctrl+C  in "Anaconda PowerShell Prompt (Miniconda3)" or "PowerShell".   Or close them directly.
+
+## History
+
+- 2024-4-16  upgrade python from 3.8 to 3.10
+- 2024-2-24:  add extensions 
+- 2024-1-15:  remove git bash and use power shell
+- 2023-12-01:  initial build

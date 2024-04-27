@@ -54,6 +54,16 @@ Here is the guide to install machine learning development environment in your la
    echo ". /c/ProgramData/iniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
    ~~~
 
+   > in linux, use it.
+   >
+   > ~~~
+   > echo 'export PATH="$HOME/miniconda3/bin:$PATH"' >> ~/.bashrc
+   > source ~/.bashrc
+   > conda init
+   > # reconnect the terminal
+   > ~~~
+   >
+
 6. close and reopen "Git Bash". 
 
 7. type `conda` and you will see the command usage description as below.
@@ -158,7 +168,7 @@ cat << EOF >> ~/.jupyter/jupyter_lab_config.py
 c.ServerApp.allow_remote_access = True
 c.ServerApp.ip = '0.0.0.0'
 c.ServerApp.open_browser = True  
-c.ServerApp.port = 8888
+c.ServerApp.port = 48888
 
 EOF
 
