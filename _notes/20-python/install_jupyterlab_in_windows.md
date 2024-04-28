@@ -160,6 +160,12 @@ cat $HOME\.jupyter\jupyter_server_config.json
 
 ![image-20240229171433890](images/image-20240229171433890.png)
 
+#### Auto Completion
+
+If you want to enable code auto completion, 
+
+<img src="images/image-20240428112422506.png" alt="image-20240428112422506" style="zoom: 80%;" />    <img src="images/image-20240428101835989.png" alt="image-20240428101835989" style="zoom:80%;" />   
+
 #### Other Configurations 
 
 You can add other configurations via the commands.  

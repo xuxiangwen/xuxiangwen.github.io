@@ -1,4 +1,4 @@
-## LLM Platform 
+## LLM Platform
 
 ### Jupyter AI 
 
