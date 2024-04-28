@@ -117,3 +117,26 @@ Tell me the most recent information about the Super Bowl.
 ### Advantages & Disadvantages
 
 ![image-20240428180210351](images/image-20240428180210351.png)
+
+## Extracting Tables
+
+### Table Extraction
+
+![image-20240428204450456](images/image-20240428204450456.png)
+
+### Table Transformers
+
+![image-20240428204631429](images/image-20240428204631429.png)
+
+![image-20240428204734847](images/image-20240428204734847.png)
+
+### Vision Transformers
+
+![image-20240428204900131](images/image-20240428204900131.png)
+
+### OCR Postprocessing
+
+![image-20240428205046145](images/image-20240428205046145.png)
+
+## Build Your Own RAG Bot
+
