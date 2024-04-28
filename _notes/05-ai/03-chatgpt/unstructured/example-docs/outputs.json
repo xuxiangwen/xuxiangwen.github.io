@@ -1,0 +1,170 @@
+[
+    {
+        "element_id": "7c099db665cb2172a33c5ecd26d8f19c",
+        "metadata": {
+            "category_depth": 0,
+            "file_directory": "example-docs",
+            "filename": "example-10k.html",
+            "filetype": "text/html",
+            "languages": [
+                "eng"
+            ],
+            "last_modified": "2024-04-27T17:08:58",
+            "page_number": 1
+        },
+        "text": "UNITED STATES",
+        "type": "Title"
+    },
+    {
+        "element_id": "08d6cb02ee69df563c1e877e92c2cac2",
+        "metadata": {
+            "category_depth": 0,
+            "file_directory": "example-docs",
+            "filename": "example-10k.html",
+            "filetype": "text/html",
+            "languages": [
+                "eng"
+            ],
+            "last_modified": "2024-04-27T17:08:58",
+            "page_number": 1
+        },
+        "text": "SECURITIES AND EXCHANGE COMMISSION",
+        "type": "Title"
+    },
+    {
+        "element_id": "4463578c79ae29b009ca8f4756f8085f",
+        "metadata": {
+            "category_depth": 0,
+            "file_directory": "example-docs",
+            "filename": "example-10k.html",
+            "filetype": "text/html",
+            "languages": [
+                "eng"
+            ],
+            "last_modified": "2024-04-27T17:08:58",
+            "page_number": 1
+        },
+        "text": "Washington, D.C. 20549",
+        "type": "Title"
+    },
+    {
+        "element_id": "26678be686452e6680cbc38a89def5b3",
+        "metadata": {
+            "category_depth": 0,
+            "file_directory": "example-docs",
+            "filename": "example-10k.html",
+            "filetype": "text/html",
+            "languages": [
+                "eng"
+            ],
+            "last_modified": "2024-04-27T17:08:58",
+            "page_number": 1
+        },
+        "text": "FORM 10-K",
+        "type": "Title"
+    },
+    {
+        "element_id": "a1ff674d376a7fbe414ac2f822fdb87c",
+        "metadata": {
+            "file_directory": "example-docs",
+            "filename": "example-10k.html",
+            "filetype": "text/html",
+            "languages": [
+                "eng"
+            ],
+            "last_modified": "2024-04-27T17:08:58",
+            "page_number": 1,
+            "parent_id": "26678be686452e6680cbc38a89def5b3",
+            "text_as_html": "<table><tr><td>\u2611</td><td>ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934</td></tr></table>"
+        },
+        "text": "\u2611 ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934",
+        "type": "Table"
+    },
+    {
+        "element_id": "2d89b6cb24f3a433ea6c12bbec95845f",
+        "metadata": {
+            "file_directory": "example-docs",
+            "filename": "example-10k.html",
+            "filetype": "text/html",
+            "languages": [
+                "eng"
+            ],
+            "last_modified": "2024-04-27T17:08:58",
+            "page_number": 1,
+            "parent_id": "26678be686452e6680cbc38a89def5b3"
+        },
+        "text": "For the fiscal year ended\u00a0December\u00a031, 2021",
+        "type": "NarrativeText"
+    },
+    {
+        "element_id": "43a702f6b0b5d4368ffb1da5fa9d115e",
+        "metadata": {
+            "file_directory": "example-docs",
+            "filename": "example-10k.html",
+            "filetype": "text/html",
+            "languages": [
+                "eng"
+            ],
+            "last_modified": "2024-04-27T17:08:58",
+            "page_number": 1,
+            "parent_id": "26678be686452e6680cbc38a89def5b3",
+            "text_as_html": "<table><tr><td>\u2610</td><td>TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934</td></tr></table>"
+        },
+        "text": "\u2610 TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934",
+        "type": "Table"
+    },
+    {
+        "element_id": "9e4d067641628182d1c205fe7fc5ac5e",
+        "metadata": {
+            "category_depth": 0,
+            "file_directory": "example-docs",
+            "filename": "example-10k.html",
+            "filetype": "text/html",
+            "languages": [
+                "eng"
+            ],
+            "last_modified": "2024-04-27T17:08:58",
+            "page_number": 1
+        },
+        "text": "For the transition period from\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0to",
+        "type": "Title"
+    },
+    {
+        "element_id": "470be135c46b2bf6792ee50973d5f98a",
+        "metadata": {
+            "category_depth": 0,
+            "emphasized_text_contents": [
+                ":\u00a0000-30653"
+            ],
+            "emphasized_text_tags": [
+                "span"
+            ],
+            "file_directory": "example-docs",
+            "filename": "example-10k.html",
+            "filetype": "text/html",
+            "languages": [
+                "eng"
+            ],
+            "last_modified": "2024-04-27T17:08:58",
+            "page_number": 1
+        },
+        "text": "Commission file number:\u00a0000-30653",
+        "type": "Title"
+    },
+    {
+        "element_id": "3434b6bbe88ae727f2ae58f54808a971",
+        "metadata": {
+            "category_depth": 0,
+            "file_directory": "example-docs",
+            "filename": "example-10k.html",
+            "filetype": "text/html",
+            "languages": [
+                "eng"
+            ],
+            "last_modified": "2024-04-27T17:08:58",
+            "page_number": 1
+        },
+        "text": "Galaxy Gaming, Inc.",
+        "type": "Title"
+    }
+]
