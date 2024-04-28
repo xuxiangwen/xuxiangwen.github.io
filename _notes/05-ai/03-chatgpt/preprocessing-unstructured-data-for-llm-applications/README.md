@@ -91,3 +91,29 @@ Tell me the most recent information about the Super Bowl.
 #### Example
 
 ![image-20240426182134796](images/image-20240426182134796.png)
+
+## Preprocessing PDFs and Images
+
+### Document Image Analysis
+
+![image-20240428175029370](images/image-20240428175029370.png)
+
+### DIA Methods
+
+![image-20240428175300053](images/image-20240428175300053.png)
+
+### Document Layout Detection (DLD)
+
+![image-20240428175542873](images/image-20240428175542873.png)
+
+![image-20240428175650640](images/image-20240428175650640.png)
+
+### Vision Transformers
+
+![image-20240428175835753](images/image-20240428175835753.png)
+
+![image-20240428180029627](images/image-20240428180029627.png)
+
+### Advantages & Disadvantages
+
+![image-20240428180210351](images/image-20240428180210351.png)
