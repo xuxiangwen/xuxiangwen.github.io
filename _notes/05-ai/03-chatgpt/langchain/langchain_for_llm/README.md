@@ -1,12 +1,6 @@
-# Build Local Knowledge Base
-
-- principle of implementation
-
-![image-20240410194948772](images/image-20240410194948772.png)
-
-
-
 # [DLAI - LangChain for LLM Application Development (deeplearning.ai)](https://learn.deeplearning.ai/courses/langchain/lesson/1/introduction)
+
+
 
 ## Models, Prompts and parsers
 

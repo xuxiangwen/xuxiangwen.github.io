@@ -1,3 +1,12 @@
+## LangChain
+
+### Resource
+
+- [LangChain Introduction ](https://python.langchain.com/docs/get_started/introduction/)
+- [langchain_api_reference](https://api.python.langchain.com/en/latest/langchain_api_reference.html#)
+
+
+
 ## LLM Platform
 
 ### Jupyter AI 

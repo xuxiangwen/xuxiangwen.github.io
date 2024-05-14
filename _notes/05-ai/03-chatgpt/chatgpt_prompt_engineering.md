@@ -1,4 +1,4 @@
-https://learn.deeplearning.ai/chatgpt-prompt-eng/lesson/1/introduction
+[DLAI - ChatGPT Prompt Engineering for Developers (deeplearning.ai)](https://learn.deeplearning.ai/courses/chatgpt-prompt-eng/lesson/1/introduction)
 
 本教程来自DeepLearning.AI. 课程里介绍了ChatGPT 3.5中的Prompting技巧。
 
@@ -2425,7 +2425,7 @@ Best regards,
 
 AI customer agent
 ~~~
-# The Chat Format
+# Chatbot
 
 ![image-20230507205617592](images/image-20230507205617592.png)
 

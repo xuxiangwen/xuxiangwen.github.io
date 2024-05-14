@@ -140,3 +140,9 @@ Tell me the most recent information about the Super Bowl.
 
 ## Build Your Own RAG Bot
 
+![image-20240428221027397](images/image-20240428221027397.png)
+
+
+
+
+
