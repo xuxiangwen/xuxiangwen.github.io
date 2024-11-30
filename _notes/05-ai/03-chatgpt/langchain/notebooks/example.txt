@@ -1,0 +1,14 @@
+import asyncio
+
+async def read_file(filename):
+    # 异步打开文件
+    async with aiofiles.open(filename, mode='r') as file:
+        # 异步读取文件内容
+        content = await file.read()
+        return content
+
+async def main():
+    content = await read_file('example.txt')
+    print(content)
+
+asyncio.run(main())
