@@ -1,3 +1,15 @@
+1. **Replacement Step:**
+   - Replace all occurrences of "rr" with "reroute" in the text.
+2. **Field Extraction:**
+   - From the modified text, extract the following fields:
+     1. **request** - This field is a fixed value and should always be "request_reassign".
+     2. **hp** - This field may not always be present. Extract the value if available.
+     3. **subk** - This field may not always be present. Extract the value if available.
+     4. **reasons** - Extract the value of reasons.
+     5. **comments** - Extract the value of comments.
+
+
+
 ## LangChain
 
 ### Resource

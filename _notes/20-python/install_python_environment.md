@@ -163,6 +163,8 @@ Here is the summary script to start JupyterLab. You always need to run it via Gi
 
 ~~~shell
 conda activate dev
+
+jupyter-lab password
 jupyter-lab --generate-config
 cat << EOF >> ~/.jupyter/jupyter_lab_config.py
 c.ServerApp.allow_remote_access = True
@@ -172,6 +174,7 @@ c.ServerApp.port = 48888
 
 EOF
 
+jupyter-lab password 
 ~~~
 
 ### 
@@ -180,8 +183,8 @@ EOF
 
 ~~~
 conda activate dev
-cd /c   
-jupyter lab
+cd ~
+jupyter lab --FileContentsManager.checkpoints_kwargs="root_dir"="/tmp"
 ~~~
 
 ## Install Python Libraries

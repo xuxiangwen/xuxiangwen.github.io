@@ -47,7 +47,7 @@ Virtual environments are a common and effective technique used in Python develop
 
    ~~~powershell
    #create python virtual environment 
-   conda create -y -n dev python=3.10
+   conda create -y -n dev312 python=3.12
    # check environment list
    conda env list   # you will see dev in the output       
    ~~~
@@ -58,10 +58,10 @@ Virtual environments are a common and effective technique used in Python develop
 
    ~~~shell
    # active the virtual environment
-   conda activate dev
+   conda activate dev312
    ~~~
 
-   ![image-20240229165330077](images/image-20240229165330077.png)
+   ![image-20241128104952985](images/image-20241128104952985.png)
 
    If  "(dev)" is found, it tells us that the virtual environment is active.  If you install any packages, they only are installed in the the virtual environment, not the default python environment. So **make sure it is active before you run any python code each time **. 
 
@@ -71,14 +71,14 @@ Virtual environments are a common and effective technique used in Python develop
    python --version
    ~~~
 
-   ![image-20240416174745658](images/image-20240416174745658.png)
+   ![image-20241128104923185](images/image-20241128104923185.png)
 
 ## Install Python Libraries
 
 The libraries are used commonly.
 
 ~~~powershell
-conda activate dev
+conda activate dev312
 pip install numpy               # Multidimensional arrays  
 pip install pandas              # Data processing  
 pip install tqdm                # Progress bar  
@@ -98,7 +98,7 @@ pip install scikit-image        # Image processing
 1. open "**Anaconda PowerShell Prompt (Miniconda3)**" and activate the virtual environment.
 
    ~~~powershell
-   conda activate dev
+   conda activate dev312 
    ~~~
 
 2. install JupyterLab
@@ -205,8 +205,17 @@ after install extensions, stop JupyterLab and start it again.
 If you close JupyterLab or restart your computer, you can start JupyterLab in "Anaconda PowerShell Prompt (Miniconda3)" or "PowerShell".
 
 ~~~powershell
-conda activate dev  #activate the virutal environment
+conda activate dev  
 jupyter lab
+~~~
+
+### Change Checkpoint Position
+
+It's not a necessary option. When editing a file, Jupyter will create the backup(check point) of the file in ".ipynb_checkpoints" folder under the current directory. If you want to change the location, you can start Jupyter Lab by running the following command.
+
+~~~
+conda activate dev
+jupyter lab --FileContentsManager.checkpoints_kwargs="root_dir"="C:\"
 ~~~
 
 ## Stop JupyterLab 

@@ -1,9 +1,47 @@
-## My Promts
+## Skills
+
+### Prompt结构
+
+- Context 上下文（可选）
+  - 角色
+  - 任务
+  - 知识
+- Instruction 命令（必选）
+  - 步骤
+  - 思维链
+  - 示例
+- Input Data 输入数据 （必选）
+  - 句子
+  - 文章
+  - 问题
+- Output Indicator 输出格式（可选）
+
+举例：
+
+- 分类 Classification
+
+![image-20240518095555279](images/image-20240518095555279.png)
+
+- 抽取器 Extractor 
+
+![image-20240518095827670](images/image-20240518095827670.png)
+
+![image-20240518095859283](images/image-20240518095859283.png)
+
+![image-20240518100210655](images/image-20240518100210655.png)
+
+## My Prompts
 
 ### Translator
 
+
+
 ~~~
 As a translator and grammar checker, starting from below, If I say a Chinese sentence, you translate it into English; if I say an English sentence, you translate it into Chinese; If there are any spelling or grammatical errors, correct them before translating; if I say only a vocabulary or phrase in English, after translating them, also show its English pronunciation and give 2-3 sample English sentences.
+~~~
+
+~~~
+As a translator and grammar checker, starting from below, If I say a Chinese sentence, you translate it into English; if I say an English sentence, you translate it into Chinese; If there are any spelling or grammatical errors, correct them before translating; if I say only a word in English, after translating them, also show its English pronunciation and give 2-3 sample English sentences.
 ~~~
 
 ~~~
