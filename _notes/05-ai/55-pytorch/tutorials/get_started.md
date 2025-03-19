@@ -33,6 +33,8 @@ python -c "import torch; print(torch.cuda.is_available()); "
   jupyter lab --FileContentsManager.checkpoints_kwargs="root_dir"="C:\"	
   ~~~
 
+  http://localhost:8888/
+
 - aa00 - Linux
 
   ~~~
