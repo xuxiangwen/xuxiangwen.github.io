@@ -177,8 +177,6 @@ EOF
 jupyter-lab password 
 ~~~
 
-### 
-
 ### Run JupyterLab
 
 ~~~

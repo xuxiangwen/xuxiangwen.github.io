@@ -159,6 +159,12 @@ vncserver :1
 vncserver -list
 ~~~
 
+如果vncserver和本地无法复制黏贴，运行如下命令：
+
+~~~
+vncconfig &
+~~~
+
 ### 安装chrome
 
 ~~~
